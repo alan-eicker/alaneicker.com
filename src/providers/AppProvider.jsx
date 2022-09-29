@@ -13,10 +13,21 @@ const AppProvider = ({ children }) => {
   const [content, setContent] = useState();
 
   useEffect(() => {
-    axios
-      .get(process.env.CONTENT_URI)
-      .then(({ data }) => setContent(data))
-      .catch(() => console.log('error'));
+    const cachedContent = JSON.parse(
+      localStorage.getItem('alaneicker.com_cache'),
+    );
+
+    if (!cachedContent) {
+      axios
+        .get(process.env.CONTENT_URI)
+        .then(({ data }) => {
+          setContent(data);
+          localStorage.setItem('alaneicker.com_cache', JSON.stringify(data));
+        })
+        .catch(() => console.log('error'));
+    } else {
+      setContent(cachedContent);
+    }
   }, []);
 
   return (

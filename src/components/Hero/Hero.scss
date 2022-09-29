@@ -2,7 +2,7 @@
   border-bottom: rem(1) solid $dark-gray;
   display: flex;
   justify-content: center;
-  padding: rem(40 20);
+  padding: rem(60 20);
 
   &__content {
     align-items: center;
@@ -11,7 +11,7 @@
     max-width: rem(1024);
 
     & > * + * {
-      margin-left: rem(36);
+      margin-left: rem(50);
     }
   }
 

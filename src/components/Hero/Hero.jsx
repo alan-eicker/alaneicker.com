@@ -20,12 +20,14 @@ Hero.propTypes = {
   strapline: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  text: PropTypes.string,
 };
 
 Hero.defaultProps = {
   strapline: '',
   strapline: '',
   subtitle: '',
+  text: '',
 };
 
 export default Hero;
