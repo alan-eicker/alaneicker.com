@@ -2,3 +2,7 @@
 @import './variables';
 @import './functions';
 @import './colors';
+@import './base';
+
+@import '../components/Layout/Layout';
+@import '../components/Hero/Hero';

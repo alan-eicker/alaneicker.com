@@ -1,0 +1,38 @@
+.hero {
+  border-bottom: rem(1) solid $dark-gray;
+  display: flex;
+  justify-content: center;
+  padding: rem(40 20);
+
+  &__content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    max-width: rem(1024);
+
+    & > * + * {
+      margin-left: rem(36);
+    }
+  }
+
+  &__strapline {
+    font-size: rem(20);
+    margin-bottom: rem(4);
+  }
+
+  &__title {
+    color: $lime-green;
+    font-size: rem(60);
+    line-height: 1.1;
+  }
+
+  &__subtitle {
+    color: $gray;
+    font-size: rem(60);
+    line-height: 1.1;
+  }
+
+  &__text {
+    font-size: rem(18);
+  }
+}
