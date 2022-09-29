@@ -1,0 +1,59 @@
+{
+  "name": "alaneicker-website",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build src/index.html",
+    "start": "parcel src/index.html --port 8000",
+    "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'",
+    "lint:css": "stylelint ./src/**/*.{css,scss}  --config .stylelintrc --fix",
+    "test:unit": ""
+  },
+  "dependencies": {
+    "@atomikui/core-sass": "^0.6.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.13",
+    "axios": "^0.27.2",
+    "classnames": "^2.3.2",
+    "parcel-plugin-prerender": "^1.4.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-axe": "^3.5.4",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "regenerator-runtime": "^0.13.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.8",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "babel-config-atomikui": "^0.1.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "core-js": "^3.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-atomikui": "^0.3.2",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "moxios": "^0.4.0",
+    "sass": "^1.29.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-atomikui": "^0.1.0",
+    "whatwg-fetch": "^3.5.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "@wordpress/jest-puppeteer-axe"
+    ]
+  },
+  "prerender": {
+    "routes": [
+      "/"
+    ]
+  }
+}
