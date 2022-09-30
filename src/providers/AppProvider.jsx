@@ -13,21 +13,16 @@ const AppProvider = ({ children }) => {
   const [content, setContent] = useState();
 
   useEffect(() => {
-    const cachedContent = JSON.parse(
-      localStorage.getItem('alaneicker.com_cache'),
-    );
+    axios
+      .get(process.env.CONTENT_URI)
+      .then(({ data }) => {
+        setContent(data);
 
-    if (!cachedContent) {
-      axios
-        .get(process.env.CONTENT_URI)
-        .then(({ data }) => {
-          setContent(data);
-          localStorage.setItem('alaneicker.com_cache', JSON.stringify(data));
-        })
-        .catch(() => console.log('error'));
-    } else {
-      setContent(cachedContent);
-    }
+        // This event gets called at build time after the API request
+        // has completed and the content has been renndered.
+        document.dispatchEvent(new Event('prerender-trigger'));
+      })
+      .catch(() => console.log('error'));
   }, []);
 
   return (

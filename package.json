@@ -56,6 +56,9 @@
   "prerender": {
     "routes": [
       "/"
-    ]
+    ],
+    "rendererConfig": {
+      "renderAfterDocumentEvent": "prerender-trigger"
+    }
   }
 }

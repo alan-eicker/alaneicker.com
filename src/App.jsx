@@ -7,7 +7,7 @@ const App = () => {
   const { content } = useAppContext();
 
   if (!content) {
-    return 'LOADING....'; // Add custom overlay here
+    return null;
   }
 
   const { docTitle, ...layoutContent } = content;

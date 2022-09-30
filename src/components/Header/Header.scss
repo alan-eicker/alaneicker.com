@@ -1,0 +1,58 @@
+.header {
+  align-items: center;
+  justify-content: space-between;
+  background: $lime-green;
+  display: flex;
+  height: rem(70);
+  padding: rem(0 20);
+  width: 100%;
+
+  &__logo {
+    align-items: center;
+    color: $black;
+    display: flex;
+    font-size: rem(18);
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    margin-left: rem(8);
+  }
+
+  &__links {
+    display: flex;
+    list-style-type: none;
+
+    & > * + * {
+      margin-left: rem(8);
+    }
+
+    & > * {
+      & > a,
+      & > a.is-active {
+        color: $black;
+        display: block;
+        font-weight: 600;
+        text-decoration: none;
+        padding: rem(8 16);
+        border-radius: rem(36);
+        transition: all 0.1s ease-in;
+
+        &:hover,
+        &:focus {
+          background: darken($dark-green, 4%);
+          color: $white;
+        }
+
+        &:focus {
+          outline: none;
+          background: darken($dark-green, 8%);
+        }
+      }
+    }
+  }
+}
