@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Header';
+import Footer from '../Footer';
 import Hero from '../Hero';
 
 const Layout = ({ content }) => (
@@ -8,10 +9,12 @@ const Layout = ({ content }) => (
     <div className="layout__header">
       <Header {...content.header} />
     </div>
-    <main className="layout__main">
+    <main>
       <Hero {...content.hero} />
-      {/* <Section title="" {...content.about} /> */}
-      {/* <Footer /> */}
+      <div className="layout__body">
+        {/* <Section title="" {...content.about} /> */}
+      </div>
+      <Footer {...content.footer} />
     </main>
   </div>
 );

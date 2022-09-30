@@ -14,7 +14,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(process.env.CONTENT_URI)
+      .get(`${process.env.CONTENT_URI}?time=${new Date().getTime()}`)
       .then(({ data }) => {
         setContent(data);
 

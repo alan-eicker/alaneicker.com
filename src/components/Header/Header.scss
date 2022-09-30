@@ -1,7 +1,7 @@
 .header {
   align-items: center;
   justify-content: space-between;
-  background: $lime-green;
+  background: $black;
   display: flex;
   height: rem(70);
   padding: rem(0 20);
@@ -16,10 +16,12 @@
   }
 
   &__title {
+    color: $lime-green;
     font-weight: 700;
   }
 
   &__subtitle {
+    color: $white;
     margin-left: rem(8);
   }
 
@@ -32,25 +34,28 @@
     }
 
     & > * {
-      & > a,
-      & > a.is-active {
-        color: $black;
+      & > a {
+        color: $white;
         display: block;
         font-weight: 600;
         text-decoration: none;
         padding: rem(8 16);
         border-radius: rem(36);
         transition: all 0.1s ease-in;
+        outline: none;
 
-        &:hover,
-        &:focus {
-          background: darken($dark-green, 4%);
-          color: $white;
+        &:hover {
+          background: $dark-gray;
         }
 
         &:focus {
-          outline: none;
-          background: darken($dark-green, 8%);
+          background: lighten($dark-gray, 6%);
+        }
+
+        &.is-active {
+          background: $lime-green;
+          color: $black;
+          cursor: default;
         }
       }
     }
