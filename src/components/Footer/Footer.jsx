@@ -2,15 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Footer = ({ copyright }) => (
-  <footer
-    className="footer"
-    dangerouslySetInnerHTML={{
-      __html: copyright.replace(
-        '[copyrightYear]',
-        `&copy; ${new Date().getFullYear()}`,
-      ),
-    }}
-  ></footer>
+  <footer className="footer">
+    &copy; {copyright.replace('[copyrightYear]', new Date().getFullYear())}
+  </footer>
 );
 
 Footer.propTypes = {

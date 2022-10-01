@@ -1,0 +1,18 @@
+.preface {
+  font-size: rem(20);
+  font-style: italic;
+  max-width: 70%;
+  margin: 0 auto;
+  padding-left: rem(80);
+  position: relative;
+
+  &::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+    font-size: rem(90);
+    line-height: 1;
+  }
+}

@@ -2,10 +2,20 @@
   &__header {
   }
 
+  &__hero {
+    align-self: stretch;
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
   &__body {
     background: $white;
     box-shadow: rem(0 0 5) rgba(0, 0, 0, 0.15);
-    margin: 0 auto;
+    margin: rem(0 16);
     max-width: rem($breakpoint-large);
     padding: rem(36);
     position: relative;

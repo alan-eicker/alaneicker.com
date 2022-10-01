@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import Header from '../Header';
 import Footer from '../Footer';
 import Hero from '../Hero';
+import Preface from '../Preface';
 
 const Layout = ({ content }) => (
   <div className="layout">
     <div className="layout__header">
       <Header {...content.header} />
     </div>
-    <main>
-      <Hero {...content.hero} />
+    <main className="layout__main">
+      <div className="layout__hero">
+        <Hero {...content.hero} />
+      </div>
       <div className="layout__body">
+        <Preface text={content.preface} />
         {/* <Section title="" {...content.about} /> */}
       </div>
       <Footer {...content.footer} />
