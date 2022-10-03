@@ -21,6 +21,8 @@ const Layout = ({ content }) => (
           switch (key) {
             case 'about':
               return <About id="about" {...section} />;
+            default:
+              return null;
           }
         })}
       </div>
