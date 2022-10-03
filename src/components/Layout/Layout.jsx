@@ -11,7 +11,7 @@ const Layout = ({ content }) => (
       <Header {...content.header} />
     </div>
     <main className="layout__main">
-      <div className="layout__hero">
+      <div className="layout__hero" id="home">
         <Hero {...content.hero} />
       </div>
       <div className="layout__body">

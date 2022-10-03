@@ -1,18 +1,23 @@
 .header {
   align-items: center;
-  justify-content: space-between;
   background: $black;
   display: flex;
-  height: rem(70);
-  padding: rem(0 20);
+  height: 100%;
+  padding: rem(0 20 0 0);
+  justify-content: space-between;
   width: 100%;
 
   &__logo {
     align-items: center;
+    background: $lime-green;
     color: $black;
     display: flex;
-    font-size: rem(18);
-    text-transform: uppercase;
+    font-weight: 700;
+    height: rem(50);
+    text-decoration: none;
+    min-width: rem(50);
+    justify-content: center;
+    font-size: rem(40);
   }
 
   &__title {
@@ -22,7 +27,6 @@
 
   &__subtitle {
     color: $white;
-    margin-left: rem(8);
   }
 
   &__links {
@@ -37,25 +41,47 @@
       & > a {
         color: $white;
         display: block;
+        font-size: rem(13);
         font-weight: 600;
-        text-decoration: none;
-        padding: rem(8 16);
-        border-radius: rem(36);
-        transition: all 0.1s ease-in;
         outline: none;
+        padding: rem(6 8);
+        text-decoration: none;
+        transition: all 0.15s linear;
 
-        &:hover {
-          background: $dark-gray;
-        }
-
+        &:hover,
         &:focus {
-          background: lighten($dark-gray, 6%);
+          border-bottom: rem(2) solid $gray;
         }
 
         &.is-active {
-          background: $lime-green;
-          color: $black;
+          border-bottom: rem(2) solid $lime-green;
+          color: $white;
           cursor: default;
+        }
+      }
+    }
+  }
+
+  @media (min-width: pixel($breakpoint-medium)) {
+    height: rem(60);
+    padding: rem(0 20);
+
+    &__logo {
+      flex-direction: row;
+      min-width: rem(60);
+      height: rem(60);
+    }
+
+    &__subtitle {
+      margin-left: rem(8);
+    }
+
+    &__links {
+      display: flex;
+
+      & > * {
+        & > a {
+          font-size: rem(15);
         }
       }
     }

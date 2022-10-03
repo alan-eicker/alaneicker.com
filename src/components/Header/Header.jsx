@@ -6,10 +6,13 @@ const Header = ({ title, subtitle, nav }) => {
 
   return (
     <header className="header">
-      <div className="header__logo">
-        <div className="header__title">{title}</div>
-        <div className="header__subtitle">{subtitle}</div>
-      </div>
+      <a
+        className="header__logo"
+        href="/#home"
+        title={`${title} - ${subtitle}`}
+      >
+        <span>A</span>
+      </a>
       <nav className="header__nav">
         <ul className="header__links">
           {nav.map((link) => {
