@@ -4,6 +4,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Hero from '../Hero';
 import Preface from '../Preface';
+import About from '../About';
 
 const Layout = ({ content }) => (
   <div className="layout">
@@ -16,7 +17,12 @@ const Layout = ({ content }) => (
       </div>
       <div className="layout__body">
         <Preface text={content.preface} />
-        {/* <Section title="" {...content.about} /> */}
+        {content.sections.map(({ key, ...section }) => {
+          switch (key) {
+            case 'about':
+              return <About id="about" {...section} />;
+          }
+        })}
       </div>
       <Footer {...content.footer} />
     </main>
