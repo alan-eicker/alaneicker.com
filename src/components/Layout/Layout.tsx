@@ -6,7 +6,28 @@ import Hero from '../Hero';
 import Preface from '../Preface';
 import About from '../About';
 
-const Layout = ({ content }) => (
+type Props = {
+  content: {
+    header: {
+      title: string;
+      subtitle: string;
+      nav: string[];
+    };
+    hero: {
+      strapline: string;
+      title: string;
+      subtitle: string;
+      text: string;
+    };
+    preface: string;
+    footer: {
+      copyright: string;
+    };
+    sections: any[];
+  };
+};
+
+const Layout = ({ content }: Props) => (
   <div className="layout">
     <div className="layout__header">
       <Header {...content.header} />

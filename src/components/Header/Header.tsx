@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-const Header = ({ title, subtitle, nav }) => {
+type Props = {
+  title: string;
+  subtitle: string;
+  nav: string[];
+};
+
+const Header = ({ title, subtitle, nav }: Props) => {
   const [activeLink, setActiveLink] = useState('about');
 
   return (
@@ -33,18 +38,6 @@ const Header = ({ title, subtitle, nav }) => {
       </nav>
     </header>
   );
-};
-
-Header.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  nav: PropTypes.arrayOf(PropTypes.string),
-};
-
-Header.defaultProps = {
-  title: '',
-  subtitle: '',
-  nav: [],
 };
 
 export default Header;
