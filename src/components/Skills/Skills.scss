@@ -1,0 +1,11 @@
+.skills {
+  display: flex;
+  margin-top: rem(20);
+  justify-content: center;
+
+  &__list {
+    & > * {
+      margin-top: rem(16);
+    }
+  }
+}

@@ -7,7 +7,9 @@ type Props = {
 
 const Section = ({ title, children, ...others }: Props) => (
   <section className="section" {...others}>
-    <h4 className="section__title">{title}</h4>
+    <h4 className="section__title">
+      <span className="section__title-text">{title}</span>
+    </h4>
     {children}
   </section>
 );

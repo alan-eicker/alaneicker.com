@@ -4,6 +4,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Hero from '../Hero';
 import About from '../About';
+import Skills from '../Skills';
 
 type Props = {
   content: {
@@ -39,7 +40,9 @@ const Layout = ({ content }: Props) => (
         {content.sections.map(({ key, ...section }, idx) => {
           switch (key) {
             case 'about':
-              return <About key={key} id="about" {...section} />;
+              return <About key={key} id={key} {...section} />;
+            case 'skills':
+              return <Skills key={key} id={key} {...section} />;
             default:
               return null;
           }

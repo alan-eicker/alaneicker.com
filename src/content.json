@@ -3,7 +3,7 @@
   "header": {
     "title": "Alan Eicker",
     "subtitle": "Front End Engineer",
-    "nav": ["/#about", "/#principles", "/#career", "/#projects"]
+    "nav": ["/#about", "/#skills", "/#career", "/#projects"]
   },
   "hero": {
     "strapline": "Hi, my name is",
@@ -23,19 +23,22 @@
     },
     {
       "key": "skills",
-      "frontEnd": [
-        "HTML",
-        "CSS/Scss",
-        "JavaScript",
-        "TypeScript",
-        "React",
-        "Redux",
-        "Apollo Client"
-      ],
-      "backEnd": ["Node.js", "Express", "GraphQL", "SQL", "MongoDB"],
-      "documentation": ["Styleguidist"],
-      "sourceControl": ["Git", "GitHub"],
-      "learning": ["Java", "SQL", "MongoDB"]
+      "title": "Areas of Expertise",
+      "skills": {
+        "frontEnd": [
+          "HTML",
+          "CSS/Scss",
+          "JavaScript",
+          "TypeScript",
+          "React",
+          "Redux",
+          "Apollo Client"
+        ],
+        "backEnd": ["Node.js", "Express", "GraphQL", "SQL", "MongoDB"],
+        "documentation": ["Styleguidist"],
+        "sourceControl": ["Git", "GitHub"],
+        "learning": ["Java", "SQL", "MongoDB"]
+      }
     }
   ]
 }
