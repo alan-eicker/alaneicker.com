@@ -1,6 +1,16 @@
 .footer {
+  background: lighten($cyan, 5%);
   font-size: rem(14);
   font-weight: 600;
-  padding: rem(0 20 20);
+  padding: rem(20);
   text-align: center;
+  width: 100%;
+
+  a {
+    color: $black;
+
+    &:hover {
+      color: white;
+    }
+  }
 }

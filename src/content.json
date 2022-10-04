@@ -10,7 +10,7 @@
   "header": {
     "title": "Alan Eicker",
     "subtitle": "Front End Engineer",
-    "nav": ["/#about", "/#skills", "/#career", "/#projects"]
+    "nav": ["/#about", "/#skills", "/#projects", "/#career"]
   },
   "hero": {
     "strapline": "Hi, my name is",
@@ -19,7 +19,9 @@
     "text": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
   },
   "footer": {
-    "copyright": "[copyrightYear] Alan Eicker. All rights reserved."
+    "copyright": "Alan Eicker. All rights reserved.",
+    "emailAddress": "alaneicker@gmail.com",
+    "phoneNumber": "(224) 622-7278"
   },
   "preface": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of.",
   "sections": [
