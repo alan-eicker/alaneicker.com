@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 type Props = {
-  title?: string;
-  subtitle?: string;
-  nav?: string[];
+  title: string;
+  subtitle: string;
+  nav: string[];
 };
 
 const Header = ({ title, subtitle, nav = [] }: Props) => {
