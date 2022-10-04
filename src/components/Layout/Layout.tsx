@@ -41,7 +41,7 @@ const Layout = ({ content }: Props) => (
         {content.sections.map(({ key, ...section }, idx) => {
           switch (key) {
             case 'about':
-              return <About key={idx + 1} id="about" {...section} />;
+              return <About key={key} id="about" {...section} />;
             default:
               return null;
           }
