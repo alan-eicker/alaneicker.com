@@ -22,18 +22,18 @@
 
   &__title {
     color: $lime-green;
-    font-size: rem(50);
+    font-size: rem(45);
     line-height: 1.1;
   }
 
   &__subtitle {
     color: $gray;
-    font-size: rem(50);
+    font-size: rem(45);
     line-height: 1.1;
   }
 
   &__text {
-    font-size: rem(18);
+    font-size: rem(16);
     margin-top: rem(20);
   }
 
@@ -45,18 +45,19 @@
       & > * + * {
         margin-left: rem(50);
       }
+    }
 
-      &__title {
-        font-size: rem(60);
-      }
+    &__title {
+      font-size: rem(55);
+    }
 
-      &__subtitle {
-        font-size: rem(60);
-      }
+    &__subtitle {
+      font-size: rem(55);
+    }
 
-      &__text {
-        margin-top: 0;
-      }
+    &__text {
+      font-size: rem(18);
+      margin-top: 0;
     }
   }
 }
