@@ -6,7 +6,7 @@ type Props = {
   phoneNumber: string;
 };
 
-const Footer = ({ copyright, emailAddress, phoneNumber }: Props) => (
+const Footer = ({ copyright, emailAddress = '', phoneNumber = '' }: Props) => (
   <footer className="footer">
     <span>
       &copy; {new Date().getFullYear()} {copyright} &bull;{' '}

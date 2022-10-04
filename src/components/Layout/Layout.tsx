@@ -3,8 +3,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Header from '../Header';
 import Footer from '../Footer';
 import Hero from '../Hero';
-import About from '../About';
-import Skills from '../Skills';
+import * as Sections from '../Sections';
 
 type Props = {
   content: {
@@ -22,59 +21,72 @@ type Props = {
     preface: string;
     footer: {
       copyright: string;
+      emailAddress: string;
+      phoneNumber: string;
     };
     sections: any[];
   };
 };
 
-type Section = {
-  content: any;
-  key: string;
-  skills: {
-    frontEnd: string[];
-    backEnd: string[];
-    documentation: string[];
-    sourceControl: string[];
-    learning: string[];
+type SectionTypes = {
+  About: {
+    title: string;
+    content: string;
   };
-  title: string;
+  Skills: {
+    title: string;
+    skills: {
+      frontEnd: string[];
+      backEnd: string[];
+      documentation: string[];
+      sourceControl: string[];
+      learning: string[];
+    };
+  };
 };
 
-const setLeftColumnContent = (section: Section) => {
-  switch (section.key) {
-    case 'about':
-      return <About id={section.key} {...section} />;
-    case 'skills':
-      return <Skills id={section.key} {...section} />;
-    default:
-      return null;
-  }
-};
+const leftColMatchers = new RegExp(/(About|Skills)/i);
+const rightColMatchers = new RegExp(/(Projects)/i);
 
-const Layout = ({ content }: Props) => (
-  <div className="layout">
-    <div className="layout__header">
-      <Header {...content.header} />
+const Layout = ({ content }: Props) => {
+  const leftCol = content.sections
+    .filter((section) => section.key.match(leftColMatchers))
+    .map((section) => {
+      const Component = Sections[section.key as keyof SectionTypes];
+      return <Component id={section.key} {...section} />;
+    });
+
+  const rightCol = content.sections
+    .filter((section) => section.key.match(rightColMatchers))
+    .map((section) => {
+      const Component = Sections[section.key as keyof SectionTypes];
+      return <Component {...section} />;
+    });
+
+  return (
+    <div className="layout">
+      <div className="layout__header">
+        <Header {...content.header} />
+      </div>
+      <main className="layout__main">
+        <div className="layout__hero" id="home">
+          <Hero {...content.hero} />
+        </div>
+        <div className="layout__body" tabIndex={0}>
+          <Grid>
+            <Row>
+              <Col md={7}>{leftCol}</Col>
+              <Col md={1} />
+              <Col id="Projects" md={4}>
+                {rightCol}
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+        <Footer {...content.footer} />
+      </main>
     </div>
-    <main className="layout__main">
-      <div className="layout__hero" id="home">
-        <Hero {...content.hero} />
-      </div>
-      <div className="layout__body" tabIndex={0}>
-        {content.sections.map((section) => {
-          return (
-            <Grid>
-              <Row>
-                <Col md={8}>{setLeftColumnContent(section)}</Col>
-                <Col md={4}></Col>
-              </Row>
-            </Grid>
-          );
-        })}
-      </div>
-      <Footer {...content.footer} />
-    </main>
-  </div>
-);
+  );
+};
 
 export default Layout;

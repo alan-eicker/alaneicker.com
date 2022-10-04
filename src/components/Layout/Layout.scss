@@ -30,9 +30,9 @@
     position: relative;
     top: rem(-40);
 
-    & > * + * {
-      margin-top: rem(60);
-    }
+    // & > * + * {
+    //   margin-top: rem(60);
+    // }
   }
 
   @media (min-width: pixel($breakpoint-medium)) {
