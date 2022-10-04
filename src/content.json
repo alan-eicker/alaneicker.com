@@ -7,6 +7,7 @@
     "RealPage",
     "Allstate Insurance"
   ],
+  "gitHubApiUrl": "https://api.github.com/users/alaneicker1975/repos",
   "header": {
     "title": "Alan Eicker",
     "subtitle": "Front End Engineer",
