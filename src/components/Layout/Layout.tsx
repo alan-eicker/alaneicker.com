@@ -36,12 +36,12 @@ const Layout = ({ content }: Props) => (
       <div className="layout__hero" id="home">
         <Hero {...content.hero} />
       </div>
-      <div className="layout__body">
+      <div className="layout__body" tabIndex={0}>
         <Preface text={content.preface} />
-        {content.sections.map(({ key, ...section }) => {
+        {content.sections.map(({ key, ...section }, idx) => {
           switch (key) {
             case 'about':
-              return <About id="about" {...section} />;
+              return <About key={idx + 1} id="about" {...section} />;
             default:
               return null;
           }
