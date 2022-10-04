@@ -23,6 +23,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "classnames": "^2.3.2",
+    "dotenv": "^16.0.3",
     "parcel-plugin-prerender": "^1.4.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -47,7 +48,6 @@
     "eslint-config-atomikui": "^0.3.2",
     "eslint-import-resolver-alias": "^1.1.2",
     "gh-pages": "^4.0.0",
-    "parcel-plugin-static-files-copy": "^2.6.0",
     "replace": "^1.2.1",
     "sass": "^1.29.0",
     "stylelint": "^13.8.0",
@@ -56,14 +56,6 @@
   "prerender": {
     "routes": [
       "/"
-    ]
-  },
-  "staticFiles": {
-    "staticPath": [
-      {
-        "staticPath": "static",
-        "staticOutDir": "/"
-      }
     ]
   }
 }
