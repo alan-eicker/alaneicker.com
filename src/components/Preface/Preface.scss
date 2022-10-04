@@ -1,13 +1,12 @@
 .preface {
-  border-bottom: rem(1) solid $xlight-gray;
-  padding-bottom: rem(36);
-
   &__content {
     font-size: rem(15);
     font-style: italic;
     margin: 0 auto;
     padding-left: rem(50);
     position: relative;
+    line-height: 1.8;
+    text-align: left;
 
     &::before {
       content: '"';
@@ -20,8 +19,7 @@
     }
 
     @media (min-width: pixel($breakpoint-medium)) {
-      font-size: rem(20);
-      max-width: 70%;
+      font-size: rem(18);
       padding-left: rem(80);
 
       &::before {

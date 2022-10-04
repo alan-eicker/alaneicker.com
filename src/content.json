@@ -5,14 +5,14 @@
     "subtitle": "Front End Engineer",
     "nav": ["/#about", "/#principles", "/#career", "/#projects"]
   },
-  "footer": {
-    "copyright": "[copyrightYear] Alan Eicker. All rights reserved."
-  },
   "hero": {
     "strapline": "Hi, my name is",
     "title": "Alan Eicker.",
     "subtitle": "I Bring User Experiences to Life.",
-    "text": "I am an experienced front-end engineer with [years] years of expertise building user-friendly interfaces. My primary focus is on building user experiences that are reliable, scalable, and accessible."
+    "text": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
+  },
+  "footer": {
+    "copyright": "[copyrightYear] Alan Eicker. All rights reserved."
   },
   "preface": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of.",
   "sections": [
@@ -20,6 +20,22 @@
       "key": "about",
       "title": "A Bit About Me",
       "content": "I began my journey thirteen years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
+    },
+    {
+      "key": "skills",
+      "frontEnd": [
+        "HTML",
+        "CSS/Scss",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Redux",
+        "Apollo Client"
+      ],
+      "backEnd": ["Node.js", "Express", "GraphQL", "SQL", "MongoDB"],
+      "documentation": ["Styleguidist"],
+      "sourceControl": ["Git", "GitHub"],
+      "learning": ["Java", "SQL", "MongoDB"]
     }
   ]
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Preface from '../Preface';
 
 type Props = {
   strapline: string;
@@ -15,9 +16,14 @@ const Hero = ({ strapline, title, text, subtitle }: Props) => (
         <h2 className="hero__title">{title}</h2>
         <h3 className="hero__subtitle">{subtitle}</h3>
       </div>
-      <p className="hero__text">
-        {text.replace('[years]', String(new Date().getFullYear() - 2007))}
-      </p>
+      <div className="hero__text">
+        <Preface
+          text={text.replace(
+            '[years]',
+            String(new Date().getFullYear() - 2007),
+          )}
+        />
+      </div>
     </div>
   </div>
 );

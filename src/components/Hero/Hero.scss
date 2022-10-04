@@ -3,7 +3,7 @@
   color: $white;
   display: flex;
   justify-content: center;
-  padding: rem(50 20 90);
+  padding: rem(30 20 80);
   width: 100%;
 
   &__content {
@@ -38,6 +38,8 @@
   }
 
   @media (min-width: pixel($breakpoint-medium)) {
+    padding: rem(50 20 90);
+
     &__content {
       flex-direction: row;
       text-align: left;
@@ -45,6 +47,11 @@
       & > * + * {
         margin-left: rem(50);
       }
+    }
+
+    &__header {
+      border-right: rem(1) solid $dark-gray;
+      padding-right: rem(50);
     }
 
     &__title {
