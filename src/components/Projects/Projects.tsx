@@ -26,8 +26,10 @@ const Projects = ({ apiUrl, featuredProject, title, ...others }: Props) => {
   useEffect(() => {
     axios
       .get('https://api.github.com/users/alaneicker1975/repos')
-      .then(({ data }) => setRepos(data))
-      .catch((err) => console.log(err));
+      .then(({ data }) => {
+        setRepos(data);
+        document.dispatchEvent(new Event('prerender-trigger'));
+      });
   }, []);
 
   return (
