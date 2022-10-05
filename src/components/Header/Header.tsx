@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Header = ({ title, subtitle, nav = [] }: Props) => {
-  const [activeLink, setActiveLink] = useState();
+  const [activeLink, setActiveLink] = useState('');
 
   return (
     <header className="header">
@@ -15,7 +15,7 @@ const Header = ({ title, subtitle, nav = [] }: Props) => {
         className="header__logo"
         href="/#home"
         title={`${title} - ${subtitle}`}
-        onClick={() => setActiveLink(undefined)}
+        onClick={() => setActiveLink('')}
       >
         <span>A</span>
       </a>
@@ -26,9 +26,9 @@ const Header = ({ title, subtitle, nav = [] }: Props) => {
             return (
               <li key={link}>
                 <a
-                  className={activeLink === linkText ? 'is-active' : ''}
+                  className={link === activeLink ? 'is-active' : ''}
                   href={link}
-                  onClick={() => setActiveLink(linkText)}
+                  onClick={() => setActiveLink(link)}
                 >
                   {linkText}
                 </a>
