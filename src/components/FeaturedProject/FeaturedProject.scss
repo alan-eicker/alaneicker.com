@@ -1,0 +1,27 @@
+.featured-project {
+  display: flex;
+  padding-bottom: rem(16);
+  border-bottom: rem(1) solid $xlight-gray;
+  margin-bottom: rem(32);
+
+  & > * + * {
+    margin-left: rem(16);
+  }
+
+  &__icon {
+    width: rem(70);
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: rem(18);
+  }
+
+  &__description {
+    margin: rem(0 0 8);
+  }
+
+  &__link {
+    font-weight: 700;
+  }
+}

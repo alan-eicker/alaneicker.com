@@ -2,13 +2,25 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Section from '../Section';
 import RepoList from '../RepoList';
+import FeaturedProject from '../FeaturedProject';
 
 type Props = {
   title: string;
   apiUrl: string;
+  featuredProject: {
+    description: string;
+    title: string;
+    icon?: {
+      viewBox: string;
+      fill: string;
+      path: string;
+    };
+    url: string;
+    urlText: string;
+  };
 };
 
-const Projects = ({ apiUrl, title, ...others }: Props) => {
+const Projects = ({ apiUrl, featuredProject, title, ...others }: Props) => {
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
@@ -20,7 +32,10 @@ const Projects = ({ apiUrl, title, ...others }: Props) => {
 
   return (
     <Section title={title} {...others}>
-      <RepoList items={repos} excludes={new RegExp(/alaneicker1975/)} />
+      <>
+        <FeaturedProject {...featuredProject} />
+        <RepoList items={repos} excludes={new RegExp(/alaneicker1975/)} />
+      </>
     </Section>
   );
 };
