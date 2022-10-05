@@ -20,12 +20,7 @@ const Projects = ({ apiUrl, title, ...others }: Props) => {
 
   return (
     <Section title={title} {...others}>
-      <div className="projects">
-        <h4 className="projects__title">GitHub</h4>
-        <div className="projects__repo-list">
-          <RepoList items={repos} excludes={new RegExp(/alaneicker1975/)} />
-        </div>
-      </div>
+      <RepoList items={repos} excludes={new RegExp(/alaneicker1975/)} />
     </Section>
   );
 };
