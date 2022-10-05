@@ -20,10 +20,10 @@
 
     @media (min-width: pixel($breakpoint-medium)) {
       font-size: rem(18);
-      padding-left: rem(80);
+      padding-left: rem(60);
 
       &::before {
-        font-size: rem(90);
+        font-size: rem(70);
       }
     }
   }
