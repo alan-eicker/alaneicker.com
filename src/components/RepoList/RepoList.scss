@@ -1,0 +1,14 @@
+.repo-list {
+  & > * + * {
+    margin-top: rem(16);
+  }
+
+  &__title {
+    color: $blue;
+    font-weight: 700;
+  }
+
+  &__description {
+    margin-top: rem(4);
+  }
+}
