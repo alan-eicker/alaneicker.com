@@ -53,6 +53,7 @@
           "Apollo Client"
         ],
         "backEnd": ["Node.js", "Express", "GraphQL", "SQL", "MongoDB"],
+        "fullStack": ["MERN"],
         "documentation": ["Styleguidist"],
         "sourceControl": ["Git", "GitHub"],
         "learning": ["Java", "SQL", "MongoDB"]

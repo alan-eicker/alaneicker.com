@@ -8,7 +8,7 @@
   "scripts": {
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html --port 8000",
-    "deploy": "rm -rf node_modules/.cache/gh-pages && yarn build && gh-pages -d dist",
+    "deploy": "rm -rf node_modules/.cache/gh-pages && npm run build && gh-pages -d dist",
     "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'",
     "lint:css": "stylelint ./src/**/*.{css,scss}  --config .stylelintrc --fix",
     "test:unit": ""

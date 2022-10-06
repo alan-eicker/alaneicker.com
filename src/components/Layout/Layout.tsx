@@ -38,6 +38,7 @@ type SectionTypes = {
     skills: {
       frontEnd: string[];
       backEnd: string[];
+      fullStack: string[];
       documentation: string[];
       sourceControl: string[];
       learning: string[];
