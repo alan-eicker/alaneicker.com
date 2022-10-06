@@ -15,32 +15,30 @@ type Props = {
 const FeaturedProject = ({ description, icon, title, url, urlText }: Props) => (
   <div className="featured-project">
     {icon && (
-      <>
-        <div className="featured-project__head">
-          <svg
-            className="featured-project__icon"
-            aria-hidden="true"
-            viewBox={icon.viewBox}
-            enableBackground={`new ${icon.viewBox}`}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d={icon.path} fill={icon.fill} />
-          </svg>
-        </div>
-        <div className="featured-project__body">
-          <div className="featured-project__title">{title}</div>
-          <p className="featured-project__description">{description}</p>
-          <a
-            className="featured-project__link"
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {urlText}
-          </a>
-        </div>
-      </>
+      <div className="featured-project__head">
+        <svg
+          className="featured-project__icon"
+          aria-hidden="true"
+          viewBox={icon.viewBox}
+          enableBackground={`new ${icon.viewBox}`}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d={icon.path} fill={icon.fill} />
+        </svg>
+      </div>
     )}
+    <div className="featured-project__body">
+      <div className="featured-project__title">{title}</div>
+      <p className="featured-project__description">{description}</p>
+      <a
+        className="featured-project__link"
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {urlText}
+      </a>
+    </div>
   </div>
 );
 
