@@ -1438,6 +1438,11 @@ p {
   margin-top: 1.25rem;
 }
 
+@media (max-width: 768px) {
+  .top-margin-mobile {
+    margin-top: 3.75rem;
+  }
+}
 .layout {
   display: flex;
   flex-direction: column;
