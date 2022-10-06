@@ -48044,6 +48044,7 @@ module.exports = {
     "skills": {
       "frontEnd": ["HTML", "CSS/Scss", "JavaScript", "TypeScript", "React", "Redux", "Apollo Client"],
       "backEnd": ["Node.js", "Express", "GraphQL", "SQL", "MongoDB"],
+      "fullStack": ["MERN"],
       "documentation": ["Styleguidist"],
       "sourceControl": ["Git", "GitHub"],
       "learning": ["Java", "SQL", "MongoDB"]
@@ -48324,7 +48325,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50111" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54387" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
