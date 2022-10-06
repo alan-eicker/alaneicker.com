@@ -12,9 +12,9 @@ type Props = {
 
 const Career = ({ companies, title, content, ...others }: Props) => (
   <Section title={title} {...others}>
-    <>
+    <div className="career">
       <p>{content}</p>
-      <ul>
+      <ul className="career__list">
         {companies.map(({ company, duration }) => (
           <li key={company}>
             <b>{company}:</b> {duration}

@@ -25,9 +25,3 @@ p {
   line-height: 1.7;
   margin-top: rem(20);
 }
-
-ul {
-  & > * + * {
-    margin-top: rem(8);
-  }
-}

@@ -1,0 +1,7 @@
+.career {
+  &__list {
+    & > * + * {
+      margin-top: rem(8);
+    }
+  }
+}

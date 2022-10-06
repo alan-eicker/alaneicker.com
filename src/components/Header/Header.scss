@@ -30,6 +30,7 @@
   }
 
   &__links {
+    align-items: center;
     display: flex;
     list-style-type: none;
 
@@ -77,8 +78,6 @@
     }
 
     &__links {
-      display: flex;
-
       & > * {
         & > a {
           font-size: rem(15);
