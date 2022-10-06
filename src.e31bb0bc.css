@@ -1748,6 +1748,7 @@ p {
 }
 
 .social-media-item {
+  margin-bottom: 1.25rem;
   text-align: center;
 }
 .social-media-item__link {
