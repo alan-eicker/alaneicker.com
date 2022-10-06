@@ -45,7 +45,7 @@ type SectionTypes = {
   };
 };
 
-const leftColMatchers = new RegExp(/(About|Skills)/i);
+const leftColMatchers = new RegExp(/(About|Skills|Career|FindMeOnTheWeb)/i);
 const rightColMatchers = new RegExp(/(Projects)/i);
 
 const Layout = ({ content }: Props) => {

@@ -1,0 +1,19 @@
+.social-media-item {
+  text-align: center;
+
+  &__link {
+    color: $black;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $blue;
+      outline: none;
+
+      svg {
+        fill: $blue;
+      }
+    }
+  }
+}
