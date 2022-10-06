@@ -4,11 +4,8 @@
   border-bottom: rem(1) solid $xlight-gray;
   margin-bottom: rem(32);
 
-  & > * + * {
-    margin-left: rem(16);
-  }
-
   &__icon {
+    margin-right: rem(16);
     width: rem(70);
   }
 

@@ -4,7 +4,10 @@ import Section from '../Section';
 type Props = {
   title: string;
   content: string;
-  companies: string[];
+  companies: {
+    company: string;
+    duration: string;
+  }[];
 };
 
 const Career = ({ companies, title, content, ...others }: Props) => (
@@ -12,8 +15,10 @@ const Career = ({ companies, title, content, ...others }: Props) => (
     <>
       <p>{content}</p>
       <ul>
-        {companies.map((company) => (
-          <li key={company}>{company}</li>
+        {companies.map(({ company, duration }) => (
+          <li key={company}>
+            <b>{company}:</b> {duration}
+          </li>
         ))}
       </ul>
     </>
