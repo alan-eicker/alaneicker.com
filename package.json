@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "build": "parcel build src/index.html",
-    "postbuild": "node postbuild.js",
     "start": "parcel src/index.html --port 8000",
     "deploy": "rm -rf node_modules/.cache/gh-pages && yarn build && gh-pages -d dist",
     "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'",
@@ -51,7 +50,7 @@
     "eslint-config-atomikui": "^0.3.2",
     "eslint-import-resolver-alias": "^1.1.2",
     "gh-pages": "^4.0.0",
-    "replace": "^1.2.1",
+    "parcel-plugin-static-files-copy": "^2.6.0",
     "sass": "^1.29.0",
     "stylelint": "^13.8.0",
     "stylelint-config-atomikui": "^0.1.0"
@@ -63,5 +62,13 @@
     "rendererConfig": {
       "renderAfterDocumentEvent": "prerender-trigger"
     }
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "static",
+        "staticOutDir": "/"
+      }
+    ]
   }
 }
