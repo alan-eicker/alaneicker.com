@@ -36,7 +36,7 @@ const Projects = ({ apiUrl, featuredProject, title, ...others }: Props) => {
   }, []);
 
   return (
-    <Section title={title} {...others}>
+    <Section className="top-margin-mobile" title={title} {...others}>
       <>
         <FeaturedProject {...featuredProject} />
         <RepoList items={repos} excludes={new RegExp(/alaneicker1975/)} />
