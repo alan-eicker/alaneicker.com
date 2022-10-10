@@ -5,6 +5,9 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "source": "src/index.tsx",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html --port 8000",
@@ -50,6 +53,8 @@
     "eslint-config-atomikui": "^0.3.2",
     "eslint-import-resolver-alias": "^1.1.2",
     "gh-pages": "^4.0.0",
+    "jest": "^29.1.2",
+    "jest-environment-jsdom": "^29.1.2",
     "parcel-plugin-static-files-copy": "^2.6.0",
     "sass": "^1.29.0",
     "stylelint": "^13.8.0",
