@@ -1,10 +1,10 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from '../App';
 
-// describe('<App />', () => {
-//   it('Should render without errors', () => {
-//     expect(render(<App />));
-//   });
-// });
+describe('<App />', () => {
+  it('Should render without errors', () => {
+    expect(render(<App />));
+  });
+});

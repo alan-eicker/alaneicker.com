@@ -54,7 +54,7 @@ const Layout = ({ content }: Props) => {
     .filter((section) => section.key.match(leftColMatchers))
     .map((section) => {
       const Component = Sections[section.key as keyof SectionTypes];
-      return <Component id={section.key} {...section} />;
+      return <Component key={section.id} id={section.key} {...section} />;
     });
 
   const rightCol = content.sections

@@ -21,7 +21,7 @@ const FindMeOnTheWeb = ({ title, content = [], ...others }: Props) => (
     <Grid>
       <Row>
         {content.map((item) => (
-          <Col md={3}>
+          <Col md={3} key={item.title}>
             <SocialMediaItem {...item} />
           </Col>
         ))}
