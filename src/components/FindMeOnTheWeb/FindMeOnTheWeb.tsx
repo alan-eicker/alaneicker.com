@@ -16,7 +16,7 @@ type Props = {
   }[];
 };
 
-const FindMeOnTheWeb = ({ title, content = [], ...others }: Props) => (
+const FindMeOnTheWeb = ({ title, content, ...others }: Props) => (
   <Section title={title} {...others}>
     <Grid>
       <Row>

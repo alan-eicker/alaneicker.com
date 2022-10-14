@@ -3,7 +3,7 @@ import { fireEvent, screen, render, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from '../../components/Header';
 
-describe('<App />', () => {
+describe('<Header />', () => {
   const props = {
     title: 'Alan Eicker',
     subtitle: 'Front End Engineer',
@@ -15,9 +15,7 @@ describe('<App />', () => {
   });
 
   it('Should render logo anchor title based on title and subtitle props', () => {
-    expect(
-      screen.getByTitle(`${props.title} - ${props.subtitle}`),
-    ).toBeInTheDocument();
+    expect(screen.getByTitle(`${props.title} - ${props.subtitle}`));
   });
 
   it('Should render the navigation', () => {

@@ -3,7 +3,7 @@ import { screen, render, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Career from '../../components/Career';
 
-describe('<App />', () => {
+describe('<Career />', () => {
   const props = {
     key: 'Career',
     title: "Companies I've Worked for",
@@ -35,11 +35,11 @@ describe('<App />', () => {
         level: 4,
         name: props.title,
       }),
-    ).toBeInTheDocument();
+    );
   });
 
   it('Should set text content', () => {
-    expect(screen.getByText(props.content)).toBeInTheDocument();
+    expect(screen.getByText(props.content));
   });
 
   it('Should render a resume link with url to resume', () => {

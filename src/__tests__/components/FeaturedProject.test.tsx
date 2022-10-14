@@ -3,7 +3,7 @@ import { screen, render, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import FeaturedProject from '../../components/FeaturedProject';
 
-describe('<App />', () => {
+describe('<FeaturedProject />', () => {
   const props = {
     description:
       'A library of accessible react components for rapid application development.',
@@ -28,15 +28,15 @@ describe('<App />', () => {
         level: 5,
         name: props.title,
       }),
-    ).toBeInTheDocument();
+    );
   });
 
   it('Should render an icon', () => {
-    expect(screen.getByTitle(props.icon.title)).toBeInTheDocument();
+    expect(screen.getByTitle(props.icon.title));
   });
 
   it('Should render the description content', () => {
-    expect(screen.getByText(props.description)).toBeInTheDocument();
+    expect(screen.getByText(props.description));
   });
 
   it('Should render a link to the featured project', () => {

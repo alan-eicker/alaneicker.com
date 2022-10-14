@@ -39,7 +39,7 @@ const SocialMediaItem = ({
         <title>{title}</title>
         <path d={path} />
       </svg>
-      <div>{title}</div>
+      <div>foobar</div>
     </a>
   </div>
 );
