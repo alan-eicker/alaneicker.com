@@ -6,7 +6,7 @@ type Props = {
   nav: string[];
 };
 
-const Header = ({ title, subtitle, nav = [] }: Props) => {
+const Header = ({ title, subtitle, nav }: Props) => {
   const [activeLink, setActiveLink] = useState('');
 
   return (
