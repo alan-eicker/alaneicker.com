@@ -1,11 +1,4 @@
 module.exports = {
-  globals: {
-    'ts-jest': {
-      tsConfig: 'tsconfig.json',
-      diagnostics: true,
-    },
-    NODE_ENV: 'test',
-  },
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/index.tsx', '!**/index.ts'],
   testMatch: ['<rootDir>/src/**/?(*.)(test).{ts,tsx}'],
@@ -18,9 +11,7 @@ module.exports = {
   moduleNameMapper: {
     '^axios$': 'axios',
     '^react-flexbox-grid$': 'react-flexbox-grid/dist/react-flexbox-grid',
-    // '\\.(css|scss)$': '<rootDir>/jest/cssMock.js',
-    // '\\.svg': '<rootDir>/jest/svgMock.js',
   },
-  rootDir: '../',
+  rootDir: './',
   verbose: true,
 };

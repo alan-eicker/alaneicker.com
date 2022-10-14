@@ -12,7 +12,7 @@
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html --port 8000",
     "deploy": "rm -rf node_modules/.cache/gh-pages && npm run build && gh-pages -d dist",
-    "test": "jest --config=./jest/jest.config.js"
+    "test": "jest --config=./jest.config.js"
   },
   "dependencies": {
     "@atomikui/core-sass": "^0.6.0",
