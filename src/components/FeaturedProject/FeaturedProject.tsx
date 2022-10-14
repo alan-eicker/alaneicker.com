@@ -6,6 +6,7 @@ type Props = {
     viewBox: string;
     fill: string;
     path: string;
+    title: string;
   };
   url: string;
   urlText: string;
@@ -23,12 +24,13 @@ const FeaturedProject = ({ description, icon, title, url, urlText }: Props) => (
           enableBackground={`new ${icon.viewBox}`}
           xmlns="http://www.w3.org/2000/svg"
         >
+          <title>{icon.title}</title>
           <path d={icon.path} fill={icon.fill} />
         </svg>
       </div>
     )}
     <div className="featured-project__body">
-      <div className="featured-project__title">{title}</div>
+      <h5 className="featured-project__title">{title}</h5>
       <p className="featured-project__description">{description}</p>
       <a
         className="featured-project__link"

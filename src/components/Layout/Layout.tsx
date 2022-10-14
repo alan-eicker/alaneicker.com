@@ -5,7 +5,7 @@ import Footer from '../Footer';
 import Hero from '../Hero';
 import * as Sections from '../Sections';
 
-type Props = {
+export type LayoutProps = {
   content: {
     header: {
       title: string;
@@ -28,10 +28,47 @@ type Props = {
   };
 };
 
-type SectionTypes = {
+export type SectionTypes = {
   About: {
     title: string;
     content: string;
+  };
+  Career: {
+    title: string;
+    content: string;
+    resumeUrl: string;
+    companies: {
+      company: string;
+      duration: string;
+    }[];
+  };
+  FindMeOnTheWeb: {
+    title: string;
+    content: {
+      title: string;
+      url: string;
+      path: string;
+      viewBox: string;
+      fill: string;
+      height: string;
+      width: string;
+    }[];
+  };
+  Projects: {
+    title: string;
+    apiUrl: string;
+    featuredProject: {
+      description: string;
+      title: string;
+      icon?: {
+        viewBox: string;
+        fill: string;
+        path: string;
+        title: string;
+      };
+      url: string;
+      urlText: string;
+    };
   };
   Skills: {
     title: string;
@@ -49,7 +86,7 @@ type SectionTypes = {
 const leftColMatchers = new RegExp(/(About|Skills|Career|FindMeOnTheWeb)/i);
 const rightColMatchers = new RegExp(/(Projects)/i);
 
-const Layout = ({ content }: Props) => {
+const Layout = ({ content }: LayoutProps) => {
   const leftCol = content.sections
     .filter((section) => section.key.match(leftColMatchers))
     .map((section) => {

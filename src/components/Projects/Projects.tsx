@@ -14,6 +14,7 @@ type Props = {
       viewBox: string;
       fill: string;
       path: string;
+      title: string;
     };
     url: string;
     urlText: string;
