@@ -1739,6 +1739,7 @@ p {
 .featured-project__title {
   font-weight: 700;
   font-size: 1.125rem;
+  margin-bottom: 0.5rem;
 }
 .featured-project__description {
   margin: 0 0 0.5rem;
@@ -1748,7 +1749,6 @@ p {
 }
 
 .social-media-item {
-  margin-bottom: 1.25rem;
   text-align: center;
 }
 .social-media-item__link {
