@@ -1,5 +1,6 @@
 .featured-project {
   display: flex;
+  align-items: center;
   padding-bottom: rem(16);
   border-bottom: rem(1) solid $xlight-gray;
   margin-bottom: rem(32);
@@ -12,7 +13,7 @@
   &__title {
     font-weight: 700;
     font-size: rem(18);
-    margin-bottom: rem(8);
+    margin: rem(0 0 8);
   }
 
   &__description {
