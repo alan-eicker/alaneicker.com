@@ -1728,6 +1728,7 @@ p {
 
 .featured-project {
   display: flex;
+  align-items: center;
   padding-bottom: 1rem;
   border-bottom: 0.0625rem solid #dddddd;
   margin-bottom: 2rem;
@@ -1739,7 +1740,7 @@ p {
 .featured-project__title {
   font-weight: 700;
   font-size: 1.125rem;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem;
 }
 .featured-project__description {
   margin: 0 0 0.5rem;

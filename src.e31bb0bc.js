@@ -42621,7 +42621,7 @@ module.exports = {
     "title": "Projects & Repos",
     "apiUrl": "https://api.github.com/users/alaneicker1945/repos",
     "featuredProject": {
-      "description": "A library of accessible react components for rapid application development.        ",
+      "description": "A library of react components for rapid application development.",
       "icon": {
         "viewBox": "0 0 100 100",
         "fill": "#00bcd4",
@@ -42911,7 +42911,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60610" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51357" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
