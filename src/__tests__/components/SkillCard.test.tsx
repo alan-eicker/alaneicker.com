@@ -14,7 +14,6 @@ describe('<Section />', () => {
   });
 
   it('Should render a title', () => {
-    console.log(screen.debug());
     expect(screen.getByText(/A little bit about me/)).toBeInTheDocument();
   });
 
