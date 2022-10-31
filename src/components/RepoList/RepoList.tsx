@@ -9,12 +9,12 @@ type Props = {
   }[];
 };
 
-const RepoList = ({ excludes, items = [] }: Props) => (
-  <div className="repo-list">
+const RepoList = ({ excludes, items }: Props) => (
+  <ul className="repo-list">
     {items
       .filter(({ name }) => !excludes?.test(name))
       .map(({ description, name, html_url }) => (
-        <div className="repo-list__item" key={name}>
+        <li className="repo-list__item" key={name}>
           <a
             className="repo-list__title"
             href={html_url}
@@ -24,9 +24,9 @@ const RepoList = ({ excludes, items = [] }: Props) => (
             {name}
           </a>
           <p className="repo-list__description">{description}</p>
-        </div>
+        </li>
       ))}
-  </div>
+  </ul>
 );
 
 export default RepoList;

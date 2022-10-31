@@ -25,15 +25,13 @@ const Projects = ({ apiUrl, featuredProject, title, ...others }: Props) => {
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('https://api.github.com/users/alaneicker1975/repos')
-      .then(({ data }) => {
-        setRepos(data);
+    axios.get(apiUrl).then(({ data }) => {
+      setRepos(data);
 
-        // This event needs to be called in order for the Parcel pre-renderer
-        // to pick up the data from the above async request
-        document.dispatchEvent(new Event('prerender-trigger'));
-      });
+      // This event needs to be called in order for the Parcel pre-renderer
+      // to pick up the data from the above async request
+      document.dispatchEvent(new Event('prerender-trigger'));
+    });
   }, []);
 
   return (

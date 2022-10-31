@@ -26,7 +26,7 @@
     {
       "key": "Projects",
       "title": "Projects & Repos",
-      "apiUrl": "https://api.github.com/users/alaneicker1945/repos",
+      "apiUrl": "https://api.github.com/users/alaneicker1975/repos",
       "featuredProject": {
         "description": "A library of react components for rapid application development.",
         "icon": {
