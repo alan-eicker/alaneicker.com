@@ -41771,9 +41771,8 @@ var react_1 = __importDefault(require("react"));
 
 var RepoList = function RepoList(_ref) {
   var excludes = _ref.excludes,
-      _ref$items = _ref.items,
-      items = _ref$items === void 0 ? [] : _ref$items;
-  return react_1.default.createElement("div", {
+      items = _ref.items;
+  return react_1.default.createElement("ul", {
     className: "repo-list"
   }, items.filter(function (_ref2) {
     var name = _ref2.name;
@@ -41782,7 +41781,7 @@ var RepoList = function RepoList(_ref) {
     var description = _ref3.description,
         name = _ref3.name,
         html_url = _ref3.html_url;
-    return react_1.default.createElement("div", {
+    return react_1.default.createElement("li", {
       className: "repo-list__item",
       key: name
     }, react_1.default.createElement("a", {
@@ -41982,7 +41981,7 @@ var Projects = function Projects(_a) {
       setRepos = _ref2[1];
 
   (0, react_1.useEffect)(function () {
-    axios_1.default.get('https://api.github.com/users/alaneicker1975/repos').then(function (_ref3) {
+    axios_1.default.get(apiUrl).then(function (_ref3) {
       var data = _ref3.data;
       setRepos(data); // This event needs to be called in order for the Parcel pre-renderer
       // to pick up the data from the above async request
@@ -42306,7 +42305,7 @@ var SocialMediaItem = function SocialMediaItem(_ref) {
     xmlns: "https://www.w3.org/2000/svg"
   }, react_1.default.createElement("title", null, title), react_1.default.createElement("path", {
     d: path
-  })), react_1.default.createElement("div", null, "foobar")));
+  })), react_1.default.createElement("div", null, title)));
 };
 
 exports.default = SocialMediaItem;
@@ -42619,7 +42618,7 @@ module.exports = {
   }, {
     "key": "Projects",
     "title": "Projects & Repos",
-    "apiUrl": "https://api.github.com/users/alaneicker1945/repos",
+    "apiUrl": "https://api.github.com/users/alaneicker1975/repos",
     "featuredProject": {
       "description": "A library of react components for rapid application development.",
       "icon": {
@@ -42911,7 +42910,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51357" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64897" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

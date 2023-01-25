@@ -1438,6 +1438,12 @@ p {
   margin-top: 1.25rem;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 @media (max-width: 768px) {
   .top-margin-mobile {
     margin-top: 3.75rem;
