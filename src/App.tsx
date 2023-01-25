@@ -9,7 +9,6 @@ const App = () => {
   return (
     <>
       <DocHead title={docTitle} />
-      Testing Jenkins Build...
       <Layout content={layoutContent} />
     </>
   );
