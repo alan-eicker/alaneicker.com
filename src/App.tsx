@@ -5,12 +5,11 @@ import content from './content.json';
 
 const { docTitle, ...layoutContent } = content;
 
-// Testing jenkins build...
-
 const App = () => {
   return (
     <>
       <DocHead title={docTitle} />
+      Test...
       <Layout content={layoutContent} />
     </>
   );
