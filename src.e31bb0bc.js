@@ -37483,7 +37483,10 @@ var FindMeOnTheWeb = function FindMeOnTheWeb(_a) {
   }, others), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, content.map(function (item) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
       md: 3,
-      key: item.title
+      key: item.title,
+      style: {
+        paddingBottom: 16
+      }
     }, react_1.default.createElement(SocialMediaItem_1.default, Object.assign({}, item)));
   }))));
 };
@@ -37935,7 +37938,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51865" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54467" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
