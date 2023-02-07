@@ -37482,6 +37482,8 @@ var FindMeOnTheWeb = function FindMeOnTheWeb(_a) {
     title: title
   }, others), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, content.map(function (item) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
+      xs: 6,
+      sm: 6,
       md: 3,
       key: item.title,
       style: {
@@ -37938,7 +37940,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54467" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55908" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
