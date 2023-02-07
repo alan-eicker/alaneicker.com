@@ -1,0 +1,22 @@
+.about {
+  &__bio-pic {
+    border-radius: 50%;
+    display: block;
+    height: rem(100);
+    margin: 0 auto;
+    width: rem(100);
+    float: left; // Yeah, I used a float. Sue me!
+    margin-right: rem(16);
+  }
+
+  p:last-of-type {
+    clear: left;
+  }
+
+  @media (min-width: pixel($breakpoint-medium)) {
+    &__bio-pic {
+      height: rem(130);
+      width: rem(130);
+    }
+  }
+}
