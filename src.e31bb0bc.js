@@ -31657,12 +31657,19 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 var Section_1 = __importDefault(require("../Section"));
 var About = function About(_a) {
-  var title = _a.title,
+  var image = _a.image,
+    title = _a.title,
     content = _a.content,
-    others = __rest(_a, ["title", "content"]);
+    others = __rest(_a, ["image", "title", "content"]);
   return react_1.default.createElement(Section_1.default, Object.assign({
     title: title
-  }, others), react_1.default.createElement(react_1.default.Fragment, null, content.split('|').map(function (paragraph, idx) {
+  }, others), react_1.default.createElement("div", {
+    className: "about"
+  }, react_1.default.createElement("img", {
+    className: "about__bio-pic",
+    src: image,
+    alt: "Alan Eicker"
+  }), content.split('|').map(function (paragraph, idx) {
     return react_1.default.createElement("p", {
       key: idx + 1
     }, paragraph);
@@ -37678,6 +37685,7 @@ module.exports = {
   "sections": [{
     "key": "About",
     "title": "A Bit About Me",
+    "image": "./bio-pic.png",
     "content": "I began my journey thirteen years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
   }, {
     "key": "Projects",
@@ -37927,7 +37935,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51644" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51865" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

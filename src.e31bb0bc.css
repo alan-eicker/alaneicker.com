@@ -1690,6 +1690,25 @@ ul {
   padding: 0 0.75rem;
 }
 
+.about__bio-pic {
+  border-radius: 50%;
+  display: block;
+  height: 6.25rem;
+  margin: 0 auto;
+  width: 6.25rem;
+  float: left;
+  margin-right: 1rem;
+}
+.about p:last-of-type {
+  clear: left;
+}
+@media (min-width: 768px) {
+  .about__bio-pic {
+    height: 8.125rem;
+    width: 8.125rem;
+  }
+}
+
 .career__list {
   margin: 1.25rem 0;
 }
