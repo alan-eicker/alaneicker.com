@@ -28,6 +28,7 @@ const SocialMediaItem = ({
       title={title}
     >
       <svg
+        aria-hidden="true"
         className="margin-top-4"
         fill={fill}
         height={height}
@@ -36,7 +37,6 @@ const SocialMediaItem = ({
         enableBackground={`new ${viewBox}`}
         xmlns="https://www.w3.org/2000/svg"
       >
-        <title>{title}</title>
         <path d={path} />
       </svg>
       <div>{title}</div>

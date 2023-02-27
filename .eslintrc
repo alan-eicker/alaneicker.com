@@ -9,5 +9,9 @@
         ]
       }
     }
+  },
+  "rules": {
+    "react/jsx-filename-extension": [0, { "extensions": [".jsx"] }],
+    "react/require-default-props": 0
   }
 }
