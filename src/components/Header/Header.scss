@@ -52,12 +52,11 @@
 
         &:hover,
         &:focus {
-          border-bottom: rem(2) solid $gray;
+          color: $sunset-yellow;
         }
 
         &.is-active {
-          border-bottom: rem(2) solid $lime-green;
-          color: $white;
+          color: $sunset-yellow;
           cursor: default;
         }
       }
