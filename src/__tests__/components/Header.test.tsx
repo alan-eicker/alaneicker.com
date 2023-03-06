@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 
 describe('<Header />', () => {
   const props = {
+    logoImg: '/beard.png',
     title: 'Alan Eicker',
     subtitle: 'Front End Engineer',
     nav: ['/#About', '/#Skills', '/#Projects', '/#Career'],

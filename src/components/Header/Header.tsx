@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 type Props = {
   title: string;
   subtitle: string;
+  logoImg: string;
   nav: string[];
 };
 
-const Header = ({ title, subtitle, nav }: Props) => {
+const Header = ({ title, subtitle, nav, logoImg }: Props) => {
   const [activeLink, setActiveLink] = useState('');
 
   return (
@@ -17,7 +18,7 @@ const Header = ({ title, subtitle, nav }: Props) => {
         title={`${title} - ${subtitle}`}
         onClick={() => setActiveLink('')}
       >
-        <span>A</span>
+        <img src={logoImg} width="40" alt="logo" />
       </a>
       <nav className="header__nav">
         <ul className="header__links">
