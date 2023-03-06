@@ -20,8 +20,11 @@ const Footer = ({
 }: Props) => (
   <footer className="footer">
     <p>
-      &copy; {new Date().getFullYear()} {copyright} &bull;{' '}
-      <a href={`mailto:${emailAddress}`}>{emailAddress}</a> &bull; {phoneNumber}
+      &copy; {new Date().getFullYear()} {copyright}
+    </p>
+    <p>
+      <a href={`mailto:${emailAddress}`}>{emailAddress}</a> &bull;{' '}
+      <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
     </p>
     <p>
       <a target="_blank" href={iconCredits.iconUrl} rel="noreferrer">
