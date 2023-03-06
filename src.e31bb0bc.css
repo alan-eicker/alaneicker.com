@@ -1410,7 +1410,7 @@ select {
   }
 }
 body {
-  background: #00bcd4;
+  background: no-repeat 0 bottom/cover url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
   color: #212121;
   font-family: "Merriweather Sans", Arial, Helvetica, sans-serif;
   font-size: 1rem;
@@ -1471,7 +1471,7 @@ ul {
 }
 .layout__body {
   background: #ffffff;
-  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
   margin: 0 1rem;
   max-width: 80rem;
   padding: 1.5rem;
@@ -1483,12 +1483,12 @@ ul {
     height: 3.75rem;
   }
   .layout__body {
+    border-radius: 0.1875rem;
     padding: 2.25rem;
   }
 }
 
 .hero {
-  background: #212121;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -1508,12 +1508,12 @@ ul {
   margin-bottom: 0.25rem;
 }
 .hero__title {
-  color: #cddc39;
+  color: #013f66;
   font-size: 2.8125rem;
   line-height: 1.1;
 }
 .hero__subtitle {
-  color: #757575;
+  color: #ffffff;
   font-size: 2.8125rem;
   line-height: 1.1;
 }
@@ -1533,10 +1533,11 @@ ul {
     margin-left: 3.125rem;
   }
   .hero__header {
-    border-right: 0.0625rem solid #414141;
+    border-right: 0.0625rem solid rgba(255, 255, 255, 0.35);
     padding-right: 3.125rem;
   }
   .hero__title {
+    color: #fdcd48;
     font-size: 3.4375rem;
   }
   .hero__subtitle {
@@ -1559,7 +1560,7 @@ ul {
 }
 .header__logo {
   align-items: center;
-  background: #cddc39;
+  background: #fdb248;
   color: #212121;
   display: flex;
   font-weight: 700;
@@ -1587,19 +1588,19 @@ ul {
 .header__links > * > a {
   color: #ffffff;
   display: block;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   outline: none;
   padding: 0.375rem 0.5rem;
   text-decoration: none;
   transition: all 0.15s linear;
+  text-transform: uppercase;
 }
 .header__links > * > a:hover, .header__links > * > a:focus {
-  border-bottom: 0.125rem solid #757575;
+  color: #fdcd48;
 }
 .header__links > * > a.is-active {
-  border-bottom: 0.125rem solid #cddc39;
-  color: #ffffff;
+  color: #fdcd48;
   cursor: default;
 }
 @media (min-width: 768px) {
@@ -1615,24 +1616,29 @@ ul {
   .header__subtitle {
     margin-left: 0.5rem;
   }
+  .header__links > * + * {
+    margin-left: 1rem;
+  }
   .header__links > * > a {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
   }
 }
 
 .footer {
-  background: #00d3ee;
+  color: #ffffff;
   font-size: 0.875rem;
-  font-weight: 600;
   padding: 1.25rem;
   text-align: center;
   width: 100%;
 }
 .footer a {
-  color: #212121;
+  color: #ffffff;
+  font-weight: 300;
+  text-decoration: none;
 }
 .footer a:hover {
   color: white;
+  text-decoration: underline;
 }
 
 .preface__content {

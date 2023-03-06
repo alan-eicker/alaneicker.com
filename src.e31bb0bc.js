@@ -36985,7 +36985,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var RepoList = function RepoList(_ref) {
-  var excludes = _ref.excludes,
+  var _ref$excludes = _ref.excludes,
+    excludes = _ref$excludes === void 0 ? null : _ref$excludes,
     items = _ref.items;
   return react_1.default.createElement("ul", {
     className: "repo-list"
@@ -36995,13 +36996,13 @@ var RepoList = function RepoList(_ref) {
   }).map(function (_ref3) {
     var description = _ref3.description,
       name = _ref3.name,
-      html_url = _ref3.html_url;
+      homeUrl = _ref3.html_url;
     return react_1.default.createElement("li", {
       className: "repo-list__item",
       key: name
     }, react_1.default.createElement("a", {
       className: "repo-list__title",
-      href: html_url,
+      href: homeUrl,
       target: "_back",
       rel: "noopener noreferrer"
     }, name), react_1.default.createElement("p", {
@@ -37171,7 +37172,7 @@ var Projects = function Projects(_a) {
   return react_1.default.createElement(Section_1.default, Object.assign({
     className: "top-margin-mobile",
     title: title
-  }, others), react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(FeaturedProject_1.default, Object.assign({}, featuredProject)), react_1.default.createElement(RepoList_1.default, {
+  }, others), react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(FeaturedProject_1.default, Object.assign({}, featuredProject)), repos.length > 0 && react_1.default.createElement(RepoList_1.default, {
     items: repos,
     excludes: new RegExp(/alaneicker1975/)
   })));
@@ -37420,6 +37421,7 @@ var SocialMediaItem = function SocialMediaItem(_ref) {
     rel: "noopener noreferrer",
     title: title
   }, react_1.default.createElement("svg", {
+    "aria-hidden": "true",
     className: "margin-top-4",
     fill: fill,
     height: height,
@@ -37427,7 +37429,7 @@ var SocialMediaItem = function SocialMediaItem(_ref) {
     viewBox: viewBox,
     enableBackground: "new ".concat(viewBox),
     xmlns: "https://www.w3.org/2000/svg"
-  }, react_1.default.createElement("title", null, title), react_1.default.createElement("path", {
+  }, react_1.default.createElement("path", {
     d: path
   })), react_1.default.createElement("div", null, title)));
 };
@@ -37940,7 +37942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55908" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53308" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
