@@ -1627,18 +1627,21 @@ ul {
 .footer {
   color: #ffffff;
   font-size: 0.875rem;
-  padding: 1.25rem;
+  padding: 0 1.25rem 1.25rem;
   text-align: center;
   width: 100%;
 }
 .footer a {
-  color: #ffffff;
+  color: #81effc;
   font-weight: 300;
   text-decoration: none;
 }
 .footer a:hover {
   color: white;
   text-decoration: underline;
+}
+.footer p {
+  margin: 0 0 0.125rem;
 }
 
 .preface__content {

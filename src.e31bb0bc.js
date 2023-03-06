@@ -31393,7 +31393,8 @@ var react_1 = __importStar(require("react"));
 var Header = function Header(_ref) {
   var title = _ref.title,
     subtitle = _ref.subtitle,
-    nav = _ref.nav;
+    nav = _ref.nav,
+    logoImg = _ref.logoImg;
   var _ref2 = (0, react_1.useState)(''),
     _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
     activeLink = _ref3[0],
@@ -31407,7 +31408,11 @@ var Header = function Header(_ref) {
     onClick: function onClick() {
       return setActiveLink('');
     }
-  }, react_1.default.createElement("span", null, "A")), react_1.default.createElement("nav", {
+  }, react_1.default.createElement("img", {
+    src: logoImg,
+    width: "40",
+    alt: "logo"
+  })), react_1.default.createElement("nav", {
     className: "header__nav"
   }, react_1.default.createElement("ul", {
     className: "header__links"
@@ -31459,12 +31464,23 @@ var react_1 = __importDefault(require("react"));
 var Footer = function Footer(_ref) {
   var copyright = _ref.copyright,
     emailAddress = _ref.emailAddress,
-    phoneNumber = _ref.phoneNumber;
+    phoneNumber = _ref.phoneNumber,
+    iconCredits = _ref.iconCredits;
   return react_1.default.createElement("footer", {
     className: "footer"
-  }, react_1.default.createElement("span", null, "\xA9 ", new Date().getFullYear(), " ", copyright, " \u2022", ' ', react_1.default.createElement("a", {
+  }, react_1.default.createElement("p", null, "\xA9 ", new Date().getFullYear(), " ", copyright), react_1.default.createElement("p", null, react_1.default.createElement("a", {
     href: "mailto:".concat(emailAddress)
-  }, emailAddress), " \u2022 ", phoneNumber));
+  }, emailAddress), " \u2022", ' ', react_1.default.createElement("a", {
+    href: "tel:".concat(phoneNumber)
+  }, phoneNumber)), react_1.default.createElement("p", null, react_1.default.createElement("a", {
+    target: "_blank",
+    href: iconCredits.iconUrl,
+    rel: "noreferrer"
+  }, iconCredits.iconName), ' ', "icon by", ' ', react_1.default.createElement("a", {
+    target: "_blank",
+    href: iconCredits.websiteLinkUrl,
+    rel: "noreferrer"
+  }, iconCredits.websiteLinkText)));
 };
 exports.default = Footer;
 },{"react":"../node_modules/react/index.js"}],"components/Footer/index.ts":[function(require,module,exports) {
@@ -37675,6 +37691,7 @@ module.exports = {
   "header": {
     "title": "Alan Eicker",
     "subtitle": "Front End Engineer",
+    "logoImg": "/beard.png",
     "nav": ["/#About", "/#Skills", "/#Projects", "/#Career"]
   },
   "hero": {
@@ -37686,7 +37703,13 @@ module.exports = {
   "footer": {
     "copyright": "Alan Eicker. All rights reserved.",
     "emailAddress": "alaneicker@gmail.com",
-    "phoneNumber": "(224) 622-7278"
+    "phoneNumber": "(224) 622-7278",
+    "iconCredits": {
+      "websiteLinkUrl": "https://icons8.com",
+      "websiteLinkText": "Icons8",
+      "iconUrl": "https://icons8.com/icon/OySmsSdy3UZN/beard",
+      "iconName": "Beard"
+    }
   },
   "preface": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of.",
   "sections": [{
@@ -37942,7 +37965,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53308" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57210" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
