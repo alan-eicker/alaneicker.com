@@ -9,7 +9,7 @@
 
   &__logo {
     align-items: center;
-    background: $lime-green;
+    background: $sunset-orange;
     color: $black;
     display: flex;
     font-weight: 700;
@@ -42,12 +42,13 @@
       & > a {
         color: $white;
         display: block;
-        font-size: rem(13);
+        font-size: rem(12);
         font-weight: 600;
         outline: none;
         padding: rem(6 8);
         text-decoration: none;
         transition: all 0.15s linear;
+        text-transform: uppercase;
 
         &:hover,
         &:focus {
@@ -78,9 +79,13 @@
     }
 
     &__links {
+      & > * + * {
+        margin-left: rem(16);
+      }
+
       & > * {
         & > a {
-          font-size: rem(15);
+          font-size: rem(14);
         }
       }
     }

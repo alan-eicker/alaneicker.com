@@ -1,16 +1,19 @@
 .footer {
-  background: lighten($cyan, 5%);
+  // background: lighten($cyan, 5%);
+  color: $white;
   font-size: rem(14);
-  font-weight: 600;
   padding: rem(20);
   text-align: center;
   width: 100%;
 
   a {
-    color: $black;
+    color: $white;
+    font-weight: 300;
+    text-decoration: none;
 
     &:hover {
       color: white;
+      text-decoration: underline;
     }
   }
 }

@@ -23,7 +23,8 @@
 
   &__body {
     background: $white;
-    box-shadow: rem(0 0 5) rgba(0, 0, 0, 0.15);
+    border-radius: rem(3);
+    box-shadow: rem(0 0 8) rgba(0, 0, 0, 0.25);
     margin: rem(0 16);
     max-width: rem($breakpoint-large);
     padding: rem(24);

@@ -1,5 +1,5 @@
 .hero {
-  background: $black;
+  // background: $black;
   color: $white;
   display: flex;
   justify-content: center;
@@ -21,13 +21,13 @@
   }
 
   &__title {
-    color: $lime-green;
+    color: $sunset-yellow;
     font-size: rem(45);
     line-height: 1.1;
   }
 
   &__subtitle {
-    color: $gray;
+    color: $white;
     font-size: rem(45);
     line-height: 1.1;
   }
@@ -50,7 +50,7 @@
     }
 
     &__header {
-      border-right: rem(1) solid $dark-gray;
+      border-right: rem(1) solid rgba(255, 255, 255, 0.35);
       padding-right: rem(50);
     }
 
