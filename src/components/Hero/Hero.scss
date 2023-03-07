@@ -1,5 +1,4 @@
 .hero {
-  // background: $black;
   color: $white;
   display: flex;
   justify-content: center;
@@ -21,7 +20,7 @@
   }
 
   &__title {
-    color: $dark-blue;
+    color: $sunset-yellow;
     font-size: rem(45);
     line-height: 1.1;
   }
@@ -55,7 +54,6 @@
     }
 
     &__title {
-      color: $sunset-yellow;
       font-size: rem(55);
     }
 
