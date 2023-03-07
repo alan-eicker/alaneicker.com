@@ -12,7 +12,9 @@ const About = ({ image, title, content, ...others }: Props) => (
     <div className="about">
       <img className="about__bio-pic" src={image} alt="Alan Eicker" />
       {content.split('|').map((paragraph, idx) => (
-        <p key={idx + 1}>{paragraph}</p>
+        <p key={idx + 1}>
+          {paragraph.replace(/@years/, String(new Date().getFullYear() - 2007))}
+        </p>
       ))}
     </div>
   </Section>
