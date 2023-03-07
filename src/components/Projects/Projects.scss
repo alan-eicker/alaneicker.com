@@ -1,0 +1,43 @@
+.projects {
+  & > * + * {
+    margin-top: rem(40);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  &__card__bd {
+    flex: 0 0 1;
+
+    p {
+      margin: rem(8 0 0);
+    }
+  }
+
+  &__card__ft {
+    margin-bottom: rem(20);
+  }
+
+  &__card__img {
+    box-shadow: rem(0 0 15) rgba(0, 0, 0, 0.15);
+    display: block;
+    margin: 0 auto;
+    min-width: auto;
+  }
+
+  @media (min-width: 768px) {
+    &__card {
+      flex-direction: row;
+    }
+
+    &__card__ft {
+      margin-left: rem(20);
+    }
+
+    &__card__img {
+      min-width: rem(250);
+    }
+  }
+}

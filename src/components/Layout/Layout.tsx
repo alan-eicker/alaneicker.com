@@ -83,8 +83,8 @@ export type SectionTypes = {
   };
 };
 
-const leftColMatchers = new RegExp(/(About|Skills|Career|FindMeOnTheWeb)/i);
-const rightColMatchers = new RegExp(/(Projects)/i);
+const leftColMatchers = new RegExp(/(About|Career|Projects)/i);
+const rightColMatchers = new RegExp(/(Skills|FindMeOnTheWeb)/i);
 
 const Layout = ({ content }: LayoutProps) => {
   const leftCol = content.sections

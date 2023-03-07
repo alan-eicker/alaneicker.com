@@ -8,6 +8,7 @@ type Props = {
   companies: {
     company: string;
     duration: string;
+    positionHeld: string;
   }[];
 };
 
@@ -16,9 +17,12 @@ const Career = ({ companies, title, resumeUrl, content, ...others }: Props) => (
     <div className="career">
       <p>{content}</p>
       <ul className="career__list">
-        {companies.map(({ company, duration }) => (
+        {companies.map(({ company, duration, positionHeld }) => (
           <li key={company}>
-            <b>{company}:</b> {duration}
+            <h4>
+              {company} &bull; <span>{duration}</span>
+            </h4>
+            {positionHeld}
           </li>
         ))}
       </ul>

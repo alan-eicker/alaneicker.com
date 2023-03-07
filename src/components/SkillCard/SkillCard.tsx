@@ -9,7 +9,13 @@ type Props = {
 const SkillCard = ({ category, list, ...others }: Props) => (
   <div className="skill-card" {...others}>
     <div className="skill-card__head">{toSentenceCase(category)}</div>
-    <div className="skill-card__body">{list.join(', ')}</div>
+    <div className="skill-card__body">
+      {list.map((item) => (
+        <div key={item} className="skill-card__item">
+          {item}
+        </div>
+      ))}
+    </div>
   </div>
 );
 
