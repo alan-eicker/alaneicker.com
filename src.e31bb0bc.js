@@ -31688,7 +31688,7 @@ var About = function About(_a) {
   }), content.split('|').map(function (paragraph, idx) {
     return react_1.default.createElement("p", {
       key: idx + 1
-    }, paragraph);
+    }, paragraph.replace(/@years/, String(new Date().getFullYear() - 2007)));
   })));
 };
 exports.default = About;
@@ -37716,7 +37716,7 @@ module.exports = {
     "key": "About",
     "title": "A Bit About Me",
     "image": "./bio-pic.png",
-    "content": "I began my journey thirteen years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
+    "content": "I began my journey @years years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
   }, {
     "key": "Projects",
     "title": "Projects & Repos",
@@ -37965,7 +37965,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63083" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49246" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
