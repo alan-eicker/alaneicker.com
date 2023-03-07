@@ -1410,13 +1410,28 @@ select {
   }
 }
 body {
-  background: no-repeat 0 bottom/cover url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
+  background: rgb(251, 53, 71);
+  background: linear-gradient(180deg, rgb(251, 53, 71) 0%, rgb(139, 50, 124) 50%, rgb(0, 60, 97) 100%);
+  background-image: url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
+  background-position: 0 bottom;
+  background-size: auto 170%;
+  background-repeat: no-repeat;
   color: #212121;
   font-family: "Merriweather Sans", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.4;
   scroll-behavior: smooth;
+}
+@media (min-width: 768px) {
+  body {
+    background-size: auto 170%;
+  }
+}
+@media (min-width: 1366px) {
+  body {
+    background-size: cover;
+  }
 }
 
 h1,
@@ -1471,7 +1486,7 @@ ul {
 }
 .layout__body {
   background: #ffffff;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   margin: 0 1rem;
   max-width: 80rem;
   padding: 1.5rem;
@@ -1508,7 +1523,7 @@ ul {
   margin-bottom: 0.25rem;
 }
 .hero__title {
-  color: #013f66;
+  color: #fdcd48;
   font-size: 2.8125rem;
   line-height: 1.1;
 }
@@ -1537,7 +1552,6 @@ ul {
     padding-right: 3.125rem;
   }
   .hero__title {
-    color: #fdcd48;
     font-size: 3.4375rem;
   }
   .hero__subtitle {
