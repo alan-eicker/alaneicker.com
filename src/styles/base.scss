@@ -1,4 +1,11 @@
 body {
+  background: rgb(251, 53, 71);
+  background: linear-gradient(
+    180deg,
+    rgba(251, 53, 71, 1) 0%,
+    rgba(139, 50, 124, 1) 50%,
+    rgba(0, 60, 97, 1) 100%
+  );
   background-image: url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
   background-position: 0 bottom;
   background-size: auto 170%;
