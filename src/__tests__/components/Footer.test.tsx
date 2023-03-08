@@ -8,8 +8,6 @@ describe('<Footer />', () => {
     render(
       <Footer
         copyright="Alan Eicker. All rights reserved."
-        emailAddress="alaneicker@email.com"
-        phoneNumber="555-555-5555"
         iconCredits={{
           websiteLinkUrl: 'https://icons8.com',
           websiteLinkText: 'Icons8',
@@ -20,13 +18,6 @@ describe('<Footer />', () => {
     );
 
     expect(screen.getByText(/Alan Eicker. All rights reserved./i));
-    expect(
-      screen.getByRole('link', { name: /alaneicker@email.com/i }),
-    ).toHaveAttribute('href', 'mailto:alaneicker@email.com');
-    expect(screen.getByRole('link', { name: /555-555-5555/i })).toHaveAttribute(
-      'href',
-      'tel:555-555-5555',
-    );
     expect(screen.getByRole('link', { name: /Icons8/i })).toHaveAttribute(
       'href',
       'https://icons8.com',

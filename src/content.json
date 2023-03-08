@@ -14,8 +14,6 @@
   },
   "footer": {
     "copyright": "Alan Eicker. All rights reserved.",
-    "emailAddress": "alaneicker@gmail.com",
-    "phoneNumber": "(224) 622-7278",
     "iconCredits": {
       "websiteLinkUrl": "https://icons8.com",
       "websiteLinkText": "Icons8",
@@ -146,6 +144,13 @@
           "width": "45"
         }
       ]
+    },
+    {
+      "key": "GetInTouch",
+      "title": "Get in Touch",
+      "content": "I'm always interested in new oppotunities. If you think I might be intrigued? Let's talk.",
+      "emailAddress": "alaneicker@gmail.com",
+      "phoneNumber": "(224) 622-7278"
     }
   ]
 }

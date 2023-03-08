@@ -2,8 +2,6 @@ import React from 'react';
 
 type Props = {
   copyright: string;
-  emailAddress: string;
-  phoneNumber: string;
   iconCredits: {
     websiteLinkUrl: string;
     websiteLinkText: string;
@@ -12,19 +10,10 @@ type Props = {
   };
 };
 
-const Footer = ({
-  copyright,
-  emailAddress,
-  phoneNumber,
-  iconCredits,
-}: Props) => (
+const Footer = ({ copyright, iconCredits }: Props) => (
   <footer className="footer">
     <p>
       &copy; {new Date().getFullYear()} {copyright}
-    </p>
-    <p>
-      <a href={`mailto:${emailAddress}`}>{emailAddress}</a> &bull;{' '}
-      <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
     </p>
     <p>
       <a target="_blank" href={iconCredits.iconUrl} rel="noreferrer">

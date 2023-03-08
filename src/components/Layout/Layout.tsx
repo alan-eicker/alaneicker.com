@@ -81,10 +81,16 @@ export type SectionTypes = {
       learning: string[];
     };
   };
+  GetInTouch: {
+    title: string;
+    content: string;
+    emailAddress: string;
+    phoneNumber: string;
+  };
 };
 
-const leftColMatchers = new RegExp(/(About|Career|Projects)/i);
-const rightColMatchers = new RegExp(/(Skills|FindMeOnTheWeb)/i);
+const leftColMatchers = new RegExp(/(About|Career|Projects|FindMeOnTheWeb)/i);
+const rightColMatchers = new RegExp(/(Skills|GetInTouch)/i);
 
 const Layout = ({ content }: LayoutProps) => {
   const leftCol = content.sections
@@ -114,7 +120,7 @@ const Layout = ({ content }: LayoutProps) => {
           <Grid>
             <Row>
               <Col md={7}>{leftCol}</Col>
-              <Col md={1} />
+              <Col md={1}>&nbsp;</Col>
               <Col id="Projects" md={4}>
                 {rightCol}
               </Col>
