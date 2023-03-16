@@ -69,10 +69,7 @@
   "prerender": {
     "routes": [
       "/"
-    ],
-    "rendererConfig": {
-      "renderAfterDocumentEvent": "prerender-trigger"
-    }
+    ]
   },
   "staticFiles": {
     "staticPath": [
