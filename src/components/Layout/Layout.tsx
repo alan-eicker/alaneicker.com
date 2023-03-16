@@ -104,7 +104,7 @@ const Layout = ({ content }: LayoutProps) => {
     .filter((section) => section.key.match(rightColMatchers))
     .map((section) => {
       const Component = Sections[section.key as keyof SectionTypes];
-      return <Component {...section} />;
+      return <Component {...section} id={section.key} />;
     });
 
   return (
