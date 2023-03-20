@@ -5,13 +5,11 @@ import content from './content.json';
 
 const { docTitle, ...layoutContent } = content;
 
-const App = () => {
-  return (
-    <>
-      <DocHead title={docTitle} />
-      <Layout content={layoutContent} />
-    </>
-  );
-};
+const App = () => (
+  <>
+    <DocHead title={docTitle} />
+    <Layout {...layoutContent} />
+  </>
+);
 
 export default App;

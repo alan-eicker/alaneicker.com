@@ -1,17 +1,33 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 type Props = {
   className?: string;
-  title: string;
   children: JSX.Element;
+  sidebar?: JSX.Element;
+  cols?: number[];
+  id?: string;
 };
 
-const Section = ({ className, title, children, ...others }: Props) => (
-  <section className={`section ${className}`} {...others}>
-    <h4 className="section__title">
-      <span className="section__title-text">{title}</span>
-    </h4>
-    {children}
+const Section = ({
+  id,
+  className,
+  children,
+  sidebar,
+  cols = [7, 4],
+}: Props) => (
+  <section id={id} className={`section ${className}`}>
+    <Grid>
+      <Row>
+        <Col md={sidebar ? cols[0] : 12}>{children}</Col>
+        {sidebar && (
+          <>
+            <Col md={1}>&nbsp;</Col>
+            <Col md={cols[1]}>{sidebar}</Col>
+          </>
+        )}
+      </Row>
+    </Grid>
   </section>
 );
 

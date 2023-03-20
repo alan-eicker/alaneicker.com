@@ -25,22 +25,16 @@
 
   &__body {
     background: $white;
-    box-shadow: rem(0 0 5) rgba(0, 0, 0, 0.2);
+    border-radius: rem(8);
     margin: rem(0 16);
     max-width: rem($breakpoint-large);
-    padding: rem(24);
     position: relative;
-    top: rem(-40);
+    top: rem(-50);
   }
 
   @media (min-width: pixel($breakpoint-medium)) {
     &__header {
       height: rem(60);
-    }
-
-    &__body {
-      border-radius: rem(3);
-      padding: rem(36);
     }
   }
 }

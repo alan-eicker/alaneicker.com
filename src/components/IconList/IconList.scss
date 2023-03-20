@@ -1,0 +1,25 @@
+.icon-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    font-size: rem(48);
+    margin: rem(0 16 16 0);
+  }
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--end {
+    justify-content: flex-end;
+  }
+
+  &--between {
+    justify-content: space-between;
+  }
+
+  &--between {
+    justify-content: space-around;
+  }
+}

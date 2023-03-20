@@ -1,3 +1,38 @@
+.has-shadow {
+  box-shadow: rem(0 0 12) rgba(0, 0, 0, 0.15);
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.btn-link {
+  display: inline-block;
+  padding: rem(12 20);
+  background: $black;
+  color: $white;
+  font-size: inherit;
+  font-family: inherit;
+  border-radius: rem(4);
+  text-decoration: none;
+
+  &:hover {
+    background: darken($black, 8%);
+  }
+
+  &:focus {
+    box-shadow: rem(0 0 0 3) $light-cyan;
+  }
+
+  &--magenta {
+    background: $magenta;
+
+    &:hover {
+      background: darken($magenta, 5%);
+    }
+  }
+}
+
 @media (max-width: pixel($breakpoint-medium)) {
   .top-margin-mobile {
     margin-top: rem(60);

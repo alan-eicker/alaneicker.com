@@ -1,22 +1,38 @@
 import React from 'react';
 import Section from '../Section';
+import IconList from '../IconList';
 
 type Props = {
-  title: string;
-  content: string;
-  image: string;
+  bio: {
+    title: string;
+    content: string;
+  };
+  skills: {
+    title: string;
+    items: {
+      name: string;
+      icon: string;
+    }[];
+  }[];
 };
 
-const About = ({ image, title, content, ...others }: Props) => (
-  <Section title={title} {...others}>
-    <div className="about">
-      <img className="about__bio-pic" src={image} alt="Alan Eicker" />
-      {content.split('|').map((paragraph, idx) => (
-        <p key={idx + 1}>
-          {paragraph.replace(/@years/, String(new Date().getFullYear() - 2007))}
-        </p>
-      ))}
-    </div>
+const About = ({ bio, skills }: Props) => (
+  <Section
+    id="about"
+    className="section--purple section--top-rounded"
+    sidebar={
+      <>
+        <h4 className="text-align-center@medium">{skills.title}</h4>
+        <IconList items={skills.items} />
+      </>
+    }
+  >
+    <h4>{bio.title}</h4>
+    {bio.content.split('|').map((paragraph, idx) => (
+      <p key={idx + 1}>
+        {paragraph.replace(/@years/, String(new Date().getFullYear() - 2007))}
+      </p>
+    ))}
   </Section>
 );
 

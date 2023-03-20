@@ -1,4 +1,5 @@
 import React from 'react';
+import IconList from '../IconList';
 
 type Props = {
   copyright: string;
@@ -8,10 +9,16 @@ type Props = {
     iconUrl: string;
     iconName: string;
   };
+  socialLinks: {
+    title: string;
+    url: string;
+    icon: string;
+  }[];
 };
 
-const Footer = ({ copyright, iconCredits }: Props) => (
+const Footer = ({ copyright, iconCredits, socialLinks }: Props) => (
   <footer className="footer">
+    <IconList items={socialLinks} justify="center" />
     <p>
       &copy; {new Date().getFullYear()} {copyright}
     </p>

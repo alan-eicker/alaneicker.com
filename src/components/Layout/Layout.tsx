@@ -1,136 +1,52 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import Header from '../Header';
 import Footer from '../Footer';
 import Hero from '../Hero';
-import * as Sections from '../Sections';
+import About from '../About';
+import Projects from '../Projects';
 
-export type LayoutProps = {
-  content: {
-    header: {
-      title: string;
-      subtitle: string;
-      nav: string[];
-    };
-    hero: {
-      strapline: string;
-      title: string;
-      subtitle: string;
-      text: string;
-    };
-    preface: string;
-    footer: {
-      copyright: string;
-      emailAddress: string;
-      phoneNumber: string;
-    };
-    sections: any[];
-  };
-};
-
-export type SectionTypes = {
-  About: {
+export type Props = {
+  header: {
     title: string;
-    content: string;
+    subtitle: string;
+    nav: string[];
   };
-  Career: {
+  hero: {
+    strapline: string;
     title: string;
-    content: string;
-    resumeUrl: string;
-    companies: {
-      company: string;
-      duration: string;
-    }[];
+    subtitle: string;
+    text: string;
   };
-  FindMeOnTheWeb: {
-    title: string;
-    content: {
-      title: string;
-      url: string;
-      path: string;
-      viewBox: string;
-      fill: string;
-      height: string;
-      width: string;
-    }[];
-  };
-  Projects: {
-    title: string;
-    apiUrl: string;
-    featuredProject: {
-      description: string;
-      title: string;
-      icon?: {
-        viewBox: string;
-        fill: string;
-        path: string;
-        title: string;
-      };
-      url: string;
-      urlText: string;
-    };
-  };
-  Skills: {
-    title: string;
-    skills: {
-      frontEnd: string[];
-      backEnd: string[];
-      fullStack: string[];
-      documentation: string[];
-      sourceControl: string[];
-      learning: string[];
-    };
-  };
-  GetInTouch: {
-    title: string;
-    content: string;
+  preface: string;
+  footer: {
+    copyright: string;
     emailAddress: string;
     phoneNumber: string;
+    socialLinks: {
+      title: string;
+      url: string;
+      icon: string;
+    }[];
   };
+  sections: any;
 };
 
-const leftColMatchers = new RegExp(/(About|Career|Projects|FindMeOnTheWeb)/i);
-const rightColMatchers = new RegExp(/(Skills|GetInTouch)/i);
-
-const Layout = ({ content }: LayoutProps) => {
-  const leftCol = content.sections
-    .filter((section) => section.key.match(leftColMatchers))
-    .map((section) => {
-      const Component = Sections[section.key as keyof SectionTypes];
-      return <Component key={section.id} id={section.key} {...section} />;
-    });
-
-  const rightCol = content.sections
-    .filter((section) => section.key.match(rightColMatchers))
-    .map((section) => {
-      const Component = Sections[section.key as keyof SectionTypes];
-      return <Component {...section} id={section.key} />;
-    });
-
-  return (
-    <div className="layout">
-      <div className="layout__header">
-        <Header {...content.header} />
-      </div>
-      <main className="layout__main">
-        <div className="layout__hero" id="home">
-          <Hero {...content.hero} />
-        </div>
-        <div className="layout__body" tabIndex={0}>
-          <Grid>
-            <Row>
-              <Col md={7}>{leftCol}</Col>
-              <Col md={1}>&nbsp;</Col>
-              <Col id="Projects" md={4}>
-                {rightCol}
-              </Col>
-            </Row>
-          </Grid>
-        </div>
-        <Footer {...content.footer} />
-      </main>
+const Layout = ({ header, footer, hero, sections }: Props) => (
+  <div className="layout">
+    <div className="layout__header">
+      <Header {...header} />
     </div>
-  );
-};
+    <main className="layout__main">
+      <div className="layout__hero" id="home">
+        <Hero {...hero} />
+      </div>
+      <div className="layout__body">
+        <About bio={sections.bio} skills={sections.skills} />
+        <Projects {...sections.projects} />
+      </div>
+      <Footer {...footer} />
+    </main>
+  </div>
+);
 
 export default Layout;
