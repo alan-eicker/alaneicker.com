@@ -15,8 +15,9 @@ const Section = ({
   children,
   sidebar,
   cols = [7, 4],
+  ...other
 }: Props) => (
-  <section id={id} className={`section ${className}`}>
+  <section id={id} className={`section ${className}`} {...other}>
     <Grid>
       <Row>
         <Col md={sidebar ? cols[0] : 12}>{children}</Col>

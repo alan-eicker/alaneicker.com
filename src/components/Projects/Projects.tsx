@@ -16,7 +16,6 @@ const Projects = ({ title, featured }: Props) => (
   <Section
     id="projects"
     cols={[4, 7]}
-    className="top-margin-mobile"
     sidebar={
       <>
         <h4>{title}</h4>
@@ -39,7 +38,7 @@ const Projects = ({ title, featured }: Props) => (
     <img
       className="has-shadow"
       src={featured.image}
-      alt="atomikui screenshot"
+      alt={`${featured.title} screenshot`}
       width="100%"
     />
   </Section>

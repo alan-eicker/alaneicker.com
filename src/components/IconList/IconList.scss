@@ -3,8 +3,11 @@
   flex-wrap: wrap;
 
   & > * {
+    margin: rem(0 18 18 0);
+  }
+
+  & > * i:not(.icon-list--custom-font-size) {
     font-size: rem(48);
-    margin: rem(0 16 16 0);
   }
 
   &--center {

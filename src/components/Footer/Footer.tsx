@@ -18,7 +18,7 @@ type Props = {
 
 const Footer = ({ copyright, iconCredits, socialLinks }: Props) => (
   <footer className="footer">
-    <IconList items={socialLinks} justify="center" />
+    <IconList items={socialLinks} justify="center" size={28} />
     <p>
       &copy; {new Date().getFullYear()} {copyright}
     </p>
