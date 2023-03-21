@@ -9,8 +9,8 @@ import { HeaderProps, HeroProps, FooterProps } from '../../types/components';
 
 export type Props = {
   header: HeaderProps;
-  footer: HeroProps;
-  hero: FooterProps;
+  footer: FooterProps;
+  hero: HeroProps;
   sections: any;
 };
 
