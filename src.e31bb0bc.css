@@ -1536,13 +1536,10 @@ dd {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  padding-top: 3.125rem;
   overflow-y: auto;
-  padding-top: 3.75rem;
   position: relative;
   scroll-behavior: smooth;
-}
-.layout__hero {
-  scroll-margin: 3.75rem;
 }
 .layout__body {
   background: #ffffff;
@@ -1555,6 +1552,7 @@ dd {
 @media (min-width: 768px) {
   .layout {
     background-size: auto 170%;
+    padding-top: 3.75rem;
   }
   .layout__header {
     height: 3.75rem;
@@ -1571,6 +1569,7 @@ dd {
   display: flex;
   justify-content: center;
   padding: 1.875rem 1.25rem 5rem;
+  scroll-margin: 3.75rem;
   width: 100%;
 }
 .hero__content {

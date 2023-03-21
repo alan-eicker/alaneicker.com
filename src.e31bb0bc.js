@@ -30446,6 +30446,7 @@ var Hero = function Hero(_ref) {
     text = _ref.text,
     subtitle = _ref.subtitle;
   return react_1.default.createElement("div", {
+    id: "home",
     className: "hero"
   }, react_1.default.createElement("div", {
     className: "hero__content"
@@ -32052,17 +32053,14 @@ var Layout = function Layout(_ref) {
     footer = _ref.footer,
     hero = _ref.hero,
     sections = _ref.sections;
-  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("main", {
+  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("div", {
     className: "layout"
-  }, react_1.default.createElement("div", {
-    className: "layout__hero",
-    id: "home"
-  }, react_1.default.createElement(Hero_1.default, Object.assign({}, hero))), react_1.default.createElement("div", {
+  }, react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement("div", {
     className: "layout__body"
   }, react_1.default.createElement(About_1.default, {
     bio: sections.bio,
     skills: sections.skills
-  }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer))));
+  }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career)))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer))));
 };
 exports.default = Layout;
 },{"react":"../node_modules/react/index.js","../Header":"components/Header/index.ts","../Footer":"components/Footer/index.ts","../Hero":"components/Hero/index.ts","../About":"components/About/index.ts","../Projects":"components/Projects/index.ts","../Career":"components/Career/index.ts"}],"components/Layout/index.ts":[function(require,module,exports) {
@@ -32396,7 +32394,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62909" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52599" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
