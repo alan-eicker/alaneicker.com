@@ -32165,7 +32165,7 @@ module.exports = {
           content: "Alan is a terrific Front-End developer with excellent knowledge in advanced scripting, CSS, HTML5, and UI architecture. While working with Alan, his attention to detail was very valuable as he worked on many high profile projects. When confronted with a problem, Alan always persevered and would develop components to the website that utilized complex functionality while maintaining flexibility and ease of implementation. I would recommend Alan to any business looking for a solid front-end developer."
         }, {
           referee: "Erik Gloor",
-          jobTitle: "UX Lead as IMO",
+          jobTitle: "UX Lead at IMO",
           content: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of: Can work directly out of Photoshop comps, leveraging all assets therein with zero confusion, follows wire-frames to the letter, focuses like a laser on delivering high-quality front-end code that is virtually indistinguishable from the comp he was handed and does all of this at lightning speed. It was typical for me to send him a Photoshop comp on Tuesday and think he was merely reviewing it when I passed his cubicle on Wednesday when in fact he had already turned the comp in to code -- using CSS to mirror much of the imagery that appeared in the comp. The guy's a killer. If you're smart, you'll put him in charge of your whole front-end team."
         }, {
           referee: "Ena Jenkins",
