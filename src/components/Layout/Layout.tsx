@@ -11,7 +11,9 @@ export type Props = {
   header: HeaderProps;
   footer: FooterProps;
   hero: HeroProps;
-  sections: any;
+  sections: {
+    [key: string]: any;
+  };
 };
 
 const Layout = ({ header, footer, hero, sections }: Props) => (
