@@ -5,18 +5,9 @@ import Hero from '../Hero';
 import About from '../About';
 import Projects from '../Projects';
 import Career from '../Career';
-import { HeaderProps, HeroProps, FooterProps } from '../../types/components';
+import { LayoutProps } from '../../types/components';
 
-export type Props = {
-  header: HeaderProps;
-  footer: FooterProps;
-  hero: HeroProps;
-  sections: {
-    [key: string]: any;
-  };
-};
-
-const Layout = ({ header, footer, hero, sections }: Props) => (
+const Layout = ({ header, footer, hero, sections }: LayoutProps) => (
   <>
     <Header {...header} />
     <main className="layout">

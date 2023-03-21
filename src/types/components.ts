@@ -103,3 +103,12 @@ export type SectionProps = {
   cols?: number[];
   id?: string;
 };
+
+export type LayoutProps = {
+  header: HeaderProps;
+  footer: FooterProps;
+  hero: HeroProps;
+  sections: {
+    [key: string]: any;
+  };
+};
