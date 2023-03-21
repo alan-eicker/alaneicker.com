@@ -29989,7 +29989,501 @@ Object.defineProperty(exports, "default", {
     return __importDefault(DocHead_1).default;
   }
 });
-},{"./DocHead":"components/DocHead/DocHead.tsx"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./DocHead":"components/DocHead/DocHead.tsx"}],"../node_modules/@babel/runtime/helpers/arrayWithHoles.js":[function(require,module,exports) {
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{}],"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":[function(require,module,exports) {
+function _iterableToArrayLimit(arr, i) {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+    return _arr;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{}],"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":[function(require,module,exports) {
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{}],"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":[function(require,module,exports) {
+var arrayLikeToArray = require("./arrayLikeToArray.js");
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./arrayLikeToArray.js":"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js"}],"../node_modules/@babel/runtime/helpers/nonIterableRest.js":[function(require,module,exports) {
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{}],"../node_modules/@babel/runtime/helpers/slicedToArray.js":[function(require,module,exports) {
+var arrayWithHoles = require("./arrayWithHoles.js");
+var iterableToArrayLimit = require("./iterableToArrayLimit.js");
+var unsupportedIterableToArray = require("./unsupportedIterableToArray.js");
+var nonIterableRest = require("./nonIterableRest.js");
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./arrayWithHoles.js":"../node_modules/@babel/runtime/helpers/arrayWithHoles.js","./iterableToArrayLimit.js":"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js","./unsupportedIterableToArray.js":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableRest.js":"../node_modules/@babel/runtime/helpers/nonIterableRest.js"}],"components/Header/Header.tsx":[function(require,module,exports) {
+"use strict";
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = void 0 && (void 0).__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importStar(require("react"));
+var Header = function Header(_ref) {
+  var title = _ref.title,
+    subtitle = _ref.subtitle,
+    nav = _ref.nav,
+    logoImg = _ref.logoImg;
+  var _ref2 = (0, react_1.useState)(''),
+    _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
+    activeLink = _ref3[0],
+    setActiveLink = _ref3[1];
+  return react_1.default.createElement("header", {
+    className: "header"
+  }, react_1.default.createElement("a", {
+    className: "header__logo",
+    href: "/#home",
+    title: "".concat(title, " - ").concat(subtitle),
+    onClick: function onClick() {
+      return setActiveLink('');
+    }
+  }, react_1.default.createElement("img", {
+    src: logoImg,
+    width: "40",
+    alt: "logo"
+  })), react_1.default.createElement("nav", {
+    className: "header__nav"
+  }, react_1.default.createElement("ul", {
+    className: "header__links"
+  }, nav.map(function (link) {
+    var linkText = link.replace('/#', '');
+    return react_1.default.createElement("li", {
+      key: link
+    }, react_1.default.createElement("a", {
+      className: link === activeLink ? 'is-active' : '',
+      href: link,
+      onClick: function onClick() {
+        return setActiveLink(link);
+      }
+    }, linkText));
+  }))));
+};
+exports.default = Header;
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Header/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Header_1 = require("./Header");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Header_1).default;
+  }
+});
+},{"./Header":"components/Header/Header.tsx"}],"../node_modules/@babel/runtime/helpers/toPrimitive.js":[function(require,module,exports) {
+var _typeof = require("./typeof.js")["default"];
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js"}],"../node_modules/@babel/runtime/helpers/toPropertyKey.js":[function(require,module,exports) {
+var _typeof = require("./typeof.js")["default"];
+var toPrimitive = require("./toPrimitive.js");
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js","./toPrimitive.js":"../node_modules/@babel/runtime/helpers/toPrimitive.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+var toPropertyKey = require("./toPropertyKey.js");
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
+var define;
+/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+	var nativeCodeString = '[native code]';
+
+	function classNames() {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				if (arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
+				}
+			} else if (argType === 'object') {
+				if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+					classes.push(arg.toString());
+					continue;
+				}
+
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+		// register as 'classnames', consistent with npm package name
+		define('classnames', [], function () {
+			return classNames;
+		});
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+},{}],"components/IconList/IconList.tsx":[function(require,module,exports) {
+"use strict";
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var classnames_1 = __importDefault(require("classnames"));
+var IconList = function IconList(_ref) {
+  var label = _ref.label,
+    items = _ref.items,
+    justify = _ref.justify,
+    size = _ref.size;
+  return react_1.default.createElement(react_1.default.Fragment, null, label && react_1.default.createElement("p", {
+    className: "screenreader-only"
+  }, label), react_1.default.createElement("ul", {
+    className: (0, classnames_1.default)('icon-list', (0, _defineProperty2.default)({}, "icon-list--".concat(justify), justify))
+  }, items.map(function (item) {
+    return react_1.default.createElement("li", {
+      key: item.icon,
+      className: (0, classnames_1.default)({
+        'icon-list--custom-font-size': size
+      })
+    }, item.url ? react_1.default.createElement("a", {
+      href: item.url,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, react_1.default.createElement("i", {
+      className: item.icon,
+      "aria-hidden": "true",
+      style: {
+        fontSize: size
+      }
+    }), react_1.default.createElement("span", {
+      className: "screenreader-only"
+    }, item.name)) : react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("i", {
+      className: item.icon,
+      "aria-hidden": "true",
+      style: {
+        fontSize: size
+      }
+    }), react_1.default.createElement("span", {
+      className: "screenreader-only"
+    }, item.name)));
+  })));
+};
+exports.default = IconList;
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js"}],"components/IconList/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var IconList_1 = require("./IconList");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(IconList_1).default;
+  }
+});
+},{"./IconList":"components/IconList/IconList.tsx"}],"components/Footer/Footer.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var IconList_1 = __importDefault(require("../IconList"));
+var Footer = function Footer(_ref) {
+  var copyright = _ref.copyright,
+    contactInfo = _ref.contactInfo,
+    iconCredits = _ref.iconCredits,
+    socialLinks = _ref.socialLinks;
+  return react_1.default.createElement("footer", {
+    className: "footer"
+  }, react_1.default.createElement(IconList_1.default, {
+    label: "find me on the web at",
+    items: socialLinks,
+    justify: "center",
+    size: 28
+  }), react_1.default.createElement("p", null, "Call me at ", react_1.default.createElement("a", {
+    href: "tel:".concat(contactInfo.phone)
+  }, contactInfo.phone), " or email me at", ' ', react_1.default.createElement("a", {
+    href: "mailto:".concat(contactInfo.email)
+  }, contactInfo.email)), react_1.default.createElement("p", null, "\xA9 ", new Date().getFullYear(), " ", copyright), react_1.default.createElement("p", null, react_1.default.createElement("a", {
+    target: "_blank",
+    href: iconCredits.iconUrl,
+    rel: "noreferrer"
+  }, iconCredits.iconName), ' ', "icon by", ' ', react_1.default.createElement("a", {
+    target: "_blank",
+    href: iconCredits.websiteLinkUrl,
+    rel: "noreferrer"
+  }, iconCredits.websiteLinkText)));
+};
+exports.default = Footer;
+},{"react":"../node_modules/react/index.js","../IconList":"components/IconList/index.ts"}],"components/Footer/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Footer_1 = require("./Footer");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Footer_1).default;
+  }
+});
+},{"./Footer":"components/Footer/Footer.tsx"}],"components/Preface/Preface.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var Preface = function Preface(_ref) {
+  var text = _ref.text;
+  return react_1.default.createElement("div", {
+    className: "preface"
+  }, react_1.default.createElement("div", {
+    className: "preface__content"
+  }, text));
+};
+exports.default = Preface;
+},{"react":"../node_modules/react/index.js"}],"components/Preface/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Preface_1 = require("./Preface");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Preface_1).default;
+  }
+});
+},{"./Preface":"components/Preface/Preface.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var Preface_1 = __importDefault(require("../Preface"));
+var Hero = function Hero(_ref) {
+  var strapline = _ref.strapline,
+    title = _ref.title,
+    text = _ref.text,
+    subtitle = _ref.subtitle;
+  return react_1.default.createElement("div", {
+    className: "hero"
+  }, react_1.default.createElement("div", {
+    className: "hero__content"
+  }, react_1.default.createElement("div", {
+    className: "hero__header"
+  }, react_1.default.createElement("h1", {
+    className: "hero__strapline"
+  }, strapline), react_1.default.createElement("h2", {
+    className: "hero__title"
+  }, title), react_1.default.createElement("h3", {
+    className: "hero__subtitle"
+  }, subtitle)), react_1.default.createElement("div", {
+    className: "hero__text"
+  }, react_1.default.createElement(Preface_1.default, {
+    text: text.replace('[years]', String(new Date().getFullYear() - 2007))
+  }))));
+};
+exports.default = Hero;
+},{"react":"../node_modules/react/index.js","../Preface":"components/Preface/index.ts"}],"components/Hero/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Hero_1 = require("./Hero");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Hero_1).default;
+  }
+});
+},{"./Hero":"components/Hero/Hero.tsx"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -31284,315 +31778,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.Grid = _Grid3.default;
 exports.Row = _Row3.default;
 exports.Col = _Col3.default;
-},{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"../node_modules/@babel/runtime/helpers/arrayWithHoles.js":[function(require,module,exports) {
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":[function(require,module,exports) {
-function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
-    try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
-    } catch (err) {
-      _d = !0, _e = err;
-    } finally {
-      try {
-        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-    return _arr;
-  }
-}
-module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":[function(require,module,exports) {
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":[function(require,module,exports) {
-var arrayLikeToArray = require("./arrayLikeToArray.js");
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./arrayLikeToArray.js":"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js"}],"../node_modules/@babel/runtime/helpers/nonIterableRest.js":[function(require,module,exports) {
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{}],"../node_modules/@babel/runtime/helpers/slicedToArray.js":[function(require,module,exports) {
-var arrayWithHoles = require("./arrayWithHoles.js");
-var iterableToArrayLimit = require("./iterableToArrayLimit.js");
-var unsupportedIterableToArray = require("./unsupportedIterableToArray.js");
-var nonIterableRest = require("./nonIterableRest.js");
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./arrayWithHoles.js":"../node_modules/@babel/runtime/helpers/arrayWithHoles.js","./iterableToArrayLimit.js":"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js","./unsupportedIterableToArray.js":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableRest.js":"../node_modules/@babel/runtime/helpers/nonIterableRest.js"}],"components/Header/Header.tsx":[function(require,module,exports) {
-"use strict";
-
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  __setModuleDefault(result, mod);
-  return result;
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importStar(require("react"));
-var Header = function Header(_ref) {
-  var title = _ref.title,
-    subtitle = _ref.subtitle,
-    nav = _ref.nav,
-    logoImg = _ref.logoImg;
-  var _ref2 = (0, react_1.useState)(''),
-    _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
-    activeLink = _ref3[0],
-    setActiveLink = _ref3[1];
-  return react_1.default.createElement("header", {
-    className: "header"
-  }, react_1.default.createElement("a", {
-    className: "header__logo",
-    href: "/#home",
-    title: "".concat(title, " - ").concat(subtitle),
-    onClick: function onClick() {
-      return setActiveLink('');
-    }
-  }, react_1.default.createElement("img", {
-    src: logoImg,
-    width: "40",
-    alt: "logo"
-  })), react_1.default.createElement("nav", {
-    className: "header__nav"
-  }, react_1.default.createElement("ul", {
-    className: "header__links"
-  }, nav.map(function (link) {
-    var linkText = link.replace('/#', '');
-    return react_1.default.createElement("li", {
-      key: link
-    }, react_1.default.createElement("a", {
-      className: link === activeLink ? 'is-active' : '',
-      href: link,
-      onClick: function onClick() {
-        return setActiveLink(link);
-      }
-    }, linkText));
-  }))));
-};
-exports.default = Header;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Header/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Header_1 = require("./Header");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Header_1).default;
-  }
-});
-},{"./Header":"components/Header/Header.tsx"}],"components/Footer/Footer.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Footer = function Footer(_ref) {
-  var copyright = _ref.copyright,
-    iconCredits = _ref.iconCredits;
-  return react_1.default.createElement("footer", {
-    className: "footer"
-  }, react_1.default.createElement("p", null, "\xA9 ", new Date().getFullYear(), " ", copyright), react_1.default.createElement("p", null, react_1.default.createElement("a", {
-    target: "_blank",
-    href: iconCredits.iconUrl,
-    rel: "noreferrer"
-  }, iconCredits.iconName), ' ', "icon by", ' ', react_1.default.createElement("a", {
-    target: "_blank",
-    href: iconCredits.websiteLinkUrl,
-    rel: "noreferrer"
-  }, iconCredits.websiteLinkText)));
-};
-exports.default = Footer;
-},{"react":"../node_modules/react/index.js"}],"components/Footer/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Footer_1 = require("./Footer");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Footer_1).default;
-  }
-});
-},{"./Footer":"components/Footer/Footer.tsx"}],"components/Preface/Preface.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Preface = function Preface(_ref) {
-  var text = _ref.text;
-  return react_1.default.createElement("div", {
-    className: "preface"
-  }, react_1.default.createElement("div", {
-    className: "preface__content"
-  }, text));
-};
-exports.default = Preface;
-},{"react":"../node_modules/react/index.js"}],"components/Preface/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Preface_1 = require("./Preface");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Preface_1).default;
-  }
-});
-},{"./Preface":"components/Preface/Preface.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Preface_1 = __importDefault(require("../Preface"));
-var Hero = function Hero(_ref) {
-  var strapline = _ref.strapline,
-    title = _ref.title,
-    text = _ref.text,
-    subtitle = _ref.subtitle;
-  return react_1.default.createElement("div", {
-    className: "hero"
-  }, react_1.default.createElement("div", {
-    className: "hero__content"
-  }, react_1.default.createElement("div", {
-    className: "hero__header"
-  }, react_1.default.createElement("h1", {
-    className: "hero__strapline"
-  }, strapline), react_1.default.createElement("h2", {
-    className: "hero__title"
-  }, title), react_1.default.createElement("h3", {
-    className: "hero__subtitle"
-  }, subtitle)), react_1.default.createElement("div", {
-    className: "hero__text"
-  }, react_1.default.createElement(Preface_1.default, {
-    text: text.replace('[years]', String(new Date().getFullYear() - 2007))
-  }))));
-};
-exports.default = Hero;
-},{"react":"../node_modules/react/index.js","../Preface":"components/Preface/index.ts"}],"components/Hero/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Hero_1 = require("./Hero");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Hero_1).default;
-  }
-});
-},{"./Hero":"components/Hero/Hero.tsx"}],"components/Section/Section.tsx":[function(require,module,exports) {
+},{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"components/Section/Section.tsx":[function(require,module,exports) {
 "use strict";
 
 var __rest = this && this.__rest || function (s, e) {
@@ -31612,21 +31798,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var react_1 = __importDefault(require("react"));
+var classnames_1 = __importDefault(require("classnames"));
+var react_flexbox_grid_1 = require("react-flexbox-grid");
 var Section = function Section(_a) {
-  var className = _a.className,
-    title = _a.title,
+  var id = _a.id,
+    className = _a.className,
     children = _a.children,
-    others = __rest(_a, ["className", "title", "children"]);
+    sidebar = _a.sidebar,
+    _a$cols = _a.cols,
+    cols = _a$cols === void 0 ? [7, 4] : _a$cols,
+    other = __rest(_a, ["id", "className", "children", "sidebar", "cols"]);
   return react_1.default.createElement("section", Object.assign({
-    className: "section ".concat(className)
-  }, others), react_1.default.createElement("h4", {
-    className: "section__title"
-  }, react_1.default.createElement("span", {
-    className: "section__title-text"
-  }, title)), children);
+    id: id,
+    className: (0, classnames_1.default)('section', className)
+  }, other), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: sidebar ? cols[0] : 12
+  }, children), sidebar && react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 1
+  }, "\xA0"), react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: cols[1]
+  }, sidebar)))));
 };
 exports.default = Section;
-},{"react":"../node_modules/react/index.js"}],"components/Section/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js"}],"components/Section/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31648,14 +31842,6 @@ Object.defineProperty(exports, "default", {
 },{"./Section":"components/Section/Section.tsx"}],"components/About/About.tsx":[function(require,module,exports) {
 "use strict";
 
-var __rest = this && this.__rest || function (s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -31666,27 +31852,26 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var Section_1 = __importDefault(require("../Section"));
-var About = function About(_a) {
-  var image = _a.image,
-    title = _a.title,
-    content = _a.content,
-    others = __rest(_a, ["image", "title", "content"]);
-  return react_1.default.createElement(Section_1.default, Object.assign({
-    title: title
-  }, others), react_1.default.createElement("div", {
-    className: "about"
-  }, react_1.default.createElement("img", {
-    className: "about__bio-pic",
-    src: image,
-    alt: "Alan Eicker"
-  }), content.split('|').map(function (paragraph, idx) {
+var IconList_1 = __importDefault(require("../IconList"));
+var About = function About(_ref) {
+  var bio = _ref.bio,
+    skills = _ref.skills;
+  return react_1.default.createElement(Section_1.default, {
+    id: "about",
+    className: "section--purple section--top-rounded",
+    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
+      className: "text-align-center@medium"
+    }, skills.title), react_1.default.createElement(IconList_1.default, {
+      items: skills.items
+    }))
+  }, react_1.default.createElement("h4", null, bio.title), bio.content.split('|').map(function (paragraph, idx) {
     return react_1.default.createElement("p", {
       key: idx + 1
     }, paragraph.replace(/@years/, String(new Date().getFullYear() - 2007)));
-  })));
+  }));
 };
 exports.default = About;
-},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/About/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","../IconList":"components/IconList/index.ts"}],"components/About/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31708,14 +31893,6 @@ Object.defineProperty(exports, "default", {
 },{"./About":"components/About/About.tsx"}],"components/Projects/Projects.tsx":[function(require,module,exports) {
 "use strict";
 
-var __rest = this && this.__rest || function (s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -31726,41 +31903,28 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var Section_1 = __importDefault(require("../Section"));
-var Projects = function Projects(_a) {
-  var apiUrl = _a.apiUrl,
-    projects = _a.projects,
-    title = _a.title,
-    others = __rest(_a, ["apiUrl", "projects", "title"]);
-  return react_1.default.createElement(Section_1.default, Object.assign({
-    className: "top-margin-mobile",
-    title: title
-  }, others), react_1.default.createElement("div", {
-    className: "projects"
-  }, projects.map(function (_ref) {
-    var projectTile = _ref.title,
-      image = _ref.image,
-      description = _ref.description,
-      url = _ref.url,
-      urlText = _ref.urlText;
-    return react_1.default.createElement("div", {
-      className: "projects__card",
-      key: projectTile
-    }, react_1.default.createElement("div", {
-      className: "projects__card__bd"
-    }, react_1.default.createElement("h3", {
-      className: "projects__card__title"
-    }, projectTile), react_1.default.createElement("p", null, description), react_1.default.createElement("p", null, react_1.default.createElement("a", {
-      href: url,
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, urlText))), react_1.default.createElement("div", {
-      className: "projects__card__ft"
-    }, react_1.default.createElement("img", {
-      className: "projects__card__img",
-      src: image,
-      alt: "".concat(title, " screenshot")
-    })));
-  })));
+var Projects = function Projects(_ref) {
+  var title = _ref.title,
+    featured = _ref.featured;
+  return react_1.default.createElement(Section_1.default, {
+    id: "projects",
+    cols: [4, 7],
+    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, title), react_1.default.createElement("h5", {
+      className: "no-margin"
+    }, featured.title), react_1.default.createElement("h6", {
+      className: "no-margin"
+    }, featured.subtitle), react_1.default.createElement("p", null, featured.content), react_1.default.createElement("p", null, react_1.default.createElement("a", {
+      className: "btn-link btn-link--magenta",
+      href: featured.url,
+      rel: "noopener noreferrer",
+      target: "_blank"
+    }, featured.urlText)))
+  }, react_1.default.createElement("img", {
+    className: "has-shadow",
+    src: featured.image,
+    alt: "".concat(featured.title, " screenshot"),
+    width: "100%"
+  }));
 };
 exports.default = Projects;
 },{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
@@ -31782,142 +31946,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Projects_1).default;
   }
 });
-},{"./Projects":"components/Projects/Projects.tsx"}],"utils/string.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.toSentenceCase = void 0;
-var toSentenceCase = function toSentenceCase(str) {
-  var result = str.replace(/([A-Z])/g, ' $1');
-  return result.charAt(0).toUpperCase() + result.slice(1);
-};
-exports.toSentenceCase = toSentenceCase;
-},{}],"components/SkillCard/SkillCard.tsx":[function(require,module,exports) {
-"use strict";
-
-var __rest = this && this.__rest || function (s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var string_1 = require("../../utils/string");
-var SkillCard = function SkillCard(_a) {
-  var category = _a.category,
-    list = _a.list,
-    others = __rest(_a, ["category", "list"]);
-  return react_1.default.createElement("div", Object.assign({
-    className: "skill-card"
-  }, others), react_1.default.createElement("div", {
-    className: "skill-card__head"
-  }, (0, string_1.toSentenceCase)(category)), react_1.default.createElement("div", {
-    className: "skill-card__body"
-  }, list.map(function (item) {
-    return react_1.default.createElement("div", {
-      key: item,
-      className: "skill-card__item"
-    }, item);
-  })));
-};
-exports.default = SkillCard;
-},{"react":"../node_modules/react/index.js","../../utils/string":"utils/string.ts"}],"components/SkillCard/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var SkillCard_1 = require("./SkillCard");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(SkillCard_1).default;
-  }
-});
-},{"./SkillCard":"components/SkillCard/SkillCard.tsx"}],"components/Skills/Skills.tsx":[function(require,module,exports) {
-"use strict";
-
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Section_1 = __importDefault(require("../Section"));
-var SkillCard_1 = __importDefault(require("../SkillCard"));
-var Skills = function Skills(_a) {
-  var title = _a.title,
-    skills = _a.skills,
-    others = __rest(_a, ["title", "skills"]);
-  return react_1.default.createElement(Section_1.default, Object.assign({
-    title: title
-  }, others), react_1.default.createElement("div", {
-    className: "skills"
-  }, react_1.default.createElement("div", {
-    className: "skills__list"
-  }, Object.entries(skills).map(function (_ref) {
-    var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
-      category = _ref2[0],
-      list = _ref2[1];
-    return react_1.default.createElement(SkillCard_1.default, {
-      key: category,
-      category: category,
-      list: list
-    });
-  }))));
-};
-exports.default = Skills;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","../SkillCard":"components/SkillCard/index.ts"}],"components/Skills/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Skills_1 = require("./Skills");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Skills_1).default;
-  }
-});
-},{"./Skills":"components/Skills/Skills.tsx"}],"components/Career/Career.tsx":[function(require,module,exports) {
+},{"./Projects":"components/Projects/Projects.tsx"}],"components/Career/Career.tsx":[function(require,module,exports) {
 "use strict";
 
 var __rest = this && this.__rest || function (s, e) {
@@ -31939,29 +31968,46 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 var Section_1 = __importDefault(require("../Section"));
 var Career = function Career(_a) {
-  var companies = _a.companies,
-    title = _a.title,
-    resumeUrl = _a.resumeUrl,
-    content = _a.content,
-    others = __rest(_a, ["companies", "title", "resumeUrl", "content"]);
+  var resume = _a.resume,
+    referrals = _a.referrals,
+    others = __rest(_a, ["resume", "referrals"]);
   return react_1.default.createElement(Section_1.default, Object.assign({
-    title: title
-  }, others), react_1.default.createElement("div", {
-    className: "career"
-  }, react_1.default.createElement("p", null, content), react_1.default.createElement("ul", {
-    className: "career__list"
-  }, companies.map(function (_ref) {
-    var company = _ref.company,
-      duration = _ref.duration,
-      positionHeld = _ref.positionHeld;
-    return react_1.default.createElement("li", {
-      key: company
-    }, react_1.default.createElement("h4", null, company, " \u2022 ", react_1.default.createElement("span", null, duration)), positionHeld);
-  })), react_1.default.createElement("a", {
-    href: resumeUrl,
-    target: "_blank",
-    rel: "noopener noreferrer"
-  }, "View my resum\xE9")));
+    id: "career",
+    className: "section--light-gray"
+  }, others, {
+    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, resume.title), react_1.default.createElement("dl", {
+      className: "career-list"
+    }, resume.items.map(function (_ref) {
+      var company = _ref.company,
+        duration = _ref.duration,
+        positionHeld = _ref.positionHeld;
+      return react_1.default.createElement(react_1.default.Fragment, {
+        key: company
+      }, react_1.default.createElement("dt", {
+        className: "bold"
+      }, company), react_1.default.createElement("dd", {
+        className: "semibold"
+      }, duration), react_1.default.createElement("dd", null, positionHeld));
+    })), react_1.default.createElement("a", {
+      className: "btn-link btn-link--magenta",
+      href: resume.resumeDownloadUrl,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "View my Resum\xE9"))
+  }), react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", {
+    className: "career-list"
+  }, referrals.items.map(function (_ref2) {
+    var referee = _ref2.referee,
+      jobTitle = _ref2.jobTitle,
+      content = _ref2.content;
+    return react_1.default.createElement(react_1.default.Fragment, {
+      key: referee
+    }, react_1.default.createElement("dt", {
+      className: "bold"
+    }, referee), react_1.default.createElement("dd", {
+      className: "semibold"
+    }, jobTitle), react_1.default.createElement("dd", null, react_1.default.createElement("p", null, content)));
+  }))));
 };
 exports.default = Career;
 },{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/Career/index.ts":[function(require,module,exports) {
@@ -31983,7 +32029,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Career_1).default;
   }
 });
-},{"./Career":"components/Career/Career.tsx"}],"components/SocialMediaItem/SocialMediaItem.tsx":[function(require,module,exports) {
+},{"./Career":"components/Career/Career.tsx"}],"components/Layout/Layout.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31995,317 +32041,31 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var react_1 = __importDefault(require("react"));
-var SocialMediaItem = function SocialMediaItem(_ref) {
-  var title = _ref.title,
-    url = _ref.url,
-    path = _ref.path,
-    viewBox = _ref.viewBox,
-    fill = _ref.fill,
-    height = _ref.height,
-    width = _ref.width;
-  return react_1.default.createElement("div", {
-    className: "social-media-item"
-  }, react_1.default.createElement("a", {
-    className: "social-media-item__link",
-    href: url,
-    target: "_blank",
-    rel: "noopener noreferrer",
-    title: title
-  }, react_1.default.createElement("svg", {
-    "aria-hidden": "true",
-    className: "margin-top-4",
-    fill: fill,
-    height: height,
-    width: width,
-    viewBox: viewBox,
-    enableBackground: "new ".concat(viewBox),
-    xmlns: "https://www.w3.org/2000/svg"
-  }, react_1.default.createElement("path", {
-    d: path
-  })), react_1.default.createElement("div", null, title)));
-};
-exports.default = SocialMediaItem;
-},{"react":"../node_modules/react/index.js"}],"components/SocialMediaItem/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var SocialMediaItem_1 = require("./SocialMediaItem");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(SocialMediaItem_1).default;
-  }
-});
-},{"./SocialMediaItem":"components/SocialMediaItem/SocialMediaItem.tsx"}],"components/FindMeOnTheWeb/FindMeOnTheWeb.tsx":[function(require,module,exports) {
-"use strict";
-
-var __rest = this && this.__rest || function (s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var react_flexbox_grid_1 = require("react-flexbox-grid");
-var Section_1 = __importDefault(require("../Section"));
-var SocialMediaItem_1 = __importDefault(require("../SocialMediaItem"));
-var FindMeOnTheWeb = function FindMeOnTheWeb(_a) {
-  var title = _a.title,
-    content = _a.content,
-    others = __rest(_a, ["title", "content"]);
-  return react_1.default.createElement(Section_1.default, Object.assign({
-    title: title
-  }, others), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, content.map(function (item) {
-    return react_1.default.createElement(react_flexbox_grid_1.Col, {
-      xs: 6,
-      sm: 6,
-      md: 3,
-      key: item.title,
-      style: {
-        paddingBottom: 16
-      }
-    }, react_1.default.createElement(SocialMediaItem_1.default, Object.assign({}, item)));
-  }))));
-};
-exports.default = FindMeOnTheWeb;
-},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts","../SocialMediaItem":"components/SocialMediaItem/index.ts"}],"components/FindMeOnTheWeb/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var FindMeOnTheWeb_1 = require("./FindMeOnTheWeb");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(FindMeOnTheWeb_1).default;
-  }
-});
-},{"./FindMeOnTheWeb":"components/FindMeOnTheWeb/FindMeOnTheWeb.tsx"}],"components/GetInTouch/GetInTouch.tsx":[function(require,module,exports) {
-"use strict";
-
-var __rest = this && this.__rest || function (s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Section_1 = __importDefault(require("../Section"));
-var GetInTouch = function GetInTouch(_a) {
-  var title = _a.title,
-    emailAddress = _a.emailAddress,
-    phoneNumber = _a.phoneNumber,
-    content = _a.content,
-    others = __rest(_a, ["title", "emailAddress", "phoneNumber", "content"]);
-  return react_1.default.createElement(Section_1.default, Object.assign({
-    title: title
-  }, others), react_1.default.createElement("p", null, content), react_1.default.createElement("p", null, react_1.default.createElement("b", null, "Phone:"), " ", react_1.default.createElement("a", {
-    href: "tel:".concat(phoneNumber)
-  }, phoneNumber), react_1.default.createElement("br", null), react_1.default.createElement("b", null, "Email:"), " ", react_1.default.createElement("a", {
-    href: "tel:".concat(emailAddress)
-  }, emailAddress)));
-};
-exports.default = GetInTouch;
-},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/GetInTouch/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var GetInTouch_1 = require("./GetInTouch");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(GetInTouch_1).default;
-  }
-});
-},{"./GetInTouch":"components/GetInTouch/GetInTouch.tsx"}],"components/Sections.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.GetInTouch = exports.FindMeOnTheWeb = exports.Career = exports.Skills = exports.Projects = exports.About = void 0;
-var About_1 = require("./About");
-Object.defineProperty(exports, "About", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(About_1).default;
-  }
-});
-var Projects_1 = require("./Projects");
-Object.defineProperty(exports, "Projects", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Projects_1).default;
-  }
-});
-var Skills_1 = require("./Skills");
-Object.defineProperty(exports, "Skills", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Skills_1).default;
-  }
-});
-var Career_1 = require("./Career");
-Object.defineProperty(exports, "Career", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Career_1).default;
-  }
-});
-var FindMeOnTheWeb_1 = require("./FindMeOnTheWeb");
-Object.defineProperty(exports, "FindMeOnTheWeb", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(FindMeOnTheWeb_1).default;
-  }
-});
-var GetInTouch_1 = require("./GetInTouch");
-Object.defineProperty(exports, "GetInTouch", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(GetInTouch_1).default;
-  }
-});
-},{"./About":"components/About/index.ts","./Projects":"components/Projects/index.ts","./Skills":"components/Skills/index.ts","./Career":"components/Career/index.ts","./FindMeOnTheWeb":"components/FindMeOnTheWeb/index.ts","./GetInTouch":"components/GetInTouch/index.ts"}],"components/Layout/Layout.tsx":[function(require,module,exports) {
-"use strict";
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  __setModuleDefault(result, mod);
-  return result;
-};
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var react_flexbox_grid_1 = require("react-flexbox-grid");
 var Header_1 = __importDefault(require("../Header"));
 var Footer_1 = __importDefault(require("../Footer"));
 var Hero_1 = __importDefault(require("../Hero"));
-var Sections = __importStar(require("../Sections"));
-var leftColMatchers = new RegExp(/(About|Career|Projects|FindMeOnTheWeb)/i);
-var rightColMatchers = new RegExp(/(Skills|GetInTouch)/i);
+var About_1 = __importDefault(require("../About"));
+var Projects_1 = __importDefault(require("../Projects"));
+var Career_1 = __importDefault(require("../Career"));
 var Layout = function Layout(_ref) {
-  var content = _ref.content;
-  var leftCol = content.sections.filter(function (section) {
-    return section.key.match(leftColMatchers);
-  }).map(function (section) {
-    var Component = Sections[section.key];
-    return react_1.default.createElement(Component, Object.assign({
-      key: section.id,
-      id: section.key
-    }, section));
-  });
-  var rightCol = content.sections.filter(function (section) {
-    return section.key.match(rightColMatchers);
-  }).map(function (section) {
-    var Component = Sections[section.key];
-    return react_1.default.createElement(Component, Object.assign({}, section, {
-      id: section.key
-    }));
-  });
-  return react_1.default.createElement("div", {
+  var header = _ref.header,
+    footer = _ref.footer,
+    hero = _ref.hero,
+    sections = _ref.sections;
+  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("main", {
     className: "layout"
-  }, react_1.default.createElement("div", {
-    className: "layout__header"
-  }, react_1.default.createElement(Header_1.default, Object.assign({}, content.header))), react_1.default.createElement("main", {
-    className: "layout__main"
   }, react_1.default.createElement("div", {
     className: "layout__hero",
     id: "home"
-  }, react_1.default.createElement(Hero_1.default, Object.assign({}, content.hero))), react_1.default.createElement("div", {
-    className: "layout__body",
-    tabIndex: 0
-  }, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
-    md: 7
-  }, leftCol), react_1.default.createElement(react_flexbox_grid_1.Col, {
-    md: 1
-  }, "\xA0"), react_1.default.createElement(react_flexbox_grid_1.Col, {
-    id: "Projects",
-    md: 4
-  }, rightCol)))), react_1.default.createElement(Footer_1.default, Object.assign({}, content.footer))));
+  }, react_1.default.createElement(Hero_1.default, Object.assign({}, hero))), react_1.default.createElement("div", {
+    className: "layout__body"
+  }, react_1.default.createElement(About_1.default, {
+    bio: sections.bio,
+    skills: sections.skills
+  }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer))));
 };
 exports.default = Layout;
-},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Header":"components/Header/index.ts","../Footer":"components/Footer/index.ts","../Hero":"components/Hero/index.ts","../Sections":"components/Sections.ts"}],"components/Layout/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Header":"components/Header/index.ts","../Footer":"components/Footer/index.ts","../Hero":"components/Hero/index.ts","../About":"components/About/index.ts","../Projects":"components/Projects/index.ts","../Career":"components/Career/index.ts"}],"components/Layout/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -32324,133 +32084,157 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Layout_1).default;
   }
 });
-},{"./Layout":"components/Layout/Layout.tsx"}],"content.json":[function(require,module,exports) {
+},{"./Layout":"components/Layout/Layout.tsx"}],"content.yml":[function(require,module,exports) {
 module.exports = {
-  "docTitle": "Alan Eicker | Front End Engineer",
-  "header": {
-    "title": "Alan Eicker",
-    "subtitle": "Front End Engineer",
-    "logoImg": "/beard.png",
-    "nav": ["/#About", "/#Skills", "/#Projects", "/#Career"]
+  docTitle: "Alan Eicker | Front End Engineer",
+  header: {
+    title: "Alan Eicker",
+    subtitle: "Front End Engineer",
+    logoImg: "/beard.png",
+    nav: ["/#about", "/#projects", "/#career"]
   },
-  "hero": {
-    "strapline": "Hi, my name is",
-    "title": "Alan Eicker.",
-    "subtitle": "I Bring User Experiences to Life.",
-    "text": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
+  hero: {
+    strapline: "Hi, my name is",
+    title: "Alan Eicker.",
+    subtitle: "I Bring User Experiences to Life.",
+    text: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
   },
-  "footer": {
-    "copyright": "Alan Eicker. All rights reserved.",
-    "iconCredits": {
-      "websiteLinkUrl": "https://icons8.com",
-      "websiteLinkText": "Icons8",
-      "iconUrl": "https://icons8.com/icon/OySmsSdy3UZN/beard",
-      "iconName": "Beard"
+  footer: {
+    copyright: "Alan Eicker. All rights reserved.",
+    contactInfo: {
+      email: "alaneicker@gmail.com",
+      phone: "224-622-7278"
+    },
+    iconCredits: {
+      websiteLinkUrl: "https://icons8.com",
+      websiteLinkText: "Icons8",
+      iconUrl: "https://icons8.com/icon/OySmsSdy3UZN/beard",
+      iconName: "Beard"
+    },
+    socialLinks: [{
+      name: "GitHub",
+      url: "https://github.com/alaneicker1975?tab=repositories",
+      icon: "devicon-github-original"
+    }, {
+      name: "CodePen",
+      url: "https://codepen.io/alaneicker",
+      icon: "devicon-codepen-plain"
+    }, {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/in/alaneicker",
+      icon: "devicon-linkedin-plain"
+    }]
+  },
+  preface: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of.",
+  sections: {
+    bio: {
+      title: "A Bit About Me",
+      content: "I began my journey @years years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
+    },
+    career: {
+      resume: {
+        title: "Companies I've Worked for",
+        resumeDownloadUrl: "alan-eicker-resume.pdf",
+        items: [{
+          company: "Allstate Insurance",
+          duration: "Mar 2015 - Present",
+          positionHeld: "Senior/Lead Software Engineer (Front-End)"
+        }, {
+          company: "RealPage",
+          duration: "Apr 2012 - Mar 2015",
+          positionHeld: "Senior/Lead Front-End Engineer"
+        }, {
+          company: "Restaurant.com",
+          duration: "Nov 2010 - Apr 2012",
+          positionHeld: "Senior Front-End Engineer"
+        }, {
+          company: "optionsXpress (now Charles Schwab)",
+          duration: "Feb 2008 - Nov 2010",
+          positionHeld: "Web Designer / Front-End Engineer"
+        }, {
+          company: "Leader Graphic Design",
+          duration: " Mar 2007 - Feb 2008",
+          positionHeld: "Web Designer / Front-End Engineer"
+        }]
+      },
+      referrals: {
+        title: "What Others are Saying",
+        items: [{
+          referee: "Matt Adolf",
+          jobTitle: "Manager of Creative Technology at Allstate",
+          content: "Alan is a terrific Front-End developer with excellent knowledge in advanced scripting, CSS, HTML5, and UI architecture. While working with Alan, his attention to detail was very valuable as he worked on many high profile projects. When confronted with a problem, Alan always persevered and would develop components to the website that utilized complex functionality while maintaining flexibility and ease of implementation. I would recommend Alan to any business looking for a solid front-end developer."
+        }, {
+          referee: "Erik Gloor",
+          jobTitle: "UX Lead as IMO",
+          content: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of: Can work directly out of Photoshop comps, leveraging all assets therein with zero confusion, follows wire-frames to the letter, focuses like a laser on delivering high-quality front-end code that is virtually indistinguishable from the comp he was handed and does all of this at lightning speed. It was typical for me to send him a Photoshop comp on Tuesday and think he was merely reviewing it when I passed his cubicle on Wednesday when in fact he had already turned the comp in to code -- using CSS to mirror much of the imagery that appeared in the comp. The guy's a killer. If you're smart, you'll put him in charge of your whole front-end team."
+        }, {
+          referee: "Ena Jenkins",
+          jobTitle: "UX Engineer",
+          content: "Alan is a beast of a developer. Seriously. The guy is a cyborg or something.  He is fearless when it comes to technology. I don't think there is any problem you can throw at Alan that he can't handle. All you have to say is \"Hey Alan... do you think it's possible?\" His response: \"Probably... just gimme a minute to figure it out\". Fearless. "
+        }]
+      }
+    },
+    projects: {
+      title: "Featured Project",
+      featured: {
+        subtitle: "An open source library of React components for rapid application development.",
+        content: "Atomik UI was a project that I began working on in March of 2020 at the begining of the Covid pandemic. It has always been something I wanted to do, and after 7 months of hard work, I published it to NPM along with the Atomik UI Core Sass Library.",
+        url: "https://www.atomikui.com",
+        urlText: "View Documentation",
+        title: "Atomik UI",
+        image: "./atomikui.png"
+      }
+    },
+    skills: {
+      title: "Areas of Expertise",
+      items: [{
+        name: "HTML5",
+        icon: "devicon-html5-plain"
+      }, {
+        name: "CSS3",
+        icon: "devicon-css3-plain"
+      }, {
+        name: "JavaScript",
+        icon: "devicon-javascript-plain"
+      }, {
+        name: "TypeScript",
+        icon: "devicon-typescript-plain"
+      }, {
+        name: "React",
+        icon: "devicon-react-original"
+      }, {
+        name: "Redux",
+        icon: "devicon-redux-original"
+      }, {
+        name: "GraphQL",
+        icon: "devicon-graphql-plain"
+      }, {
+        name: "Node.js",
+        icon: "devicon-nodejs-plain"
+      }, {
+        name: "Express",
+        icon: "devicon-express-original"
+      }, {
+        name: "PostgreSQL",
+        icon: "devicon-postgresql-plain"
+      }, {
+        name: "MongoDB",
+        icon: "devicon-mongodb-plain"
+      }, {
+        name: "Git",
+        icon: "devicon-git-plain"
+      }, {
+        name: "GitHub",
+        icon: "devicon-github-original"
+      }, {
+        name: "Java",
+        icon: "devicon-java-plain"
+      }, {
+        name: "Spring",
+        icon: "devicon-spring-plain"
+      }]
     }
-  },
-  "preface": "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of.",
-  "sections": [{
-    "key": "About",
-    "title": "A Bit About Me",
-    "image": "./bio-pic.png",
-    "content": "I began my journey @years years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
-  }, {
-    "key": "Career",
-    "title": "Companies I've Worked for",
-    "content": "Over the course of my long career, I've had the pleasure of working for a bunch of great companies including:",
-    "resumeUrl": "alan-eicker-resume.pdf",
-    "companies": [{
-      "company": "Allstate Insurance",
-      "duration": "Mar 2015 - Present",
-      "positionHeld": "Senior/Lead Software Engineer (Front-End)"
-    }, {
-      "company": "RealPage",
-      "duration": "Apr 2012 - Mar 2015",
-      "positionHeld": "Senior/Lead Front-End Engineer"
-    }, {
-      "company": "Restaurant.com",
-      "duration": "Nov 2010 - Apr 2012",
-      "positionHeld": "Senior Front-End Engineer"
-    }, {
-      "company": "optionsXpress (now Charles Schwab)",
-      "duration": "Feb 2008 - Nov 2010",
-      "positionHeld": "Web Designer / Front-End Engineer"
-    }, {
-      "company": "Leader Graphic Design",
-      "duration": " Mar 2007 - Feb 2008",
-      "positionHeld": "Web Designer / Front-End Engineer"
-    }]
-  }, {
-    "key": "Projects",
-    "title": "Personal Projects",
-    "apiUrl": "https://api.github.com/users/alaneicker1975/repos",
-    "projects": [{
-      "description": "An open source library of React components for rapid application development.",
-      "url": "https://www.atomikui.com",
-      "urlText": "View documentation",
-      "title": "Atomik UI",
-      "image": "./atomikui.jpeg"
-    }, {
-      "description": "A personal project for expense tracking built with Node.js, MongoDB, GraphQL, React and Apollo Client.",
-      "url": "https://github.com/alaneicker1975/BudgetBuddy",
-      "urlText": "View on GitHub",
-      "title": "Budget Buddy",
-      "image": "./budgetbuddy.png"
-    }]
-  }, {
-    "key": "Skills",
-    "title": "Areas of Expertise",
-    "skills": {
-      "frontEnd": ["HTML", "CSS/Scss", "JavaScript", "TypeScript", "React", "Redux", "Apollo Client"],
-      "backEnd": ["Node.js", "Express", "GraphQL", "SQL", "MongoDB"],
-      "fullStack": ["MERN"],
-      "documentation": ["Styleguidist"],
-      "sourceControl": ["Git", "GitHub"],
-      "learning": ["Java", "Spring Boot", "SQL"]
-    }
-  }, {
-    "key": "FindMeOnTheWeb",
-    "title": "Find Me on the Web",
-    "content": [{
-      "title": "GitHub",
-      "url": "https://github.com/alaneicker1975?tab=repositories",
-      "path": "m12 .5c-6.63 0-12 5.28-12 11.792 0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.445 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .309.21.678.825.56 4.801-1.548 8.236-5.97 8.236-11.173 0-6.512-5.373-11.792-12-11.792z",
-      "viewBox": "0 0 24 24",
-      "fill": "#212121",
-      "height": "45",
-      "width": "45"
-    }, {
-      "title": "CodePen",
-      "url": "https://codepen.io/alaneicker",
-      "path": "m.455 16.512 10.969 7.314c.374.23.774.233 1.152 0l10.969-7.314c.281-.187.455-.522.455-.857v-7.312c0-.335-.174-.67-.455-.857l-10.969-7.313c-.374-.23-.774-.232-1.152 0l-10.969 7.313c-.281.187-.455.522-.455.857v7.312c0 .335.174.67.455.857zm10.514 4.528-8.076-5.384 3.603-2.411 4.473 2.987zm2.062 0v-4.808l4.473-2.987 3.603 2.411zm8.907-7.314-2.585-1.727 2.585-1.728zm-8.907-10.767 8.076 5.384-3.603 2.411-4.473-2.987zm-1.031 6.602 3.643 2.438-3.643 2.438-3.643-2.438zm-1.031-6.602v4.808l-4.473 2.987-3.603-2.411zm-8.906 7.314v-.001l2.585 1.728-2.585 1.728z",
-      "viewBox": "0 0 24 24",
-      "fill": "#212121",
-      "height": "45",
-      "width": "45"
-    }, {
-      "title": "LinkedIn",
-      "url": "https://www.linkedin.com/in/alaneicker",
-      "path": "M398.355,0H31.782C14.229,0,0.002,13.793,0.002,30.817v368.471 c0,17.025,14.232,30.83,31.78,30.83h366.573c17.549,0,31.76-13.814,31.76-30.83V30.817C430.115,13.798,415.904,0,398.355,0z M130.4,360.038H65.413V165.845H130.4V360.038z M97.913,139.315h-0.437c-21.793,0-35.92-14.904-35.92-33.563 c0-19.035,14.542-33.535,36.767-33.535c22.227,0,35.899,14.496,36.331,33.535C134.654,124.415,120.555,139.315,97.913,139.315z M364.659,360.038h-64.966V256.138c0-26.107-9.413-43.921-32.907-43.921c-17.973,0-28.642,12.018-33.327,23.621 c-1.736,4.144-2.166,9.94-2.166,15.728v108.468h-64.954c0,0,0.85-145.979,0-194.192h64.964v27.531 c8.624-13.229,24.035-32.1,58.534-32.1c42.76,0,74.822,27.739,74.822,87.414V360.038z M230.883,193.99 c0.111-0.182,0.266-0.401,0.42-0.614v0.614H230.883z",
-      "viewBox": "0 0 430.117 430.118",
-      "fill": "#212121",
-      "height": "45",
-      "width": "45"
-    }, {
-      "title": "Medium",
-      "url": "https://medium.com/@alaneicker",
-      "path": "m22.085 4.733 1.915-1.832v-.401h-6.634l-4.728 11.768-5.379-11.768h-6.956v.401l2.237 2.693c.218.199.332.49.303.783v10.583c.069.381-.055.773-.323 1.05l-2.52 3.054v.396h7.145v-.401l-2.52-3.049c-.273-.278-.402-.663-.347-1.05v-9.154l6.272 13.659h.729l5.393-13.659v10.881c0 .287 0 .346-.188.534l-1.94 1.877v.402h9.412v-.401l-1.87-1.831c-.164-.124-.249-.332-.214-.534v-13.467c-.035-.203.049-.411.213-.534z",
-      "viewBox": "0 0 24 24",
-      "fill": "#212121",
-      "height": "45",
-      "width": "45"
-    }]
-  }, {
-    "key": "GetInTouch",
-    "title": "Get in Touch",
-    "content": "I'm always interested in new oppotunities. If you think I might be intrigued? Let's talk.",
-    "emailAddress": "alaneicker@gmail.com",
-    "phoneNumber": "(224) 622-7278"
-  }]
+  }
 };
 },{}],"App.tsx":[function(require,module,exports) {
 "use strict";
@@ -32474,18 +32258,16 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 var DocHead_1 = __importDefault(require("./components/DocHead"));
 var Layout_1 = __importDefault(require("./components/Layout"));
-var content_json_1 = __importDefault(require("./content.json"));
-var docTitle = content_json_1.default.docTitle,
-  layoutContent = __rest(content_json_1.default, ["docTitle"]);
+var content_yml_1 = __importDefault(require("./content.yml"));
+var docTitle = content_yml_1.default.docTitle,
+  layoutContent = __rest(content_yml_1.default, ["docTitle"]);
 var App = function App() {
   return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(DocHead_1.default, {
     title: docTitle
-  }), react_1.default.createElement(Layout_1.default, {
-    content: layoutContent
-  }));
+  }), react_1.default.createElement(Layout_1.default, Object.assign({}, layoutContent)));
 };
 exports.default = App;
-},{"react":"../node_modules/react/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Layout":"components/Layout/index.ts","./content.json":"content.json"}],"styles/main.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Layout":"components/Layout/index.ts","./content.yml":"content.yml"}],"styles/main.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
@@ -32614,7 +32396,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64138" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62909" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
