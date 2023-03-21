@@ -10,17 +10,17 @@ import { LayoutProps } from '../../types/components';
 const Layout = ({ header, footer, hero, sections }: LayoutProps) => (
   <>
     <Header {...header} />
-    <main className="layout">
-      <div className="layout__hero" id="home">
+    <div className="layout">
+      <main>
         <Hero {...hero} />
-      </div>
-      <div className="layout__body">
-        <About bio={sections.bio} skills={sections.skills} />
-        <Projects {...sections.projects} />
-        <Career {...sections.career} />
-      </div>
+        <div className="layout__body">
+          <About bio={sections.bio} skills={sections.skills} />
+          <Projects {...sections.projects} />
+          <Career {...sections.career} />
+        </div>
+      </main>
       <Footer {...footer} />
-    </main>
+    </div>
   </>
 );
 
