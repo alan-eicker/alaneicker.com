@@ -1,7 +1,7 @@
 import React from 'react';
 import DocHead from './components/DocHead';
 import Layout from './components/Layout';
-import content from './content.json';
+import content from './content.yml';
 
 const { docTitle, ...layoutContent } = content;
 

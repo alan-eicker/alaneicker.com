@@ -1,7 +1,7 @@
 .career-list {
-  margin: rem(20 0);
+  margin: rem(0 0 30);
 
-  & > * + * {
-    margin-top: rem(16);
+  & > *:nth-child(3n):not(:last-child) {
+    margin-bottom: rem(16);
   }
 }

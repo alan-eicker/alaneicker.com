@@ -29,15 +29,15 @@ const Career = ({ resume, referrals, ...others }: Props) => (
     sidebar={
       <>
         <h4>{resume.title}</h4>
-        <ul className="career-list">
+        <dl className="career-list">
           {resume.items.map(({ company, duration, positionHeld }) => (
-            <li key={company}>
-              <h5 className="no-margin">{company}</h5>
-              <h6 className="semibold no-margin">{duration}</h6>
-              {positionHeld}
-            </li>
+            <React.Fragment key={company}>
+              <dt className="bold">{company}</dt>
+              <dd className="semibold">{duration}</dd>
+              <dd>{positionHeld}</dd>
+            </React.Fragment>
           ))}
-        </ul>
+        </dl>
         <a
           className="btn-link btn-link--magenta"
           href={resume.resumeDownloadUrl}
@@ -51,15 +51,17 @@ const Career = ({ resume, referrals, ...others }: Props) => (
   >
     <>
       <h4>{referrals.title}</h4>
-      <ul className="career-list">
+      <dl className="career-list">
         {referrals.items.map(({ referee, jobTitle, content }) => (
-          <li key={referee}>
-            <h5 className="no-margin">{referee}</h5>
-            <h6 className="semibold no-margin">{jobTitle}</h6>
-            <p>{content}</p>
-          </li>
+          <React.Fragment key={referee}>
+            <dt className="bold">{referee}</dt>
+            <dd className="semibold">{jobTitle}</dd>
+            <dd>
+              <p>{content}</p>
+            </dd>
+          </React.Fragment>
         ))}
-      </ul>
+      </dl>
     </>
   </Section>
 );

@@ -3,7 +3,8 @@
   flex-wrap: wrap;
 
   & > * {
-    margin: rem(0 18 18 0);
+    margin: rem(0 20 20 0);
+    line-height: 1.4;
   }
 
   & > *:not(.icon-list--custom-font-size) {

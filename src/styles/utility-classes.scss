@@ -10,14 +10,29 @@
   font-weight: 400;
 }
 
+.bold {
+  font-weight: 600;
+}
+
+.screenreader-only {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 .btn-link {
-  display: inline-block;
-  padding: rem(10 16);
   background: $black;
-  color: $white;
-  font-size: inherit;
-  font-family: inherit;
   border-radius: rem(4);
+  color: $white;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  padding: rem(10 16);
   text-decoration: none;
 
   &:hover {

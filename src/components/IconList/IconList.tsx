@@ -25,10 +25,10 @@ const IconList = ({ items, justify, size }: Props) => (
       >
         <i
           className={item.icon}
-          aria-label={item.name}
+          aria-hidden="true"
           style={{ fontSize: size }}
-          role="presentation"
         />
+        <span className="screenreader-only">{item.name}</span>
       </li>
     ))}
   </ul>
