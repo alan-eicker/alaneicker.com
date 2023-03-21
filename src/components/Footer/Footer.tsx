@@ -3,6 +3,10 @@ import IconList from '../IconList';
 
 type Props = {
   copyright: string;
+  contactInfo: {
+    phone: string;
+    email: string;
+  };
   iconCredits: {
     websiteLinkUrl: string;
     websiteLinkText: string;
@@ -16,14 +20,24 @@ type Props = {
   }[];
 };
 
-const Footer = ({ copyright, iconCredits, socialLinks }: Props) => (
+const Footer = ({
+  copyright,
+  contactInfo,
+  iconCredits,
+  socialLinks,
+}: Props) => (
   <footer className="footer">
     <IconList
-      label="find me on the web at:"
+      label="find me on the web at"
       items={socialLinks}
       justify="center"
       size={28}
     />
+    <p>
+      Call me at <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a> or
+      email me at{' '}
+      <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+    </p>
     <p>
       &copy; {new Date().getFullYear()} {copyright}
     </p>

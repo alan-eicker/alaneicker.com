@@ -18,6 +18,9 @@ hero:
     of front-end developer UX designers like myself dream of.
 footer:
   copyright: Alan Eicker. All rights reserved.
+  contactInfo:
+    email: alaneicker@gmail.com
+    phone: 224-622-7278
   iconCredits:
     websiteLinkUrl: https://icons8.com
     websiteLinkText: Icons8
@@ -152,10 +155,3 @@ sections:
         icon: devicon-java-plain
       - name: Spring
         icon: devicon-spring-plain
-  getInTouch:
-    title: Get in Touch
-    content:
-      I'm always interested in new oppotunities. If you think I might be intrigued?
-      Let's talk.
-    emailAddress: alaneicker@gmail.com
-    phoneNumber: '(224) 622-7278'

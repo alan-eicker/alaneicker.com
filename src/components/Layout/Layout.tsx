@@ -22,8 +22,10 @@ export type Props = {
   preface: string;
   footer: {
     copyright: string;
-    emailAddress: string;
-    phoneNumber: string;
+    contactInfo: {
+      phone: string;
+      email: string;
+    };
     iconCredits: {
       websiteLinkUrl: string;
       websiteLinkText: string;
@@ -31,7 +33,7 @@ export type Props = {
       iconName: string;
     };
     socialLinks: {
-      title: string;
+      name: string;
       url: string;
       icon: string;
     }[];
