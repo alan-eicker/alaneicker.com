@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 type Props = {
@@ -17,7 +18,7 @@ const Section = ({
   cols = [7, 4],
   ...other
 }: Props) => (
-  <section id={id} className={`section ${className}`} {...other}>
+  <section id={id} className={classnames('section', className)} {...other}>
     <Grid>
       <Row>
         <Col md={sidebar ? cols[0] : 12}>{children}</Col>
