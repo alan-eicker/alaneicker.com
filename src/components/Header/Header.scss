@@ -2,10 +2,12 @@
   align-items: center;
   background: $black;
   display: flex;
-  height: 100%;
   padding: rem(0 20 0 0);
   justify-content: space-between;
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 3;
 
   &__logo {
     align-items: center;

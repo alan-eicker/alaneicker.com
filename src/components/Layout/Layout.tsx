@@ -40,11 +40,9 @@ export type Props = {
 };
 
 const Layout = ({ header, footer, hero, sections }: Props) => (
-  <div className="layout">
-    <div className="layout__header">
-      <Header {...header} />
-    </div>
-    <main className="layout__main">
+  <>
+    <Header {...header} />
+    <main className="layout">
       <div className="layout__hero" id="home">
         <Hero {...hero} />
       </div>
@@ -55,7 +53,7 @@ const Layout = ({ header, footer, hero, sections }: Props) => (
       </div>
       <Footer {...footer} />
     </main>
-  </div>
+  </>
 );
 
 export default Layout;

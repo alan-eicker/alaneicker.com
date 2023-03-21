@@ -1,27 +1,17 @@
 .layout {
+  align-items: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  padding-top: rem(60);
   position: relative;
-  z-index: 2;
+  scroll-behavior: smooth;
 
-  &__header {
-    height: rem(50);
-  }
-
-  &__hero {
-    align-self: stretch;
-  }
-
-  &__main {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: calc(100% - 50px);
-    overflow-y: auto;
-    scroll-behavior: smooth;
-  }
+  background-image: url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
+  background-position: 0 bottom;
+  background-repeat: no-repeat;
+  background-size: auto 170%;
 
   &__body {
     background: $white;
@@ -32,9 +22,15 @@
     top: rem(-50);
   }
 
-  @media (min-width: pixel($breakpoint-medium)) {
+  @media (min-width: 768px) {
+    background-size: auto 170%;
+
     &__header {
       height: rem(60);
     }
+  }
+
+  @media (min-width: 1366px) {
+    background-size: cover;
   }
 }
