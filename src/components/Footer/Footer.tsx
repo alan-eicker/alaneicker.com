@@ -1,31 +1,13 @@
 import React from 'react';
 import IconList from '../IconList';
-
-type Props = {
-  copyright: string;
-  contactInfo: {
-    phone: string;
-    email: string;
-  };
-  iconCredits: {
-    websiteLinkUrl: string;
-    websiteLinkText: string;
-    iconUrl: string;
-    iconName: string;
-  };
-  socialLinks: {
-    name: string;
-    url: string;
-    icon: string;
-  }[];
-};
+import { FooterProps } from '../../types/components';
 
 const Footer = ({
   copyright,
   contactInfo,
   iconCredits,
   socialLinks,
-}: Props) => (
+}: FooterProps) => (
   <footer className="footer">
     <IconList
       label="find me on the web at"

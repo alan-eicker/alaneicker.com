@@ -5,39 +5,12 @@ import Hero from '../Hero';
 import About from '../About';
 import Projects from '../Projects';
 import Career from '../Career';
+import { HeaderProps, HeroProps, FooterProps } from '../../types/components';
 
 export type Props = {
-  header: {
-    logoImg: string;
-    title: string;
-    subtitle: string;
-    nav: string[];
-  };
-  hero: {
-    strapline: string;
-    title: string;
-    subtitle: string;
-    text: string;
-  };
-  preface: string;
-  footer: {
-    copyright: string;
-    contactInfo: {
-      phone: string;
-      email: string;
-    };
-    iconCredits: {
-      websiteLinkUrl: string;
-      websiteLinkText: string;
-      iconUrl: string;
-      iconName: string;
-    };
-    socialLinks: {
-      name: string;
-      url: string;
-      icon: string;
-    }[];
-  };
+  header: HeaderProps;
+  footer: HeroProps;
+  hero: FooterProps;
   sections: any;
 };
 

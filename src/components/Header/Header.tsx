@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
+import { HeaderProps } from '../../types/components';
 
-type Props = {
-  title: string;
-  subtitle: string;
-  logoImg: string;
-  nav: string[];
-};
-
-const Header = ({ title, subtitle, nav, logoImg }: Props) => {
+const Header = ({ title, subtitle, nav, logoImg }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
 
   return (

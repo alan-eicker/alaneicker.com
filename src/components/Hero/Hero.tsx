@@ -1,14 +1,8 @@
 import React from 'react';
 import Preface from '../Preface';
+import { HeroProps } from '../../types/components';
 
-type Props = {
-  strapline: string;
-  title: string;
-  text: string;
-  subtitle: string;
-};
-
-const Hero = ({ strapline, title, text, subtitle }: Props) => (
+const Hero = ({ strapline, title, text, subtitle }: HeroProps) => (
   <div className="hero">
     <div className="hero__content">
       <div className="hero__header">

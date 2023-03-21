@@ -1,18 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
+import { IconListProps } from '../../types/components';
 
-type Props = {
-  justify: 'center' | 'end' | 'between' | 'around';
-  items: {
-    name: string;
-    icon: string;
-    url?: string;
-  }[];
-  size: number;
-  label?: string;
-};
-
-const IconList = ({ label, items, justify, size }: Props) => (
+const IconList = ({ label, items, justify, size }: IconListProps) => (
   <>
     {label && <p className="screenreader-only">{label}</p>}
     <ul

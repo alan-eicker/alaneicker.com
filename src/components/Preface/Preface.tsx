@@ -1,10 +1,7 @@
 import React from 'react';
+import { PrefaceProps } from '../../types/components';
 
-type Props = {
-  text: string;
-};
-
-const Preface = ({ text }: Props) => {
+const Preface = ({ text }: PrefaceProps) => {
   return (
     <div className="preface">
       <div className="preface__content">{text}</div>

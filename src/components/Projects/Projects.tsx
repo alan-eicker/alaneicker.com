@@ -1,18 +1,8 @@
 import React from 'react';
 import Section from '../Section';
+import { ProjectsProps } from '../../types/components';
 
-type Props = {
-  title: string;
-  featured: {
-    title: string;
-    subtitle: string;
-    url: string;
-    urlText: string;
-    image: string;
-  }[];
-};
-
-const Projects = ({ title, featured }: Props) => (
+const Projects = ({ title, featured }: ProjectsProps) => (
   <Section
     id="projects"
     cols={[4, 7]}

@@ -1,27 +1,8 @@
 import React from 'react';
 import Section from '../Section';
+import { CareerProps } from '../../types/components';
 
-type Props = {
-  resume: {
-    title: string;
-    resumeDownloadUrl: string;
-    items: {
-      company: string;
-      duration: string;
-      positionHeld: string;
-    }[];
-  };
-  referrals: {
-    title: string;
-    items: {
-      referee: string;
-      jobTitle: string;
-      content: string;
-    }[];
-  };
-};
-
-const Career = ({ resume, referrals, ...others }: Props) => (
+const Career = ({ resume, referrals, ...others }: CareerProps) => (
   <Section
     id="career"
     className="section--light-gray"

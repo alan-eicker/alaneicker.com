@@ -1,22 +1,9 @@
 import React from 'react';
 import Section from '../Section';
 import IconList from '../IconList';
+import { AboutProps } from '../../types/components';
 
-type Props = {
-  bio: {
-    title: string;
-    content: string;
-  };
-  skills: {
-    title: string;
-    items: {
-      name: string;
-      icon: string;
-    }[];
-  }[];
-};
-
-const About = ({ bio, skills }: Props) => (
+const About = ({ bio, skills }: AboutProps) => (
   <Section
     id="about"
     className="section--purple section--top-rounded"
