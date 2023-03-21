@@ -45,19 +45,19 @@ h6 {
 }
 
 h4 {
-  font-size: rem(30);
+  font-size: rem(25);
   font-weight: 600;
   margin-bottom: rem(32);
 }
 
 h5 {
-  font-size: rem(24);
+  font-size: rem(16);
   font-weight: 600;
   margin-bottom: rem(32);
 }
 
 h6 {
-  font-size: rem(18);
+  font-size: rem(16);
   font-weight: 400;
   margin-bottom: rem(32);
 }
@@ -80,4 +80,8 @@ ul {
 
 b {
   font-weight: 500;
+}
+
+li {
+  line-height: 1.5;
 }

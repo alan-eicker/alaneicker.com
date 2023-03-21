@@ -6,9 +6,13 @@
   margin: 0;
 }
 
+.semibold {
+  font-weight: 400;
+}
+
 .btn-link {
   display: inline-block;
-  padding: rem(12 20);
+  padding: rem(10 16);
   background: $black;
   color: $white;
   font-size: inherit;

@@ -6,6 +6,10 @@
     color: $white;
   }
 
+  &--light-gray {
+    background: lighten(#eceff1, 3%);
+  }
+
   &--top-rounded {
     border-radius: rem(8 8 0 0);
   }

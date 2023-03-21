@@ -6,7 +6,7 @@
     margin: rem(0 18 18 0);
   }
 
-  & > * i:not(.icon-list--custom-font-size) {
+  & > *:not(.icon-list--custom-font-size) {
     font-size: rem(48);
   }
 

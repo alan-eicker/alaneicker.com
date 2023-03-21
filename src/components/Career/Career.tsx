@@ -2,34 +2,65 @@ import React from 'react';
 import Section from '../Section';
 
 type Props = {
-  title: string;
-  content: string;
-  resumeUrl: string;
-  companies: {
-    company: string;
-    duration: string;
-    positionHeld: string;
-  }[];
+  resume: {
+    title: string;
+    resumeDownloadUrl: string;
+    items: {
+      company: string;
+      duration: string;
+      positionHeld: string;
+    }[];
+  };
+  referrals: {
+    title: string;
+    items: {
+      referee: string;
+      jobTitle: string;
+      content: string;
+    }[];
+  };
 };
 
-const Career = ({ companies, title, resumeUrl, content, ...others }: Props) => (
-  <Section title={title} {...others}>
-    <div className="career">
-      <p>{content}</p>
-      <ul className="career__list">
-        {companies.map(({ company, duration, positionHeld }) => (
-          <li key={company}>
-            <h4>
-              {company} &bull; <span>{duration}</span>
-            </h4>
-            {positionHeld}
+const Career = ({ resume, referrals, ...others }: Props) => (
+  <Section
+    id="career"
+    className="section--light-gray"
+    {...others}
+    sidebar={
+      <>
+        <h4>{resume.title}</h4>
+        <ul className="career-list">
+          {resume.items.map(({ company, duration, positionHeld }) => (
+            <li key={company}>
+              <h5 className="no-margin">{company}</h5>
+              <h6 className="semibold no-margin">{duration}</h6>
+              {positionHeld}
+            </li>
+          ))}
+        </ul>
+        <a
+          className="btn-link btn-link--magenta"
+          href={resume.resumeDownloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View my Resum&eacute;
+        </a>
+      </>
+    }
+  >
+    <>
+      <h4>{referrals.title}</h4>
+      <ul className="career-list">
+        {referrals.items.map(({ referee, jobTitle, content }) => (
+          <li key={referee}>
+            <h5 className="no-margin">{referee}</h5>
+            <h6 className="semibold no-margin">{jobTitle}</h6>
+            <p>{content}</p>
           </li>
         ))}
       </ul>
-      <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
-        View my resum&eacute;
-      </a>
-    </div>
+    </>
   </Section>
 );
 
