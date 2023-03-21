@@ -5,6 +5,14 @@
   & > * {
     margin: rem(0 20 20 0);
     line-height: 1.4;
+
+    a {
+      color: $white;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   & > *:not(.icon-list--custom-font-size) {

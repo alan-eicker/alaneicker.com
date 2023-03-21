@@ -24,13 +24,13 @@ footer:
     iconUrl: https://icons8.com/icon/OySmsSdy3UZN/beard
     iconName: Beard
   socialLinks:
-    - title: GitHub
+    - name: GitHub
       url: https://github.com/alaneicker1975?tab=repositories
       icon: devicon-github-original
-    - title: CodePen
+    - name: CodePen
       url: https://codepen.io/alaneicker
       icon: devicon-codepen-plain
-    - title: LinkedIn
+    - name: LinkedIn
       url: https://www.linkedin.com/in/alaneicker
       icon: devicon-linkedin-plain
 preface:

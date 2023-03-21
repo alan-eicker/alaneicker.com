@@ -10,7 +10,7 @@ type Props = {
     iconName: string;
   };
   socialLinks: {
-    title: string;
+    name: string;
     url: string;
     icon: string;
   }[];
@@ -18,7 +18,12 @@ type Props = {
 
 const Footer = ({ copyright, iconCredits, socialLinks }: Props) => (
   <footer className="footer">
-    <IconList items={socialLinks} justify="center" size={28} />
+    <IconList
+      label="find me on the web at:"
+      items={socialLinks}
+      justify="center"
+      size={28}
+    />
     <p>
       &copy; {new Date().getFullYear()} {copyright}
     </p>
