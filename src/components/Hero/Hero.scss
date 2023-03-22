@@ -22,19 +22,20 @@
 
   &__title {
     color: $sunset-yellow;
-    font-size: rem(45);
+    font-size: rem(40);
     line-height: 1.1;
   }
 
   &__subtitle {
     color: $white;
-    font-size: rem(45);
+    font-size: rem(40);
     line-height: 1.25;
   }
 
   &__text {
     font-size: rem(16);
     margin-top: rem(20);
+    display: none;
   }
 
   @media (min-width: pixel($breakpoint-medium)) {
@@ -63,6 +64,7 @@
     }
 
     &__text {
+      display: block;
       font-size: rem(18);
       margin-top: 0;
     }
