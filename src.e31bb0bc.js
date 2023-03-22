@@ -31903,11 +31903,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var react_1 = __importDefault(require("react"));
+var react_flexbox_grid_1 = require("react-flexbox-grid");
 var Section_1 = __importDefault(require("../Section"));
 var Projects = function Projects(_ref) {
   var title = _ref.title,
-    featured = _ref.featured;
-  return react_1.default.createElement(Section_1.default, {
+    featured = _ref.featured,
+    otherProjects = _ref.otherProjects;
+  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Section_1.default, {
     id: "projects",
     cols: [4, 7],
     sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, title), react_1.default.createElement("h5", {
@@ -31925,10 +31927,44 @@ var Projects = function Projects(_ref) {
     src: featured.image,
     alt: "".concat(featured.title, " screenshot"),
     width: "100%"
-  }));
+  })), react_1.default.createElement(Section_1.default, null, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
+    className: "text-align-center@medium"
+  }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
+    return react_1.default.createElement(react_flexbox_grid_1.Col, {
+      md: 4
+    }, react_1.default.createElement("div", {
+      key: project.title,
+      className: "project-box"
+    }, react_1.default.createElement("div", {
+      className: "project-box__head"
+    }, react_1.default.createElement("svg", {
+      className: "project-box__folder-icon",
+      viewBox: "0 0 32 32",
+      version: "1.1",
+      xmlns: "http://www.w3.org/2000/svg"
+    }, react_1.default.createElement("path", {
+      d: "M11.086 5.5l2.457 2.414 0.629 0.586h15.829v18h-28v-21h9.086zM12 3.5h-10c-1.105 0-2 0.896-2 2v21c0 1.105 0.895 2 2 2h28c1.105 0 2-0.895 2-2v-18c0-1.104-0.895-2-2-2h-15z"
+    })), react_1.default.createElement("a", {
+      className: "project-box__link",
+      href: project.url,
+      rel: "noopener noreferrer",
+      target: "_blank",
+      "aria-label": "view project in github"
+    }, react_1.default.createElement("i", {
+      className: "devicon-github-original"
+    }))), react_1.default.createElement("div", {
+      className: "project-box__body"
+    }, react_1.default.createElement("h5", {
+      className: "project-box__title"
+    }, project.title), react_1.default.createElement("p", null, project.description)), react_1.default.createElement("div", {
+      className: "project-box__footer"
+    }, project.techUsed.map(function (item) {
+      return react_1.default.createElement("span", null, item);
+    }))));
+  }))))));
 };
 exports.default = Projects;
-},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -32181,6 +32217,25 @@ module.exports = {
         urlText: "View Documentation",
         title: "Atomik UI",
         image: "./atomikui.png"
+      },
+      otherProjects: {
+        title: "Other Notable projects",
+        items: [{
+          title: "Budget Buddy",
+          description: "A budgeting app for tracking monthly expenses.",
+          url: "https://github.com/alaneicker1975/BudgetBuddy",
+          techUsed: ["Node.js", "GraphQL", "MongoDB", "Docker", "React", "Apollo Client"]
+        }, {
+          title: "Brewlog",
+          description: "An app for documenting and discovering great beer. Powered by the Untappd API.",
+          url: "https://github.com/alaneicker1975/brewlog",
+          techUsed: ["Node.js", "MySQL", "Angular", "Untapped API"]
+        }, {
+          title: "Easy-DB",
+          description: "A JavaScript wrapper for writing SQL queries.",
+          url: "https://github.com/alaneicker1975/easy-db",
+          techUsed: ["MySQL", "JavaScript"]
+        }]
       }
     },
     skills: {
@@ -32394,7 +32449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52599" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54292" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

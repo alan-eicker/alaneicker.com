@@ -1419,11 +1419,6 @@ body {
   line-height: 1.4;
 }
 
-#root {
-  position: relative;
-  z-index: 2;
-}
-
 h1,
 h2,
 h3,
@@ -1527,6 +1522,19 @@ dd {
   background: #c62555;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-align-center\@medium {
+    text-align: center;
+  }
+}
+[class^=col-] {
+  padding: 0.5rem;
+}
+
 .layout {
   align-items: center;
   background-image: url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
@@ -1586,17 +1594,18 @@ dd {
 }
 .hero__title {
   color: #fdcd48;
-  font-size: 2.8125rem;
+  font-size: 2.5rem;
   line-height: 1.1;
 }
 .hero__subtitle {
   color: #ffffff;
-  font-size: 2.8125rem;
+  font-size: 2.5rem;
   line-height: 1.25;
 }
 .hero__text {
   font-size: 1rem;
   margin-top: 1.25rem;
+  display: none;
 }
 @media (min-width: 768px) {
   .hero {
@@ -1620,6 +1629,7 @@ dd {
     font-size: 3.4375rem;
   }
   .hero__text {
+    display: block;
     font-size: 1.125rem;
     margin-top: 0;
   }
@@ -1775,6 +1785,47 @@ dd {
 }
 .career-list > *:nth-child(3n):not(:last-child) {
   margin-bottom: 1rem;
+}
+
+.project-box {
+  background: #f4f0ff;
+  border-radius: 0.3125rem;
+  height: 100%;
+  padding: 1.25rem;
+}
+.project-box__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.project-box__body {
+  padding: 1rem 0;
+}
+.project-box__footer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.project-box__footer > * {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 1rem;
+  line-height: 1.8;
+}
+.project-box__folder-icon {
+  fill: #574879;
+  width: 1.875rem;
+}
+.project-box__link {
+  color: #211a40;
+  text-decoration: none;
+  font-size: 1.375rem;
+}
+.project-box__link:hover {
+  color: #212121;
+}
+.project-box__title {
+  font-size: 1.125rem;
+  margin: 0;
 }
 
 .icon-list {
