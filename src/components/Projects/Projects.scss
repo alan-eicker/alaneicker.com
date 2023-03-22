@@ -1,0 +1,48 @@
+.project-box {
+  background: $light-purple;
+  border-radius: rem(5);
+  height: 100%;
+  padding: rem(20);
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__body {
+    padding: rem(16 0);
+  }
+
+  &__footer {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+      font-size: rem(12);
+      font-weight: 500;
+      margin-right: rem(16);
+      line-height: 1.8;
+    }
+  }
+
+  &__folder-icon {
+    fill: $medium-purple;
+    width: rem(30);
+  }
+
+  &__link {
+    color: $purple;
+    text-decoration: none;
+    font-size: rem(22);
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  &__title {
+    font-size: rem(18);
+    margin: 0;
+  }
+}

@@ -122,6 +122,33 @@ sections:
       urlText: View Documentation
       title: Atomik UI
       image: './atomikui.png'
+    otherProjects:
+      title: Other Notable projects
+      items:
+        - title: Budget Buddy
+          description: A budgeting app for tracking monthly expenses.
+          url: https://github.com/alaneicker1975/BudgetBuddy
+          techUsed:
+            - Node.js
+            - GraphQL
+            - MongoDB
+            - Docker
+            - React
+            - Apollo Client
+        - title: Brewlog
+          description: An app for documenting and discovering great beer. Powered by the Untappd API.
+          url: https://github.com/alaneicker1975/brewlog
+          techUsed:
+            - Node.js
+            - MySQL
+            - Angular
+            - Untapped API
+        - title: Easy-DB
+          description: A JavaScript wrapper for writing SQL queries.
+          url: https://github.com/alaneicker1975/easy-db
+          techUsed:
+            - MySQL
+            - JavaScript
   skills:
     title: Areas of Expertise
     items:

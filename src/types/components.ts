@@ -94,6 +94,15 @@ export type ProjectsProps = {
     urlText: string;
     image: string;
   };
+  otherProjects: {
+    title: string;
+    items: {
+      title: string;
+      url: string;
+      description: string;
+      techUsed: string[];
+    }[];
+  };
 };
 
 export type SectionProps = {
