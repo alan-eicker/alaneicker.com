@@ -36,7 +36,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
     </Section>
     <Section>
       <>
-        <h4>{otherProjects.title}</h4>
+        <h4 className="text-align-center@medium">{otherProjects.title}</h4>
         <Grid>
           <Row>
             {otherProjects.items.map((project) => (

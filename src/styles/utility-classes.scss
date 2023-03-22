@@ -51,3 +51,13 @@
     }
   }
 }
+
+.text-align-center {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-align-center\@medium {
+    text-align: center;
+  }
+}
