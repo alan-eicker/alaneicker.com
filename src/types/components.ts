@@ -69,7 +69,7 @@ export type DocHeadProps = {
   title: string;
 };
 
-export type IoProps = {
+export type IconListProps = {
   justify: 'center' | 'end' | 'between' | 'around';
   items: {
     name: string;
@@ -110,7 +110,7 @@ export type SectionProps = {
   children: JSX.Element;
   sidebar?: JSX.Element;
   cols?: number[];
-  id?: string;
+  id: string;
 };
 
 export type LayoutProps = {

@@ -34,13 +34,13 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
         width="100%"
       />
     </Section>
-    <Section>
+    <Section id="otherProjects">
       <>
         <h4 className="text-align-center@medium">{otherProjects.title}</h4>
         <Grid>
           <Row>
             {otherProjects.items.map((project) => (
-              <Col md={4}>
+              <Col md={4} key={project.title}>
                 <div key={project.title} className="project-box">
                   <div className="project-box__head">
                     <svg
@@ -67,7 +67,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
                   </div>
                   <div className="project-box__footer">
                     {project.techUsed.map((item) => (
-                      <span>{item}</span>
+                      <span key={item}>{item}</span>
                     ))}
                   </div>
                 </div>

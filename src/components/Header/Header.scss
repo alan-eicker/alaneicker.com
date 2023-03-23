@@ -64,6 +64,26 @@
     }
   }
 
+  &--about {
+    background: $purple;
+  }
+
+  &--projects,
+  &--otherProjects,
+  &--career {
+    box-shadow: rem(0 0 8) rgba(0, 0, 0, 0.2);
+    background: $white;
+
+    a {
+      color: $black;
+
+      &:hover,
+      &:focus {
+        color: $brand-violet;
+      }
+    }
+  }
+
   @media (min-width: pixel($breakpoint-medium)) {
     height: rem(60);
     padding: rem(0 20);

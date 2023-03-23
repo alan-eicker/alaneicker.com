@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 import { HeaderProps } from '../../types/components';
+import { useAppContext } from '../../AppProvider';
 
 const Header = ({ title, subtitle, nav, logoImg }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
+  const { headerClass } = useAppContext();
 
   return (
-    <header className="header">
+    <header className={classnames('header', headerClass)}>
       <a
         className="header__logo"
         href="/#home"
