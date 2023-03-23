@@ -37,7 +37,7 @@ const AppProvider = ({ children }: Props) => {
       const firstSection = sectionEntries[0];
 
       if (firstSection) {
-        const [foo, firstSectionOffset] = firstSection;
+        const [_, firstSectionOffset] = firstSection;
         if (windowY < firstSectionOffset) {
           setHeaderClass('');
         }
