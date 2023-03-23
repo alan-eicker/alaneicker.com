@@ -7,7 +7,7 @@ const Header = ({ title, subtitle, nav }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
   const { headerClass } = useAppContext();
 
-  const logo = headerClass.match(/projects|otherProjects|career/)
+  const logo = headerClass.match(/projects|career/)
     ? '/beard-purple.png'
     : '/beard-green.png';
 
@@ -28,7 +28,11 @@ const Header = ({ title, subtitle, nav }: HeaderProps) => {
             return (
               <li key={link}>
                 <a
-                  className={link === activeLink ? 'is-active' : ''}
+                  className={classnames({
+                    'is-active':
+                      link === activeLink ||
+                      headerClass.replace('header--', '') === linkText,
+                  })}
                   href={link}
                   onClick={() => setActiveLink(link)}
                 >

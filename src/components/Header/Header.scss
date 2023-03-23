@@ -59,6 +59,7 @@
         &.is-active {
           color: $brand-green;
           cursor: default;
+          text-decoration: underline;
         }
       }
     }
