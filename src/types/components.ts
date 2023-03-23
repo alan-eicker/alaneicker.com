@@ -1,5 +1,4 @@
 export type HeaderProps = {
-  logoImg: string;
   title: string;
   subtitle: string;
   nav: string[];

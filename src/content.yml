@@ -3,7 +3,6 @@ docTitle: Alan Eicker | Front End Engineer
 header:
   title: Alan Eicker
   subtitle: Front End Engineer
-  logoImg: '/beard.png'
   nav:
     - '/#about'
     - '/#projects'

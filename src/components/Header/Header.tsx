@@ -3,9 +3,13 @@ import classnames from 'classnames';
 import { HeaderProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
 
-const Header = ({ title, subtitle, nav, logoImg }: HeaderProps) => {
+const Header = ({ title, subtitle, nav }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
   const { headerClass } = useAppContext();
+
+  const logo = headerClass.match(/projects|otherProjects|career/)
+    ? '/beard-purple.png'
+    : '/beard-green.png';
 
   return (
     <header className={classnames('header', headerClass)}>
@@ -15,7 +19,7 @@ const Header = ({ title, subtitle, nav, logoImg }: HeaderProps) => {
         title={`${title} - ${subtitle}`}
         onClick={() => setActiveLink('')}
       >
-        <img src={logoImg} width="40" alt="logo" />
+        <img src={logo} width="40" alt="logo" />
       </a>
       <nav className="header__nav">
         <ul className="header__links">
