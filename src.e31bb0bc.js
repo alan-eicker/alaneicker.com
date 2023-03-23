@@ -30055,144 +30055,7 @@ function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
 }
 module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./arrayWithHoles.js":"../node_modules/@babel/runtime/helpers/arrayWithHoles.js","./iterableToArrayLimit.js":"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js","./unsupportedIterableToArray.js":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableRest.js":"../node_modules/@babel/runtime/helpers/nonIterableRest.js"}],"components/Header/Header.tsx":[function(require,module,exports) {
-"use strict";
-
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  __setModuleDefault(result, mod);
-  return result;
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importStar(require("react"));
-var Header = function Header(_ref) {
-  var title = _ref.title,
-    subtitle = _ref.subtitle,
-    nav = _ref.nav,
-    logoImg = _ref.logoImg;
-  var _ref2 = (0, react_1.useState)(''),
-    _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
-    activeLink = _ref3[0],
-    setActiveLink = _ref3[1];
-  return react_1.default.createElement("header", {
-    className: "header"
-  }, react_1.default.createElement("a", {
-    className: "header__logo",
-    href: "/#home",
-    title: "".concat(title, " - ").concat(subtitle),
-    onClick: function onClick() {
-      return setActiveLink('');
-    }
-  }, react_1.default.createElement("img", {
-    src: logoImg,
-    width: "40",
-    alt: "logo"
-  })), react_1.default.createElement("nav", {
-    className: "header__nav"
-  }, react_1.default.createElement("ul", {
-    className: "header__links"
-  }, nav.map(function (link) {
-    var linkText = link.replace('/#', '');
-    return react_1.default.createElement("li", {
-      key: link
-    }, react_1.default.createElement("a", {
-      className: link === activeLink ? 'is-active' : '',
-      href: link,
-      onClick: function onClick() {
-        return setActiveLink(link);
-      }
-    }, linkText));
-  }))));
-};
-exports.default = Header;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Header/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Header_1 = require("./Header");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Header_1).default;
-  }
-});
-},{"./Header":"components/Header/Header.tsx"}],"../node_modules/@babel/runtime/helpers/toPrimitive.js":[function(require,module,exports) {
-var _typeof = require("./typeof.js")["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js"}],"../node_modules/@babel/runtime/helpers/toPropertyKey.js":[function(require,module,exports) {
-var _typeof = require("./typeof.js")["default"];
-var toPrimitive = require("./toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
-}
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js","./toPrimitive.js":"../node_modules/@babel/runtime/helpers/toPrimitive.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
-var toPropertyKey = require("./toPropertyKey.js");
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
+},{"./arrayWithHoles.js":"../node_modules/@babel/runtime/helpers/arrayWithHoles.js","./iterableToArrayLimit.js":"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js","./unsupportedIterableToArray.js":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableRest.js":"../node_modules/@babel/runtime/helpers/nonIterableRest.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
 	Copyright (c) 2018 Jed Watson.
@@ -30255,7 +30118,248 @@ var define;
 	}
 }());
 
-},{}],"components/IconList/IconList.tsx":[function(require,module,exports) {
+},{}],"AppProvider.tsx":[function(require,module,exports) {
+"use strict";
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = void 0 && (void 0).__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.useAppContext = void 0;
+var react_1 = __importStar(require("react"));
+var AppContext = (0, react_1.createContext)({
+  setSectionOffsetYState: function setSectionOffsetYState() {},
+  headerClass: ''
+});
+var useAppContext = function useAppContext() {
+  return (0, react_1.useContext)(AppContext);
+};
+exports.useAppContext = useAppContext;
+var AppProvider = function AppProvider(_ref) {
+  var children = _ref.children;
+  var _ref2 = (0, react_1.useState)(''),
+    _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
+    headerClass = _ref3[0],
+    setHeaderClass = _ref3[1];
+  var _ref4 = (0, react_1.useState)({}),
+    _ref5 = (0, _slicedToArray2.default)(_ref4, 2),
+    sections = _ref5[0],
+    setSections = _ref5[1];
+  var setSectionOffsetYState = function setSectionOffsetYState(state) {
+    setSections(function (prev) {
+      return Object.assign(Object.assign({}, prev), state);
+    });
+  };
+  (0, react_1.useEffect)(function () {
+    window.addEventListener('scroll', function () {
+      var windowY = window.scrollY + 60;
+      var sectionEntries = Object.entries(sections);
+      sectionEntries.forEach(function (_ref6) {
+        var _ref7 = (0, _slicedToArray2.default)(_ref6, 2),
+          section = _ref7[0],
+          yOffset = _ref7[1];
+        if (windowY > yOffset) {
+          setHeaderClass("header--".concat(section));
+        }
+      });
+      var firstSection = sectionEntries[0];
+      if (firstSection) {
+        var _firstSection = (0, _slicedToArray2.default)(firstSection, 2),
+          _ = _firstSection[0],
+          firstSectionOffset = _firstSection[1];
+        if (windowY < firstSectionOffset) {
+          setHeaderClass('');
+        }
+      }
+    });
+  }, [sections]);
+  return react_1.default.createElement(AppContext.Provider, {
+    value: {
+      setSectionOffsetYState: setSectionOffsetYState,
+      headerClass: headerClass
+    }
+  }, children);
+};
+exports.default = AppProvider;
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Header/Header.tsx":[function(require,module,exports) {
+"use strict";
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = void 0 && (void 0).__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importStar(require("react"));
+var classnames_1 = __importDefault(require("classnames"));
+var AppProvider_1 = require("../../AppProvider");
+var Header = function Header(_ref) {
+  var title = _ref.title,
+    subtitle = _ref.subtitle,
+    nav = _ref.nav;
+  var _ref2 = (0, react_1.useState)(''),
+    _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
+    activeLink = _ref3[0],
+    setActiveLink = _ref3[1];
+  var _ref4 = (0, AppProvider_1.useAppContext)(),
+    headerClass = _ref4.headerClass;
+  var logo = headerClass.match(/projects|otherProjects|career/) ? '/beard-purple.png' : '/beard-green.png';
+  return react_1.default.createElement("header", {
+    className: (0, classnames_1.default)('header', headerClass)
+  }, react_1.default.createElement("a", {
+    className: "header__logo",
+    href: "/#home",
+    title: "".concat(title, " - ").concat(subtitle),
+    onClick: function onClick() {
+      return setActiveLink('');
+    }
+  }, react_1.default.createElement("img", {
+    src: logo,
+    width: "40",
+    alt: "logo"
+  })), react_1.default.createElement("nav", {
+    className: "header__nav"
+  }, react_1.default.createElement("ul", {
+    className: "header__links"
+  }, nav.map(function (link) {
+    var linkText = link.replace('/#', '');
+    return react_1.default.createElement("li", {
+      key: link
+    }, react_1.default.createElement("a", {
+      className: link === activeLink ? 'is-active' : '',
+      href: link,
+      onClick: function onClick() {
+        return setActiveLink(link);
+      }
+    }, linkText));
+  }))));
+};
+exports.default = Header;
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","../../AppProvider":"AppProvider.tsx"}],"components/Header/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Header_1 = require("./Header");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Header_1).default;
+  }
+});
+},{"./Header":"components/Header/Header.tsx"}],"../node_modules/@babel/runtime/helpers/toPrimitive.js":[function(require,module,exports) {
+var _typeof = require("./typeof.js")["default"];
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js"}],"../node_modules/@babel/runtime/helpers/toPropertyKey.js":[function(require,module,exports) {
+var _typeof = require("./typeof.js")["default"];
+var toPrimitive = require("./toPrimitive.js");
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js","./toPrimitive.js":"../node_modules/@babel/runtime/helpers/toPrimitive.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+var toPropertyKey = require("./toPropertyKey.js");
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"components/IconList/IconList.tsx":[function(require,module,exports) {
 "use strict";
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -30387,7 +30491,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Footer_1).default;
   }
 });
-},{"./Footer":"components/Footer/Footer.tsx"}],"components/Preface/Preface.tsx":[function(require,module,exports) {
+},{"./Footer":"components/Footer/Footer.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -30399,47 +30503,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var react_1 = __importDefault(require("react"));
-var Preface = function Preface(_ref) {
-  var text = _ref.text;
-  return react_1.default.createElement("div", {
-    className: "preface"
-  }, react_1.default.createElement("div", {
-    className: "preface__content"
-  }, text));
-};
-exports.default = Preface;
-},{"react":"../node_modules/react/index.js"}],"components/Preface/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Preface_1 = require("./Preface");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Preface_1).default;
-  }
-});
-},{"./Preface":"components/Preface/Preface.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Preface_1 = __importDefault(require("../Preface"));
 var Hero = function Hero(_ref) {
   var strapline = _ref.strapline,
     title = _ref.title,
@@ -30447,7 +30510,10 @@ var Hero = function Hero(_ref) {
     subtitle = _ref.subtitle;
   return react_1.default.createElement("div", {
     id: "home",
-    className: "hero"
+    className: "hero",
+    style: {
+      backgroundImage: 'url(./developer.svg)'
+    }
   }, react_1.default.createElement("div", {
     className: "hero__content"
   }, react_1.default.createElement("div", {
@@ -30458,14 +30524,10 @@ var Hero = function Hero(_ref) {
     className: "hero__title"
   }, title), react_1.default.createElement("h3", {
     className: "hero__subtitle"
-  }, subtitle)), react_1.default.createElement("div", {
-    className: "hero__text"
-  }, react_1.default.createElement(Preface_1.default, {
-    text: text.replace('[years]', String(new Date().getFullYear() - 2007))
-  }))));
+  }, subtitle))));
 };
 exports.default = Hero;
-},{"react":"../node_modules/react/index.js","../Preface":"components/Preface/index.ts"}],"components/Hero/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"components/Hero/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31782,7 +31844,40 @@ exports.Col = _Col3.default;
 },{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"components/Section/Section.tsx":[function(require,module,exports) {
 "use strict";
 
-var __rest = this && this.__rest || function (s, e) {
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = void 0 && (void 0).__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __rest = void 0 && (void 0).__rest || function (s, e) {
   var t = {};
   for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
   if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
@@ -31790,7 +31885,7 @@ var __rest = this && this.__rest || function (s, e) {
   }
   return t;
 };
-var __importDefault = this && this.__importDefault || function (mod) {
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
   };
@@ -31798,9 +31893,10 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var react_1 = __importDefault(require("react"));
+var react_1 = __importStar(require("react"));
 var classnames_1 = __importDefault(require("classnames"));
 var react_flexbox_grid_1 = require("react-flexbox-grid");
+var AppProvider_1 = require("../../AppProvider");
 var Section = function Section(_a) {
   var id = _a.id,
     className = _a.className,
@@ -31809,7 +31905,17 @@ var Section = function Section(_a) {
     _a$cols = _a.cols,
     cols = _a$cols === void 0 ? [7, 4] : _a$cols,
     other = __rest(_a, ["id", "className", "children", "sidebar", "cols"]);
+  var _ref = (0, AppProvider_1.useAppContext)(),
+    setSectionOffsetYState = _ref.setSectionOffsetYState;
+  var ref = (0, react_1.useRef)();
+  (0, react_1.useEffect)(function () {
+    if (ref.current) {
+      var offsetTop = ref.current.offsetTop;
+      setSectionOffsetYState((0, _defineProperty2.default)({}, id, offsetTop));
+    }
+  }, [ref]);
   return react_1.default.createElement("section", Object.assign({
+    ref: ref,
     id: id,
     className: (0, classnames_1.default)('section', className)
   }, other), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
@@ -31821,7 +31927,7 @@ var Section = function Section(_a) {
   }, sidebar)))));
 };
 exports.default = Section;
-},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js"}],"components/Section/index.ts":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../../AppProvider":"AppProvider.tsx"}],"components/Section/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31859,7 +31965,7 @@ var About = function About(_ref) {
     skills = _ref.skills;
   return react_1.default.createElement(Section_1.default, {
     id: "about",
-    className: "section--purple section--top-rounded",
+    className: "section--purple",
     sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
       className: "text-align-center@medium"
     }, skills.title), react_1.default.createElement(IconList_1.default, {
@@ -31917,7 +32023,7 @@ var Projects = function Projects(_ref) {
     }, featured.title), react_1.default.createElement("h6", {
       className: "no-margin"
     }, featured.subtitle), react_1.default.createElement("p", null, featured.content), react_1.default.createElement("p", null, react_1.default.createElement("a", {
-      className: "btn-link btn-link--magenta",
+      className: "btn-link",
       href: featured.url,
       rel: "noopener noreferrer",
       target: "_blank"
@@ -31927,11 +32033,14 @@ var Projects = function Projects(_ref) {
     src: featured.image,
     alt: "".concat(featured.title, " screenshot"),
     width: "100%"
-  })), react_1.default.createElement(Section_1.default, null, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
+  })), react_1.default.createElement(Section_1.default, {
+    id: "otherProjects"
+  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
     className: "text-align-center@medium"
   }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
-      md: 4
+      md: 4,
+      key: project.title
     }, react_1.default.createElement("div", {
       key: project.title,
       className: "project-box"
@@ -31959,7 +32068,9 @@ var Projects = function Projects(_ref) {
     }, project.title), react_1.default.createElement("p", null, project.description)), react_1.default.createElement("div", {
       className: "project-box__footer"
     }, project.techUsed.map(function (item) {
-      return react_1.default.createElement("span", null, item);
+      return react_1.default.createElement("span", {
+        key: item
+      }, item);
     }))));
   }))))));
 };
@@ -32026,7 +32137,7 @@ var Career = function Career(_a) {
         className: "semibold"
       }, duration), react_1.default.createElement("dd", null, positionHeld));
     })), react_1.default.createElement("a", {
-      className: "btn-link btn-link--magenta",
+      className: "btn-link",
       href: resume.resumeDownloadUrl,
       target: "_blank",
       rel: "noopener noreferrer"
@@ -32066,71 +32177,18 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Career_1).default;
   }
 });
-},{"./Career":"components/Career/Career.tsx"}],"components/Layout/Layout.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Header_1 = __importDefault(require("../Header"));
-var Footer_1 = __importDefault(require("../Footer"));
-var Hero_1 = __importDefault(require("../Hero"));
-var About_1 = __importDefault(require("../About"));
-var Projects_1 = __importDefault(require("../Projects"));
-var Career_1 = __importDefault(require("../Career"));
-var Layout = function Layout(_ref) {
-  var header = _ref.header,
-    footer = _ref.footer,
-    hero = _ref.hero,
-    sections = _ref.sections;
-  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("div", {
-    className: "layout"
-  }, react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement("div", {
-    className: "layout__body"
-  }, react_1.default.createElement(About_1.default, {
-    bio: sections.bio,
-    skills: sections.skills
-  }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career)))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer))));
-};
-exports.default = Layout;
-},{"react":"../node_modules/react/index.js","../Header":"components/Header/index.ts","../Footer":"components/Footer/index.ts","../Hero":"components/Hero/index.ts","../About":"components/About/index.ts","../Projects":"components/Projects/index.ts","../Career":"components/Career/index.ts"}],"components/Layout/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Layout_1 = require("./Layout");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Layout_1).default;
-  }
-});
-},{"./Layout":"components/Layout/Layout.tsx"}],"content.yml":[function(require,module,exports) {
+},{"./Career":"components/Career/Career.tsx"}],"content.yml":[function(require,module,exports) {
 module.exports = {
   docTitle: "Alan Eicker | Front End Engineer",
   header: {
     title: "Alan Eicker",
     subtitle: "Front End Engineer",
-    logoImg: "/beard.png",
     nav: ["/#about", "/#projects", "/#career"]
   },
   hero: {
     strapline: "Hi, my name is",
     title: "Alan Eicker.",
-    subtitle: "I Bring User Experiences to Life.",
+    subtitle: "Front End Engineer.",
     text: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
   },
   footer: {
@@ -32310,17 +32368,30 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var DocHead_1 = __importDefault(require("./components/DocHead"));
-var Layout_1 = __importDefault(require("./components/Layout"));
+var Header_1 = __importDefault(require("./components/Header"));
+var Footer_1 = __importDefault(require("./components/Footer"));
+var Hero_1 = __importDefault(require("./components/Hero"));
+var About_1 = __importDefault(require("./components/About"));
+var Projects_1 = __importDefault(require("./components/Projects"));
+var Career_1 = __importDefault(require("./components/Career"));
 var content_yml_1 = __importDefault(require("./content.yml"));
-var docTitle = content_yml_1.default.docTitle,
-  layoutContent = __rest(content_yml_1.default, ["docTitle"]);
+var _content_yml_1$defaul = content_yml_1.default,
+  docTitle = _content_yml_1$defaul.docTitle,
+  header = _content_yml_1$defaul.header,
+  footer = _content_yml_1$defaul.footer,
+  hero = _content_yml_1$defaul.hero,
+  rest = __rest(content_yml_1.default, ["docTitle", "header", "footer", "hero"]);
+var sections = rest.sections;
 var App = function App() {
   return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(DocHead_1.default, {
     title: docTitle
-  }), react_1.default.createElement(Layout_1.default, Object.assign({}, layoutContent)));
+  }), react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement(About_1.default, {
+    bio: sections.bio,
+    skills: sections.skills
+  }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer)));
 };
 exports.default = App;
-},{"react":"../node_modules/react/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Layout":"components/Layout/index.ts","./content.yml":"content.yml"}],"styles/main.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Header":"components/Header/index.ts","./components/Footer":"components/Footer/index.ts","./components/Hero":"components/Hero/index.ts","./components/About":"components/About/index.ts","./components/Projects":"components/Projects/index.ts","./components/Career":"components/Career/index.ts","./content.yml":"content.yml"}],"styles/main.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
@@ -32398,6 +32469,7 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 var _react = _interopRequireDefault(require("react"));
 var _client = _interopRequireDefault(require("react-dom/client"));
 var _App = _interopRequireDefault(require("./App"));
+var _AppProvider = _interopRequireDefault(require("./AppProvider"));
 require("./styles/main.scss");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /* eslint-disable react/jsx-filename-extension */
@@ -32423,8 +32495,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }, _callee);
 }))();
 var root = _client.default.createRoot(document.querySelector('#root'));
-root.render( /*#__PURE__*/_react.default.createElement(_App.default, null));
-},{"@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.tsx","./styles/main.scss":"styles/main.scss","_bundle_loader":"../node_modules/parcel-bundler/src/builtins/bundle-loader.js","react-axe":[["dist.52079508.js","../node_modules/react-axe/dist/index.js"],"dist.52079508.js.map","../node_modules/react-axe/dist/index.js"]}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+root.render( /*#__PURE__*/_react.default.createElement(_AppProvider.default, null, /*#__PURE__*/_react.default.createElement(_App.default, null)));
+},{"@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.tsx","./AppProvider":"AppProvider.tsx","./styles/main.scss":"styles/main.scss","_bundle_loader":"../node_modules/parcel-bundler/src/builtins/bundle-loader.js","react-axe":[["dist.52079508.js","../node_modules/react-axe/dist/index.js"],"dist.52079508.js.map","../node_modules/react-axe/dist/index.js"]}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32449,7 +32521,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54292" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55639" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

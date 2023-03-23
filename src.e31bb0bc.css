@@ -1410,13 +1410,18 @@ select {
   }
 }
 body {
-  background: rgb(251, 53, 71);
-  background: linear-gradient(180deg, rgb(251, 53, 71) 0%, rgb(139, 50, 124) 50%, rgb(0, 60, 97) 100%);
+  background-color: #4730d3;
   color: #212121;
   font-family: "Merriweather Sans", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.4;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -1472,6 +1477,10 @@ dd {
   line-height: 1.7;
 }
 
+main {
+  background: #ffffff;
+}
+
 .has-shadow {
   box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.15);
 }
@@ -1500,9 +1509,10 @@ dd {
 }
 
 .btn-link {
-  background: #212121;
+  background: #ffffff;
+  border: 0.125rem solid #211a40;
   border-radius: 0.25rem;
-  color: #ffffff;
+  color: #211a40;
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
@@ -1510,7 +1520,7 @@ dd {
   text-decoration: none;
 }
 .btn-link:hover {
-  background: #0d0d0d;
+  background: #f4f0ff;
 }
 .btn-link:focus {
   box-shadow: 0 0 0 0.1875rem #81effc;
@@ -1535,65 +1545,35 @@ dd {
   padding: 0.5rem;
 }
 
-.layout {
-  align-items: center;
-  background-image: url(https://cdn.osxdaily.com/wp-content/uploads/2020/10/macos-big-sur-wallpaper-1-scaled.jpg);
-  background-position: 0 bottom;
-  background-repeat: no-repeat;
-  background-size: auto 170%;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding-top: 3.125rem;
-  overflow-y: auto;
-  position: relative;
-  scroll-behavior: smooth;
-}
-.layout__body {
-  background: #ffffff;
-  border-radius: 0.5rem;
-  margin: 0 1rem;
-  max-width: 80rem;
-  position: relative;
-  top: -3.125rem;
-}
-@media (min-width: 768px) {
-  .layout {
-    background-size: auto 170%;
-    padding-top: 3.75rem;
-  }
-  .layout__header {
-    height: 3.75rem;
-  }
-}
-@media (min-width: 1366px) {
-  .layout {
-    background-size: cover;
-  }
-}
-
 .hero {
+  background-color: #4730d3;
+  background-position: right 80%;
+  background-repeat: no-repeat;
+  background-size: contain;
   color: #ffffff;
-  display: flex;
+  height: 100vh;
   justify-content: center;
-  padding: 1.875rem 1.25rem 5rem;
+  padding: 1.875rem;
   scroll-margin: 3.75rem;
-  width: 100%;
 }
 .hero__content {
   align-items: center;
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  margin-top: 25%;
   max-width: 64rem;
   text-align: center;
+  width: 100%;
+}
+.hero__header {
+  flex: 1;
 }
 .hero__strapline {
   font-size: 1.25rem;
   margin-bottom: 0.25rem;
 }
 .hero__title {
-  color: #fdcd48;
+  color: #ccf281;
   font-size: 2.5rem;
   line-height: 1.1;
 }
@@ -1602,31 +1582,34 @@ dd {
   font-size: 2.5rem;
   line-height: 1.25;
 }
-.hero__text {
-  font-size: 1rem;
-  margin-top: 1.25rem;
-  display: none;
+.hero__image {
+  min-width: 40%;
+}
+.hero__image svg {
+  width: 100%;
 }
 @media (min-width: 768px) {
   .hero {
-    padding: 3.125rem 1.25rem 5.625rem;
+    background-position: right center;
+    background-size: 50% auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: 5.625rem;
   }
   .hero__content {
-    flex-direction: row;
+    align-self: center;
+    margin-top: 0;
     text-align: left;
+    width: 50%;
   }
-  .hero__content > * + * {
-    margin-left: 3.125rem;
-  }
-  .hero__header {
-    border-right: 0.0625rem solid rgba(255, 255, 255, 0.35);
-    padding-right: 3.125rem;
+  .hero__strapline {
+    font-size: 1.5625rem;
   }
   .hero__title {
-    font-size: 3.4375rem;
+    font-size: 3.75rem;
   }
   .hero__subtitle {
-    font-size: 3.4375rem;
+    font-size: 3.75rem;
   }
   .hero__text {
     display: block;
@@ -1637,7 +1620,7 @@ dd {
 
 .header {
   align-items: center;
-  background: #212121;
+  background: #4730d3;
   display: flex;
   padding: 0 1.25rem 0 0;
   justify-content: space-between;
@@ -1648,7 +1631,6 @@ dd {
 }
 .header__logo {
   align-items: center;
-  background: #fdb248;
   color: #212121;
   display: flex;
   font-weight: 700;
@@ -1685,11 +1667,24 @@ dd {
   text-transform: uppercase;
 }
 .header__links > * > a:hover, .header__links > * > a:focus {
-  color: #fdcd48;
+  color: #ccf281;
 }
 .header__links > * > a.is-active {
-  color: #fdcd48;
+  color: #ccf281;
   cursor: default;
+}
+.header--about {
+  background: #211a40;
+}
+.header--projects, .header--otherProjects, .header--career {
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+}
+.header--projects a, .header--otherProjects a, .header--career a {
+  color: #212121;
+}
+.header--projects a:hover, .header--projects a:focus, .header--otherProjects a:hover, .header--otherProjects a:focus, .header--career a:hover, .header--career a:focus {
+  color: #4730d3;
 }
 @media (min-width: 768px) {
   .header {
@@ -1713,9 +1708,10 @@ dd {
 }
 
 .footer {
+  background: #211a40;
   color: #ffffff;
   font-size: 0.875rem;
-  padding: 0 1.25rem 1.25rem;
+  padding: 2.5rem 1.25rem;
   text-align: center;
   width: 100%;
 }
@@ -1763,6 +1759,10 @@ dd {
 .section {
   padding: 1.5rem;
   scroll-margin: 3.75rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .section--purple {
   background: #211a40;
