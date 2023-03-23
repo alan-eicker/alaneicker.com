@@ -2,7 +2,7 @@
   align-items: center;
   background: $brand-violet;
   display: flex;
-  padding: rem(0 20 0 0);
+  padding: rem(0 16 0);
   justify-content: space-between;
   width: 100%;
   position: fixed;
@@ -86,11 +86,9 @@
 
   @media (min-width: pixel($breakpoint-medium)) {
     height: rem(60);
-    padding: rem(0 20);
 
     &__logo {
       flex-direction: row;
-      min-width: rem(60);
       height: rem(60);
     }
 
