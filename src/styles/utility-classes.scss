@@ -26,10 +26,9 @@
 }
 
 .btn-link {
-  background: $white;
-  border: rem(2) solid $purple;
+  border: rem(2) solid $brand-violet;
   border-radius: rem(4);
-  color: $purple;
+  color: $brand-violet;
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
@@ -42,14 +41,6 @@
 
   &:focus {
     box-shadow: rem(0 0 0 3) $light-cyan;
-  }
-
-  &--magenta {
-    background: $magenta;
-
-    &:hover {
-      background: darken($magenta, 5%);
-    }
   }
 }
 

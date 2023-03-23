@@ -25,7 +25,7 @@ const AppProvider = ({ children }: Props) => {
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      const windowY = window.scrollY + 60;
+      const windowY = window.scrollY + 61;
       const sectionEntries = Object.entries(sections);
 
       sectionEntries.forEach(([section, yOffset]) => {
