@@ -1622,7 +1622,7 @@ main {
   align-items: center;
   background: #4730d3;
   display: flex;
-  padding: 0 1.25rem 0 0;
+  padding: 0 1rem 0;
   justify-content: space-between;
   width: 100%;
   position: fixed;
@@ -1689,11 +1689,9 @@ main {
 @media (min-width: 768px) {
   .header {
     height: 3.75rem;
-    padding: 0 1.25rem;
   }
   .header__logo {
     flex-direction: row;
-    min-width: 3.75rem;
     height: 3.75rem;
   }
   .header__subtitle {
