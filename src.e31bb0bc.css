@@ -1509,10 +1509,9 @@ main {
 }
 
 .btn-link {
-  background: #ffffff;
-  border: 0.125rem solid #211a40;
+  border: 0.125rem solid #4730d3;
   border-radius: 0.25rem;
-  color: #211a40;
+  color: #4730d3;
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
@@ -1524,12 +1523,6 @@ main {
 }
 .btn-link:focus {
   box-shadow: 0 0 0 0.1875rem #81effc;
-}
-.btn-link--magenta {
-  background: #d82c60;
-}
-.btn-link--magenta:hover {
-  background: #c62555;
 }
 
 .text-align-center {
@@ -1672,6 +1665,7 @@ main {
 .header__links > * > a.is-active {
   color: #ccf281;
   cursor: default;
+  text-decoration: underline;
 }
 .header--about {
   background: #211a40;
@@ -1683,7 +1677,7 @@ main {
 .header--projects a, .header--otherProjects a, .header--career a {
   color: #212121;
 }
-.header--projects a:hover, .header--projects a:focus, .header--otherProjects a:hover, .header--otherProjects a:focus, .header--career a:hover, .header--career a:focus {
+.header--projects a:hover, .header--projects a:focus, .header--projects a.is-active, .header--otherProjects a:hover, .header--otherProjects a:focus, .header--otherProjects a.is-active, .header--career a:hover, .header--career a:focus, .header--career a.is-active {
   color: #4730d3;
 }
 @media (min-width: 768px) {

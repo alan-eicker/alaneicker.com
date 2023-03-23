@@ -30184,7 +30184,7 @@ var AppProvider = function AppProvider(_ref) {
   };
   (0, react_1.useEffect)(function () {
     window.addEventListener('scroll', function () {
-      var windowY = window.scrollY + 60;
+      var windowY = window.scrollY + 61;
       var sectionEntries = Object.entries(sections);
       sectionEntries.forEach(function (_ref6) {
         var _ref7 = (0, _slicedToArray2.default)(_ref6, 2),
@@ -30270,7 +30270,7 @@ var Header = function Header(_ref) {
     setActiveLink = _ref3[1];
   var _ref4 = (0, AppProvider_1.useAppContext)(),
     headerClass = _ref4.headerClass;
-  var logo = headerClass.match(/projects|otherProjects|career/) ? '/beard-purple.png' : '/beard-green.png';
+  var logo = headerClass.match(/projects|career/) ? '/beard-purple.png' : '/beard-green.png';
   return react_1.default.createElement("header", {
     className: (0, classnames_1.default)('header', headerClass)
   }, react_1.default.createElement("a", {
@@ -30293,7 +30293,9 @@ var Header = function Header(_ref) {
     return react_1.default.createElement("li", {
       key: link
     }, react_1.default.createElement("a", {
-      className: link === activeLink ? 'is-active' : '',
+      className: (0, classnames_1.default)({
+        'is-active': link === activeLink || headerClass.replace('header--', '') === linkText
+      }),
       href: link,
       onClick: function onClick() {
         return setActiveLink(link);
@@ -32016,27 +32018,31 @@ var Projects = function Projects(_ref) {
     featured = _ref.featured,
     otherProjects = _ref.otherProjects;
   return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Section_1.default, {
-    id: "projects",
-    cols: [4, 7],
-    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, title), react_1.default.createElement("h5", {
-      className: "no-margin"
-    }, featured.title), react_1.default.createElement("h6", {
-      className: "no-margin"
-    }, featured.subtitle), react_1.default.createElement("p", null, featured.content), react_1.default.createElement("p", null, react_1.default.createElement("a", {
-      className: "btn-link",
-      href: featured.url,
-      rel: "noopener noreferrer",
-      target: "_blank"
-    }, featured.urlText)))
+    id: "projects"
+  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 4
   }, react_1.default.createElement("img", {
     className: "has-shadow",
     src: featured.image,
     alt: "".concat(featured.title, " screenshot"),
     width: "100%"
-  })), react_1.default.createElement(Section_1.default, {
-    id: "otherProjects"
-  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
-    className: "text-align-center@medium"
+  })), react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 7,
+    mdOffset: 1
+  }, react_1.default.createElement("h4", null, title), react_1.default.createElement("h5", {
+    className: "no-margin"
+  }, featured.title), react_1.default.createElement("h6", {
+    className: "no-margin"
+  }, featured.subtitle), react_1.default.createElement("p", null, featured.content), react_1.default.createElement("p", null, react_1.default.createElement("a", {
+    className: "btn-link",
+    href: featured.url,
+    rel: "noopener noreferrer",
+    target: "_blank"
+  }, featured.urlText))))), react_1.default.createElement("h4", {
+    className: "text-align-center@medium",
+    style: {
+      marginTop: 32
+    }
   }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
       md: 4,
@@ -32521,7 +32527,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55164" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57130" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
