@@ -16,7 +16,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
           <p>{featured.content}</p>
           <p>
             <a
-              className="btn-link btn-link--magenta"
+              className="btn-link"
               href={featured.url}
               rel="noopener noreferrer"
               target="_blank"

@@ -20,7 +20,7 @@ const Career = ({ resume, referrals, ...others }: CareerProps) => (
           ))}
         </dl>
         <a
-          className="btn-link btn-link--magenta"
+          className="btn-link"
           href={resume.resumeDownloadUrl}
           target="_blank"
           rel="noopener noreferrer"

@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import AppProvider from './AppProvider';
 import './styles/main.scss';
 
 (async () => {
@@ -12,4 +13,8 @@ import './styles/main.scss';
 })();
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
-root.render(<App />);
+root.render(
+  <AppProvider>
+    <App />
+  </AppProvider>,
+);

@@ -1,18 +1,26 @@
 .hero {
+  background-color: $brand-violet;
+  background-position: right 80%;
+  background-repeat: no-repeat;
+  background-size: contain;
   color: $white;
-  display: flex;
+  height: 100vh;
   justify-content: center;
-  padding: rem(30 20 80);
+  padding: rem(30);
   scroll-margin: rem(60);
-  width: 100%;
 
   &__content {
     align-items: center;
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    margin-top: 25%;
     max-width: rem(1024);
     text-align: center;
+    width: 100%;
+  }
+
+  &__header {
+    flex: 1;
   }
 
   &__strapline {
@@ -21,7 +29,7 @@
   }
 
   &__title {
-    color: $sunset-yellow;
+    color: $brand-green;
     font-size: rem(40);
     line-height: 1.1;
   }
@@ -32,35 +40,38 @@
     line-height: 1.25;
   }
 
-  &__text {
-    font-size: rem(16);
-    margin-top: rem(20);
-    display: none;
+  &__image {
+    min-width: 40%;
+
+    svg {
+      width: 100%;
+    }
   }
 
   @media (min-width: pixel($breakpoint-medium)) {
-    padding: rem(50 20 90);
+    background-position: right center;
+    background-size: 50% auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: rem(90);
 
     &__content {
-      flex-direction: row;
+      align-self: center;
+      margin-top: 0;
       text-align: left;
-
-      & > * + * {
-        margin-left: rem(50);
-      }
+      width: 50%;
     }
 
-    &__header {
-      border-right: rem(1) solid rgba(255, 255, 255, 0.35);
-      padding-right: rem(50);
+    &__strapline {
+      font-size: rem(25);
     }
 
     &__title {
-      font-size: rem(55);
+      font-size: rem(60);
     }
 
     &__subtitle {
-      font-size: rem(55);
+      font-size: rem(60);
     }
 
     &__text {

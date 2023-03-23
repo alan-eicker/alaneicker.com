@@ -6,7 +6,7 @@ import { AboutProps } from '../../types/components';
 const About = ({ bio, skills }: AboutProps) => (
   <Section
     id="about"
-    className="section--purple section--top-rounded"
+    className="section--purple"
     sidebar={
       <>
         <h4 className="text-align-center@medium">{skills.title}</h4>

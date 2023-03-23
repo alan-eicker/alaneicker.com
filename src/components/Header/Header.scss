@@ -1,6 +1,6 @@
 .header {
   align-items: center;
-  background: $black;
+  background: $brand-violet;
   display: flex;
   padding: rem(0 20 0 0);
   justify-content: space-between;
@@ -11,7 +11,6 @@
 
   &__logo {
     align-items: center;
-    background: $sunset-orange;
     color: $black;
     display: flex;
     font-weight: 700;
@@ -54,11 +53,11 @@
 
         &:hover,
         &:focus {
-          color: $sunset-yellow;
+          color: $brand-green;
         }
 
         &.is-active {
-          color: $sunset-yellow;
+          color: $brand-green;
           cursor: default;
         }
       }

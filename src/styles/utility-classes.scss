@@ -26,9 +26,10 @@
 }
 
 .btn-link {
-  background: $black;
+  background: $white;
+  border: rem(2) solid $purple;
   border-radius: rem(4);
-  color: $white;
+  color: $purple;
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
@@ -36,7 +37,7 @@
   text-decoration: none;
 
   &:hover {
-    background: darken($black, 8%);
+    background: $light-purple;
   }
 
   &:focus {

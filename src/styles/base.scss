@@ -1,16 +1,11 @@
 body {
-  background: rgb(251, 53, 71);
-  background: linear-gradient(
-    180deg,
-    rgba(251, 53, 71, 1) 0%,
-    rgba(139, 50, 124, 1) 50%,
-    rgba(0, 60, 97, 1) 100%
-  );
+  background-color: $brand-violet;
   color: $black;
   font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
   font-size: rem(16);
   font-weight: 300;
   line-height: 1.4;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -64,4 +59,8 @@ li,
 dt,
 dd {
   line-height: 1.7;
+}
+
+main {
+  background: $white;
 }
