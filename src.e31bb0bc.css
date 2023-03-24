@@ -1750,7 +1750,7 @@ main {
 
 .section {
   padding: 1.5rem;
-  scroll-margin: 3.75rem;
+  scroll-margin: 3.125rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -1769,6 +1769,7 @@ main {
 @media (min-width: 768px) {
   .section {
     padding: 3rem 4rem;
+    scroll-margin: 3.75rem;
   }
 }
 
