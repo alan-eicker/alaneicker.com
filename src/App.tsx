@@ -8,13 +8,13 @@ import Projects from './components/Projects';
 import Career from './components/Career';
 import content from './content.yml';
 
-const { docTitle, header, footer, hero, ...rest } = content;
+const { docTitle, blogUrl, header, footer, hero, ...rest } = content;
 const { sections } = rest;
 
 const App = () => (
   <>
     <DocHead title={docTitle} />
-    <Header {...header} />
+    <Header blogUrl={blogUrl} {...header} />
     <main>
       <Hero {...hero} />
       <About bio={sections.bio} skills={sections.skills} />

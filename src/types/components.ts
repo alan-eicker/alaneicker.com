@@ -2,6 +2,10 @@ export type HeaderProps = {
   title: string;
   subtitle: string;
   nav: string[];
+  blogUrl: {
+    url: string;
+    name: string;
+  };
 };
 
 export type FooterProps = {

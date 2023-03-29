@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { HeaderProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
 
-const Header = ({ title, subtitle, nav }: HeaderProps) => {
+const Header = ({ title, subtitle, nav, blogUrl }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
   const { headerClass } = useAppContext();
 
@@ -41,6 +41,13 @@ const Header = ({ title, subtitle, nav }: HeaderProps) => {
               </li>
             );
           })}
+          {blogUrl && (
+            <li>
+              <a href={blogUrl.url} target="_blank" rel="noopener noreferrer">
+                {blogUrl.name}
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
