@@ -30263,7 +30263,8 @@ var AppProvider_1 = require("../../AppProvider");
 var Header = function Header(_ref) {
   var title = _ref.title,
     subtitle = _ref.subtitle,
-    nav = _ref.nav;
+    nav = _ref.nav,
+    blogUrl = _ref.blogUrl;
   var _ref2 = (0, react_1.useState)(''),
     _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
     activeLink = _ref3[0],
@@ -30301,7 +30302,11 @@ var Header = function Header(_ref) {
         return setActiveLink(link);
       }
     }, linkText));
-  }))));
+  }), blogUrl && react_1.default.createElement("li", null, react_1.default.createElement("a", {
+    href: blogUrl.url,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, blogUrl.name)))));
 };
 exports.default = Header;
 },{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","../../AppProvider":"AppProvider.tsx"}],"components/Header/index.ts":[function(require,module,exports) {
@@ -32186,6 +32191,10 @@ Object.defineProperty(exports, "default", {
 },{"./Career":"components/Career/Career.tsx"}],"content.yml":[function(require,module,exports) {
 module.exports = {
   docTitle: "Alan Eicker | Front End Engineer",
+  blogUrl: {
+    name: "Blog",
+    url: "https://medium.com/@alaneicker"
+  },
   header: {
     title: "Alan Eicker",
     subtitle: "Front End Engineer",
@@ -32383,15 +32392,18 @@ var Career_1 = __importDefault(require("./components/Career"));
 var content_yml_1 = __importDefault(require("./content.yml"));
 var _content_yml_1$defaul = content_yml_1.default,
   docTitle = _content_yml_1$defaul.docTitle,
+  blogUrl = _content_yml_1$defaul.blogUrl,
   header = _content_yml_1$defaul.header,
   footer = _content_yml_1$defaul.footer,
   hero = _content_yml_1$defaul.hero,
-  rest = __rest(content_yml_1.default, ["docTitle", "header", "footer", "hero"]);
+  rest = __rest(content_yml_1.default, ["docTitle", "blogUrl", "header", "footer", "hero"]);
 var sections = rest.sections;
 var App = function App() {
   return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(DocHead_1.default, {
     title: docTitle
-  }), react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement(About_1.default, {
+  }), react_1.default.createElement(Header_1.default, Object.assign({
+    blogUrl: blogUrl
+  }, header)), react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement(About_1.default, {
     bio: sections.bio,
     skills: sections.skills
   }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer)));
@@ -32527,7 +32539,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64533" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53823" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
