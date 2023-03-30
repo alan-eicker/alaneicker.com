@@ -1483,6 +1483,11 @@ dd {
   line-height: 1.7;
 }
 
+dt {
+  font-weight: 800;
+  font-size: 1.125rem;
+}
+
 .has-shadow {
   box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.15);
 }
