@@ -1,33 +1,24 @@
 .header {
   align-items: center;
-  background: $brand-violet;
+  background: $black;
   display: flex;
-  padding: rem(0 16 0);
   justify-content: space-between;
-  width: 100%;
+  padding: rem(0 16 0);
   position: fixed;
   top: 0;
+  width: 100%;
   z-index: 3;
 
   &__logo {
     align-items: center;
     color: $black;
     display: flex;
+    font-size: rem(40);
     font-weight: 700;
     height: rem(50);
-    text-decoration: none;
-    min-width: rem(50);
     justify-content: center;
-    font-size: rem(40);
-  }
-
-  &__title {
-    color: $lime-green;
-    font-weight: 700;
-  }
-
-  &__subtitle {
-    color: $white;
+    min-width: rem(50);
+    text-decoration: none;
   }
 
   &__links {
@@ -44,44 +35,23 @@
         color: $white;
         display: block;
         font-size: rem(12);
-        font-weight: 600;
+        font-weight: 700;
         outline: none;
         padding: rem(6 8);
         text-decoration: none;
-        transition: all 0.15s linear;
         text-transform: uppercase;
+        transition: all 0.15s linear;
 
         &:hover,
         &:focus {
-          color: $brand-green;
+          color: $brand-violet;
         }
 
         &.is-active {
-          color: $brand-green;
+          color: $brand-violet;
           cursor: default;
           text-decoration: underline;
         }
-      }
-    }
-  }
-
-  &--about {
-    background: $purple;
-  }
-
-  &--projects,
-  &--otherProjects,
-  &--career {
-    box-shadow: rem(0 0 8) rgba(0, 0, 0, 0.2);
-    background: $white;
-
-    a {
-      color: $black;
-
-      &:hover,
-      &:focus,
-      &.is-active {
-        color: $brand-violet;
       }
     }
   }

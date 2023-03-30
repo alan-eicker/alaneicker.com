@@ -45,7 +45,7 @@ export type AboutProps = {
       name: string;
       icon: string;
     }[];
-  }[];
+  };
 };
 
 export type CareerProps = {
@@ -73,13 +73,13 @@ export type DocHeadProps = {
 };
 
 export type IconListProps = {
-  justify: 'center' | 'end' | 'between' | 'around';
+  justify?: 'center' | 'end' | 'between' | 'around';
   items: {
     name: string;
     icon: string;
     url?: string;
   }[];
-  size: number;
+  size?: number;
   label?: string;
 };
 
@@ -113,7 +113,7 @@ export type SectionProps = {
   children: JSX.Element;
   sidebar?: JSX.Element;
   cols?: number[];
-  id: string;
+  id?: string;
 };
 
 export type LayoutProps = {

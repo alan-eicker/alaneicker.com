@@ -11,7 +11,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
           <Row>
             <Col md={4}>
               <img
-                className="has-shadow"
+                className="featured-img"
                 src={featured.image}
                 alt={`${featured.title} screenshot`}
                 width="100%"

@@ -7,19 +7,17 @@ const Header = ({ title, subtitle, nav, blogUrl }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
   const { headerClass } = useAppContext();
 
-  const logo = headerClass.match(/projects|career/)
-    ? '/beard-purple.png'
-    : '/beard-green.png';
+  console.log(headerClass);
 
   return (
-    <header className={classnames('header', headerClass)}>
+    <header className="header">
       <a
         className="header__logo"
         href="/#home"
         title={`${title} - ${subtitle}`}
         onClick={() => setActiveLink('')}
       >
-        <img src={logo} width="40" alt="logo" />
+        <img src="./beard-purple.png" width="40" alt="logo" />
       </a>
       <nav className="header__nav">
         <ul className="header__links">

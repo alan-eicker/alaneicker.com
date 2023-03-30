@@ -1,23 +1,6 @@
 .section {
   padding: rem(24);
   scroll-margin: rem(50);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &--purple {
-    background: $purple;
-    color: $white;
-  }
-
-  &--light-gray {
-    background: lighten(#eceff1, 3%);
-  }
-
-  &--top-rounded {
-    border-radius: rem(8 8 0 0);
-  }
 
   @media (min-width: pixel($breakpoint-medium)) {
     padding: rem(48 64);

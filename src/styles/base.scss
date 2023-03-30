@@ -1,11 +1,16 @@
 body {
-  background-color: $brand-violet;
-  color: $black;
-  font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+  background-color: $black;
+  color: $white;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
   font-size: rem(16);
   font-weight: 300;
   line-height: 1.4;
   overflow-x: hidden;
+  padding-top: rem(50);
+
+  @media (min-width: 768px) {
+    padding-top: rem(60);
+  }
 }
 
 html,
@@ -23,14 +28,14 @@ h6 {
 }
 
 h4 {
-  font-size: rem(25);
-  font-weight: 600;
+  font-size: rem(30);
+  font-weight: 700;
   margin-bottom: rem(32);
 }
 
 h5 {
-  font-size: rem(16);
-  font-weight: 600;
+  font-size: rem(20);
+  font-weight: 700;
   margin-bottom: rem(32);
 }
 
@@ -41,7 +46,7 @@ h6 {
 }
 
 a {
-  color: $blue;
+  color: $brand-violet;
   font-weight: 600;
 }
 
@@ -64,8 +69,4 @@ li,
 dt,
 dd {
   line-height: 1.7;
-}
-
-main {
-  background: $white;
 }

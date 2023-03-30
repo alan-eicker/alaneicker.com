@@ -1,5 +1,4 @@
 .footer {
-  background: $purple;
   color: $white;
   font-size: rem(14);
   padding: rem(40 20);
@@ -7,7 +6,7 @@
   width: 100%;
 
   a {
-    color: $light-cyan;
+    color: lighten($brand-violet, 7%);
     font-weight: 300;
     text-decoration: none;
 

@@ -26,9 +26,9 @@
 }
 
 .btn-link {
-  border: rem(2) solid $brand-violet;
+  background: $brand-violet;
   border-radius: rem(4);
-  color: $brand-violet;
+  color: $white;
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
@@ -36,7 +36,7 @@
   text-decoration: none;
 
   &:hover {
-    background: $light-purple;
+    background: lighten($brand-violet, 5%);
   }
 
   &:focus {

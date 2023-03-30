@@ -1,6 +1,7 @@
 .project-box {
-  background: $light-purple;
+  background: $dark-gray;
   border-radius: rem(5);
+  color: $white;
   height: 100%;
   padding: rem(20);
 
@@ -27,17 +28,17 @@
   }
 
   &__folder-icon {
-    fill: $medium-purple;
+    fill: $white;
     width: rem(30);
   }
 
   &__link {
-    color: $purple;
+    color: $white;
     text-decoration: none;
     font-size: rem(22);
 
     &:hover {
-      color: $black;
+      color: $brand-violet;
     }
   }
 
@@ -45,4 +46,9 @@
     font-size: rem(18);
     margin: 0;
   }
+}
+
+.featured-img {
+  border: rem(2) solid $white;
+  display: block;
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { SectionProps } from '../../types/components';
