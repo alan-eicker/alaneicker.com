@@ -30271,9 +30271,9 @@ var Header = function Header(_ref) {
     setActiveLink = _ref3[1];
   var _ref4 = (0, AppProvider_1.useAppContext)(),
     headerClass = _ref4.headerClass;
-  var logo = headerClass.match(/projects|career/) ? '/beard-purple.png' : '/beard-green.png';
+  console.log(headerClass);
   return react_1.default.createElement("header", {
-    className: (0, classnames_1.default)('header', headerClass)
+    className: "header"
   }, react_1.default.createElement("a", {
     className: "header__logo",
     href: "/#home",
@@ -30282,7 +30282,7 @@ var Header = function Header(_ref) {
       return setActiveLink('');
     }
   }, react_1.default.createElement("img", {
-    src: logo,
+    src: "./beard-purple.png",
     width: "40",
     alt: "logo"
   })), react_1.default.createElement("nav", {
@@ -30498,62 +30498,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Footer_1).default;
   }
 });
-},{"./Footer":"components/Footer/Footer.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var Hero = function Hero(_ref) {
-  var strapline = _ref.strapline,
-    title = _ref.title,
-    text = _ref.text,
-    subtitle = _ref.subtitle;
-  return react_1.default.createElement("div", {
-    id: "home",
-    className: "hero",
-    style: {
-      backgroundImage: 'url(./developer.svg)'
-    }
-  }, react_1.default.createElement("div", {
-    className: "hero__content"
-  }, react_1.default.createElement("div", {
-    className: "hero__header"
-  }, react_1.default.createElement("h1", {
-    className: "hero__strapline"
-  }, strapline), react_1.default.createElement("h2", {
-    className: "hero__title"
-  }, title), react_1.default.createElement("h3", {
-    className: "hero__subtitle"
-  }, subtitle))));
-};
-exports.default = Hero;
-},{"react":"../node_modules/react/index.js"}],"components/Hero/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Hero_1 = require("./Hero");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Hero_1).default;
-  }
-});
-},{"./Hero":"components/Hero/Hero.tsx"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./Footer":"components/Footer/Footer.tsx"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -31953,7 +31898,55 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Section_1).default;
   }
 });
-},{"./Section":"components/Section/Section.tsx"}],"components/About/About.tsx":[function(require,module,exports) {
+},{"./Section":"components/Section/Section.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var Section_1 = __importDefault(require("../Section"));
+var Hero = function Hero(_ref) {
+  var strapline = _ref.strapline,
+    title = _ref.title,
+    text = _ref.text,
+    subtitle = _ref.subtitle;
+  return react_1.default.createElement(Section_1.default, {
+    className: "hero"
+  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h1", {
+    className: "hero__strapline"
+  }, strapline), react_1.default.createElement("h2", {
+    className: "hero__title"
+  }, title), react_1.default.createElement("h3", {
+    className: "hero__subtitle"
+  }, subtitle)));
+};
+exports.default = Hero;
+},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/Hero/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Hero_1 = require("./Hero");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Hero_1).default;
+  }
+});
+},{"./Hero":"components/Hero/Hero.tsx"}],"components/About/About.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31972,17 +31965,14 @@ var About = function About(_ref) {
     skills = _ref.skills;
   return react_1.default.createElement(Section_1.default, {
     id: "about",
-    className: "section--purple",
-    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", {
-      className: "text-align-center@medium"
-    }, skills.title), react_1.default.createElement(IconList_1.default, {
+    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, skills.title), react_1.default.createElement(IconList_1.default, {
       items: skills.items
     }))
-  }, react_1.default.createElement("h4", null, bio.title), bio.content.split('|').map(function (paragraph, idx) {
+  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, bio.title), bio.content.split('|').map(function (paragraph, idx) {
     return react_1.default.createElement("p", {
       key: idx + 1
     }, paragraph.replace(/@years/, String(new Date().getFullYear() - 2007)));
-  }));
+  })));
 };
 exports.default = About;
 },{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","../IconList":"components/IconList/index.ts"}],"components/About/index.ts":[function(require,module,exports) {
@@ -32027,7 +32017,7 @@ var Projects = function Projects(_ref) {
   }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
     md: 4
   }, react_1.default.createElement("img", {
-    className: "has-shadow",
+    className: "featured-img",
     src: featured.image,
     alt: "".concat(featured.title, " screenshot"),
     width: "100%"
@@ -32539,7 +32529,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53823" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64206" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
