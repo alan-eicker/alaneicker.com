@@ -125,7 +125,7 @@ sections:
       title: Atomik UI
       image: './atomikui.png'
     otherProjects:
-      title: Other Notable projects
+      title: Other Fun Projects
       items:
         - title: Budget Buddy
           description: A budgeting app for tracking monthly expenses.
