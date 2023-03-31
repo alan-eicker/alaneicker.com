@@ -12,7 +12,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
           <Row>
             <Col md={4}>
               <img
-                className="featured-img"
+                style={{ border: '2px solid white' }}
                 src={featured.image}
                 alt={`${featured.title} screenshot`}
                 width="100%"

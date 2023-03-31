@@ -10,7 +10,7 @@ const Career = ({ resume, referrals, ...others }: CareerProps) => (
     sidebar={
       <>
         <h4>{resume.title}</h4>
-        <dl className="career-list">
+        <dl>
           {resume.items.map(({ company, duration, positionHeld }) => (
             <React.Fragment key={company}>
               <dt className="bold">{company}</dt>
@@ -32,7 +32,7 @@ const Career = ({ resume, referrals, ...others }: CareerProps) => (
   >
     <>
       <h4>{referrals.title}</h4>
-      <dl className="career-list">
+      <dl>
         {referrals.items.map(({ referee, jobTitle, content }) => (
           <React.Fragment key={referee}>
             <dt className="bold">{referee}</dt>

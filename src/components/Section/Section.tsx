@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { SectionProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
+import './Section.scss';
 
 const Section = ({
   id,

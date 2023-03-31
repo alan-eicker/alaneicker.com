@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { IconListProps } from '../../types/components';
+import './IconList.scss';
 
 const IconList = ({ label, items, justify, size }: IconListProps) => (
   <>

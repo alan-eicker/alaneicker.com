@@ -1,6 +1,4 @@
-@import '../../styles/variables.scss';
-@import '../../styles/colors.scss';
-@import '../../styles/functions.scss';
+@import '../../styles/abstracts.scss';
 
 .project-box {
   background: lighten($midnight-blue, 5%);

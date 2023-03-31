@@ -1,6 +1,7 @@
 import React from 'react';
 import { HeroProps } from '../../types/components';
 import Section from '../Section';
+import './Hero.scss';
 
 const Hero = ({ strapline, title, text, subtitle }: HeroProps) => (
   <Section className="hero">

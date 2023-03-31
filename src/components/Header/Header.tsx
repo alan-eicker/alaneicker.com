@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 import { HeaderProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
+import './Header.scss';
 
 const Header = ({ title, subtitle, nav, blogUrl }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');

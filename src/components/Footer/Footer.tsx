@@ -1,6 +1,7 @@
 import React from 'react';
 import IconList from '../IconList';
 import { FooterProps } from '../../types/components';
+import './Footer.scss';
 
 const Footer = ({
   copyright,

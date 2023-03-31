@@ -1,18 +1,22 @@
+@import '../../styles/abstracts.scss';
+
 .footer {
+  background: darken($midnight-blue, 3%);
   color: $white;
   font-size: rem(14);
   padding: rem(40 20);
   text-align: center;
   width: 100%;
 
-  a {
-    color: lighten($brand-violet, 7%);
-    font-weight: 300;
-    text-decoration: none;
+  p {
+    a {
+      color: lighten($brand-violet, 7%);
+      font-weight: 300;
+      text-decoration: none;
 
-    &:hover {
-      color: white;
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
