@@ -110,10 +110,10 @@ export type ProjectsProps = {
 
 export type SectionProps = {
   className?: string;
-  children: JSX.Element;
   sidebar?: JSX.Element;
   cols?: number[];
   id?: string;
+  children?: JSX.Element | any[];
 };
 
 export type LayoutProps = {

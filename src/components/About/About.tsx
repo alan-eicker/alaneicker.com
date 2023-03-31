@@ -13,14 +13,12 @@ const About = ({ bio, skills }: AboutProps) => (
       </>
     }
   >
-    <>
-      <h4>{bio.title}</h4>
-      {bio.content.split('|').map((paragraph, idx) => (
-        <p key={idx + 1}>
-          {paragraph.replace(/@years/, String(new Date().getFullYear() - 2007))}
-        </p>
-      ))}
-    </>
+    <h4>{bio.title}</h4>
+    {bio.content.split('|').map((paragraph, idx) => (
+      <p key={idx + 1}>
+        {paragraph.replace(/@years/, String(new Date().getFullYear() - 2007))}
+      </p>
+    ))}
   </Section>
 );
 
