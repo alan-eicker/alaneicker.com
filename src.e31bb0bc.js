@@ -30161,7 +30161,7 @@ exports.useAppContext = void 0;
 var react_1 = __importStar(require("react"));
 var AppContext = (0, react_1.createContext)({
   setSectionOffsetYState: function setSectionOffsetYState() {},
-  headerClass: ''
+  nextSection: ''
 });
 var useAppContext = function useAppContext() {
   return (0, react_1.useContext)(AppContext);
@@ -30171,8 +30171,8 @@ var AppProvider = function AppProvider(_ref) {
   var children = _ref.children;
   var _ref2 = (0, react_1.useState)(''),
     _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
-    headerClass = _ref3[0],
-    setHeaderClass = _ref3[1];
+    nextSection = _ref3[0],
+    setNextSection = _ref3[1];
   var _ref4 = (0, react_1.useState)({}),
     _ref5 = (0, _slicedToArray2.default)(_ref4, 2),
     sections = _ref5[0],
@@ -30191,7 +30191,7 @@ var AppProvider = function AppProvider(_ref) {
           section = _ref7[0],
           yOffset = _ref7[1];
         if (windowY > yOffset) {
-          setHeaderClass("header--".concat(section));
+          setNextSection("/#".concat(section));
         }
       });
       var firstSection = sectionEntries[0];
@@ -30200,7 +30200,7 @@ var AppProvider = function AppProvider(_ref) {
           _ = _firstSection[0],
           firstSectionOffset = _firstSection[1];
         if (windowY < firstSectionOffset) {
-          setHeaderClass('');
+          setNextSection('');
         }
       }
     });
@@ -30208,7 +30208,7 @@ var AppProvider = function AppProvider(_ref) {
   return react_1.default.createElement(AppContext.Provider, {
     value: {
       setSectionOffsetYState: setSectionOffsetYState,
-      headerClass: headerClass
+      nextSection: nextSection
     }
   }, children);
 };
@@ -30326,8 +30326,10 @@ var Header = function Header(_ref) {
     activeLink = _ref3[0],
     setActiveLink = _ref3[1];
   var _ref4 = (0, AppProvider_1.useAppContext)(),
-    headerClass = _ref4.headerClass;
-  console.log(headerClass);
+    nextSection = _ref4.nextSection;
+  (0, react_1.useEffect)(function () {
+    setActiveLink(nextSection);
+  }, [nextSection]);
   return react_1.default.createElement("header", {
     className: "header"
   }, react_1.default.createElement("a", {
@@ -30351,7 +30353,7 @@ var Header = function Header(_ref) {
       key: link
     }, react_1.default.createElement("a", {
       className: (0, classnames_1.default)({
-        'is-active': link === activeLink || headerClass.replace('header--', '') === linkText
+        'is-active': link === activeLink
       }),
       href: link,
       onClick: function onClick() {
@@ -32597,7 +32599,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60472" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62852" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
