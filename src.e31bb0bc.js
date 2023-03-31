@@ -31968,11 +31968,11 @@ var About = function About(_ref) {
     sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, skills.title), react_1.default.createElement(IconList_1.default, {
       items: skills.items
     }))
-  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, bio.title), bio.content.split('|').map(function (paragraph, idx) {
+  }, react_1.default.createElement("h4", null, bio.title), bio.content.split('|').map(function (paragraph, idx) {
     return react_1.default.createElement("p", {
       key: idx + 1
     }, paragraph.replace(/@years/, String(new Date().getFullYear() - 2007)));
-  })));
+  }));
 };
 exports.default = About;
 },{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","../IconList":"components/IconList/index.ts"}],"components/About/index.ts":[function(require,module,exports) {
@@ -32529,7 +32529,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65371" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54458" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
