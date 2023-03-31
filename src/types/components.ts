@@ -124,3 +124,10 @@ export type LayoutProps = {
     [key: string]: any;
   };
 };
+
+export type ProjectBoxProps = {
+  title: string;
+  description: string;
+  url: string;
+  techUsed: string[];
+};
