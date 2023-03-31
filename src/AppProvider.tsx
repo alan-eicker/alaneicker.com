@@ -6,17 +6,17 @@ type Props = {
 
 type AppProviderValues = {
   setSectionOffsetYState: Function;
-  headerClass: string;
+  nextSection: string;
 };
 
 const AppContext = createContext<AppProviderValues>({
   setSectionOffsetYState: () => {},
-  headerClass: '',
+  nextSection: '',
 });
 export const useAppContext = () => useContext(AppContext);
 
 const AppProvider = ({ children }: Props) => {
-  const [headerClass, setHeaderClass] = useState<string>('');
+  const [nextSection, setNextSection] = useState<string>('');
   const [sections, setSections] = useState<object>({});
 
   const setSectionOffsetYState = (state: { [key: string]: number }) => {
@@ -30,7 +30,7 @@ const AppProvider = ({ children }: Props) => {
 
       sectionEntries.forEach(([section, yOffset]) => {
         if (windowY > yOffset) {
-          setHeaderClass(`header--${section}`);
+          setNextSection(`/#${section}`);
         }
       });
 
@@ -39,14 +39,14 @@ const AppProvider = ({ children }: Props) => {
       if (firstSection) {
         const [_, firstSectionOffset] = firstSection;
         if (windowY < firstSectionOffset) {
-          setHeaderClass('');
+          setNextSection('');
         }
       }
     });
   }, [sections]);
 
   return (
-    <AppContext.Provider value={{ setSectionOffsetYState, headerClass }}>
+    <AppContext.Provider value={{ setSectionOffsetYState, nextSection }}>
       {children}
     </AppContext.Provider>
   );

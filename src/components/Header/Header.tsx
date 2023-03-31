@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { HeaderProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
@@ -6,9 +6,11 @@ import './Header.scss';
 
 const Header = ({ title, subtitle, nav, blogUrl }: HeaderProps) => {
   const [activeLink, setActiveLink] = useState('');
-  const { headerClass } = useAppContext();
+  const { nextSection } = useAppContext();
 
-  console.log(headerClass);
+  useEffect(() => {
+    setActiveLink(nextSection);
+  }, [nextSection]);
 
   return (
     <header className="header">
@@ -28,9 +30,7 @@ const Header = ({ title, subtitle, nav, blogUrl }: HeaderProps) => {
               <li key={link}>
                 <a
                   className={classnames({
-                    'is-active':
-                      link === activeLink ||
-                      headerClass.replace('header--', '') === linkText,
+                    'is-active': link === activeLink,
                   })}
                   href={link}
                   onClick={() => setActiveLink(link)}
