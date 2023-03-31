@@ -30213,7 +30213,62 @@ var AppProvider = function AppProvider(_ref) {
   }, children);
 };
 exports.default = AppProvider;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Header/Header.tsx":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+  return bundleURL;
+}
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+  return '/';
+}
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    link.remove();
+  };
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+    cssTimeout = null;
+  }, 50);
+}
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/Header/Header.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Header/Header.tsx":[function(require,module,exports) {
 "use strict";
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
@@ -30260,6 +30315,7 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importStar(require("react"));
 var classnames_1 = __importDefault(require("classnames"));
 var AppProvider_1 = require("../../AppProvider");
+require("./Header.scss");
 var Header = function Header(_ref) {
   var title = _ref.title,
     subtitle = _ref.subtitle,
@@ -30309,7 +30365,7 @@ var Header = function Header(_ref) {
   }, blogUrl.name)))));
 };
 exports.default = Header;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","../../AppProvider":"AppProvider.tsx"}],"components/Header/index.ts":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","../../AppProvider":"AppProvider.tsx","./Header.scss":"components/Header/Header.scss"}],"components/Header/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -30366,7 +30422,11 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"components/IconList/IconList.tsx":[function(require,module,exports) {
+},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"components/IconList/IconList.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/IconList/IconList.tsx":[function(require,module,exports) {
 "use strict";
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -30381,6 +30441,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var classnames_1 = __importDefault(require("classnames"));
+require("./IconList.scss");
 var IconList = function IconList(_ref) {
   var label = _ref.label,
     items = _ref.items,
@@ -30420,7 +30481,7 @@ var IconList = function IconList(_ref) {
   })));
 };
 exports.default = IconList;
-},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js"}],"components/IconList/index.ts":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","./IconList.scss":"components/IconList/IconList.scss"}],"components/IconList/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -30439,7 +30500,11 @@ Object.defineProperty(exports, "default", {
     return __importDefault(IconList_1).default;
   }
 });
-},{"./IconList":"components/IconList/IconList.tsx"}],"components/Footer/Footer.tsx":[function(require,module,exports) {
+},{"./IconList":"components/IconList/IconList.tsx"}],"components/Footer/Footer.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Footer/Footer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -30452,6 +30517,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var IconList_1 = __importDefault(require("../IconList"));
+require("./Footer.scss");
 var Footer = function Footer(_ref) {
   var copyright = _ref.copyright,
     contactInfo = _ref.contactInfo,
@@ -30479,7 +30545,7 @@ var Footer = function Footer(_ref) {
   }, iconCredits.websiteLinkText)));
 };
 exports.default = Footer;
-},{"react":"../node_modules/react/index.js","../IconList":"components/IconList/index.ts"}],"components/Footer/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../IconList":"components/IconList/index.ts","./Footer.scss":"components/Footer/Footer.scss"}],"components/Footer/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -30498,58 +30564,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Footer_1).default;
   }
 });
-},{"./Footer":"components/Footer/Footer.tsx"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-  return bundleURL;
-}
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-  return '/';
-}
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-    cssTimeout = null;
-  }, 50);
-}
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/flexboxgrid2/flexboxgrid2.css":[function(require,module,exports) {
+},{"./Footer":"components/Footer/Footer.tsx"}],"../node_modules/flexboxgrid2/flexboxgrid2.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
@@ -31793,7 +31808,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.Grid = _Grid3.default;
 exports.Row = _Row3.default;
 exports.Col = _Col3.default;
-},{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"components/Section/Section.tsx":[function(require,module,exports) {
+},{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"components/Section/Section.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Section/Section.tsx":[function(require,module,exports) {
 "use strict";
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -31849,6 +31868,7 @@ var react_1 = __importStar(require("react"));
 var classnames_1 = __importDefault(require("classnames"));
 var react_flexbox_grid_1 = require("react-flexbox-grid");
 var AppProvider_1 = require("../../AppProvider");
+require("./Section.scss");
 var Section = function Section(_a) {
   var id = _a.id,
     className = _a.className,
@@ -31879,7 +31899,7 @@ var Section = function Section(_a) {
   }, sidebar)))));
 };
 exports.default = Section;
-},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../../AppProvider":"AppProvider.tsx"}],"components/Section/index.ts":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../../AppProvider":"AppProvider.tsx","./Section.scss":"components/Section/Section.scss"}],"components/Section/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31898,7 +31918,11 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Section_1).default;
   }
 });
-},{"./Section":"components/Section/Section.tsx"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
+},{"./Section":"components/Section/Section.tsx"}],"components/Hero/Hero.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Hero/Hero.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31911,6 +31935,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var react_1 = __importDefault(require("react"));
 var Section_1 = __importDefault(require("../Section"));
+require("./Hero.scss");
 var Hero = function Hero(_ref) {
   var strapline = _ref.strapline,
     title = _ref.title,
@@ -31927,7 +31952,7 @@ var Hero = function Hero(_ref) {
   }, subtitle)));
 };
 exports.default = Hero;
-},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/Hero/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","./Hero.scss":"components/Hero/Hero.scss"}],"components/Hero/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -31994,7 +32019,81 @@ Object.defineProperty(exports, "default", {
     return __importDefault(About_1).default;
   }
 });
-},{"./About":"components/About/About.tsx"}],"components/Projects/Projects.tsx":[function(require,module,exports) {
+},{"./About":"components/About/About.tsx"}],"components/ProjectBox/ProjectBox.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/ProjectBox/ProjectBox.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+require("./ProjectBox.scss");
+var ProjectBox = function ProjectBox(_ref) {
+  var title = _ref.title,
+    description = _ref.description,
+    url = _ref.url,
+    techUsed = _ref.techUsed;
+  return react_1.default.createElement("div", {
+    key: title,
+    className: "project-box"
+  }, react_1.default.createElement("div", {
+    className: "project-box__head"
+  }, react_1.default.createElement("svg", {
+    className: "project-box__folder-icon",
+    viewBox: "0 0 32 32",
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, react_1.default.createElement("path", {
+    d: "M11.086 5.5l2.457 2.414 0.629 0.586h15.829v18h-28v-21h9.086zM12 3.5h-10c-1.105 0-2 0.896-2 2v21c0 1.105 0.895 2 2 2h28c1.105 0 2-0.895 2-2v-18c0-1.104-0.895-2-2-2h-15z"
+  })), react_1.default.createElement("a", {
+    className: "project-box__link",
+    href: url,
+    rel: "noopener noreferrer",
+    target: "_blank",
+    "aria-label": "view project in github"
+  }, react_1.default.createElement("i", {
+    className: "devicon-github-original"
+  }))), react_1.default.createElement("div", {
+    className: "project-box__body"
+  }, react_1.default.createElement("h5", {
+    className: "project-box__title"
+  }, title), react_1.default.createElement("p", null, description)), react_1.default.createElement("div", {
+    className: "project-box__footer"
+  }, techUsed.map(function (item) {
+    return react_1.default.createElement("span", {
+      key: item
+    }, item);
+  })));
+};
+exports.default = ProjectBox;
+},{"react":"../node_modules/react/index.js","./ProjectBox.scss":"components/ProjectBox/ProjectBox.scss"}],"components/ProjectBox/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var ProjectBox_1 = require("./ProjectBox");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(ProjectBox_1).default;
+  }
+});
+},{"./ProjectBox":"components/ProjectBox/ProjectBox.tsx"}],"components/Projects/Projects.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -32008,6 +32107,7 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 var react_flexbox_grid_1 = require("react-flexbox-grid");
 var Section_1 = __importDefault(require("../Section"));
+var ProjectBox_1 = __importDefault(require("../ProjectBox"));
 var Projects = function Projects(_ref) {
   var title = _ref.title,
     featured = _ref.featured,
@@ -32017,7 +32117,9 @@ var Projects = function Projects(_ref) {
   }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
     md: 4
   }, react_1.default.createElement("img", {
-    className: "featured-img",
+    style: {
+      border: '2px solid white'
+    },
     src: featured.image,
     alt: "".concat(featured.title, " screenshot"),
     width: "100%"
@@ -32042,41 +32144,11 @@ var Projects = function Projects(_ref) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
       md: 4,
       key: project.title
-    }, react_1.default.createElement("div", {
-      key: project.title,
-      className: "project-box"
-    }, react_1.default.createElement("div", {
-      className: "project-box__head"
-    }, react_1.default.createElement("svg", {
-      className: "project-box__folder-icon",
-      viewBox: "0 0 32 32",
-      version: "1.1",
-      xmlns: "http://www.w3.org/2000/svg"
-    }, react_1.default.createElement("path", {
-      d: "M11.086 5.5l2.457 2.414 0.629 0.586h15.829v18h-28v-21h9.086zM12 3.5h-10c-1.105 0-2 0.896-2 2v21c0 1.105 0.895 2 2 2h28c1.105 0 2-0.895 2-2v-18c0-1.104-0.895-2-2-2h-15z"
-    })), react_1.default.createElement("a", {
-      className: "project-box__link",
-      href: project.url,
-      rel: "noopener noreferrer",
-      target: "_blank",
-      "aria-label": "view project in github"
-    }, react_1.default.createElement("i", {
-      className: "devicon-github-original"
-    }))), react_1.default.createElement("div", {
-      className: "project-box__body"
-    }, react_1.default.createElement("h5", {
-      className: "project-box__title"
-    }, project.title), react_1.default.createElement("p", null, project.description)), react_1.default.createElement("div", {
-      className: "project-box__footer"
-    }, project.techUsed.map(function (item) {
-      return react_1.default.createElement("span", {
-        key: item
-      }, item);
-    }))));
+    }, react_1.default.createElement(ProjectBox_1.default, Object.assign({}, project)));
   }))))));
 };
 exports.default = Projects;
-},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts","../ProjectBox":"components/ProjectBox/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -32124,9 +32196,7 @@ var Career = function Career(_a) {
     id: "career",
     className: "section--light-gray"
   }, others, {
-    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, resume.title), react_1.default.createElement("dl", {
-      className: "career-list"
-    }, resume.items.map(function (_ref) {
+    sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, resume.title), react_1.default.createElement("dl", null, resume.items.map(function (_ref) {
       var company = _ref.company,
         duration = _ref.duration,
         positionHeld = _ref.positionHeld;
@@ -32143,9 +32213,7 @@ var Career = function Career(_a) {
       target: "_blank",
       rel: "noopener noreferrer"
     }, "View my Resum\xE9"))
-  }), react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", {
-    className: "career-list"
-  }, referrals.items.map(function (_ref2) {
+  }), react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", null, referrals.items.map(function (_ref2) {
     var referee = _ref2.referee,
       jobTitle = _ref2.jobTitle,
       content = _ref2.content;
@@ -32282,7 +32350,7 @@ module.exports = {
         image: "./atomikui.png"
       },
       otherProjects: {
-        title: "Other Notable projects",
+        title: "Other Fun Projects",
         items: [{
           title: "Budget Buddy",
           description: "A budgeting app for tracking monthly expenses.",
@@ -32529,7 +32597,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54914" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60472" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
