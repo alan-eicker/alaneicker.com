@@ -1468,7 +1468,7 @@
 }
 .hero__strapline {
   font-size: 1.25rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.1875rem;
   font-weight: 600;
 }
 .hero__title {
@@ -1481,6 +1481,7 @@
   font-size: 1.5rem;
   line-height: 1.4;
   font-weight: 600;
+  margin-top: 0.1875rem;
 }
 @media (min-width: 768px) {
   .hero__strapline {
