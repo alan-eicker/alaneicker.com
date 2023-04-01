@@ -37,7 +37,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
           </Row>
         </Grid>
 
-        <h4 className="text-align-center@medium" style={{ marginTop: 32 }}>
+        <h4 className="text-align-center@medium" style={{ marginTop: 60 }}>
           {otherProjects.title}
         </h4>
 
