@@ -32263,7 +32263,7 @@ module.exports = {
   hero: {
     strapline: "Hi, my name is",
     title: "Alan Eicker.",
-    subtitle: "Front End Engineer.",
+    subtitle: "Front End Engineer. React Enthusiast. Accessibity Advocate.",
     text: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
   },
   footer: {
@@ -32296,7 +32296,7 @@ module.exports = {
   sections: {
     bio: {
       title: "A Bit About Me",
-      content: "I began my journey @years years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
+      content: "I began my journey @years years ago as a junior front-end engineer for a small design company building ColdFusion websites for construction companies. Today, I lead the front-end efforts for one of America's largest insurance companies, working with technologies such as React, Redux and Node.js.|Throughout my career, I've seen the Web grow from simple static HTML websites into complex data-driven Progressive Web Apps. Over the years, I've invested countless hours honing my skills to stay on top of the next emerging technology trend. I'm not an expert at everything out there, but I'd be confident building just about anything UI related."
     },
     career: {
       resume: {
@@ -32599,7 +32599,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64486" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55278" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
