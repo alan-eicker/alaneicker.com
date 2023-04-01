@@ -10,7 +10,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
       <>
         <Grid>
           <Row>
-            <Col md={4}>
+            <Col md={3}>
               <img
                 style={{ border: '2px solid white' }}
                 src={featured.image}
@@ -18,7 +18,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
                 width="100%"
               />
             </Col>
-            <Col md={7} mdOffset={1}>
+            <Col md={8} mdOffset={1}>
               <h4>{title}</h4>
               <h5 className="no-margin">{featured.title}</h5>
               <h6 className="no-margin">{featured.subtitle}</h6>
