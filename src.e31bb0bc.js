@@ -32117,7 +32117,7 @@ var Projects = function Projects(_ref) {
   return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Section_1.default, {
     id: "projects"
   }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
-    md: 4
+    md: 3
   }, react_1.default.createElement("img", {
     style: {
       border: '2px solid white'
@@ -32126,7 +32126,7 @@ var Projects = function Projects(_ref) {
     alt: "".concat(featured.title, " screenshot"),
     width: "100%"
   })), react_1.default.createElement(react_flexbox_grid_1.Col, {
-    md: 7,
+    md: 8,
     mdOffset: 1
   }, react_1.default.createElement("h4", null, title), react_1.default.createElement("h5", {
     className: "no-margin"
@@ -32140,7 +32140,7 @@ var Projects = function Projects(_ref) {
   }, featured.urlText))))), react_1.default.createElement("h4", {
     className: "text-align-center@medium",
     style: {
-      marginTop: 32
+      marginTop: 60
     }
   }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
@@ -32599,7 +32599,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56250" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56874" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
