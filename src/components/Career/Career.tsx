@@ -11,9 +11,17 @@ const Career = ({ resume, referrals, ...others }: CareerProps) => (
       <>
         <h4>{resume.title}</h4>
         <dl>
-          {resume.items.map(({ company, duration, positionHeld }) => (
+          {resume.items.map(({ company, url, duration, positionHeld }) => (
             <React.Fragment key={company}>
-              <dt className="bold">{company}</dt>
+              <dt className="bold">
+                {url ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {company}
+                  </a>
+                ) : (
+                  company
+                )}
+              </dt>
               <dd className="semibold">{duration}</dd>
               <dd>{positionHeld}</dd>
             </React.Fragment>

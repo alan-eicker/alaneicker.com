@@ -54,6 +54,7 @@ export type CareerProps = {
     resumeDownloadUrl: string;
     items: {
       company: string;
+      url?: string;
       duration: string;
       positionHeld: string;
     }[];

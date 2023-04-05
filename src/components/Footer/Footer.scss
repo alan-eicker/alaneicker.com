@@ -10,13 +10,7 @@
 
   p {
     a {
-      color: lighten($brand-violet, 7%);
       font-weight: 300;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 

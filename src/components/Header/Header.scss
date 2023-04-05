@@ -45,12 +45,12 @@
         transition: all 0.15s linear;
 
         &:hover,
-        &:focus {
-          color: $brand-violet;
+        &:focus,
+        &.is-active {
+          color: lighten($brand-violet, 7%);
         }
 
         &.is-active {
-          color: $brand-violet;
           cursor: default;
           text-decoration: underline;
         }

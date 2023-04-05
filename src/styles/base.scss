@@ -46,8 +46,12 @@ h6 {
 }
 
 a {
-  color: $brand-violet;
-  font-weight: 600;
+  color: lighten($brand-violet, 9%);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 p {

@@ -61,15 +61,19 @@ sections:
       resumeDownloadUrl: alan-eicker-resume.pdf
       items:
         - company: Allstate Insurance
+          url: https://www.allstate.com
           duration: Mar 2015 - Present
           positionHeld: Senior/Lead Software Engineer (Front-End)
         - company: RealPage
+          url: https://www.realpage.com
           duration: Apr 2012 - Mar 2015
           positionHeld: Senior/Lead Front-End Engineer
         - company: Restaurant.com
+          url: https://www.restaurant.com
           duration: Nov 2010 - Apr 2012
           positionHeld: Senior Front-End Engineer
         - company: optionsXpress (now Charles Schwab)
+          url: https://www.schwab.com
           duration: Feb 2008 - Nov 2010
           positionHeld: Web Designer / Front-End Engineer
         - company: Leader Graphic Design
