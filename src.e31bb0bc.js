@@ -32416,17 +32416,17 @@ module.exports = {
         name: "MongoDB",
         icon: "devicon-mongodb-plain"
       }, {
+        name: "Python",
+        icon: "devicon-python-plain"
+      }, {
+        name: "Django",
+        icon: "devicon-django-plain"
+      }, {
         name: "Git",
         icon: "devicon-git-plain"
       }, {
         name: "GitHub",
         icon: "devicon-github-original"
-      }, {
-        name: "Java",
-        icon: "devicon-java-plain"
-      }, {
-        name: "Spring",
-        icon: "devicon-spring-plain"
       }]
     }
   }
@@ -32608,7 +32608,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56984" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62365" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
