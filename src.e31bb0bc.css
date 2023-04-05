@@ -39,11 +39,10 @@
   text-transform: uppercase;
   transition: all 0.15s linear;
 }
-.header__links > * > a:hover, .header__links > * > a:focus {
-  color: #7161d4;
+.header__links > * > a:hover, .header__links > * > a:focus, .header__links > * > a.is-active {
+  color: #8a7ddc;
 }
 .header__links > * > a.is-active {
-  color: #7161d4;
   cursor: default;
   text-decoration: underline;
 }
@@ -105,12 +104,7 @@
   width: 100%;
 }
 .footer p a {
-  color: #8a7ddc;
   font-weight: 300;
-  text-decoration: none;
-}
-.footer p a:hover {
-  text-decoration: underline;
 }
 .footer p {
   margin: 0 0 0.125rem;
@@ -1657,8 +1651,11 @@ h6 {
 }
 
 a {
-  color: #7161d4;
-  font-weight: 600;
+  color: #9185de;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 p {

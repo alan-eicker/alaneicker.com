@@ -32200,13 +32200,18 @@ var Career = function Career(_a) {
   }, others, {
     sidebar: react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, resume.title), react_1.default.createElement("dl", null, resume.items.map(function (_ref) {
       var company = _ref.company,
+        url = _ref.url,
         duration = _ref.duration,
         positionHeld = _ref.positionHeld;
       return react_1.default.createElement(react_1.default.Fragment, {
         key: company
       }, react_1.default.createElement("dt", {
         className: "bold"
-      }, company), react_1.default.createElement("dd", {
+      }, url ? react_1.default.createElement("a", {
+        href: url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, company) : company), react_1.default.createElement("dd", {
         className: "semibold"
       }, duration), react_1.default.createElement("dd", null, positionHeld));
     })), react_1.default.createElement("a", {
@@ -32304,18 +32309,22 @@ module.exports = {
         resumeDownloadUrl: "alan-eicker-resume.pdf",
         items: [{
           company: "Allstate Insurance",
+          url: "https://www.allstate.com",
           duration: "Mar 2015 - Present",
           positionHeld: "Senior/Lead Software Engineer (Front-End)"
         }, {
           company: "RealPage",
+          url: "https://www.realpage.com",
           duration: "Apr 2012 - Mar 2015",
           positionHeld: "Senior/Lead Front-End Engineer"
         }, {
           company: "Restaurant.com",
+          url: "https://www.restaurant.com",
           duration: "Nov 2010 - Apr 2012",
           positionHeld: "Senior Front-End Engineer"
         }, {
           company: "optionsXpress (now Charles Schwab)",
+          url: "https://www.schwab.com",
           duration: "Feb 2008 - Nov 2010",
           positionHeld: "Web Designer / Front-End Engineer"
         }, {
@@ -32599,7 +32608,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56874" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56984" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
