@@ -1623,6 +1623,11 @@ body {
   scroll-behavior: smooth;
 }
 
+main {
+  position: relative;
+  z-index: 3;
+}
+
 h1,
 h2,
 h3,
