@@ -1,6 +1,6 @@
 .header {
   align-items: center;
-  background: #0a1421;
+  background: #060d17;
   display: flex;
   justify-content: space-between;
   padding: 0 1rem 0;
@@ -1603,7 +1603,8 @@ select {
   }
 }
 body {
-  background-color: #0a1421;
+  background: rgb(6, 13, 23);
+  background: linear-gradient(180deg, rgb(6, 13, 23) 0%, rgb(10, 20, 33) 100%);
   color: #ffffff;
   font-family: Raleway, Arial, Helvetica, sans-serif;
   font-size: 1rem;
