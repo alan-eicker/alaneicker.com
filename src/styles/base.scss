@@ -1,5 +1,10 @@
 body {
-  background-color: $midnight-blue;
+  background: rgb(6, 13, 23);
+  background: linear-gradient(
+    180deg,
+    rgba(6, 13, 23, 1) 0%,
+    rgba(10, 20, 33, 1) 100%
+  );
   color: $white;
   font-family: Raleway, Arial, Helvetica, sans-serif;
   font-size: rem(16);
@@ -16,6 +21,11 @@ body {
 html,
 body {
   scroll-behavior: smooth;
+}
+
+main {
+  position: relative;
+  z-index: 3;
 }
 
 h1,
