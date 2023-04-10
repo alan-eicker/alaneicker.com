@@ -29257,7 +29257,16618 @@ if ("development" === 'production') {
     }
   };
 }
-},{"react-dom":"../node_modules/react-dom/index.js"}],"../node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"react-dom":"../node_modules/react-dom/index.js"}],"../node_modules/tsparticles-engine/esm/Utils/EventDispatcher.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EventDispatcher = void 0;
+class EventDispatcher {
+  constructor() {
+    this._listeners = new Map();
+  }
+  addEventListener(type, listener) {
+    var _a;
+    this.removeEventListener(type, listener);
+    if (!this._listeners.get(type)) {
+      this._listeners.set(type, []);
+    }
+    (_a = this._listeners.get(type)) === null || _a === void 0 ? void 0 : _a.push(listener);
+  }
+  dispatchEvent(type, args) {
+    var _a;
+    (_a = this._listeners.get(type)) === null || _a === void 0 ? void 0 : _a.forEach(handler => handler(args));
+  }
+  hasEventListener(type) {
+    return !!this._listeners.get(type);
+  }
+  removeAllEventListeners(type) {
+    if (!type) {
+      this._listeners = new Map();
+    } else {
+      this._listeners.delete(type);
+    }
+  }
+  removeEventListener(type, listener) {
+    const arr = this._listeners.get(type);
+    if (!arr) {
+      return;
+    }
+    const length = arr.length,
+      idx = arr.indexOf(listener);
+    if (idx < 0) {
+      return;
+    }
+    if (length === 1) {
+      this._listeners.delete(type);
+    } else {
+      arr.splice(idx, 1);
+    }
+  }
+}
+exports.EventDispatcher = EventDispatcher;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Utils/Vector3d.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Vector3d = void 0;
+class Vector3d {
+  constructor(xOrCoords, y, z) {
+    if (typeof xOrCoords !== "number" && xOrCoords) {
+      this.x = xOrCoords.x;
+      this.y = xOrCoords.y;
+      const coords3d = xOrCoords;
+      this.z = coords3d.z ? coords3d.z : 0;
+    } else if (xOrCoords !== undefined && y !== undefined) {
+      this.x = xOrCoords;
+      this.y = y;
+      this.z = z !== null && z !== void 0 ? z : 0;
+    } else {
+      throw new Error("tsParticles - Vector3d not initialized correctly");
+    }
+  }
+  static get origin() {
+    return Vector3d.create(0, 0, 0);
+  }
+  get angle() {
+    return Math.atan2(this.y, this.x);
+  }
+  set angle(angle) {
+    this.updateFromAngle(angle, this.length);
+  }
+  get length() {
+    return Math.sqrt(this.getLengthSq());
+  }
+  set length(length) {
+    this.updateFromAngle(this.angle, length);
+  }
+  static clone(source) {
+    return Vector3d.create(source.x, source.y, source.z);
+  }
+  static create(x, y, z) {
+    return new Vector3d(x, y, z);
+  }
+  add(v) {
+    return Vector3d.create(this.x + v.x, this.y + v.y, this.z + v.z);
+  }
+  addTo(v) {
+    this.x += v.x;
+    this.y += v.y;
+    this.z += v.z;
+  }
+  copy() {
+    return Vector3d.clone(this);
+  }
+  distanceTo(v) {
+    return this.sub(v).length;
+  }
+  distanceToSq(v) {
+    return this.sub(v).getLengthSq();
+  }
+  div(n) {
+    return Vector3d.create(this.x / n, this.y / n, this.z / n);
+  }
+  divTo(n) {
+    this.x /= n;
+    this.y /= n;
+    this.z /= n;
+  }
+  getLengthSq() {
+    return this.x ** 2 + this.y ** 2;
+  }
+  mult(n) {
+    return Vector3d.create(this.x * n, this.y * n, this.z * n);
+  }
+  multTo(n) {
+    this.x *= n;
+    this.y *= n;
+    this.z *= n;
+  }
+  rotate(angle) {
+    return Vector3d.create(this.x * Math.cos(angle) - this.y * Math.sin(angle), this.x * Math.sin(angle) + this.y * Math.cos(angle), 0);
+  }
+  setTo(c) {
+    this.x = c.x;
+    this.y = c.y;
+    const v3d = c;
+    this.z = v3d.z ? v3d.z : 0;
+  }
+  sub(v) {
+    return Vector3d.create(this.x - v.x, this.y - v.y, this.z - v.z);
+  }
+  subFrom(v) {
+    this.x -= v.x;
+    this.y -= v.y;
+    this.z -= v.z;
+  }
+  updateFromAngle(angle, length) {
+    this.x = Math.cos(angle) * length;
+    this.y = Math.sin(angle) * length;
+  }
+}
+exports.Vector3d = Vector3d;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Utils/Vector.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Vector = void 0;
+var _Vector3d = require("./Vector3d");
+class Vector extends _Vector3d.Vector3d {
+  constructor(xOrCoords, y) {
+    super(xOrCoords, y, 0);
+  }
+  static get origin() {
+    return Vector.create(0, 0);
+  }
+  static clone(source) {
+    return Vector.create(source.x, source.y);
+  }
+  static create(x, y) {
+    return new Vector(x, y);
+  }
+}
+exports.Vector = Vector;
+},{"./Vector3d":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector3d.js"}],"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addEasing = addEasing;
+exports.calcExactPositionOrRandomFromSize = calcExactPositionOrRandomFromSize;
+exports.calcExactPositionOrRandomFromSizeRanged = calcExactPositionOrRandomFromSizeRanged;
+exports.calcPositionFromSize = calcPositionFromSize;
+exports.calcPositionOrRandomFromSize = calcPositionOrRandomFromSize;
+exports.calcPositionOrRandomFromSizeRanged = calcPositionOrRandomFromSizeRanged;
+exports.clamp = clamp;
+exports.collisionVelocity = collisionVelocity;
+exports.getDistance = getDistance;
+exports.getDistances = getDistances;
+exports.getEasing = getEasing;
+exports.getParticleBaseVelocity = getParticleBaseVelocity;
+exports.getParticleDirectionAngle = getParticleDirectionAngle;
+exports.getRandom = getRandom;
+exports.getRangeMax = getRangeMax;
+exports.getRangeMin = getRangeMin;
+exports.getRangeValue = getRangeValue;
+exports.getValue = getValue;
+exports.mix = mix;
+exports.parseAlpha = parseAlpha;
+exports.randomInRange = randomInRange;
+exports.setRandom = setRandom;
+exports.setRangeValue = setRangeValue;
+var _Vector = require("../Core/Utils/Vector");
+let _random = Math.random;
+const easings = new Map();
+function addEasing(name, easing) {
+  if (!easings.get(name)) {
+    easings.set(name, easing);
+  }
+}
+function getEasing(name) {
+  return easings.get(name) || (value => value);
+}
+function setRandom(rnd = Math.random) {
+  _random = rnd;
+}
+function getRandom() {
+  return clamp(_random(), 0, 1 - 1e-16);
+}
+function clamp(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+}
+function mix(comp1, comp2, weight1, weight2) {
+  return Math.floor((comp1 * weight1 + comp2 * weight2) / (weight1 + weight2));
+}
+function randomInRange(r) {
+  const max = getRangeMax(r);
+  let min = getRangeMin(r);
+  if (max === min) {
+    min = 0;
+  }
+  return getRandom() * (max - min) + min;
+}
+function getRangeValue(value) {
+  return typeof value === "number" ? value : randomInRange(value);
+}
+function getRangeMin(value) {
+  return typeof value === "number" ? value : value.min;
+}
+function getRangeMax(value) {
+  return typeof value === "number" ? value : value.max;
+}
+function setRangeValue(source, value) {
+  if (source === value || value === undefined && typeof source === "number") {
+    return source;
+  }
+  const min = getRangeMin(source),
+    max = getRangeMax(source);
+  return value !== undefined ? {
+    min: Math.min(min, value),
+    max: Math.max(max, value)
+  } : setRangeValue(min, max);
+}
+function getValue(options) {
+  const random = options.random,
+    {
+      enable,
+      minimumValue
+    } = typeof random === "boolean" ? {
+      enable: random,
+      minimumValue: 0
+    } : random;
+  return enable ? getRangeValue(setRangeValue(options.value, minimumValue)) : getRangeValue(options.value);
+}
+function getDistances(pointA, pointB) {
+  const dx = pointA.x - pointB.x,
+    dy = pointA.y - pointB.y;
+  return {
+    dx: dx,
+    dy: dy,
+    distance: Math.sqrt(dx ** 2 + dy ** 2)
+  };
+}
+function getDistance(pointA, pointB) {
+  return getDistances(pointA, pointB).distance;
+}
+function getParticleDirectionAngle(direction, position, center) {
+  if (typeof direction === "number") {
+    return direction * Math.PI / 180;
+  } else {
+    switch (direction) {
+      case "top":
+        return -Math.PI / 2;
+      case "top-right":
+        return -Math.PI / 4;
+      case "right":
+        return 0;
+      case "bottom-right":
+        return Math.PI / 4;
+      case "bottom":
+        return Math.PI / 2;
+      case "bottom-left":
+        return 3 * Math.PI / 4;
+      case "left":
+        return Math.PI;
+      case "top-left":
+        return -3 * Math.PI / 4;
+      case "inside":
+        return Math.atan2(center.y - position.y, center.x - position.x);
+      case "outside":
+        return Math.atan2(position.y - center.y, position.x - center.x);
+      default:
+        return getRandom() * Math.PI * 2;
+    }
+  }
+}
+function getParticleBaseVelocity(direction) {
+  const baseVelocity = _Vector.Vector.origin;
+  baseVelocity.length = 1;
+  baseVelocity.angle = direction;
+  return baseVelocity;
+}
+function collisionVelocity(v1, v2, m1, m2) {
+  return _Vector.Vector.create(v1.x * (m1 - m2) / (m1 + m2) + v2.x * 2 * m2 / (m1 + m2), v1.y);
+}
+function calcPositionFromSize(data) {
+  return data.position && data.position.x !== undefined && data.position.y !== undefined ? {
+    x: data.position.x * data.size.width / 100,
+    y: data.position.y * data.size.height / 100
+  } : undefined;
+}
+function calcPositionOrRandomFromSize(data) {
+  var _a, _b, _c, _d;
+  return {
+    x: ((_b = (_a = data.position) === null || _a === void 0 ? void 0 : _a.x) !== null && _b !== void 0 ? _b : getRandom() * 100) * data.size.width / 100,
+    y: ((_d = (_c = data.position) === null || _c === void 0 ? void 0 : _c.y) !== null && _d !== void 0 ? _d : getRandom() * 100) * data.size.height / 100
+  };
+}
+function calcPositionOrRandomFromSizeRanged(data) {
+  var _a, _b;
+  const position = {
+    x: ((_a = data.position) === null || _a === void 0 ? void 0 : _a.x) !== undefined ? getRangeValue(data.position.x) : undefined,
+    y: ((_b = data.position) === null || _b === void 0 ? void 0 : _b.y) !== undefined ? getRangeValue(data.position.y) : undefined
+  };
+  return calcPositionOrRandomFromSize({
+    size: data.size,
+    position
+  });
+}
+function calcExactPositionOrRandomFromSize(data) {
+  var _a, _b, _c, _d;
+  return {
+    x: (_b = (_a = data.position) === null || _a === void 0 ? void 0 : _a.x) !== null && _b !== void 0 ? _b : getRandom() * data.size.width,
+    y: (_d = (_c = data.position) === null || _c === void 0 ? void 0 : _c.y) !== null && _d !== void 0 ? _d : getRandom() * data.size.height
+  };
+}
+function calcExactPositionOrRandomFromSizeRanged(data) {
+  var _a, _b;
+  const position = {
+    x: ((_a = data.position) === null || _a === void 0 ? void 0 : _a.x) !== undefined ? getRangeValue(data.position.x) : undefined,
+    y: ((_b = data.position) === null || _b === void 0 ? void 0 : _b.y) !== undefined ? getRangeValue(data.position.y) : undefined
+  };
+  return calcExactPositionOrRandomFromSize({
+    size: data.size,
+    position
+  });
+}
+function parseAlpha(input) {
+  return input ? input.endsWith("%") ? parseFloat(input) / 100 : parseFloat(input) : 1;
+}
+},{"../Core/Utils/Vector":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector.js"}],"../node_modules/tsparticles-engine/esm/Utils/Utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.animate = animate;
+exports.areBoundsInside = areBoundsInside;
+exports.arrayRandomIndex = arrayRandomIndex;
+exports.calculateBounds = calculateBounds;
+exports.cancelAnimation = cancelAnimation;
+exports.circleBounce = circleBounce;
+exports.circleBounceDataFromParticle = circleBounceDataFromParticle;
+exports.deepExtend = deepExtend;
+exports.divMode = divMode;
+exports.divModeExecute = divModeExecute;
+exports.executeOnSingleOrMultiple = executeOnSingleOrMultiple;
+exports.findItemFromSingleOrMultiple = findItemFromSingleOrMultiple;
+exports.hasMatchMedia = hasMatchMedia;
+exports.isDivModeEnabled = isDivModeEnabled;
+exports.isInArray = isInArray;
+exports.isPointInside = isPointInside;
+exports.isSsr = isSsr;
+exports.itemFromArray = itemFromArray;
+exports.itemFromSingleOrMultiple = itemFromSingleOrMultiple;
+exports.loadFont = loadFont;
+exports.rectBounce = rectBounce;
+exports.safeMatchMedia = safeMatchMedia;
+exports.singleDivModeExecute = singleDivModeExecute;
+var _NumberUtils = require("./NumberUtils");
+var _Vector = require("../Core/Utils/Vector");
+function rectSideBounce(pSide, pOtherSide, rectSide, rectOtherSide, velocity, factor) {
+  const res = {
+    bounced: false
+  };
+  if (pOtherSide.min < rectOtherSide.min || pOtherSide.min > rectOtherSide.max || pOtherSide.max < rectOtherSide.min || pOtherSide.max > rectOtherSide.max) {
+    return res;
+  }
+  if (pSide.max >= rectSide.min && pSide.max <= (rectSide.max + rectSide.min) / 2 && velocity > 0 || pSide.min <= rectSide.max && pSide.min > (rectSide.max + rectSide.min) / 2 && velocity < 0) {
+    res.velocity = velocity * -factor;
+    res.bounced = true;
+  }
+  return res;
+}
+function checkSelector(element, selectors) {
+  const res = executeOnSingleOrMultiple(selectors, selector => {
+    return element.matches(selector);
+  });
+  return res instanceof Array ? res.some(t => t) : res;
+}
+function isSsr() {
+  return typeof window === "undefined" || !window || typeof window.document === "undefined" || !window.document;
+}
+function hasMatchMedia() {
+  return !isSsr() && typeof matchMedia !== "undefined";
+}
+function safeMatchMedia(query) {
+  if (!hasMatchMedia()) {
+    return;
+  }
+  return matchMedia(query);
+}
+function animate() {
+  return isSsr() ? callback => setTimeout(callback) : callback => (requestAnimationFrame || setTimeout)(callback);
+}
+function cancelAnimation() {
+  return isSsr() ? handle => clearTimeout(handle) : handle => (cancelAnimationFrame || clearTimeout)(handle);
+}
+function isInArray(value, array) {
+  return value === array || array instanceof Array && array.indexOf(value) > -1;
+}
+async function loadFont(font, weight) {
+  try {
+    await document.fonts.load(`${weight !== null && weight !== void 0 ? weight : "400"} 36px '${font !== null && font !== void 0 ? font : "Verdana"}'`);
+  } catch (_a) {}
+}
+function arrayRandomIndex(array) {
+  return Math.floor((0, _NumberUtils.getRandom)() * array.length);
+}
+function itemFromArray(array, index, useIndex = true) {
+  return array[index !== undefined && useIndex ? index % array.length : arrayRandomIndex(array)];
+}
+function isPointInside(point, size, offset, radius, direction) {
+  return areBoundsInside(calculateBounds(point, radius !== null && radius !== void 0 ? radius : 0), size, offset, direction);
+}
+function areBoundsInside(bounds, size, offset, direction) {
+  let inside = true;
+  if (!direction || direction === "bottom") {
+    inside = bounds.top < size.height + offset.x;
+  }
+  if (inside && (!direction || direction === "left")) {
+    inside = bounds.right > offset.x;
+  }
+  if (inside && (!direction || direction === "right")) {
+    inside = bounds.left < size.width + offset.y;
+  }
+  if (inside && (!direction || direction === "top")) {
+    inside = bounds.bottom > offset.y;
+  }
+  return inside;
+}
+function calculateBounds(point, radius) {
+  return {
+    bottom: point.y + radius,
+    left: point.x - radius,
+    right: point.x + radius,
+    top: point.y - radius
+  };
+}
+function deepExtend(destination, ...sources) {
+  for (const source of sources) {
+    if (source === undefined || source === null) {
+      continue;
+    }
+    if (typeof source !== "object") {
+      destination = source;
+      continue;
+    }
+    const sourceIsArray = Array.isArray(source);
+    if (sourceIsArray && (typeof destination !== "object" || !destination || !Array.isArray(destination))) {
+      destination = [];
+    } else if (!sourceIsArray && (typeof destination !== "object" || !destination || Array.isArray(destination))) {
+      destination = {};
+    }
+    for (const key in source) {
+      if (key === "__proto__") {
+        continue;
+      }
+      const sourceDict = source,
+        value = sourceDict[key],
+        isObject = typeof value === "object",
+        destDict = destination;
+      destDict[key] = isObject && Array.isArray(value) ? value.map(v => deepExtend(destDict[key], v)) : deepExtend(destDict[key], value);
+    }
+  }
+  return destination;
+}
+function isDivModeEnabled(mode, divs) {
+  return !!findItemFromSingleOrMultiple(divs, t => t.enable && isInArray(mode, t.mode));
+}
+function divModeExecute(mode, divs, callback) {
+  executeOnSingleOrMultiple(divs, div => {
+    const divMode = div.mode,
+      divEnabled = div.enable;
+    if (divEnabled && isInArray(mode, divMode)) {
+      singleDivModeExecute(div, callback);
+    }
+  });
+}
+function singleDivModeExecute(div, callback) {
+  const selectors = div.selectors;
+  executeOnSingleOrMultiple(selectors, selector => {
+    callback(selector, div);
+  });
+}
+function divMode(divs, element) {
+  if (!element || !divs) {
+    return;
+  }
+  return findItemFromSingleOrMultiple(divs, div => {
+    return checkSelector(element, div.selectors);
+  });
+}
+function circleBounceDataFromParticle(p) {
+  return {
+    position: p.getPosition(),
+    radius: p.getRadius(),
+    mass: p.getMass(),
+    velocity: p.velocity,
+    factor: _Vector.Vector.create((0, _NumberUtils.getValue)(p.options.bounce.horizontal), (0, _NumberUtils.getValue)(p.options.bounce.vertical))
+  };
+}
+function circleBounce(p1, p2) {
+  const {
+      x: xVelocityDiff,
+      y: yVelocityDiff
+    } = p1.velocity.sub(p2.velocity),
+    [pos1, pos2] = [p1.position, p2.position],
+    {
+      dx: xDist,
+      dy: yDist
+    } = (0, _NumberUtils.getDistances)(pos2, pos1);
+  if (xVelocityDiff * xDist + yVelocityDiff * yDist < 0) {
+    return;
+  }
+  const angle = -Math.atan2(yDist, xDist),
+    m1 = p1.mass,
+    m2 = p2.mass,
+    u1 = p1.velocity.rotate(angle),
+    u2 = p2.velocity.rotate(angle),
+    v1 = (0, _NumberUtils.collisionVelocity)(u1, u2, m1, m2),
+    v2 = (0, _NumberUtils.collisionVelocity)(u2, u1, m1, m2),
+    vFinal1 = v1.rotate(-angle),
+    vFinal2 = v2.rotate(-angle);
+  p1.velocity.x = vFinal1.x * p1.factor.x;
+  p1.velocity.y = vFinal1.y * p1.factor.y;
+  p2.velocity.x = vFinal2.x * p2.factor.x;
+  p2.velocity.y = vFinal2.y * p2.factor.y;
+}
+function rectBounce(particle, divBounds) {
+  const pPos = particle.getPosition(),
+    size = particle.getRadius(),
+    bounds = calculateBounds(pPos, size),
+    resH = rectSideBounce({
+      min: bounds.left,
+      max: bounds.right
+    }, {
+      min: bounds.top,
+      max: bounds.bottom
+    }, {
+      min: divBounds.left,
+      max: divBounds.right
+    }, {
+      min: divBounds.top,
+      max: divBounds.bottom
+    }, particle.velocity.x, (0, _NumberUtils.getValue)(particle.options.bounce.horizontal));
+  if (resH.bounced) {
+    if (resH.velocity !== undefined) {
+      particle.velocity.x = resH.velocity;
+    }
+    if (resH.position !== undefined) {
+      particle.position.x = resH.position;
+    }
+  }
+  const resV = rectSideBounce({
+    min: bounds.top,
+    max: bounds.bottom
+  }, {
+    min: bounds.left,
+    max: bounds.right
+  }, {
+    min: divBounds.top,
+    max: divBounds.bottom
+  }, {
+    min: divBounds.left,
+    max: divBounds.right
+  }, particle.velocity.y, (0, _NumberUtils.getValue)(particle.options.bounce.vertical));
+  if (resV.bounced) {
+    if (resV.velocity !== undefined) {
+      particle.velocity.y = resV.velocity;
+    }
+    if (resV.position !== undefined) {
+      particle.position.y = resV.position;
+    }
+  }
+}
+function executeOnSingleOrMultiple(obj, callback) {
+  return obj instanceof Array ? obj.map((item, index) => callback(item, index)) : callback(obj, 0);
+}
+function itemFromSingleOrMultiple(obj, index, useIndex) {
+  return obj instanceof Array ? itemFromArray(obj, index, useIndex) : obj;
+}
+function findItemFromSingleOrMultiple(obj, callback) {
+  return obj instanceof Array ? obj.find((t, index) => callback(t, index)) : callback(obj, 0) ? obj : undefined;
+}
+},{"./NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","../Core/Utils/Vector":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector.js"}],"../node_modules/tsparticles-engine/esm/Utils/ColorUtils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addColorManager = addColorManager;
+exports.colorMix = colorMix;
+exports.colorToHsl = colorToHsl;
+exports.colorToRgb = colorToRgb;
+exports.getHslAnimationFromHsl = getHslAnimationFromHsl;
+exports.getHslFromAnimation = getHslFromAnimation;
+exports.getLinkColor = getLinkColor;
+exports.getLinkRandomColor = getLinkRandomColor;
+exports.getRandomRgbColor = getRandomRgbColor;
+exports.getStyleFromHsl = getStyleFromHsl;
+exports.getStyleFromRgb = getStyleFromRgb;
+exports.hslToRgb = hslToRgb;
+exports.hslaToRgba = hslaToRgba;
+exports.rangeColorToHsl = rangeColorToHsl;
+exports.rangeColorToRgb = rangeColorToRgb;
+exports.rgbToHsl = rgbToHsl;
+exports.stringToAlpha = stringToAlpha;
+exports.stringToRgb = stringToRgb;
+var _NumberUtils = require("./NumberUtils");
+var _Utils = require("./Utils");
+const randomColorValue = "random",
+  midColorValue = "mid",
+  colorManagers = new Map();
+function addColorManager(manager) {
+  colorManagers.set(manager.key, manager);
+}
+function hue2rgb(p, q, t) {
+  if (t < 0) {
+    t += 1;
+  }
+  if (t > 1) {
+    t -= 1;
+  }
+  if (t < 1 / 6) {
+    return p + (q - p) * 6 * t;
+  }
+  if (t < 1 / 2) {
+    return q;
+  }
+  if (t < 2 / 3) {
+    return p + (q - p) * (2 / 3 - t) * 6;
+  }
+  return p;
+}
+function stringToRgba(input) {
+  for (const [, manager] of colorManagers) {
+    if (input.startsWith(manager.stringPrefix)) {
+      return manager.parseString(input);
+    }
+  }
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])([a-f\d])?$/i,
+    hexFixed = input.replace(shorthandRegex, (_, r, g, b, a) => {
+      return r + r + g + g + b + b + (a !== undefined ? a + a : "");
+    }),
+    regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i,
+    result = regex.exec(hexFixed);
+  return result ? {
+    a: result[4] !== undefined ? parseInt(result[4], 16) / 0xff : 1,
+    b: parseInt(result[3], 16),
+    g: parseInt(result[2], 16),
+    r: parseInt(result[1], 16)
+  } : undefined;
+}
+function rangeColorToRgb(input, index, useIndex = true) {
+  if (!input) {
+    return;
+  }
+  const color = typeof input === "string" ? {
+    value: input
+  } : input;
+  if (typeof color.value === "string") {
+    return colorToRgb(color.value, index, useIndex);
+  }
+  if (color.value instanceof Array) {
+    return rangeColorToRgb({
+      value: (0, _Utils.itemFromArray)(color.value, index, useIndex)
+    });
+  }
+  for (const [, manager] of colorManagers) {
+    const res = manager.handleRangeColor(color);
+    if (res) {
+      return res;
+    }
+  }
+}
+function colorToRgb(input, index, useIndex = true) {
+  if (!input) {
+    return;
+  }
+  const color = typeof input === "string" ? {
+    value: input
+  } : input;
+  if (typeof color.value === "string") {
+    return color.value === randomColorValue ? getRandomRgbColor() : stringToRgb(color.value);
+  }
+  if (color.value instanceof Array) {
+    return colorToRgb({
+      value: (0, _Utils.itemFromArray)(color.value, index, useIndex)
+    });
+  }
+  for (const [, manager] of colorManagers) {
+    const res = manager.handleColor(color);
+    if (res) {
+      return res;
+    }
+  }
+}
+function colorToHsl(color, index, useIndex = true) {
+  const rgb = colorToRgb(color, index, useIndex);
+  return rgb ? rgbToHsl(rgb) : undefined;
+}
+function rangeColorToHsl(color, index, useIndex = true) {
+  const rgb = rangeColorToRgb(color, index, useIndex);
+  return rgb ? rgbToHsl(rgb) : undefined;
+}
+function rgbToHsl(color) {
+  const r1 = color.r / 255,
+    g1 = color.g / 255,
+    b1 = color.b / 255,
+    max = Math.max(r1, g1, b1),
+    min = Math.min(r1, g1, b1),
+    res = {
+      h: 0,
+      l: (max + min) / 2,
+      s: 0
+    };
+  if (max !== min) {
+    res.s = res.l < 0.5 ? (max - min) / (max + min) : (max - min) / (2.0 - max - min);
+    res.h = r1 === max ? (g1 - b1) / (max - min) : res.h = g1 === max ? 2.0 + (b1 - r1) / (max - min) : 4.0 + (r1 - g1) / (max - min);
+  }
+  res.l *= 100;
+  res.s *= 100;
+  res.h *= 60;
+  if (res.h < 0) {
+    res.h += 360;
+  }
+  if (res.h >= 360) {
+    res.h -= 360;
+  }
+  return res;
+}
+function stringToAlpha(input) {
+  var _a;
+  return (_a = stringToRgba(input)) === null || _a === void 0 ? void 0 : _a.a;
+}
+function stringToRgb(input) {
+  return stringToRgba(input);
+}
+function hslToRgb(hsl) {
+  const result = {
+      b: 0,
+      g: 0,
+      r: 0
+    },
+    hslPercent = {
+      h: hsl.h / 360,
+      l: hsl.l / 100,
+      s: hsl.s / 100
+    };
+  if (!hslPercent.s) {
+    result.b = hslPercent.l;
+    result.g = hslPercent.l;
+    result.r = hslPercent.l;
+  } else {
+    const q = hslPercent.l < 0.5 ? hslPercent.l * (1 + hslPercent.s) : hslPercent.l + hslPercent.s - hslPercent.l * hslPercent.s,
+      p = 2 * hslPercent.l - q;
+    result.r = hue2rgb(p, q, hslPercent.h + 1 / 3);
+    result.g = hue2rgb(p, q, hslPercent.h);
+    result.b = hue2rgb(p, q, hslPercent.h - 1 / 3);
+  }
+  result.r = Math.floor(result.r * 255);
+  result.g = Math.floor(result.g * 255);
+  result.b = Math.floor(result.b * 255);
+  return result;
+}
+function hslaToRgba(hsla) {
+  const rgbResult = hslToRgb(hsla);
+  return {
+    a: hsla.a,
+    b: rgbResult.b,
+    g: rgbResult.g,
+    r: rgbResult.r
+  };
+}
+function getRandomRgbColor(min) {
+  const fixedMin = min !== null && min !== void 0 ? min : 0;
+  return {
+    b: Math.floor((0, _NumberUtils.randomInRange)((0, _NumberUtils.setRangeValue)(fixedMin, 256))),
+    g: Math.floor((0, _NumberUtils.randomInRange)((0, _NumberUtils.setRangeValue)(fixedMin, 256))),
+    r: Math.floor((0, _NumberUtils.randomInRange)((0, _NumberUtils.setRangeValue)(fixedMin, 256)))
+  };
+}
+function getStyleFromRgb(color, opacity) {
+  return `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity !== null && opacity !== void 0 ? opacity : 1})`;
+}
+function getStyleFromHsl(color, opacity) {
+  return `hsla(${color.h}, ${color.s}%, ${color.l}%, ${opacity !== null && opacity !== void 0 ? opacity : 1})`;
+}
+function colorMix(color1, color2, size1, size2) {
+  let rgb1 = color1,
+    rgb2 = color2;
+  if (rgb1.r === undefined) {
+    rgb1 = hslToRgb(color1);
+  }
+  if (rgb2.r === undefined) {
+    rgb2 = hslToRgb(color2);
+  }
+  return {
+    b: (0, _NumberUtils.mix)(rgb1.b, rgb2.b, size1, size2),
+    g: (0, _NumberUtils.mix)(rgb1.g, rgb2.g, size1, size2),
+    r: (0, _NumberUtils.mix)(rgb1.r, rgb2.r, size1, size2)
+  };
+}
+function getLinkColor(p1, p2, linkColor) {
+  var _a, _b;
+  if (linkColor === randomColorValue) {
+    return getRandomRgbColor();
+  } else if (linkColor === midColorValue) {
+    const sourceColor = (_a = p1.getFillColor()) !== null && _a !== void 0 ? _a : p1.getStrokeColor(),
+      destColor = (_b = p2 === null || p2 === void 0 ? void 0 : p2.getFillColor()) !== null && _b !== void 0 ? _b : p2 === null || p2 === void 0 ? void 0 : p2.getStrokeColor();
+    if (sourceColor && destColor && p2) {
+      return colorMix(sourceColor, destColor, p1.getRadius(), p2.getRadius());
+    } else {
+      const hslColor = sourceColor !== null && sourceColor !== void 0 ? sourceColor : destColor;
+      if (hslColor) {
+        return hslToRgb(hslColor);
+      }
+    }
+  } else {
+    return linkColor;
+  }
+}
+function getLinkRandomColor(optColor, blink, consent) {
+  const color = typeof optColor === "string" ? optColor : optColor.value;
+  if (color === randomColorValue) {
+    if (consent) {
+      return rangeColorToRgb({
+        value: color
+      });
+    }
+    if (blink) {
+      return randomColorValue;
+    }
+    return midColorValue;
+  } else if (color === midColorValue) {
+    return midColorValue;
+  } else {
+    return rangeColorToRgb({
+      value: color
+    });
+  }
+}
+function getHslFromAnimation(animation) {
+  return animation !== undefined ? {
+    h: animation.h.value,
+    s: animation.s.value,
+    l: animation.l.value
+  } : undefined;
+}
+function getHslAnimationFromHsl(hsl, animationOptions, reduceFactor) {
+  const resColor = {
+    h: {
+      enable: false,
+      value: hsl.h
+    },
+    s: {
+      enable: false,
+      value: hsl.s
+    },
+    l: {
+      enable: false,
+      value: hsl.l
+    }
+  };
+  if (animationOptions) {
+    setColorAnimation(resColor.h, animationOptions.h, reduceFactor);
+    setColorAnimation(resColor.s, animationOptions.s, reduceFactor);
+    setColorAnimation(resColor.l, animationOptions.l, reduceFactor);
+  }
+  return resColor;
+}
+function setColorAnimation(colorValue, colorAnimation, reduceFactor) {
+  colorValue.enable = colorAnimation.enable;
+  if (colorValue.enable) {
+    colorValue.velocity = (0, _NumberUtils.getRangeValue)(colorAnimation.speed) / 100 * reduceFactor;
+    colorValue.decay = 1 - (0, _NumberUtils.getRangeValue)(colorAnimation.decay);
+    colorValue.status = "increasing";
+    colorValue.loops = 0;
+    colorValue.maxLoops = (0, _NumberUtils.getRangeValue)(colorAnimation.count);
+    if (!colorAnimation.sync) {
+      colorValue.velocity *= (0, _NumberUtils.getRandom)();
+      colorValue.value *= (0, _NumberUtils.getRandom)();
+    }
+    colorValue.initialValue = colorValue.value;
+  } else {
+    colorValue.velocity = 0;
+  }
+}
+},{"./NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","./Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Utils/CanvasUtils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.alterHsl = alterHsl;
+exports.clear = clear;
+exports.drawLine = drawLine;
+exports.drawParticle = drawParticle;
+exports.drawParticlePlugin = drawParticlePlugin;
+exports.drawPlugin = drawPlugin;
+exports.drawShape = drawShape;
+exports.drawShapeAfterEffect = drawShapeAfterEffect;
+exports.drawTriangle = drawTriangle;
+exports.paintBase = paintBase;
+exports.paintImage = paintImage;
+var _ColorUtils = require("./ColorUtils");
+function drawLine(context, begin, end) {
+  context.beginPath();
+  context.moveTo(begin.x, begin.y);
+  context.lineTo(end.x, end.y);
+  context.closePath();
+}
+function drawTriangle(context, p1, p2, p3) {
+  context.beginPath();
+  context.moveTo(p1.x, p1.y);
+  context.lineTo(p2.x, p2.y);
+  context.lineTo(p3.x, p3.y);
+  context.closePath();
+}
+function paintBase(context, dimension, baseColor) {
+  context.fillStyle = baseColor !== null && baseColor !== void 0 ? baseColor : "rgba(0,0,0,0)";
+  context.fillRect(0, 0, dimension.width, dimension.height);
+}
+function paintImage(context, dimension, image, opacity) {
+  if (!image) {
+    return;
+  }
+  context.globalAlpha = opacity;
+  context.drawImage(image, 0, 0, dimension.width, dimension.height);
+  context.globalAlpha = 1;
+}
+function clear(context, dimension) {
+  context.clearRect(0, 0, dimension.width, dimension.height);
+}
+function drawParticle(data) {
+  var _a, _b, _c, _d, _e;
+  const {
+    container,
+    context,
+    particle,
+    delta,
+    colorStyles,
+    backgroundMask,
+    composite,
+    radius,
+    opacity,
+    shadow,
+    transform
+  } = data;
+  const pos = particle.getPosition(),
+    angle = particle.rotation + (particle.pathRotation ? particle.velocity.angle : 0),
+    rotateData = {
+      sin: Math.sin(angle),
+      cos: Math.cos(angle)
+    },
+    transformData = {
+      a: rotateData.cos * ((_a = transform.a) !== null && _a !== void 0 ? _a : 1),
+      b: rotateData.sin * ((_b = transform.b) !== null && _b !== void 0 ? _b : 1),
+      c: -rotateData.sin * ((_c = transform.c) !== null && _c !== void 0 ? _c : 1),
+      d: rotateData.cos * ((_d = transform.d) !== null && _d !== void 0 ? _d : 1)
+    };
+  context.setTransform(transformData.a, transformData.b, transformData.c, transformData.d, pos.x, pos.y);
+  context.beginPath();
+  if (backgroundMask) {
+    context.globalCompositeOperation = composite;
+  }
+  const shadowColor = particle.shadowColor;
+  if (shadow.enable && shadowColor) {
+    context.shadowBlur = shadow.blur;
+    context.shadowColor = (0, _ColorUtils.getStyleFromRgb)(shadowColor);
+    context.shadowOffsetX = shadow.offset.x;
+    context.shadowOffsetY = shadow.offset.y;
+  }
+  if (colorStyles.fill) {
+    context.fillStyle = colorStyles.fill;
+  }
+  const strokeWidth = (_e = particle.strokeWidth) !== null && _e !== void 0 ? _e : 0;
+  context.lineWidth = strokeWidth;
+  if (colorStyles.stroke) {
+    context.strokeStyle = colorStyles.stroke;
+  }
+  drawShape(container, context, particle, radius, opacity, delta);
+  if (strokeWidth > 0) {
+    context.stroke();
+  }
+  if (particle.close) {
+    context.closePath();
+  }
+  if (particle.fill) {
+    context.fill();
+  }
+  drawShapeAfterEffect(container, context, particle, radius, opacity, delta);
+  context.globalCompositeOperation = "source-over";
+  context.setTransform(1, 0, 0, 1, 0, 0);
+}
+function drawShape(container, context, particle, radius, opacity, delta) {
+  if (!particle.shape) {
+    return;
+  }
+  const drawer = container.drawers.get(particle.shape);
+  if (!drawer) {
+    return;
+  }
+  drawer.draw(context, particle, radius, opacity, delta, container.retina.pixelRatio);
+}
+function drawShapeAfterEffect(container, context, particle, radius, opacity, delta) {
+  if (!particle.shape) {
+    return;
+  }
+  const drawer = container.drawers.get(particle.shape);
+  if (!(drawer === null || drawer === void 0 ? void 0 : drawer.afterEffect)) {
+    return;
+  }
+  drawer.afterEffect(context, particle, radius, opacity, delta, container.retina.pixelRatio);
+}
+function drawPlugin(context, plugin, delta) {
+  if (!plugin.draw) {
+    return;
+  }
+  plugin.draw(context, delta);
+}
+function drawParticlePlugin(context, plugin, particle, delta) {
+  if (!plugin.drawParticle) {
+    return;
+  }
+  plugin.drawParticle(context, particle, delta);
+}
+function alterHsl(color, type, value) {
+  return {
+    h: color.h,
+    s: color.s,
+    l: color.l + (type === "darken" ? -1 : 1) * value
+  };
+}
+},{"./ColorUtils":"../node_modules/tsparticles-engine/esm/Utils/ColorUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/Constants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.visibilityChangeEvent = exports.touchStartEvent = exports.touchMoveEvent = exports.touchEndEvent = exports.touchCancelEvent = exports.resizeEvent = exports.mouseUpEvent = exports.mouseOutEvent = exports.mouseMoveEvent = exports.mouseLeaveEvent = exports.mouseDownEvent = exports.generatedAttribute = void 0;
+const generatedAttribute = "generated";
+exports.generatedAttribute = generatedAttribute;
+const touchEndEvent = "touchend";
+exports.touchEndEvent = touchEndEvent;
+const mouseDownEvent = "pointerdown";
+exports.mouseDownEvent = mouseDownEvent;
+const mouseUpEvent = "pointerup";
+exports.mouseUpEvent = mouseUpEvent;
+const mouseMoveEvent = "pointermove";
+exports.mouseMoveEvent = mouseMoveEvent;
+const touchStartEvent = "touchstart";
+exports.touchStartEvent = touchStartEvent;
+const touchMoveEvent = "touchmove";
+exports.touchMoveEvent = touchMoveEvent;
+const mouseLeaveEvent = "pointerleave";
+exports.mouseLeaveEvent = mouseLeaveEvent;
+const mouseOutEvent = "pointerout";
+exports.mouseOutEvent = mouseOutEvent;
+const touchCancelEvent = "touchcancel";
+exports.touchCancelEvent = touchCancelEvent;
+const resizeEvent = "resize";
+exports.resizeEvent = resizeEvent;
+const visibilityChangeEvent = "visibilitychange";
+exports.visibilityChangeEvent = visibilityChangeEvent;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Canvas.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Canvas = void 0;
+var _CanvasUtils = require("../Utils/CanvasUtils");
+var _Utils = require("../Utils/Utils");
+var _ColorUtils = require("../Utils/ColorUtils");
+var _Constants = require("./Utils/Constants");
+function setTransformValue(factor, newFactor, key) {
+  var _a;
+  const newValue = newFactor[key];
+  if (newValue !== undefined) {
+    factor[key] = ((_a = factor[key]) !== null && _a !== void 0 ? _a : 1) * newValue;
+  }
+}
+class Canvas {
+  constructor(container) {
+    this.container = container;
+    this.size = {
+      height: 0,
+      width: 0
+    };
+    this._context = null;
+    this._generated = false;
+    this._preDrawUpdaters = [];
+    this._postDrawUpdaters = [];
+    this._resizePlugins = [];
+    this._colorPlugins = [];
+    this._mutationObserver = !(0, _Utils.isSsr)() && typeof MutationObserver !== "undefined" ? new MutationObserver(records => {
+      for (const record of records) {
+        if (record.type === "attributes" && record.attributeName === "style") {
+          this._repairStyle();
+        }
+      }
+    }) : undefined;
+  }
+  get _fullScreen() {
+    return this.container.actualOptions.fullScreen.enable;
+  }
+  clear() {
+    const options = this.container.actualOptions,
+      trail = options.particles.move.trail,
+      trailFill = this._trailFill;
+    if (options.backgroundMask.enable) {
+      this.paint();
+    } else if (trail.enable && trail.length > 0 && trailFill) {
+      if (trailFill.color) {
+        this._paintBase((0, _ColorUtils.getStyleFromRgb)(trailFill.color, trailFill.opacity));
+      } else if (trailFill.image) {
+        this._paintImage(trailFill.image, trailFill.opacity);
+      }
+    } else {
+      this.draw(ctx => {
+        (0, _CanvasUtils.clear)(ctx, this.size);
+      });
+    }
+  }
+  destroy() {
+    var _a, _b;
+    (_a = this._mutationObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+    if (this._generated) {
+      (_b = this.element) === null || _b === void 0 ? void 0 : _b.remove();
+    } else {
+      this._resetOriginalStyle();
+    }
+    this.stop();
+    this._preDrawUpdaters = [];
+    this._postDrawUpdaters = [];
+    this._resizePlugins = [];
+    this._colorPlugins = [];
+  }
+  draw(cb) {
+    if (!this._context) {
+      return;
+    }
+    return cb(this._context);
+  }
+  drawParticle(particle, delta) {
+    var _a;
+    if (particle.spawning || particle.destroyed) {
+      return;
+    }
+    const radius = particle.getRadius();
+    if (radius <= 0) {
+      return;
+    }
+    const pfColor = particle.getFillColor(),
+      psColor = (_a = particle.getStrokeColor()) !== null && _a !== void 0 ? _a : pfColor;
+    let [fColor, sColor] = this._getPluginParticleColors(particle);
+    if (!fColor) {
+      fColor = pfColor;
+    }
+    if (!sColor) {
+      sColor = psColor;
+    }
+    if (!fColor && !sColor) {
+      return;
+    }
+    this.draw(ctx => {
+      var _a, _b, _c, _d;
+      const options = this.container.actualOptions,
+        zIndexOptions = particle.options.zIndex,
+        zOpacityFactor = (1 - particle.zIndexFactor) ** zIndexOptions.opacityRate,
+        opacity = (_c = (_a = particle.bubble.opacity) !== null && _a !== void 0 ? _a : (_b = particle.opacity) === null || _b === void 0 ? void 0 : _b.value) !== null && _c !== void 0 ? _c : 1,
+        strokeOpacity = (_d = particle.strokeOpacity) !== null && _d !== void 0 ? _d : opacity,
+        zOpacity = opacity * zOpacityFactor,
+        zStrokeOpacity = strokeOpacity * zOpacityFactor,
+        transform = {},
+        colorStyles = {
+          fill: fColor ? (0, _ColorUtils.getStyleFromHsl)(fColor, zOpacity) : undefined
+        };
+      colorStyles.stroke = sColor ? (0, _ColorUtils.getStyleFromHsl)(sColor, zStrokeOpacity) : colorStyles.fill;
+      this._applyPreDrawUpdaters(ctx, particle, radius, zOpacity, colorStyles, transform);
+      (0, _CanvasUtils.drawParticle)({
+        container: this.container,
+        context: ctx,
+        particle,
+        delta,
+        colorStyles,
+        backgroundMask: options.backgroundMask.enable,
+        composite: options.backgroundMask.composite,
+        radius: radius * (1 - particle.zIndexFactor) ** zIndexOptions.sizeRate,
+        opacity: zOpacity,
+        shadow: particle.options.shadow,
+        transform
+      });
+      this._applyPostDrawUpdaters(particle);
+    });
+  }
+  drawParticlePlugin(plugin, particle, delta) {
+    this.draw(ctx => {
+      (0, _CanvasUtils.drawParticlePlugin)(ctx, plugin, particle, delta);
+    });
+  }
+  drawPlugin(plugin, delta) {
+    this.draw(ctx => {
+      (0, _CanvasUtils.drawPlugin)(ctx, plugin, delta);
+    });
+  }
+  async init() {
+    var _a;
+    this.resize();
+    this._initStyle();
+    this._initCover();
+    try {
+      await this._initTrail();
+    } catch (e) {
+      console.error(e);
+    }
+    this.initBackground();
+    if (this.element) {
+      (_a = this._mutationObserver) === null || _a === void 0 ? void 0 : _a.observe(this.element, {
+        attributes: true
+      });
+    }
+    this.initUpdaters();
+    this.initPlugins();
+    this.paint();
+  }
+  initBackground() {
+    const options = this.container.actualOptions,
+      background = options.background,
+      element = this.element,
+      elementStyle = element === null || element === void 0 ? void 0 : element.style;
+    if (!elementStyle) {
+      return;
+    }
+    if (background.color) {
+      const color = (0, _ColorUtils.rangeColorToRgb)(background.color);
+      elementStyle.backgroundColor = color ? (0, _ColorUtils.getStyleFromRgb)(color, background.opacity) : "";
+    } else {
+      elementStyle.backgroundColor = "";
+    }
+    elementStyle.backgroundImage = background.image || "";
+    elementStyle.backgroundPosition = background.position || "";
+    elementStyle.backgroundRepeat = background.repeat || "";
+    elementStyle.backgroundSize = background.size || "";
+  }
+  initPlugins() {
+    this._resizePlugins = [];
+    for (const [, plugin] of this.container.plugins) {
+      if (plugin.resize) {
+        this._resizePlugins.push(plugin);
+      }
+      if (plugin.particleFillColor || plugin.particleStrokeColor) {
+        this._colorPlugins.push(plugin);
+      }
+    }
+  }
+  initUpdaters() {
+    this._preDrawUpdaters = [];
+    this._postDrawUpdaters = [];
+    for (const updater of this.container.particles.updaters) {
+      if (updater.afterDraw) {
+        this._postDrawUpdaters.push(updater);
+      }
+      if (updater.getColorStyles || updater.getTransformValues || updater.beforeDraw) {
+        this._preDrawUpdaters.push(updater);
+      }
+    }
+  }
+  loadCanvas(canvas) {
+    var _a, _b;
+    if (this._generated) {
+      (_a = this.element) === null || _a === void 0 ? void 0 : _a.remove();
+    }
+    this._generated = canvas.dataset && _Constants.generatedAttribute in canvas.dataset ? canvas.dataset[_Constants.generatedAttribute] === "true" : this._generated;
+    this.element = canvas;
+    this.element.ariaHidden = "true";
+    this._originalStyle = (0, _Utils.deepExtend)({}, this.element.style);
+    this.size.height = canvas.offsetHeight;
+    this.size.width = canvas.offsetWidth;
+    this._context = this.element.getContext("2d");
+    (_b = this._mutationObserver) === null || _b === void 0 ? void 0 : _b.observe(this.element, {
+      attributes: true
+    });
+    this.container.retina.init();
+    this.initBackground();
+  }
+  paint() {
+    const options = this.container.actualOptions;
+    this.draw(ctx => {
+      if (options.backgroundMask.enable && options.backgroundMask.cover) {
+        (0, _CanvasUtils.clear)(ctx, this.size);
+        this._paintBase(this._coverColorStyle);
+      } else {
+        this._paintBase();
+      }
+    });
+  }
+  resize() {
+    if (!this.element) {
+      return;
+    }
+    const container = this.container,
+      pxRatio = container.retina.pixelRatio,
+      size = container.canvas.size,
+      newSize = {
+        width: this.element.offsetWidth * pxRatio,
+        height: this.element.offsetHeight * pxRatio
+      };
+    if (newSize.height === size.height && newSize.width === size.width && newSize.height === this.element.height && newSize.width === this.element.width) {
+      return;
+    }
+    const oldSize = Object.assign({}, size);
+    this.element.width = size.width = this.element.offsetWidth * pxRatio;
+    this.element.height = size.height = this.element.offsetHeight * pxRatio;
+    if (this.container.started) {
+      this.resizeFactor = {
+        width: size.width / oldSize.width,
+        height: size.height / oldSize.height
+      };
+    }
+  }
+  stop() {
+    this.draw(ctx => {
+      (0, _CanvasUtils.clear)(ctx, this.size);
+    });
+  }
+  async windowResize() {
+    if (!this.element) {
+      return;
+    }
+    this.resize();
+    const container = this.container,
+      needsRefresh = container.updateActualOptions();
+    container.particles.setDensity();
+    this._applyResizePlugins();
+    if (needsRefresh) {
+      await container.refresh();
+    }
+  }
+  _applyPostDrawUpdaters(particle) {
+    var _a;
+    for (const updater of this._postDrawUpdaters) {
+      (_a = updater.afterDraw) === null || _a === void 0 ? void 0 : _a.call(updater, particle);
+    }
+  }
+  _applyPreDrawUpdaters(ctx, particle, radius, zOpacity, colorStyles, transform) {
+    var _a;
+    for (const updater of this._preDrawUpdaters) {
+      if (updater.getColorStyles) {
+        const {
+          fill,
+          stroke
+        } = updater.getColorStyles(particle, ctx, radius, zOpacity);
+        if (fill) {
+          colorStyles.fill = fill;
+        }
+        if (stroke) {
+          colorStyles.stroke = stroke;
+        }
+      }
+      if (updater.getTransformValues) {
+        const updaterTransform = updater.getTransformValues(particle);
+        for (const key in updaterTransform) {
+          setTransformValue(transform, updaterTransform, key);
+        }
+      }
+      (_a = updater.beforeDraw) === null || _a === void 0 ? void 0 : _a.call(updater, particle);
+    }
+  }
+  _applyResizePlugins() {
+    for (const plugin of this._resizePlugins) {
+      if (plugin.resize) {
+        plugin.resize();
+      }
+    }
+  }
+  _getPluginParticleColors(particle) {
+    let fColor, sColor;
+    for (const plugin of this._colorPlugins) {
+      if (!fColor && plugin.particleFillColor) {
+        fColor = (0, _ColorUtils.rangeColorToHsl)(plugin.particleFillColor(particle));
+      }
+      if (!sColor && plugin.particleStrokeColor) {
+        sColor = (0, _ColorUtils.rangeColorToHsl)(plugin.particleStrokeColor(particle));
+      }
+      if (fColor && sColor) {
+        break;
+      }
+    }
+    return [fColor, sColor];
+  }
+  _initCover() {
+    const options = this.container.actualOptions,
+      cover = options.backgroundMask.cover,
+      color = cover.color,
+      coverRgb = (0, _ColorUtils.rangeColorToRgb)(color);
+    if (coverRgb) {
+      const coverColor = {
+        r: coverRgb.r,
+        g: coverRgb.g,
+        b: coverRgb.b,
+        a: cover.opacity
+      };
+      this._coverColorStyle = (0, _ColorUtils.getStyleFromRgb)(coverColor, coverColor.a);
+    }
+  }
+  _initStyle() {
+    const element = this.element,
+      options = this.container.actualOptions;
+    if (!element) {
+      return;
+    }
+    if (this._fullScreen) {
+      this._originalStyle = (0, _Utils.deepExtend)({}, element.style);
+      this._setFullScreenStyle();
+    } else {
+      this._resetOriginalStyle();
+    }
+    for (const key in options.style) {
+      if (!key || !options.style) {
+        continue;
+      }
+      const value = options.style[key];
+      if (!value) {
+        continue;
+      }
+      element.style.setProperty(key, value, "important");
+    }
+  }
+  async _initTrail() {
+    const options = this.container.actualOptions,
+      trail = options.particles.move.trail,
+      trailFill = trail.fill;
+    if (!trail.enable) {
+      return;
+    }
+    if (trailFill.color) {
+      const fillColor = (0, _ColorUtils.rangeColorToRgb)(trailFill.color);
+      if (!fillColor) {
+        return;
+      }
+      const trail = options.particles.move.trail;
+      this._trailFill = {
+        color: Object.assign({}, fillColor),
+        opacity: 1 / trail.length
+      };
+    } else {
+      await new Promise((resolve, reject) => {
+        if (!trailFill.image) {
+          return;
+        }
+        const img = document.createElement("img");
+        img.addEventListener("load", () => {
+          this._trailFill = {
+            image: img,
+            opacity: 1 / trail.length
+          };
+          resolve();
+        });
+        img.addEventListener("error", evt => {
+          reject(evt.error);
+        });
+        img.src = trailFill.image;
+      });
+    }
+  }
+  _paintBase(baseColor) {
+    this.draw(ctx => {
+      (0, _CanvasUtils.paintBase)(ctx, this.size, baseColor);
+    });
+  }
+  _paintImage(image, opacity) {
+    this.draw(ctx => {
+      (0, _CanvasUtils.paintImage)(ctx, this.size, image, opacity);
+    });
+  }
+  _repairStyle() {
+    var _a, _b;
+    const element = this.element;
+    if (!element) {
+      return;
+    }
+    (_a = this._mutationObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+    this._initStyle();
+    this.initBackground();
+    (_b = this._mutationObserver) === null || _b === void 0 ? void 0 : _b.observe(element, {
+      attributes: true
+    });
+  }
+  _resetOriginalStyle() {
+    const element = this.element,
+      originalStyle = this._originalStyle;
+    if (!(element && originalStyle)) {
+      return;
+    }
+    element.style.position = originalStyle.position;
+    element.style.zIndex = originalStyle.zIndex;
+    element.style.top = originalStyle.top;
+    element.style.left = originalStyle.left;
+    element.style.width = originalStyle.width;
+    element.style.height = originalStyle.height;
+  }
+  _setFullScreenStyle() {
+    const element = this.element;
+    if (!element) {
+      return;
+    }
+    const priority = "important";
+    element.style.setProperty("position", "fixed", priority);
+    element.style.setProperty("z-index", this.container.actualOptions.fullScreen.zIndex.toString(10), priority);
+    element.style.setProperty("top", "0", priority);
+    element.style.setProperty("left", "0", priority);
+    element.style.setProperty("width", "100%", priority);
+    element.style.setProperty("height", "100%", priority);
+  }
+}
+exports.Canvas = Canvas;
+},{"../Utils/CanvasUtils":"../node_modules/tsparticles-engine/esm/Utils/CanvasUtils.js","../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","../Utils/ColorUtils":"../node_modules/tsparticles-engine/esm/Utils/ColorUtils.js","./Utils/Constants":"../node_modules/tsparticles-engine/esm/Core/Utils/Constants.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/EventListeners.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EventListeners = void 0;
+var _Utils = require("../../Utils/Utils");
+var _Constants = require("./Constants");
+function manageListener(element, event, handler, add, options) {
+  if (add) {
+    let addOptions = {
+      passive: true
+    };
+    if (typeof options === "boolean") {
+      addOptions.capture = options;
+    } else if (options !== undefined) {
+      addOptions = options;
+    }
+    element.addEventListener(event, handler, addOptions);
+  } else {
+    const removeOptions = options;
+    element.removeEventListener(event, handler, removeOptions);
+  }
+}
+class EventListeners {
+  constructor(container) {
+    this.container = container;
+    this.canPush = true;
+    this.handlers = {
+      mouseMove: e => this.mouseTouchMove(e),
+      touchStart: e => this.mouseTouchMove(e),
+      touchMove: e => this.mouseTouchMove(e),
+      touchEnd: () => this.mouseTouchFinish(),
+      mouseLeave: () => this.mouseTouchFinish(),
+      touchCancel: () => this.mouseTouchFinish(),
+      touchEndClick: e => this.mouseTouchClick(e),
+      mouseUp: e => this.mouseTouchClick(e),
+      mouseDown: () => this.mouseDown(),
+      visibilityChange: () => this.handleVisibilityChange(),
+      themeChange: e => this.handleThemeChange(e),
+      oldThemeChange: e => this.handleThemeChange(e),
+      resize: () => this.handleWindowResize()
+    };
+  }
+  addListeners() {
+    this.manageListeners(true);
+  }
+  removeListeners() {
+    this.manageListeners(false);
+  }
+  doMouseTouchClick(e) {
+    const container = this.container,
+      options = container.actualOptions;
+    if (this.canPush) {
+      const mouseInteractivity = container.interactivity.mouse,
+        mousePos = mouseInteractivity.position;
+      if (!mousePos) {
+        return;
+      }
+      mouseInteractivity.clickPosition = Object.assign({}, mousePos);
+      mouseInteractivity.clickTime = new Date().getTime();
+      const onClick = options.interactivity.events.onClick;
+      (0, _Utils.executeOnSingleOrMultiple)(onClick.mode, mode => this.handleClickMode(mode));
+    }
+    if (e.type === "touchend") {
+      setTimeout(() => this.mouseTouchFinish(), 500);
+    }
+  }
+  handleClickMode(mode) {
+    this.container.handleClickMode(mode);
+  }
+  handleThemeChange(e) {
+    const mediaEvent = e,
+      container = this.container,
+      options = container.options,
+      defaultThemes = options.defaultThemes,
+      themeName = mediaEvent.matches ? defaultThemes.dark : defaultThemes.light,
+      theme = options.themes.find(theme => theme.name === themeName);
+    if (theme && theme.default.auto) {
+      container.loadTheme(themeName);
+    }
+  }
+  handleVisibilityChange() {
+    const container = this.container,
+      options = container.actualOptions;
+    this.mouseTouchFinish();
+    if (!options.pauseOnBlur) {
+      return;
+    }
+    if (document === null || document === void 0 ? void 0 : document.hidden) {
+      container.pageHidden = true;
+      container.pause();
+    } else {
+      container.pageHidden = false;
+      if (container.getAnimationStatus()) {
+        container.play(true);
+      } else {
+        container.draw(true);
+      }
+    }
+  }
+  handleWindowResize() {
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+      delete this.resizeTimeout;
+    }
+    this.resizeTimeout = setTimeout(async () => {
+      var _a;
+      return (_a = this.container.canvas) === null || _a === void 0 ? void 0 : _a.windowResize();
+    }, this.container.actualOptions.interactivity.events.resize.delay * 1000);
+  }
+  manageListeners(add) {
+    var _a;
+    const handlers = this.handlers,
+      container = this.container,
+      options = container.actualOptions,
+      detectType = options.interactivity.detectsOn;
+    let mouseLeaveTmpEvent = _Constants.mouseLeaveEvent;
+    if (detectType === "window") {
+      container.interactivity.element = window;
+      mouseLeaveTmpEvent = _Constants.mouseOutEvent;
+    } else if (detectType === "parent" && container.canvas.element) {
+      const canvasEl = container.canvas.element;
+      container.interactivity.element = (_a = canvasEl.parentElement) !== null && _a !== void 0 ? _a : canvasEl.parentNode;
+    } else {
+      container.interactivity.element = container.canvas.element;
+    }
+    const mediaMatch = (0, _Utils.safeMatchMedia)("(prefers-color-scheme: dark)");
+    if (mediaMatch) {
+      if (mediaMatch.addEventListener !== undefined) {
+        manageListener(mediaMatch, "change", handlers.themeChange, add);
+      } else if (mediaMatch.addListener !== undefined) {
+        if (add) {
+          mediaMatch.addListener(handlers.oldThemeChange);
+        } else {
+          mediaMatch.removeListener(handlers.oldThemeChange);
+        }
+      }
+    }
+    const interactivityEl = container.interactivity.element;
+    if (!interactivityEl) {
+      return;
+    }
+    const html = interactivityEl;
+    if (options.interactivity.events.onHover.enable || options.interactivity.events.onClick.enable) {
+      manageListener(interactivityEl, _Constants.mouseMoveEvent, handlers.mouseMove, add);
+      manageListener(interactivityEl, _Constants.touchStartEvent, handlers.touchStart, add);
+      manageListener(interactivityEl, _Constants.touchMoveEvent, handlers.touchMove, add);
+      if (!options.interactivity.events.onClick.enable) {
+        manageListener(interactivityEl, _Constants.touchEndEvent, handlers.touchEnd, add);
+      } else {
+        manageListener(interactivityEl, _Constants.touchEndEvent, handlers.touchEndClick, add);
+        manageListener(interactivityEl, _Constants.mouseUpEvent, handlers.mouseUp, add);
+        manageListener(interactivityEl, _Constants.mouseDownEvent, handlers.mouseDown, add);
+      }
+      manageListener(interactivityEl, mouseLeaveTmpEvent, handlers.mouseLeave, add);
+      manageListener(interactivityEl, _Constants.touchCancelEvent, handlers.touchCancel, add);
+    }
+    if (container.canvas.element) {
+      container.canvas.element.style.pointerEvents = html === container.canvas.element ? "initial" : "none";
+    }
+    if (options.interactivity.events.resize) {
+      if (typeof ResizeObserver !== "undefined") {
+        if (this.resizeObserver && !add) {
+          if (container.canvas.element) {
+            this.resizeObserver.unobserve(container.canvas.element);
+          }
+          this.resizeObserver.disconnect();
+          delete this.resizeObserver;
+        } else if (!this.resizeObserver && add && container.canvas.element) {
+          this.resizeObserver = new ResizeObserver(entries => {
+            const entry = entries.find(e => e.target === container.canvas.element);
+            if (!entry) {
+              return;
+            }
+            this.handleWindowResize();
+          });
+          this.resizeObserver.observe(container.canvas.element);
+        }
+      } else {
+        manageListener(window, _Constants.resizeEvent, handlers.resize, add);
+      }
+    }
+    if (document) {
+      manageListener(document, _Constants.visibilityChangeEvent, handlers.visibilityChange, add, false);
+    }
+  }
+  mouseDown() {
+    const interactivity = this.container.interactivity;
+    if (interactivity) {
+      const mouse = interactivity.mouse;
+      mouse.clicking = true;
+      mouse.downPosition = mouse.position;
+    }
+  }
+  mouseTouchClick(e) {
+    const container = this.container,
+      options = container.actualOptions,
+      mouse = container.interactivity.mouse;
+    mouse.inside = true;
+    let handled = false;
+    const mousePosition = mouse.position;
+    if (!mousePosition || !options.interactivity.events.onClick.enable) {
+      return;
+    }
+    for (const [, plugin] of container.plugins) {
+      if (!plugin.clickPositionValid) {
+        continue;
+      }
+      handled = plugin.clickPositionValid(mousePosition);
+      if (handled) {
+        break;
+      }
+    }
+    if (!handled) {
+      this.doMouseTouchClick(e);
+    }
+    mouse.clicking = false;
+  }
+  mouseTouchFinish() {
+    const interactivity = this.container.interactivity;
+    if (!interactivity) {
+      return;
+    }
+    const mouse = interactivity.mouse;
+    delete mouse.position;
+    delete mouse.clickPosition;
+    delete mouse.downPosition;
+    interactivity.status = _Constants.mouseLeaveEvent;
+    mouse.inside = false;
+    mouse.clicking = false;
+  }
+  mouseTouchMove(e) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    const container = this.container,
+      options = container.actualOptions;
+    if (!((_a = container.interactivity) === null || _a === void 0 ? void 0 : _a.element)) {
+      return;
+    }
+    container.interactivity.mouse.inside = true;
+    let pos;
+    const canvas = container.canvas.element;
+    if (e.type.startsWith("pointer")) {
+      this.canPush = true;
+      const mouseEvent = e;
+      if (container.interactivity.element === window) {
+        if (canvas) {
+          const clientRect = canvas.getBoundingClientRect();
+          pos = {
+            x: mouseEvent.clientX - clientRect.left,
+            y: mouseEvent.clientY - clientRect.top
+          };
+        }
+      } else if (options.interactivity.detectsOn === "parent") {
+        const source = mouseEvent.target,
+          target = mouseEvent.currentTarget,
+          canvasEl = container.canvas.element;
+        if (source && target && canvasEl) {
+          const sourceRect = source.getBoundingClientRect(),
+            targetRect = target.getBoundingClientRect(),
+            canvasRect = canvasEl.getBoundingClientRect();
+          pos = {
+            x: mouseEvent.offsetX + 2 * sourceRect.left - (targetRect.left + canvasRect.left),
+            y: mouseEvent.offsetY + 2 * sourceRect.top - (targetRect.top + canvasRect.top)
+          };
+        } else {
+          pos = {
+            x: (_b = mouseEvent.offsetX) !== null && _b !== void 0 ? _b : mouseEvent.clientX,
+            y: (_c = mouseEvent.offsetY) !== null && _c !== void 0 ? _c : mouseEvent.clientY
+          };
+        }
+      } else if (mouseEvent.target === container.canvas.element) {
+        pos = {
+          x: (_d = mouseEvent.offsetX) !== null && _d !== void 0 ? _d : mouseEvent.clientX,
+          y: (_e = mouseEvent.offsetY) !== null && _e !== void 0 ? _e : mouseEvent.clientY
+        };
+      }
+    } else {
+      this.canPush = e.type !== "touchmove";
+      const touchEvent = e,
+        lastTouch = touchEvent.touches[touchEvent.touches.length - 1],
+        canvasRect = canvas === null || canvas === void 0 ? void 0 : canvas.getBoundingClientRect();
+      pos = {
+        x: lastTouch.clientX - ((_f = canvasRect === null || canvasRect === void 0 ? void 0 : canvasRect.left) !== null && _f !== void 0 ? _f : 0),
+        y: lastTouch.clientY - ((_g = canvasRect === null || canvasRect === void 0 ? void 0 : canvasRect.top) !== null && _g !== void 0 ? _g : 0)
+      };
+    }
+    const pxRatio = container.retina.pixelRatio;
+    if (pos) {
+      pos.x *= pxRatio;
+      pos.y *= pxRatio;
+    }
+    container.interactivity.mouse.position = pos;
+    container.interactivity.status = _Constants.mouseMoveEvent;
+  }
+}
+exports.EventListeners = EventListeners;
+},{"../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","./Constants":"../node_modules/tsparticles-engine/esm/Core/Utils/Constants.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/FrameManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FrameManager = void 0;
+function initDelta(value, fpsLimit = 60, smooth = false) {
+  return {
+    value,
+    factor: smooth ? 60 / fpsLimit : 60 * value / 1000
+  };
+}
+class FrameManager {
+  constructor(container) {
+    this.container = container;
+  }
+  async nextFrame(timestamp) {
+    var _a;
+    try {
+      const container = this.container;
+      if (!container.smooth && container.lastFrameTime !== undefined && timestamp < container.lastFrameTime + 1000 / container.fpsLimit) {
+        container.draw(false);
+        return;
+      }
+      (_a = container.lastFrameTime) !== null && _a !== void 0 ? _a : container.lastFrameTime = timestamp;
+      const delta = initDelta(timestamp - container.lastFrameTime, container.fpsLimit, container.smooth);
+      container.lifeTime += delta.value;
+      container.lastFrameTime = timestamp;
+      if (delta.value > 1000) {
+        container.draw(false);
+        return;
+      }
+      await container.particles.draw(delta);
+      if (container.duration > 0 && container.lifeTime > container.duration) {
+        container.destroy();
+        return;
+      }
+      if (container.getAnimationStatus()) {
+        container.draw(false);
+      }
+    } catch (e) {
+      console.error("tsParticles error in animation loop", e);
+    }
+  }
+}
+exports.FrameManager = FrameManager;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OptionsColor = void 0;
+class OptionsColor {
+  constructor() {
+    this.value = "";
+  }
+  static create(source, data) {
+    const color = new OptionsColor();
+    color.load(source);
+    if (data !== undefined) {
+      if (typeof data === "string" || data instanceof Array) {
+        color.load({
+          value: data
+        });
+      } else {
+        color.load(data);
+      }
+    }
+    return color;
+  }
+  load(data) {
+    if ((data === null || data === void 0 ? void 0 : data.value) === undefined) {
+      return;
+    }
+    this.value = data.value;
+  }
+}
+exports.OptionsColor = OptionsColor;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Background/Background.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Background = void 0;
+var _OptionsColor = require("../OptionsColor");
+class Background {
+  constructor() {
+    this.color = new _OptionsColor.OptionsColor();
+    this.color.value = "";
+    this.image = "";
+    this.position = "";
+    this.repeat = "";
+    this.size = "";
+    this.opacity = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _OptionsColor.OptionsColor.create(this.color, data.color);
+    }
+    if (data.image !== undefined) {
+      this.image = data.image;
+    }
+    if (data.position !== undefined) {
+      this.position = data.position;
+    }
+    if (data.repeat !== undefined) {
+      this.repeat = data.repeat;
+    }
+    if (data.size !== undefined) {
+      this.size = data.size;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+  }
+}
+exports.Background = Background;
+},{"../OptionsColor":"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/BackgroundMask/BackgroundMaskCover.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BackgroundMaskCover = void 0;
+var _OptionsColor = require("../OptionsColor");
+class BackgroundMaskCover {
+  constructor() {
+    this.color = new _OptionsColor.OptionsColor();
+    this.color.value = "#fff";
+    this.opacity = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _OptionsColor.OptionsColor.create(this.color, data.color);
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+  }
+}
+exports.BackgroundMaskCover = BackgroundMaskCover;
+},{"../OptionsColor":"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/BackgroundMask/BackgroundMask.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BackgroundMask = void 0;
+var _BackgroundMaskCover = require("./BackgroundMaskCover");
+class BackgroundMask {
+  constructor() {
+    this.composite = "destination-out";
+    this.cover = new _BackgroundMaskCover.BackgroundMaskCover();
+    this.enable = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.composite !== undefined) {
+      this.composite = data.composite;
+    }
+    if (data.cover !== undefined) {
+      const cover = data.cover;
+      const color = typeof data.cover === "string" ? {
+        color: data.cover
+      } : data.cover;
+      this.cover.load(cover.color !== undefined ? cover : {
+        color: color
+      });
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+  }
+}
+exports.BackgroundMask = BackgroundMask;
+},{"./BackgroundMaskCover":"../node_modules/tsparticles-engine/esm/Options/Classes/BackgroundMask/BackgroundMaskCover.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/FullScreen/FullScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FullScreen = void 0;
+class FullScreen {
+  constructor() {
+    this.enable = true;
+    this.zIndex = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.zIndex !== undefined) {
+      this.zIndex = data.zIndex;
+    }
+  }
+}
+exports.FullScreen = FullScreen;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/ClickEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ClickEvent = void 0;
+class ClickEvent {
+  constructor() {
+    this.enable = false;
+    this.mode = [];
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+  }
+}
+exports.ClickEvent = ClickEvent;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/DivEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DivEvent = void 0;
+var _Utils = require("../../../../Utils/Utils");
+class DivEvent {
+  constructor() {
+    this.selectors = [];
+    this.enable = false;
+    this.mode = [];
+    this.type = "circle";
+  }
+  get el() {
+    return this.elementId;
+  }
+  set el(value) {
+    this.elementId = value;
+  }
+  get elementId() {
+    return this.ids;
+  }
+  set elementId(value) {
+    this.ids = value;
+  }
+  get ids() {
+    return (0, _Utils.executeOnSingleOrMultiple)(this.selectors, t => t.replace("#", ""));
+  }
+  set ids(value) {
+    this.selectors = (0, _Utils.executeOnSingleOrMultiple)(value, t => `#${t}`);
+  }
+  load(data) {
+    var _a, _b;
+    if (!data) {
+      return;
+    }
+    const ids = (_b = (_a = data.ids) !== null && _a !== void 0 ? _a : data.elementId) !== null && _b !== void 0 ? _b : data.el;
+    if (ids !== undefined) {
+      this.ids = ids;
+    }
+    if (data.selectors !== undefined) {
+      this.selectors = data.selectors;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    if (data.type !== undefined) {
+      this.type = data.type;
+    }
+  }
+}
+exports.DivEvent = DivEvent;
+},{"../../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/Parallax.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Parallax = void 0;
+class Parallax {
+  constructor() {
+    this.enable = false;
+    this.force = 2;
+    this.smooth = 10;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.force !== undefined) {
+      this.force = data.force;
+    }
+    if (data.smooth !== undefined) {
+      this.smooth = data.smooth;
+    }
+  }
+}
+exports.Parallax = Parallax;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/HoverEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HoverEvent = void 0;
+var _Parallax = require("./Parallax");
+class HoverEvent {
+  constructor() {
+    this.enable = false;
+    this.mode = [];
+    this.parallax = new _Parallax.Parallax();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    this.parallax.load(data.parallax);
+  }
+}
+exports.HoverEvent = HoverEvent;
+},{"./Parallax":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/Parallax.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/ResizeEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ResizeEvent = void 0;
+class ResizeEvent {
+  constructor() {
+    this.delay = 0.5;
+    this.enable = true;
+  }
+  load(data) {
+    if (data === undefined) {
+      return;
+    }
+    if (data.delay !== undefined) {
+      this.delay = data.delay;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+  }
+}
+exports.ResizeEvent = ResizeEvent;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/Events.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Events = void 0;
+var _ClickEvent = require("./ClickEvent");
+var _DivEvent = require("./DivEvent");
+var _HoverEvent = require("./HoverEvent");
+var _ResizeEvent = require("./ResizeEvent");
+var _Utils = require("../../../../Utils/Utils");
+class Events {
+  constructor() {
+    this.onClick = new _ClickEvent.ClickEvent();
+    this.onDiv = new _DivEvent.DivEvent();
+    this.onHover = new _HoverEvent.HoverEvent();
+    this.resize = new _ResizeEvent.ResizeEvent();
+  }
+  get onclick() {
+    return this.onClick;
+  }
+  set onclick(value) {
+    this.onClick = value;
+  }
+  get ondiv() {
+    return this.onDiv;
+  }
+  set ondiv(value) {
+    this.onDiv = value;
+  }
+  get onhover() {
+    return this.onHover;
+  }
+  set onhover(value) {
+    this.onHover = value;
+  }
+  load(data) {
+    var _a, _b, _c;
+    if (!data) {
+      return;
+    }
+    this.onClick.load((_a = data.onClick) !== null && _a !== void 0 ? _a : data.onclick);
+    const onDiv = (_b = data.onDiv) !== null && _b !== void 0 ? _b : data.ondiv;
+    if (onDiv !== undefined) {
+      this.onDiv = (0, _Utils.executeOnSingleOrMultiple)(onDiv, t => {
+        const tmp = new _DivEvent.DivEvent();
+        tmp.load(t);
+        return tmp;
+      });
+    }
+    this.onHover.load((_c = data.onHover) !== null && _c !== void 0 ? _c : data.onhover);
+    if (typeof data.resize === "boolean") {
+      this.resize.enable = data.resize;
+    } else {
+      this.resize.load(data.resize);
+    }
+  }
+}
+exports.Events = Events;
+},{"./ClickEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/ClickEvent.js","./DivEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/DivEvent.js","./HoverEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/HoverEvent.js","./ResizeEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/ResizeEvent.js","../../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Modes/Modes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Modes = void 0;
+class Modes {
+  constructor(engine, container) {
+    this._engine = engine;
+    this._container = container;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (this._container) {
+      const interactors = this._engine.plugins.interactors.get(this._container);
+      if (interactors) {
+        for (const interactor of interactors) {
+          if (interactor.loadModeOptions) {
+            interactor.loadModeOptions(this, data);
+          }
+        }
+      }
+    }
+  }
+}
+exports.Modes = Modes;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Interactivity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Interactivity = void 0;
+var _Events = require("./Events/Events");
+var _Modes = require("./Modes/Modes");
+class Interactivity {
+  constructor(engine, container) {
+    this.detectsOn = "window";
+    this.events = new _Events.Events();
+    this.modes = new _Modes.Modes(engine, container);
+  }
+  get detect_on() {
+    return this.detectsOn;
+  }
+  set detect_on(value) {
+    this.detectsOn = value;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    const detectsOn = (_a = data.detectsOn) !== null && _a !== void 0 ? _a : data.detect_on;
+    if (detectsOn !== undefined) {
+      this.detectsOn = detectsOn;
+    }
+    this.events.load(data.events);
+    this.modes.load(data.modes);
+  }
+}
+exports.Interactivity = Interactivity;
+},{"./Events/Events":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/Events.js","./Modes/Modes":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Modes/Modes.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/ManualParticle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ManualParticle = void 0;
+var _Utils = require("../../Utils/Utils");
+class ManualParticle {
+  load(data) {
+    var _a, _b;
+    if (!data) {
+      return;
+    }
+    if (data.position !== undefined) {
+      this.position = {
+        x: (_a = data.position.x) !== null && _a !== void 0 ? _a : 50,
+        y: (_b = data.position.y) !== null && _b !== void 0 ? _b : 50
+      };
+    }
+    if (data.options !== undefined) {
+      this.options = (0, _Utils.deepExtend)({}, data.options);
+    }
+  }
+}
+exports.ManualParticle = ManualParticle;
+},{"../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Responsive.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Responsive = void 0;
+var _Utils = require("../../Utils/Utils");
+class Responsive {
+  constructor() {
+    this.maxWidth = Infinity;
+    this.options = {};
+    this.mode = "canvas";
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.maxWidth !== undefined) {
+      this.maxWidth = data.maxWidth;
+    }
+    if (data.mode !== undefined) {
+      if (data.mode === "screen") {
+        this.mode = "screen";
+      } else {
+        this.mode = "canvas";
+      }
+    }
+    if (data.options !== undefined) {
+      this.options = (0, _Utils.deepExtend)({}, data.options);
+    }
+  }
+}
+exports.Responsive = Responsive;
+},{"../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Theme/ThemeDefault.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ThemeDefault = void 0;
+class ThemeDefault {
+  constructor() {
+    this.auto = false;
+    this.mode = "any";
+    this.value = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.auto !== undefined) {
+      this.auto = data.auto;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    if (data.value !== undefined) {
+      this.value = data.value;
+    }
+  }
+}
+exports.ThemeDefault = ThemeDefault;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Theme/Theme.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Theme = void 0;
+var _ThemeDefault = require("./ThemeDefault");
+var _Utils = require("../../../Utils/Utils");
+class Theme {
+  constructor() {
+    this.name = "";
+    this.default = new _ThemeDefault.ThemeDefault();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.name !== undefined) {
+      this.name = data.name;
+    }
+    this.default.load(data.default);
+    if (data.options !== undefined) {
+      this.options = (0, _Utils.deepExtend)({}, data.options);
+    }
+  }
+}
+exports.Theme = Theme;
+},{"./ThemeDefault":"../node_modules/tsparticles-engine/esm/Options/Classes/Theme/ThemeDefault.js","../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/ColorAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ColorAnimation = void 0;
+var _NumberUtils = require("../../Utils/NumberUtils");
+class ColorAnimation {
+  constructor() {
+    this.count = 0;
+    this.enable = false;
+    this.offset = 0;
+    this.speed = 1;
+    this.decay = 0;
+    this.sync = true;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.count !== undefined) {
+      this.count = (0, _NumberUtils.setRangeValue)(data.count);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.offset !== undefined) {
+      this.offset = (0, _NumberUtils.setRangeValue)(data.offset);
+    }
+    if (data.speed !== undefined) {
+      this.speed = (0, _NumberUtils.setRangeValue)(data.speed);
+    }
+    if (data.decay !== undefined) {
+      this.decay = (0, _NumberUtils.setRangeValue)(data.decay);
+    }
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.ColorAnimation = ColorAnimation;
+},{"../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/HslAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HslAnimation = void 0;
+var _ColorAnimation = require("./ColorAnimation");
+class HslAnimation {
+  constructor() {
+    this.h = new _ColorAnimation.ColorAnimation();
+    this.s = new _ColorAnimation.ColorAnimation();
+    this.l = new _ColorAnimation.ColorAnimation();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    this.h.load(data.h);
+    this.s.load(data.s);
+    this.l.load(data.l);
+  }
+}
+exports.HslAnimation = HslAnimation;
+},{"./ColorAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/ColorAnimation.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/AnimatableColor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AnimatableColor = void 0;
+var _HslAnimation = require("./HslAnimation");
+var _OptionsColor = require("./OptionsColor");
+class AnimatableColor extends _OptionsColor.OptionsColor {
+  constructor() {
+    super();
+    this.animation = new _HslAnimation.HslAnimation();
+  }
+  static create(source, data) {
+    const color = new AnimatableColor();
+    color.load(source);
+    if (data !== undefined) {
+      if (typeof data === "string" || data instanceof Array) {
+        color.load({
+          value: data
+        });
+      } else {
+        color.load(data);
+      }
+    }
+    return color;
+  }
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    const colorAnimation = data.animation;
+    if (colorAnimation !== undefined) {
+      if (colorAnimation.enable !== undefined) {
+        this.animation.h.load(colorAnimation);
+      } else {
+        this.animation.load(data.animation);
+      }
+    }
+  }
+}
+exports.AnimatableColor = AnimatableColor;
+},{"./HslAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/HslAnimation.js","./OptionsColor":"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/CollisionsAbsorb.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CollisionsAbsorb = void 0;
+class CollisionsAbsorb {
+  constructor() {
+    this.speed = 2;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.speed !== undefined) {
+      this.speed = data.speed;
+    }
+  }
+}
+exports.CollisionsAbsorb = CollisionsAbsorb;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/CollisionsOverlap.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CollisionsOverlap = void 0;
+class CollisionsOverlap {
+  constructor() {
+    this.enable = true;
+    this.retries = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.retries !== undefined) {
+      this.retries = data.retries;
+    }
+  }
+}
+exports.CollisionsOverlap = CollisionsOverlap;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Random.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Random = void 0;
+class Random {
+  constructor() {
+    this.enable = false;
+    this.minimumValue = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.minimumValue !== undefined) {
+      this.minimumValue = data.minimumValue;
+    }
+  }
+}
+exports.Random = Random;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ValueWithRandom = void 0;
+var _Random = require("./Random");
+var _NumberUtils = require("../../Utils/NumberUtils");
+class ValueWithRandom {
+  constructor() {
+    this.random = new _Random.Random();
+    this.value = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (typeof data.random === "boolean") {
+      this.random.enable = data.random;
+    } else {
+      this.random.load(data.random);
+    }
+    if (data.value !== undefined) {
+      this.value = (0, _NumberUtils.setRangeValue)(data.value, this.random.enable ? this.random.minimumValue : undefined);
+    }
+  }
+}
+exports.ValueWithRandom = ValueWithRandom;
+},{"./Random":"../node_modules/tsparticles-engine/esm/Options/Classes/Random.js","../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounceFactor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParticlesBounceFactor = void 0;
+var _ValueWithRandom = require("../../ValueWithRandom");
+class ParticlesBounceFactor extends _ValueWithRandom.ValueWithRandom {
+  constructor() {
+    super();
+    this.random.minimumValue = 0.1;
+    this.value = 1;
+  }
+}
+exports.ParticlesBounceFactor = ParticlesBounceFactor;
+},{"../../ValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounce.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParticlesBounce = void 0;
+var _ParticlesBounceFactor = require("./ParticlesBounceFactor");
+class ParticlesBounce {
+  constructor() {
+    this.horizontal = new _ParticlesBounceFactor.ParticlesBounceFactor();
+    this.vertical = new _ParticlesBounceFactor.ParticlesBounceFactor();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    this.horizontal.load(data.horizontal);
+    this.vertical.load(data.vertical);
+  }
+}
+exports.ParticlesBounce = ParticlesBounce;
+},{"./ParticlesBounceFactor":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounceFactor.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/Collisions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Collisions = void 0;
+var _CollisionsAbsorb = require("./CollisionsAbsorb");
+var _CollisionsOverlap = require("./CollisionsOverlap");
+var _ParticlesBounce = require("../Bounce/ParticlesBounce");
+class Collisions {
+  constructor() {
+    this.absorb = new _CollisionsAbsorb.CollisionsAbsorb();
+    this.bounce = new _ParticlesBounce.ParticlesBounce();
+    this.enable = false;
+    this.mode = "bounce";
+    this.overlap = new _CollisionsOverlap.CollisionsOverlap();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    this.absorb.load(data.absorb);
+    this.bounce.load(data.bounce);
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    this.overlap.load(data.overlap);
+  }
+}
+exports.Collisions = Collisions;
+},{"./CollisionsAbsorb":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/CollisionsAbsorb.js","./CollisionsOverlap":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/CollisionsOverlap.js","../Bounce/ParticlesBounce":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounce.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveAngle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveAngle = void 0;
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class MoveAngle {
+  constructor() {
+    this.offset = 0;
+    this.value = 90;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.offset !== undefined) {
+      this.offset = (0, _NumberUtils.setRangeValue)(data.offset);
+    }
+    if (data.value !== undefined) {
+      this.value = (0, _NumberUtils.setRangeValue)(data.value);
+    }
+  }
+}
+exports.MoveAngle = MoveAngle;
+},{"../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveAttract.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveAttract = void 0;
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class MoveAttract {
+  constructor() {
+    this.distance = 200;
+    this.enable = false;
+    this.rotate = {
+      x: 3000,
+      y: 3000
+    };
+  }
+  get rotateX() {
+    return this.rotate.x;
+  }
+  set rotateX(value) {
+    this.rotate.x = value;
+  }
+  get rotateY() {
+    return this.rotate.y;
+  }
+  set rotateY(value) {
+    this.rotate.y = value;
+  }
+  load(data) {
+    var _a, _b, _c, _d;
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = (0, _NumberUtils.setRangeValue)(data.distance);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    const rotateX = (_b = (_a = data.rotate) === null || _a === void 0 ? void 0 : _a.x) !== null && _b !== void 0 ? _b : data.rotateX;
+    if (rotateX !== undefined) {
+      this.rotate.x = rotateX;
+    }
+    const rotateY = (_d = (_c = data.rotate) === null || _c === void 0 ? void 0 : _c.y) !== null && _d !== void 0 ? _d : data.rotateY;
+    if (rotateY !== undefined) {
+      this.rotate.y = rotateY;
+    }
+  }
+}
+exports.MoveAttract = MoveAttract;
+},{"../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveCenter.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveCenter = void 0;
+class MoveCenter {
+  constructor() {
+    this.x = 50;
+    this.y = 50;
+    this.mode = "percent";
+    this.radius = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.x !== undefined) {
+      this.x = data.x;
+    }
+    if (data.y !== undefined) {
+      this.y = data.y;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    if (data.radius !== undefined) {
+      this.radius = data.radius;
+    }
+  }
+}
+exports.MoveCenter = MoveCenter;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveGravity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveGravity = void 0;
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class MoveGravity {
+  constructor() {
+    this.acceleration = 9.81;
+    this.enable = false;
+    this.inverse = false;
+    this.maxSpeed = 50;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.acceleration !== undefined) {
+      this.acceleration = (0, _NumberUtils.setRangeValue)(data.acceleration);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.inverse !== undefined) {
+      this.inverse = data.inverse;
+    }
+    if (data.maxSpeed !== undefined) {
+      this.maxSpeed = (0, _NumberUtils.setRangeValue)(data.maxSpeed);
+    }
+  }
+}
+exports.MoveGravity = MoveGravity;
+},{"../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Path/MovePath.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MovePath = void 0;
+var _ValueWithRandom = require("../../../ValueWithRandom");
+var _Utils = require("../../../../../Utils/Utils");
+class MovePath {
+  constructor() {
+    this.clamp = true;
+    this.delay = new _ValueWithRandom.ValueWithRandom();
+    this.enable = false;
+    this.options = {};
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.clamp !== undefined) {
+      this.clamp = data.clamp;
+    }
+    this.delay.load(data.delay);
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    this.generator = data.generator;
+    if (data.options) {
+      this.options = (0, _Utils.deepExtend)(this.options, data.options);
+    }
+  }
+}
+exports.MovePath = MovePath;
+},{"../../../ValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js","../../../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveTrailFill.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveTrailFill = void 0;
+var _OptionsColor = require("../../OptionsColor");
+class MoveTrailFill {
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _OptionsColor.OptionsColor.create(this.color, data.color);
+    }
+    if (data.image !== undefined) {
+      this.image = data.image;
+    }
+  }
+}
+exports.MoveTrailFill = MoveTrailFill;
+},{"../../OptionsColor":"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveTrail.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveTrail = void 0;
+var _MoveTrailFill = require("./MoveTrailFill");
+class MoveTrail {
+  constructor() {
+    this.enable = false;
+    this.length = 10;
+    this.fill = new _MoveTrailFill.MoveTrailFill();
+  }
+  get fillColor() {
+    return this.fill.color;
+  }
+  set fillColor(value) {
+    this.fill.load({
+      color: value
+    });
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.fill !== undefined || data.fillColor !== undefined) {
+      this.fill.load(data.fill || {
+        color: data.fillColor
+      });
+    }
+    if (data.length !== undefined) {
+      this.length = data.length;
+    }
+  }
+}
+exports.MoveTrail = MoveTrail;
+},{"./MoveTrailFill":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveTrailFill.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/OutModes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OutModes = void 0;
+class OutModes {
+  constructor() {
+    this.default = "out";
+  }
+  load(data) {
+    var _a, _b, _c, _d;
+    if (!data) {
+      return;
+    }
+    if (data.default !== undefined) {
+      this.default = data.default;
+    }
+    this.bottom = (_a = data.bottom) !== null && _a !== void 0 ? _a : data.default;
+    this.left = (_b = data.left) !== null && _b !== void 0 ? _b : data.default;
+    this.right = (_c = data.right) !== null && _c !== void 0 ? _c : data.default;
+    this.top = (_d = data.top) !== null && _d !== void 0 ? _d : data.default;
+  }
+}
+exports.OutModes = OutModes;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Spin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Spin = void 0;
+var _Utils = require("../../../../Utils/Utils");
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class Spin {
+  constructor() {
+    this.acceleration = 0;
+    this.enable = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.acceleration !== undefined) {
+      this.acceleration = (0, _NumberUtils.setRangeValue)(data.acceleration);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    this.position = data.position ? (0, _Utils.deepExtend)({}, data.position) : undefined;
+  }
+}
+exports.Spin = Spin;
+},{"../../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Move.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Move = void 0;
+var _MoveAngle = require("./MoveAngle");
+var _MoveAttract = require("./MoveAttract");
+var _MoveCenter = require("./MoveCenter");
+var _MoveGravity = require("./MoveGravity");
+var _MovePath = require("./Path/MovePath");
+var _MoveTrail = require("./MoveTrail");
+var _OutModes = require("./OutModes");
+var _Spin = require("./Spin");
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class Move {
+  constructor() {
+    this.angle = new _MoveAngle.MoveAngle();
+    this.attract = new _MoveAttract.MoveAttract();
+    this.center = new _MoveCenter.MoveCenter();
+    this.decay = 0;
+    this.distance = {};
+    this.direction = "none";
+    this.drift = 0;
+    this.enable = false;
+    this.gravity = new _MoveGravity.MoveGravity();
+    this.path = new _MovePath.MovePath();
+    this.outModes = new _OutModes.OutModes();
+    this.random = false;
+    this.size = false;
+    this.speed = 2;
+    this.spin = new _Spin.Spin();
+    this.straight = false;
+    this.trail = new _MoveTrail.MoveTrail();
+    this.vibrate = false;
+    this.warp = false;
+  }
+  get bounce() {
+    return this.collisions;
+  }
+  set bounce(value) {
+    this.collisions = value;
+  }
+  get collisions() {
+    return false;
+  }
+  set collisions(_) {}
+  get noise() {
+    return this.path;
+  }
+  set noise(value) {
+    this.path = value;
+  }
+  get outMode() {
+    return this.outModes.default;
+  }
+  set outMode(value) {
+    this.outModes.default = value;
+  }
+  get out_mode() {
+    return this.outMode;
+  }
+  set out_mode(value) {
+    this.outMode = value;
+  }
+  load(data) {
+    var _a, _b, _c;
+    if (!data) {
+      return;
+    }
+    this.angle.load(typeof data.angle === "number" ? {
+      value: data.angle
+    } : data.angle);
+    this.attract.load(data.attract);
+    this.center.load(data.center);
+    if (data.decay !== undefined) {
+      this.decay = (0, _NumberUtils.setRangeValue)(data.decay);
+    }
+    if (data.direction !== undefined) {
+      this.direction = data.direction;
+    }
+    if (data.distance !== undefined) {
+      this.distance = typeof data.distance === "number" ? {
+        horizontal: data.distance,
+        vertical: data.distance
+      } : Object.assign({}, data.distance);
+    }
+    if (data.drift !== undefined) {
+      this.drift = (0, _NumberUtils.setRangeValue)(data.drift);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    this.gravity.load(data.gravity);
+    const outModes = (_b = (_a = data.outModes) !== null && _a !== void 0 ? _a : data.outMode) !== null && _b !== void 0 ? _b : data.out_mode;
+    if (outModes !== undefined) {
+      if (typeof outModes === "object") {
+        this.outModes.load(outModes);
+      } else {
+        this.outModes.load({
+          default: outModes
+        });
+      }
+    }
+    this.path.load((_c = data.path) !== null && _c !== void 0 ? _c : data.noise);
+    if (data.random !== undefined) {
+      this.random = data.random;
+    }
+    if (data.size !== undefined) {
+      this.size = data.size;
+    }
+    if (data.speed !== undefined) {
+      this.speed = (0, _NumberUtils.setRangeValue)(data.speed);
+    }
+    this.spin.load(data.spin);
+    if (data.straight !== undefined) {
+      this.straight = data.straight;
+    }
+    this.trail.load(data.trail);
+    if (data.vibrate !== undefined) {
+      this.vibrate = data.vibrate;
+    }
+    if (data.warp !== undefined) {
+      this.warp = data.warp;
+    }
+  }
+}
+exports.Move = Move;
+},{"./MoveAngle":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveAngle.js","./MoveAttract":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveAttract.js","./MoveCenter":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveCenter.js","./MoveGravity":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveGravity.js","./Path/MovePath":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Path/MovePath.js","./MoveTrail":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveTrail.js","./OutModes":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/OutModes.js","./Spin":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Spin.js","../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/AnimationOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AnimationOptions = void 0;
+var _NumberUtils = require("../../Utils/NumberUtils");
+class AnimationOptions {
+  constructor() {
+    this.count = 0;
+    this.enable = false;
+    this.speed = 1;
+    this.decay = 0;
+    this.sync = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.count !== undefined) {
+      this.count = (0, _NumberUtils.setRangeValue)(data.count);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.speed !== undefined) {
+      this.speed = (0, _NumberUtils.setRangeValue)(data.speed);
+    }
+    if (data.decay !== undefined) {
+      this.decay = (0, _NumberUtils.setRangeValue)(data.decay);
+    }
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.AnimationOptions = AnimationOptions;
+},{"../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Opacity/OpacityAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OpacityAnimation = void 0;
+var _AnimationOptions = require("../../AnimationOptions");
+class OpacityAnimation extends _AnimationOptions.AnimationOptions {
+  constructor() {
+    super();
+    this.destroy = "none";
+    this.enable = false;
+    this.speed = 2;
+    this.startValue = "random";
+    this.sync = false;
+  }
+  get opacity_min() {
+    return this.minimumValue;
+  }
+  set opacity_min(value) {
+    this.minimumValue = value;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    super.load(data);
+    if (data.destroy !== undefined) {
+      this.destroy = data.destroy;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    this.minimumValue = (_a = data.minimumValue) !== null && _a !== void 0 ? _a : data.opacity_min;
+    if (data.speed !== undefined) {
+      this.speed = data.speed;
+    }
+    if (data.startValue !== undefined) {
+      this.startValue = data.startValue;
+    }
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.OpacityAnimation = OpacityAnimation;
+},{"../../AnimationOptions":"../node_modules/tsparticles-engine/esm/Options/Classes/AnimationOptions.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Opacity/Opacity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Opacity = void 0;
+var _OpacityAnimation = require("./OpacityAnimation");
+var _ValueWithRandom = require("../../ValueWithRandom");
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class Opacity extends _ValueWithRandom.ValueWithRandom {
+  constructor() {
+    super();
+    this.animation = new _OpacityAnimation.OpacityAnimation();
+    this.random.minimumValue = 0.1;
+    this.value = 1;
+  }
+  get anim() {
+    return this.animation;
+  }
+  set anim(value) {
+    this.animation = value;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    super.load(data);
+    const animation = (_a = data.animation) !== null && _a !== void 0 ? _a : data.anim;
+    if (animation !== undefined) {
+      this.animation.load(animation);
+      this.value = (0, _NumberUtils.setRangeValue)(this.value, this.animation.enable ? this.animation.minimumValue : undefined);
+    }
+  }
+}
+exports.Opacity = Opacity;
+},{"./OpacityAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Opacity/OpacityAnimation.js","../../ValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js","../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Number/ParticlesDensity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParticlesDensity = void 0;
+class ParticlesDensity {
+  constructor() {
+    this.enable = false;
+    this.width = 1920;
+    this.height = 1080;
+  }
+  get area() {
+    return this.width;
+  }
+  set area(value) {
+    this.width = value;
+  }
+  get factor() {
+    return this.height;
+  }
+  set factor(value) {
+    this.height = value;
+  }
+  get value_area() {
+    return this.area;
+  }
+  set value_area(value) {
+    this.area = value;
+  }
+  load(data) {
+    var _a, _b, _c;
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    const width = (_b = (_a = data.width) !== null && _a !== void 0 ? _a : data.area) !== null && _b !== void 0 ? _b : data.value_area;
+    if (width !== undefined) {
+      this.width = width;
+    }
+    const height = (_c = data.height) !== null && _c !== void 0 ? _c : data.factor;
+    if (height !== undefined) {
+      this.height = height;
+    }
+  }
+}
+exports.ParticlesDensity = ParticlesDensity;
+},{}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Number/ParticlesNumber.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParticlesNumber = void 0;
+var _ParticlesDensity = require("./ParticlesDensity");
+class ParticlesNumber {
+  constructor() {
+    this.density = new _ParticlesDensity.ParticlesDensity();
+    this.limit = 0;
+    this.value = 0;
+  }
+  get max() {
+    return this.limit;
+  }
+  set max(value) {
+    this.limit = value;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    this.density.load(data.density);
+    const limit = (_a = data.limit) !== null && _a !== void 0 ? _a : data.max;
+    if (limit !== undefined) {
+      this.limit = limit;
+    }
+    if (data.value !== undefined) {
+      this.value = data.value;
+    }
+  }
+}
+exports.ParticlesNumber = ParticlesNumber;
+},{"./ParticlesDensity":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Number/ParticlesDensity.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Shadow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Shadow = void 0;
+var _OptionsColor = require("../OptionsColor");
+class Shadow {
+  constructor() {
+    this.blur = 0;
+    this.color = new _OptionsColor.OptionsColor();
+    this.enable = false;
+    this.offset = {
+      x: 0,
+      y: 0
+    };
+    this.color.value = "#000";
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.blur !== undefined) {
+      this.blur = data.blur;
+    }
+    this.color = _OptionsColor.OptionsColor.create(this.color, data.color);
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.offset === undefined) {
+      return;
+    }
+    if (data.offset.x !== undefined) {
+      this.offset.x = data.offset.x;
+    }
+    if (data.offset.y !== undefined) {
+      this.offset.y = data.offset.y;
+    }
+  }
+}
+exports.Shadow = Shadow;
+},{"../OptionsColor":"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Shape/Shape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Shape = void 0;
+var _Utils = require("../../../../Utils/Utils");
+const charKey = "character",
+  charAltKey = "char",
+  imageKey = "image",
+  imageAltKey = "images",
+  polygonKey = "polygon",
+  polygonAltKey = "star";
+class Shape {
+  constructor() {
+    this.options = {};
+    this.type = "circle";
+  }
+  get character() {
+    var _a;
+    return (_a = this.options[charKey]) !== null && _a !== void 0 ? _a : this.options[charAltKey];
+  }
+  set character(value) {
+    this.options[charAltKey] = this.options[charKey] = value;
+  }
+  get custom() {
+    return this.options;
+  }
+  set custom(value) {
+    this.options = value;
+  }
+  get image() {
+    var _a;
+    return (_a = this.options[imageKey]) !== null && _a !== void 0 ? _a : this.options[imageAltKey];
+  }
+  set image(value) {
+    this.options[imageAltKey] = this.options[imageKey] = value;
+  }
+  get images() {
+    return this.image;
+  }
+  set images(value) {
+    this.image = value;
+  }
+  get polygon() {
+    var _a;
+    return (_a = this.options[polygonKey]) !== null && _a !== void 0 ? _a : this.options[polygonAltKey];
+  }
+  set polygon(value) {
+    this.options[polygonAltKey] = this.options[polygonKey] = value;
+  }
+  get stroke() {
+    return [];
+  }
+  set stroke(_value) {}
+  load(data) {
+    var _a, _b, _c;
+    if (!data) {
+      return;
+    }
+    const options = (_a = data.options) !== null && _a !== void 0 ? _a : data.custom;
+    if (options !== undefined) {
+      for (const shape in options) {
+        const item = options[shape];
+        if (item) {
+          this.options[shape] = (0, _Utils.deepExtend)((_b = this.options[shape]) !== null && _b !== void 0 ? _b : {}, item);
+        }
+      }
+    }
+    this.loadShape(data.character, charKey, charAltKey, true);
+    this.loadShape(data.polygon, polygonKey, polygonAltKey, false);
+    this.loadShape((_c = data.image) !== null && _c !== void 0 ? _c : data.images, imageKey, imageAltKey, true);
+    if (data.type !== undefined) {
+      this.type = data.type;
+    }
+  }
+  loadShape(item, mainKey, altKey, altOverride) {
+    var _a, _b;
+    if (!item) {
+      return;
+    }
+    const isArray = item instanceof Array;
+    const emptyValue = isArray ? [] : {},
+      mainDifferentValues = isArray !== this.options[mainKey] instanceof Array,
+      altDifferentValues = isArray !== this.options[altKey] instanceof Array;
+    if (mainDifferentValues) {
+      this.options[mainKey] = emptyValue;
+    }
+    if (altDifferentValues && altOverride) {
+      this.options[altKey] = emptyValue;
+    }
+    this.options[mainKey] = (0, _Utils.deepExtend)((_a = this.options[mainKey]) !== null && _a !== void 0 ? _a : emptyValue, item);
+    if (!this.options[altKey] || altOverride) {
+      this.options[altKey] = (0, _Utils.deepExtend)((_b = this.options[altKey]) !== null && _b !== void 0 ? _b : emptyValue, item);
+    }
+  }
+}
+exports.Shape = Shape;
+},{"../../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Size/SizeAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SizeAnimation = void 0;
+var _AnimationOptions = require("../../AnimationOptions");
+class SizeAnimation extends _AnimationOptions.AnimationOptions {
+  constructor() {
+    super();
+    this.destroy = "none";
+    this.enable = false;
+    this.speed = 5;
+    this.startValue = "random";
+    this.sync = false;
+  }
+  get size_min() {
+    return this.minimumValue;
+  }
+  set size_min(value) {
+    this.minimumValue = value;
+  }
+  load(data) {
+    var _a;
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    if (data.destroy !== undefined) {
+      this.destroy = data.destroy;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    this.minimumValue = (_a = data.minimumValue) !== null && _a !== void 0 ? _a : data.size_min;
+    if (data.speed !== undefined) {
+      this.speed = data.speed;
+    }
+    if (data.startValue !== undefined) {
+      this.startValue = data.startValue;
+    }
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.SizeAnimation = SizeAnimation;
+},{"../../AnimationOptions":"../node_modules/tsparticles-engine/esm/Options/Classes/AnimationOptions.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Size/Size.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Size = void 0;
+var _SizeAnimation = require("./SizeAnimation");
+var _ValueWithRandom = require("../../ValueWithRandom");
+var _NumberUtils = require("../../../../Utils/NumberUtils");
+class Size extends _ValueWithRandom.ValueWithRandom {
+  constructor() {
+    super();
+    this.animation = new _SizeAnimation.SizeAnimation();
+    this.random.minimumValue = 1;
+    this.value = 3;
+  }
+  get anim() {
+    return this.animation;
+  }
+  set anim(value) {
+    this.animation = value;
+  }
+  load(data) {
+    var _a;
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    const animation = (_a = data.animation) !== null && _a !== void 0 ? _a : data.anim;
+    if (animation !== undefined) {
+      this.animation.load(animation);
+      this.value = (0, _NumberUtils.setRangeValue)(this.value, this.animation.enable ? this.animation.minimumValue : undefined);
+    }
+  }
+}
+exports.Size = Size;
+},{"./SizeAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Size/SizeAnimation.js","../../ValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js","../../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Stroke.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Stroke = void 0;
+var _AnimatableColor = require("../AnimatableColor");
+var _NumberUtils = require("../../../Utils/NumberUtils");
+class Stroke {
+  constructor() {
+    this.width = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _AnimatableColor.AnimatableColor.create(this.color, data.color);
+    }
+    if (data.width !== undefined) {
+      this.width = (0, _NumberUtils.setRangeValue)(data.width);
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = (0, _NumberUtils.setRangeValue)(data.opacity);
+    }
+  }
+}
+exports.Stroke = Stroke;
+},{"../AnimatableColor":"../node_modules/tsparticles-engine/esm/Options/Classes/AnimatableColor.js","../../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/ZIndex/ZIndex.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ZIndex = void 0;
+var _ValueWithRandom = require("../../ValueWithRandom");
+class ZIndex extends _ValueWithRandom.ValueWithRandom {
+  constructor() {
+    super();
+    this.opacityRate = 1;
+    this.sizeRate = 1;
+    this.velocityRate = 1;
+  }
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    if (data.opacityRate !== undefined) {
+      this.opacityRate = data.opacityRate;
+    }
+    if (data.sizeRate !== undefined) {
+      this.sizeRate = data.sizeRate;
+    }
+    if (data.velocityRate !== undefined) {
+      this.velocityRate = data.velocityRate;
+    }
+  }
+}
+exports.ZIndex = ZIndex;
+},{"../../ValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/ParticlesOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParticlesOptions = void 0;
+var _Utils = require("../../../Utils/Utils");
+var _AnimatableColor = require("../AnimatableColor");
+var _Collisions = require("./Collisions/Collisions");
+var _Move = require("./Move/Move");
+var _Opacity = require("./Opacity/Opacity");
+var _ParticlesBounce = require("./Bounce/ParticlesBounce");
+var _ParticlesNumber = require("./Number/ParticlesNumber");
+var _Shadow = require("./Shadow");
+var _Shape = require("./Shape/Shape");
+var _Size = require("./Size/Size");
+var _Stroke = require("./Stroke");
+var _ZIndex = require("./ZIndex/ZIndex");
+class ParticlesOptions {
+  constructor(engine, container) {
+    this._engine = engine;
+    this._container = container;
+    this.bounce = new _ParticlesBounce.ParticlesBounce();
+    this.collisions = new _Collisions.Collisions();
+    this.color = new _AnimatableColor.AnimatableColor();
+    this.color.value = "#fff";
+    this.groups = {};
+    this.move = new _Move.Move();
+    this.number = new _ParticlesNumber.ParticlesNumber();
+    this.opacity = new _Opacity.Opacity();
+    this.reduceDuplicates = false;
+    this.shadow = new _Shadow.Shadow();
+    this.shape = new _Shape.Shape();
+    this.size = new _Size.Size();
+    this.stroke = new _Stroke.Stroke();
+    this.zIndex = new _ZIndex.ZIndex();
+  }
+  load(data) {
+    var _a, _b, _c, _d, _e, _f;
+    if (!data) {
+      return;
+    }
+    this.bounce.load(data.bounce);
+    this.color.load(_AnimatableColor.AnimatableColor.create(this.color, data.color));
+    if (data.groups !== undefined) {
+      for (const group in data.groups) {
+        const item = data.groups[group];
+        if (item !== undefined) {
+          this.groups[group] = (0, _Utils.deepExtend)((_a = this.groups[group]) !== null && _a !== void 0 ? _a : {}, item);
+        }
+      }
+    }
+    this.move.load(data.move);
+    this.number.load(data.number);
+    this.opacity.load(data.opacity);
+    if (data.reduceDuplicates !== undefined) {
+      this.reduceDuplicates = data.reduceDuplicates;
+    }
+    this.shape.load(data.shape);
+    this.size.load(data.size);
+    this.shadow.load(data.shadow);
+    this.zIndex.load(data.zIndex);
+    const collisions = (_c = (_b = data.move) === null || _b === void 0 ? void 0 : _b.collisions) !== null && _c !== void 0 ? _c : (_d = data.move) === null || _d === void 0 ? void 0 : _d.bounce;
+    if (collisions !== undefined) {
+      this.collisions.enable = collisions;
+    }
+    this.collisions.load(data.collisions);
+    if (data.interactivity !== undefined) {
+      this.interactivity = (0, _Utils.deepExtend)({}, data.interactivity);
+    }
+    const strokeToLoad = (_e = data.stroke) !== null && _e !== void 0 ? _e : (_f = data.shape) === null || _f === void 0 ? void 0 : _f.stroke;
+    if (strokeToLoad) {
+      this.stroke = (0, _Utils.executeOnSingleOrMultiple)(strokeToLoad, t => {
+        const tmp = new _Stroke.Stroke();
+        tmp.load(t);
+        return tmp;
+      });
+    }
+    if (this._container) {
+      const updaters = this._engine.plugins.updaters.get(this._container);
+      if (updaters) {
+        for (const updater of updaters) {
+          if (updater.loadOptions) {
+            updater.loadOptions(this, data);
+          }
+        }
+      }
+      const interactors = this._engine.plugins.interactors.get(this._container);
+      if (interactors) {
+        for (const interactor of interactors) {
+          if (interactor.loadParticlesOptions) {
+            interactor.loadParticlesOptions(this, data);
+          }
+        }
+      }
+    }
+  }
+}
+exports.ParticlesOptions = ParticlesOptions;
+},{"../../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","../AnimatableColor":"../node_modules/tsparticles-engine/esm/Options/Classes/AnimatableColor.js","./Collisions/Collisions":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/Collisions.js","./Move/Move":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Move.js","./Opacity/Opacity":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Opacity/Opacity.js","./Bounce/ParticlesBounce":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounce.js","./Number/ParticlesNumber":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Number/ParticlesNumber.js","./Shadow":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Shadow.js","./Shape/Shape":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Shape/Shape.js","./Size/Size":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Size/Size.js","./Stroke":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Stroke.js","./ZIndex/ZIndex":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/ZIndex/ZIndex.js"}],"../node_modules/tsparticles-engine/esm/Utils/OptionsUtils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadOptions = loadOptions;
+exports.loadParticlesOptions = loadParticlesOptions;
+var _ParticlesOptions = require("../Options/Classes/Particles/ParticlesOptions");
+function loadOptions(options, ...sourceOptionsArr) {
+  for (const sourceOptions of sourceOptionsArr) {
+    options.load(sourceOptions);
+  }
+}
+function loadParticlesOptions(engine, container, ...sourceOptionsArr) {
+  const options = new _ParticlesOptions.ParticlesOptions(engine, container);
+  loadOptions(options, ...sourceOptionsArr);
+  return options;
+}
+},{"../Options/Classes/Particles/ParticlesOptions":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/ParticlesOptions.js"}],"../node_modules/tsparticles-engine/esm/Options/Classes/Options.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Options = void 0;
+var _Utils = require("../../Utils/Utils");
+var _Background = require("./Background/Background");
+var _BackgroundMask = require("./BackgroundMask/BackgroundMask");
+var _FullScreen = require("./FullScreen/FullScreen");
+var _Interactivity = require("./Interactivity/Interactivity");
+var _ManualParticle = require("./ManualParticle");
+var _Responsive = require("./Responsive");
+var _Theme = require("./Theme/Theme");
+var _OptionsUtils = require("../../Utils/OptionsUtils");
+var _NumberUtils = require("../../Utils/NumberUtils");
+class Options {
+  constructor(engine, container) {
+    this._engine = engine;
+    this._container = container;
+    this.autoPlay = true;
+    this.background = new _Background.Background();
+    this.backgroundMask = new _BackgroundMask.BackgroundMask();
+    this.defaultThemes = {};
+    this.delay = 0;
+    this.fullScreen = new _FullScreen.FullScreen();
+    this.detectRetina = true;
+    this.duration = 0;
+    this.fpsLimit = 120;
+    this.interactivity = new _Interactivity.Interactivity(engine, container);
+    this.manualParticles = [];
+    this.particles = (0, _OptionsUtils.loadParticlesOptions)(this._engine, this._container);
+    this.pauseOnBlur = true;
+    this.pauseOnOutsideViewport = true;
+    this.responsive = [];
+    this.smooth = false;
+    this.style = {};
+    this.themes = [];
+    this.zLayers = 100;
+  }
+  get backgroundMode() {
+    return this.fullScreen;
+  }
+  set backgroundMode(value) {
+    this.fullScreen.load(value);
+  }
+  get fps_limit() {
+    return this.fpsLimit;
+  }
+  set fps_limit(value) {
+    this.fpsLimit = value;
+  }
+  get retina_detect() {
+    return this.detectRetina;
+  }
+  set retina_detect(value) {
+    this.detectRetina = value;
+  }
+  load(data) {
+    var _a, _b, _c, _d, _e;
+    if (!data) {
+      return;
+    }
+    if (data.preset !== undefined) {
+      (0, _Utils.executeOnSingleOrMultiple)(data.preset, preset => this._importPreset(preset));
+    }
+    if (data.autoPlay !== undefined) {
+      this.autoPlay = data.autoPlay;
+    }
+    if (data.delay !== undefined) {
+      this.delay = (0, _NumberUtils.setRangeValue)(data.delay);
+    }
+    const detectRetina = (_a = data.detectRetina) !== null && _a !== void 0 ? _a : data.retina_detect;
+    if (detectRetina !== undefined) {
+      this.detectRetina = detectRetina;
+    }
+    if (data.duration !== undefined) {
+      this.duration = (0, _NumberUtils.setRangeValue)(data.duration);
+    }
+    const fpsLimit = (_b = data.fpsLimit) !== null && _b !== void 0 ? _b : data.fps_limit;
+    if (fpsLimit !== undefined) {
+      this.fpsLimit = fpsLimit;
+    }
+    if (data.pauseOnBlur !== undefined) {
+      this.pauseOnBlur = data.pauseOnBlur;
+    }
+    if (data.pauseOnOutsideViewport !== undefined) {
+      this.pauseOnOutsideViewport = data.pauseOnOutsideViewport;
+    }
+    if (data.zLayers !== undefined) {
+      this.zLayers = data.zLayers;
+    }
+    this.background.load(data.background);
+    const fullScreen = (_c = data.fullScreen) !== null && _c !== void 0 ? _c : data.backgroundMode;
+    if (typeof fullScreen === "boolean") {
+      this.fullScreen.enable = fullScreen;
+    } else {
+      this.fullScreen.load(fullScreen);
+    }
+    this.backgroundMask.load(data.backgroundMask);
+    this.interactivity.load(data.interactivity);
+    if (data.manualParticles !== undefined) {
+      this.manualParticles = data.manualParticles.map(t => {
+        const tmp = new _ManualParticle.ManualParticle();
+        tmp.load(t);
+        return tmp;
+      });
+    }
+    this.particles.load(data.particles);
+    this.style = (0, _Utils.deepExtend)(this.style, data.style);
+    this._engine.plugins.loadOptions(this, data);
+    if (data.smooth !== undefined) {
+      this.smooth = data.smooth;
+    }
+    const interactors = this._engine.plugins.interactors.get(this._container);
+    if (interactors) {
+      for (const interactor of interactors) {
+        if (interactor.loadOptions) {
+          interactor.loadOptions(this, data);
+        }
+      }
+    }
+    if (data.responsive !== undefined) {
+      for (const responsive of data.responsive) {
+        const optResponsive = new _Responsive.Responsive();
+        optResponsive.load(responsive);
+        this.responsive.push(optResponsive);
+      }
+    }
+    this.responsive.sort((a, b) => a.maxWidth - b.maxWidth);
+    if (data.themes !== undefined) {
+      for (const theme of data.themes) {
+        const existingTheme = this.themes.find(t => t.name === theme.name);
+        if (!existingTheme) {
+          const optTheme = new _Theme.Theme();
+          optTheme.load(theme);
+          this.themes.push(optTheme);
+        } else {
+          existingTheme.load(theme);
+        }
+      }
+    }
+    this.defaultThemes.dark = (_d = this._findDefaultTheme("dark")) === null || _d === void 0 ? void 0 : _d.name;
+    this.defaultThemes.light = (_e = this._findDefaultTheme("light")) === null || _e === void 0 ? void 0 : _e.name;
+  }
+  setResponsive(width, pxRatio, defaultOptions) {
+    this.load(defaultOptions);
+    const responsiveOptions = this.responsive.find(t => t.mode === "screen" && screen ? t.maxWidth > screen.availWidth : t.maxWidth * pxRatio > width);
+    this.load(responsiveOptions === null || responsiveOptions === void 0 ? void 0 : responsiveOptions.options);
+    return responsiveOptions === null || responsiveOptions === void 0 ? void 0 : responsiveOptions.maxWidth;
+  }
+  setTheme(name) {
+    if (name) {
+      const chosenTheme = this.themes.find(theme => theme.name === name);
+      if (chosenTheme) {
+        this.load(chosenTheme.options);
+      }
+    } else {
+      const mediaMatch = (0, _Utils.safeMatchMedia)("(prefers-color-scheme: dark)"),
+        clientDarkMode = mediaMatch && mediaMatch.matches,
+        defaultTheme = this._findDefaultTheme(clientDarkMode ? "dark" : "light");
+      if (defaultTheme) {
+        this.load(defaultTheme.options);
+      }
+    }
+  }
+  _findDefaultTheme(mode) {
+    var _a;
+    return (_a = this.themes.find(theme => theme.default.value && theme.default.mode === mode)) !== null && _a !== void 0 ? _a : this.themes.find(theme => theme.default.value && theme.default.mode === "any");
+  }
+  _importPreset(preset) {
+    this.load(this._engine.plugins.getPreset(preset));
+  }
+}
+exports.Options = Options;
+},{"../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","./Background/Background":"../node_modules/tsparticles-engine/esm/Options/Classes/Background/Background.js","./BackgroundMask/BackgroundMask":"../node_modules/tsparticles-engine/esm/Options/Classes/BackgroundMask/BackgroundMask.js","./FullScreen/FullScreen":"../node_modules/tsparticles-engine/esm/Options/Classes/FullScreen/FullScreen.js","./Interactivity/Interactivity":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Interactivity.js","./ManualParticle":"../node_modules/tsparticles-engine/esm/Options/Classes/ManualParticle.js","./Responsive":"../node_modules/tsparticles-engine/esm/Options/Classes/Responsive.js","./Theme/Theme":"../node_modules/tsparticles-engine/esm/Options/Classes/Theme/Theme.js","../../Utils/OptionsUtils":"../node_modules/tsparticles-engine/esm/Utils/OptionsUtils.js","../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/InteractionManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InteractionManager = void 0;
+class InteractionManager {
+  constructor(engine, container) {
+    this.container = container;
+    this._engine = engine;
+    this._interactors = this._engine.plugins.getInteractors(this.container, true);
+    this._externalInteractors = [];
+    this._particleInteractors = [];
+  }
+  async externalInteract(delta) {
+    for (const interactor of this._externalInteractors) {
+      if (interactor.isEnabled()) {
+        await interactor.interact(delta);
+      }
+    }
+  }
+  handleClickMode(mode) {
+    for (const interactor of this._externalInteractors) {
+      if (interactor.handleClickMode) {
+        interactor.handleClickMode(mode);
+      }
+    }
+  }
+  init() {
+    this._externalInteractors = [];
+    this._particleInteractors = [];
+    for (const interactor of this._interactors) {
+      switch (interactor.type) {
+        case "external":
+          this._externalInteractors.push(interactor);
+          break;
+        case "particles":
+          this._particleInteractors.push(interactor);
+          break;
+      }
+      interactor.init();
+    }
+  }
+  async particlesInteract(particle, delta) {
+    for (const interactor of this._externalInteractors) {
+      interactor.clear(particle, delta);
+    }
+    for (const interactor of this._particleInteractors) {
+      if (interactor.isEnabled(particle)) {
+        await interactor.interact(particle, delta);
+      }
+    }
+  }
+  async reset(particle) {
+    for (const interactor of this._externalInteractors) {
+      if (interactor.isEnabled()) {
+        await interactor.reset(particle);
+      }
+    }
+    for (const interactor of this._particleInteractors) {
+      if (interactor.isEnabled(particle)) {
+        await interactor.reset(particle);
+      }
+    }
+  }
+}
+exports.InteractionManager = InteractionManager;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Particle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Particle = void 0;
+var _NumberUtils = require("../Utils/NumberUtils");
+var _Utils = require("../Utils/Utils");
+var _ColorUtils = require("../Utils/ColorUtils");
+var _Interactivity = require("../Options/Classes/Interactivity/Interactivity");
+var _Vector = require("./Utils/Vector");
+var _Vector3d = require("./Utils/Vector3d");
+var _CanvasUtils = require("../Utils/CanvasUtils");
+var _OptionsUtils = require("../Utils/OptionsUtils");
+const fixOutMode = data => {
+  if (!(0, _Utils.isInArray)(data.outMode, data.checkModes)) {
+    return;
+  }
+  if (data.coord > data.maxCoord - data.radius * 2) {
+    data.setCb(-data.radius);
+  } else if (data.coord < data.radius * 2) {
+    data.setCb(data.radius);
+  }
+};
+class Particle {
+  constructor(engine, id, container, position, overrideOptions, group) {
+    this.container = container;
+    this._engine = engine;
+    this.init(id, position, overrideOptions, group);
+  }
+  destroy(override) {
+    var _a;
+    if (this.unbreakable || this.destroyed) {
+      return;
+    }
+    this.destroyed = true;
+    this.bubble.inRange = false;
+    this.slow.inRange = false;
+    for (const [, plugin] of this.container.plugins) {
+      if (plugin.particleDestroyed) {
+        plugin.particleDestroyed(this, override);
+      }
+    }
+    for (const updater of this.container.particles.updaters) {
+      if (updater.particleDestroyed) {
+        updater.particleDestroyed(this, override);
+      }
+    }
+    (_a = this.pathGenerator) === null || _a === void 0 ? void 0 : _a.reset(this);
+  }
+  draw(delta) {
+    const container = this.container;
+    for (const [, plugin] of container.plugins) {
+      container.canvas.drawParticlePlugin(plugin, this, delta);
+    }
+    container.canvas.drawParticle(this, delta);
+  }
+  getFillColor() {
+    var _a;
+    return this._getRollColor((_a = this.bubble.color) !== null && _a !== void 0 ? _a : (0, _ColorUtils.getHslFromAnimation)(this.color));
+  }
+  getMass() {
+    return this.getRadius() ** 2 * Math.PI / 2;
+  }
+  getPosition() {
+    return {
+      x: this.position.x + this.offset.x,
+      y: this.position.y + this.offset.y,
+      z: this.position.z
+    };
+  }
+  getRadius() {
+    var _a;
+    return (_a = this.bubble.radius) !== null && _a !== void 0 ? _a : this.size.value;
+  }
+  getStrokeColor() {
+    var _a;
+    return this._getRollColor((_a = this.bubble.color) !== null && _a !== void 0 ? _a : (0, _ColorUtils.getHslFromAnimation)(this.strokeColor));
+  }
+  init(id, position, overrideOptions, group) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    const container = this.container,
+      engine = this._engine;
+    this.id = id;
+    this.group = group;
+    this.fill = true;
+    this.pathRotation = false;
+    this.close = true;
+    this.lastPathTime = 0;
+    this.destroyed = false;
+    this.unbreakable = false;
+    this.rotation = 0;
+    this.misplaced = false;
+    this.retina = {
+      maxDistance: {}
+    };
+    this.outType = "normal";
+    this.ignoresResizeRatio = true;
+    const pxRatio = container.retina.pixelRatio,
+      mainOptions = container.actualOptions,
+      particlesOptions = (0, _OptionsUtils.loadParticlesOptions)(this._engine, container, mainOptions.particles),
+      shapeType = particlesOptions.shape.type,
+      {
+        reduceDuplicates
+      } = particlesOptions;
+    this.shape = (0, _Utils.itemFromSingleOrMultiple)(shapeType, this.id, reduceDuplicates);
+    const shapeOptions = particlesOptions.shape;
+    if (overrideOptions && overrideOptions.shape && overrideOptions.shape.type) {
+      const overrideShapeType = overrideOptions.shape.type,
+        shape = (0, _Utils.itemFromSingleOrMultiple)(overrideShapeType, this.id, reduceDuplicates);
+      if (shape) {
+        this.shape = shape;
+        shapeOptions.load(overrideOptions.shape);
+      }
+    }
+    this.shapeData = this._loadShapeData(shapeOptions, reduceDuplicates);
+    particlesOptions.load(overrideOptions);
+    particlesOptions.load((_a = this.shapeData) === null || _a === void 0 ? void 0 : _a.particles);
+    this.interactivity = new _Interactivity.Interactivity(engine, container);
+    this.interactivity.load(container.actualOptions.interactivity);
+    this.interactivity.load(particlesOptions.interactivity);
+    this.fill = (_c = (_b = this.shapeData) === null || _b === void 0 ? void 0 : _b.fill) !== null && _c !== void 0 ? _c : this.fill;
+    this.close = (_e = (_d = this.shapeData) === null || _d === void 0 ? void 0 : _d.close) !== null && _e !== void 0 ? _e : this.close;
+    this.options = particlesOptions;
+    const pathOptions = this.options.move.path;
+    this.pathDelay = (0, _NumberUtils.getValue)(pathOptions.delay) * 1000;
+    if (pathOptions.generator) {
+      this.pathGenerator = this._engine.plugins.getPathGenerator(pathOptions.generator);
+      if (this.pathGenerator && container.addPath(pathOptions.generator, this.pathGenerator)) {
+        this.pathGenerator.init(container);
+      }
+    }
+    const zIndexValue = (0, _NumberUtils.getRangeValue)(this.options.zIndex.value);
+    container.retina.initParticle(this);
+    const sizeOptions = this.options.size,
+      sizeRange = sizeOptions.value,
+      sizeAnimation = sizeOptions.animation;
+    this.size = {
+      enable: sizeOptions.animation.enable,
+      value: (0, _NumberUtils.getRangeValue)(sizeOptions.value) * container.retina.pixelRatio,
+      max: (0, _NumberUtils.getRangeMax)(sizeRange) * pxRatio,
+      min: (0, _NumberUtils.getRangeMin)(sizeRange) * pxRatio,
+      loops: 0,
+      maxLoops: (0, _NumberUtils.getRangeValue)(sizeOptions.animation.count)
+    };
+    if (sizeAnimation.enable) {
+      this.size.status = "increasing";
+      this.size.decay = 1 - (0, _NumberUtils.getRangeValue)(sizeAnimation.decay);
+      switch (sizeAnimation.startValue) {
+        case "min":
+          this.size.value = this.size.min;
+          this.size.status = "increasing";
+          break;
+        case "random":
+          this.size.value = (0, _NumberUtils.randomInRange)(this.size);
+          this.size.status = (0, _NumberUtils.getRandom)() >= 0.5 ? "increasing" : "decreasing";
+          break;
+        case "max":
+        default:
+          this.size.value = this.size.max;
+          this.size.status = "decreasing";
+          break;
+      }
+    }
+    this.size.initialValue = this.size.value;
+    this.bubble = {
+      inRange: false
+    };
+    this.slow = {
+      inRange: false,
+      factor: 1
+    };
+    this.position = this._calcPosition(container, position, (0, _NumberUtils.clamp)(zIndexValue, 0, container.zLayers));
+    this.initialPosition = this.position.copy();
+    const canvasSize = container.canvas.size,
+      moveCenter = Object.assign({}, this.options.move.center),
+      isCenterPercent = moveCenter.mode === "percent";
+    this.moveCenter = {
+      x: moveCenter.x * (isCenterPercent ? canvasSize.width / 100 : 1),
+      y: moveCenter.y * (isCenterPercent ? canvasSize.height / 100 : 1),
+      radius: (_f = this.options.move.center.radius) !== null && _f !== void 0 ? _f : 0,
+      mode: (_g = this.options.move.center.mode) !== null && _g !== void 0 ? _g : "percent"
+    };
+    this.direction = (0, _NumberUtils.getParticleDirectionAngle)(this.options.move.direction, this.position, this.moveCenter);
+    switch (this.options.move.direction) {
+      case "inside":
+        this.outType = "inside";
+        break;
+      case "outside":
+        this.outType = "outside";
+        break;
+    }
+    this.initialVelocity = this._calculateVelocity();
+    this.velocity = this.initialVelocity.copy();
+    this.moveDecay = 1 - (0, _NumberUtils.getRangeValue)(this.options.move.decay);
+    this.offset = _Vector.Vector.origin;
+    const particles = container.particles;
+    particles.needsSort = particles.needsSort || particles.lastZIndex < this.position.z;
+    particles.lastZIndex = this.position.z;
+    this.zIndexFactor = this.position.z / container.zLayers;
+    this.sides = 24;
+    let drawer = container.drawers.get(this.shape);
+    if (!drawer) {
+      drawer = this._engine.plugins.getShapeDrawer(this.shape);
+      if (drawer) {
+        container.drawers.set(this.shape, drawer);
+      }
+    }
+    if (drawer === null || drawer === void 0 ? void 0 : drawer.loadShape) {
+      drawer === null || drawer === void 0 ? void 0 : drawer.loadShape(this);
+    }
+    const sideCountFunc = drawer === null || drawer === void 0 ? void 0 : drawer.getSidesCount;
+    if (sideCountFunc) {
+      this.sides = sideCountFunc(this);
+    }
+    this.spawning = false;
+    this.shadowColor = (0, _ColorUtils.rangeColorToRgb)(this.options.shadow.color);
+    for (const updater of container.particles.updaters) {
+      updater.init(this);
+    }
+    for (const mover of container.particles.movers) {
+      (_h = mover.init) === null || _h === void 0 ? void 0 : _h.call(mover, this);
+    }
+    if (drawer === null || drawer === void 0 ? void 0 : drawer.particleInit) {
+      drawer.particleInit(container, this);
+    }
+    for (const [, plugin] of container.plugins) {
+      (_j = plugin.particleCreated) === null || _j === void 0 ? void 0 : _j.call(plugin, this);
+    }
+  }
+  isInsideCanvas() {
+    const radius = this.getRadius(),
+      canvasSize = this.container.canvas.size;
+    return this.position.x >= -radius && this.position.y >= -radius && this.position.y <= canvasSize.height + radius && this.position.x <= canvasSize.width + radius;
+  }
+  isVisible() {
+    return !this.destroyed && !this.spawning && this.isInsideCanvas();
+  }
+  reset() {
+    var _a;
+    for (const updater of this.container.particles.updaters) {
+      (_a = updater.reset) === null || _a === void 0 ? void 0 : _a.call(updater, this);
+    }
+  }
+  _calcPosition(container, position, zIndex, tryCount = 0) {
+    var _a, _b, _c, _d;
+    for (const [, plugin] of container.plugins) {
+      const pluginPos = plugin.particlePosition !== undefined ? plugin.particlePosition(position, this) : undefined;
+      if (pluginPos !== undefined) {
+        return _Vector3d.Vector3d.create(pluginPos.x, pluginPos.y, zIndex);
+      }
+    }
+    const canvasSize = container.canvas.size,
+      exactPosition = (0, _NumberUtils.calcExactPositionOrRandomFromSize)({
+        size: canvasSize,
+        position: position
+      }),
+      pos = _Vector3d.Vector3d.create(exactPosition.x, exactPosition.y, zIndex),
+      radius = this.getRadius(),
+      outModes = this.options.move.outModes,
+      fixHorizontal = outMode => {
+        fixOutMode({
+          outMode,
+          checkModes: ["bounce", "bounce-horizontal"],
+          coord: pos.x,
+          maxCoord: container.canvas.size.width,
+          setCb: value => pos.x += value,
+          radius
+        });
+      },
+      fixVertical = outMode => {
+        fixOutMode({
+          outMode,
+          checkModes: ["bounce", "bounce-vertical"],
+          coord: pos.y,
+          maxCoord: container.canvas.size.height,
+          setCb: value => pos.y += value,
+          radius
+        });
+      };
+    fixHorizontal((_a = outModes.left) !== null && _a !== void 0 ? _a : outModes.default);
+    fixHorizontal((_b = outModes.right) !== null && _b !== void 0 ? _b : outModes.default);
+    fixVertical((_c = outModes.top) !== null && _c !== void 0 ? _c : outModes.default);
+    fixVertical((_d = outModes.bottom) !== null && _d !== void 0 ? _d : outModes.default);
+    if (this._checkOverlap(pos, tryCount)) {
+      return this._calcPosition(container, undefined, zIndex, tryCount + 1);
+    }
+    return pos;
+  }
+  _calculateVelocity() {
+    const baseVelocity = (0, _NumberUtils.getParticleBaseVelocity)(this.direction),
+      res = baseVelocity.copy(),
+      moveOptions = this.options.move;
+    if (moveOptions.direction === "inside" || moveOptions.direction === "outside") {
+      return res;
+    }
+    const rad = Math.PI / 180 * (0, _NumberUtils.getRangeValue)(moveOptions.angle.value),
+      radOffset = Math.PI / 180 * (0, _NumberUtils.getRangeValue)(moveOptions.angle.offset),
+      range = {
+        left: radOffset - rad / 2,
+        right: radOffset + rad / 2
+      };
+    if (!moveOptions.straight) {
+      res.angle += (0, _NumberUtils.randomInRange)((0, _NumberUtils.setRangeValue)(range.left, range.right));
+    }
+    if (moveOptions.random && typeof moveOptions.speed === "number") {
+      res.length *= (0, _NumberUtils.getRandom)();
+    }
+    return res;
+  }
+  _checkOverlap(pos, tryCount = 0) {
+    const collisionsOptions = this.options.collisions,
+      radius = this.getRadius();
+    if (!collisionsOptions.enable) {
+      return false;
+    }
+    const overlapOptions = collisionsOptions.overlap;
+    if (overlapOptions.enable) {
+      return false;
+    }
+    const retries = overlapOptions.retries;
+    if (retries >= 0 && tryCount > retries) {
+      throw new Error("Particle is overlapping and can't be placed");
+    }
+    let overlaps = false;
+    for (const particle of this.container.particles.array) {
+      if ((0, _NumberUtils.getDistance)(pos, particle.position) < radius + particle.getRadius()) {
+        overlaps = true;
+        break;
+      }
+    }
+    return overlaps;
+  }
+  _getRollColor(color) {
+    var _a;
+    if (!color || !this.roll || !this.backColor && !this.roll.alter) {
+      return color;
+    }
+    const backFactor = this.roll.horizontal && this.roll.vertical ? 2 : 1,
+      backSum = this.roll.horizontal ? Math.PI / 2 : 0,
+      rolled = Math.floor((((_a = this.roll.angle) !== null && _a !== void 0 ? _a : 0) + backSum) / (Math.PI / backFactor)) % 2;
+    if (!rolled) {
+      return color;
+    }
+    if (this.backColor) {
+      return this.backColor;
+    }
+    if (this.roll.alter) {
+      return (0, _CanvasUtils.alterHsl)(color, this.roll.alter.type, this.roll.alter.value);
+    }
+    return color;
+  }
+  _loadShapeData(shapeOptions, reduceDuplicates) {
+    const shapeData = shapeOptions.options[this.shape];
+    if (shapeData) {
+      return (0, _Utils.deepExtend)({}, (0, _Utils.itemFromSingleOrMultiple)(shapeData, this.id, reduceDuplicates));
+    }
+  }
+}
+exports.Particle = Particle;
+},{"../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","../Utils/ColorUtils":"../node_modules/tsparticles-engine/esm/Utils/ColorUtils.js","../Options/Classes/Interactivity/Interactivity":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Interactivity.js","./Utils/Vector":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector.js","./Utils/Vector3d":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector3d.js","../Utils/CanvasUtils":"../node_modules/tsparticles-engine/esm/Utils/CanvasUtils.js","../Utils/OptionsUtils":"../node_modules/tsparticles-engine/esm/Utils/OptionsUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/Point.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Point = void 0;
+class Point {
+  constructor(position, particle) {
+    this.position = position;
+    this.particle = particle;
+  }
+}
+exports.Point = Point;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Utils/Range.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Range = void 0;
+class Range {
+  constructor(x, y) {
+    this.position = {
+      x: x,
+      y: y
+    };
+  }
+}
+exports.Range = Range;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Utils/Circle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Circle = void 0;
+var _Range = require("./Range");
+var _NumberUtils = require("../../Utils/NumberUtils");
+class Circle extends _Range.Range {
+  constructor(x, y, radius) {
+    super(x, y);
+    this.radius = radius;
+  }
+  contains(point) {
+    return (0, _NumberUtils.getDistance)(point, this.position) <= this.radius;
+  }
+  intersects(range) {
+    const rect = range,
+      circle = range,
+      pos1 = this.position,
+      pos2 = range.position,
+      distPos = {
+        x: Math.abs(pos2.x - pos1.x),
+        y: Math.abs(pos2.y - pos1.y)
+      },
+      r = this.radius;
+    if (circle.radius !== undefined) {
+      const rSum = r + circle.radius,
+        dist = Math.sqrt(distPos.x ** 2 + distPos.y ** 2);
+      return rSum > dist;
+    } else if (rect.size !== undefined) {
+      const w = rect.size.width,
+        h = rect.size.height,
+        edges = Math.pow(distPos.x - w, 2) + Math.pow(distPos.y - h, 2);
+      return edges <= r ** 2 || distPos.x <= r + w && distPos.y <= r + h || distPos.x <= w || distPos.y <= h;
+    }
+    return false;
+  }
+}
+exports.Circle = Circle;
+},{"./Range":"../node_modules/tsparticles-engine/esm/Core/Utils/Range.js","../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/Rectangle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Rectangle = void 0;
+var _Circle = require("./Circle");
+var _Range = require("./Range");
+class Rectangle extends _Range.Range {
+  constructor(x, y, width, height) {
+    super(x, y);
+    this.size = {
+      height: height,
+      width: width
+    };
+  }
+  contains(point) {
+    const w = this.size.width,
+      h = this.size.height,
+      pos = this.position;
+    return point.x >= pos.x && point.x <= pos.x + w && point.y >= pos.y && point.y <= pos.y + h;
+  }
+  intersects(range) {
+    if (range instanceof _Circle.Circle) {
+      range.intersects(this);
+    }
+    const w = this.size.width,
+      h = this.size.height,
+      pos1 = this.position,
+      pos2 = range.position,
+      size2 = range instanceof Rectangle ? range.size : {
+        width: 0,
+        height: 0
+      },
+      w2 = size2.width,
+      h2 = size2.height;
+    return pos2.x < pos1.x + w && pos2.x + w2 > pos1.x && pos2.y < pos1.y + h && pos2.y + h2 > pos1.y;
+  }
+}
+exports.Rectangle = Rectangle;
+},{"./Circle":"../node_modules/tsparticles-engine/esm/Core/Utils/Circle.js","./Range":"../node_modules/tsparticles-engine/esm/Core/Utils/Range.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/QuadTree.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.QuadTree = void 0;
+var _Circle = require("./Circle");
+var _Rectangle = require("./Rectangle");
+var _NumberUtils = require("../../Utils/NumberUtils");
+class QuadTree {
+  constructor(rectangle, capacity) {
+    this.rectangle = rectangle;
+    this.capacity = capacity;
+    this._points = [];
+    this._divided = false;
+  }
+  insert(point) {
+    var _a, _b, _c, _d, _e;
+    if (!this.rectangle.contains(point.position)) {
+      return false;
+    }
+    if (this._points.length < this.capacity) {
+      this._points.push(point);
+      return true;
+    }
+    if (!this._divided) {
+      this.subdivide();
+    }
+    return (_e = ((_a = this._NE) === null || _a === void 0 ? void 0 : _a.insert(point)) || ((_b = this._NW) === null || _b === void 0 ? void 0 : _b.insert(point)) || ((_c = this._SE) === null || _c === void 0 ? void 0 : _c.insert(point)) || ((_d = this._SW) === null || _d === void 0 ? void 0 : _d.insert(point))) !== null && _e !== void 0 ? _e : false;
+  }
+  query(range, check, found) {
+    var _a, _b, _c, _d;
+    const res = found !== null && found !== void 0 ? found : [];
+    if (!range.intersects(this.rectangle)) {
+      return [];
+    }
+    for (const p of this._points) {
+      if (!range.contains(p.position) && (0, _NumberUtils.getDistance)(range.position, p.position) > p.particle.getRadius() && (!check || check(p.particle))) {
+        continue;
+      }
+      res.push(p.particle);
+    }
+    if (this._divided) {
+      (_a = this._NE) === null || _a === void 0 ? void 0 : _a.query(range, check, res);
+      (_b = this._NW) === null || _b === void 0 ? void 0 : _b.query(range, check, res);
+      (_c = this._SE) === null || _c === void 0 ? void 0 : _c.query(range, check, res);
+      (_d = this._SW) === null || _d === void 0 ? void 0 : _d.query(range, check, res);
+    }
+    return res;
+  }
+  queryCircle(position, radius, check) {
+    return this.query(new _Circle.Circle(position.x, position.y, radius), check);
+  }
+  queryRectangle(position, size, check) {
+    return this.query(new _Rectangle.Rectangle(position.x, position.y, size.width, size.height), check);
+  }
+  subdivide() {
+    const x = this.rectangle.position.x,
+      y = this.rectangle.position.y,
+      w = this.rectangle.size.width,
+      h = this.rectangle.size.height,
+      capacity = this.capacity;
+    this._NE = new QuadTree(new _Rectangle.Rectangle(x, y, w / 2, h / 2), capacity);
+    this._NW = new QuadTree(new _Rectangle.Rectangle(x + w / 2, y, w / 2, h / 2), capacity);
+    this._SE = new QuadTree(new _Rectangle.Rectangle(x, y + h / 2, w / 2, h / 2), capacity);
+    this._SW = new QuadTree(new _Rectangle.Rectangle(x + w / 2, y + h / 2, w / 2, h / 2), capacity);
+    this._divided = true;
+  }
+}
+exports.QuadTree = QuadTree;
+},{"./Circle":"../node_modules/tsparticles-engine/esm/Core/Utils/Circle.js","./Rectangle":"../node_modules/tsparticles-engine/esm/Core/Utils/Rectangle.js","../../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Particles.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Particles = void 0;
+var _InteractionManager = require("./Utils/InteractionManager");
+var _Particle = require("./Particle");
+var _Point = require("./Utils/Point");
+var _QuadTree = require("./Utils/QuadTree");
+var _Rectangle = require("./Utils/Rectangle");
+var _NumberUtils = require("../Utils/NumberUtils");
+class Particles {
+  constructor(engine, container) {
+    this.container = container;
+    this._engine = engine;
+    this.nextId = 0;
+    this.array = [];
+    this.zArray = [];
+    this.pool = [];
+    this.limit = 0;
+    this.needsSort = false;
+    this.lastZIndex = 0;
+    this.interactionManager = new _InteractionManager.InteractionManager(this._engine, container);
+    const canvasSize = this.container.canvas.size;
+    this.quadTree = new _QuadTree.QuadTree(new _Rectangle.Rectangle(-canvasSize.width / 4, -canvasSize.height / 4, canvasSize.width * 3 / 2, canvasSize.height * 3 / 2), 4);
+    this.movers = this._engine.plugins.getMovers(container, true);
+    this.updaters = this._engine.plugins.getUpdaters(container, true);
+  }
+  get count() {
+    return this.array.length;
+  }
+  addManualParticles() {
+    const container = this.container,
+      options = container.actualOptions;
+    for (const particle of options.manualParticles) {
+      this.addParticle((0, _NumberUtils.calcPositionFromSize)({
+        size: container.canvas.size,
+        position: particle.position
+      }), particle.options);
+    }
+  }
+  addParticle(position, overrideOptions, group, initializer) {
+    const container = this.container,
+      options = container.actualOptions,
+      limit = options.particles.number.limit;
+    if (limit > 0) {
+      const countToRemove = this.count + 1 - limit;
+      if (countToRemove > 0) {
+        this.removeQuantity(countToRemove);
+      }
+    }
+    return this._pushParticle(position, overrideOptions, group, initializer);
+  }
+  clear() {
+    this.array = [];
+    this.zArray = [];
+  }
+  destroy() {
+    this.array = [];
+    this.zArray = [];
+    this.movers = [];
+    this.updaters = [];
+  }
+  async draw(delta) {
+    const container = this.container,
+      canvasSize = this.container.canvas.size;
+    this.quadTree = new _QuadTree.QuadTree(new _Rectangle.Rectangle(-canvasSize.width / 4, -canvasSize.height / 4, canvasSize.width * 3 / 2, canvasSize.height * 3 / 2), 4);
+    container.canvas.clear();
+    await this.update(delta);
+    if (this.needsSort) {
+      this.zArray.sort((a, b) => b.position.z - a.position.z || a.id - b.id);
+      this.lastZIndex = this.zArray[this.zArray.length - 1].position.z;
+      this.needsSort = false;
+    }
+    for (const [, plugin] of container.plugins) {
+      container.canvas.drawPlugin(plugin, delta);
+    }
+    for (const p of this.zArray) {
+      p.draw(delta);
+    }
+  }
+  handleClickMode(mode) {
+    this.interactionManager.handleClickMode(mode);
+  }
+  init() {
+    var _a;
+    const container = this.container,
+      options = container.actualOptions;
+    this.lastZIndex = 0;
+    this.needsSort = false;
+    let handled = false;
+    this.updaters = this._engine.plugins.getUpdaters(container, true);
+    this.interactionManager.init();
+    for (const [, plugin] of container.plugins) {
+      if (plugin.particlesInitialization !== undefined) {
+        handled = plugin.particlesInitialization();
+      }
+      if (handled) {
+        break;
+      }
+    }
+    this.interactionManager.init();
+    for (const [, pathGenerator] of container.pathGenerators) {
+      pathGenerator.init(container);
+    }
+    this.addManualParticles();
+    if (!handled) {
+      for (const group in options.particles.groups) {
+        const groupOptions = options.particles.groups[group];
+        for (let i = this.count, j = 0; j < ((_a = groupOptions.number) === null || _a === void 0 ? void 0 : _a.value) && i < options.particles.number.value; i++, j++) {
+          this.addParticle(undefined, groupOptions, group);
+        }
+      }
+      for (let i = this.count; i < options.particles.number.value; i++) {
+        this.addParticle();
+      }
+    }
+  }
+  push(nb, mouse, overrideOptions, group) {
+    this.pushing = true;
+    for (let i = 0; i < nb; i++) {
+      this.addParticle(mouse === null || mouse === void 0 ? void 0 : mouse.position, overrideOptions, group);
+    }
+    this.pushing = false;
+  }
+  async redraw() {
+    this.clear();
+    this.init();
+    await this.draw({
+      value: 0,
+      factor: 0
+    });
+  }
+  remove(particle, group, override) {
+    this.removeAt(this.array.indexOf(particle), undefined, group, override);
+  }
+  removeAt(index, quantity = 1, group, override) {
+    if (index < 0 || index > this.count) {
+      return;
+    }
+    let deleted = 0;
+    for (let i = index; deleted < quantity && i < this.count; i++) {
+      const particle = this.array[i];
+      if (!particle || particle.group !== group) {
+        continue;
+      }
+      particle.destroy(override);
+      this.array.splice(i--, 1);
+      const zIdx = this.zArray.indexOf(particle);
+      this.zArray.splice(zIdx, 1);
+      this.pool.push(particle);
+      deleted++;
+      this._engine.dispatchEvent("particleRemoved", {
+        container: this.container,
+        data: {
+          particle
+        }
+      });
+    }
+  }
+  removeQuantity(quantity, group) {
+    this.removeAt(0, quantity, group);
+  }
+  setDensity() {
+    const options = this.container.actualOptions;
+    for (const group in options.particles.groups) {
+      this._applyDensity(options.particles.groups[group], 0, group);
+    }
+    this._applyDensity(options.particles, options.manualParticles.length);
+  }
+  async update(delta) {
+    var _a, _b;
+    const container = this.container,
+      particlesToDelete = [];
+    for (const [, pathGenerator] of container.pathGenerators) {
+      pathGenerator.update();
+    }
+    for (const [, plugin] of container.plugins) {
+      (_a = plugin.update) === null || _a === void 0 ? void 0 : _a.call(plugin, delta);
+    }
+    for (const particle of this.array) {
+      const resizeFactor = container.canvas.resizeFactor;
+      if (resizeFactor && !particle.ignoresResizeRatio) {
+        particle.position.x *= resizeFactor.width;
+        particle.position.y *= resizeFactor.height;
+        particle.initialPosition.x *= resizeFactor.width;
+        particle.initialPosition.y *= resizeFactor.height;
+      }
+      particle.ignoresResizeRatio = false;
+      await this.interactionManager.reset(particle);
+      for (const [, plugin] of this.container.plugins) {
+        if (particle.destroyed) {
+          break;
+        }
+        (_b = plugin.particleUpdate) === null || _b === void 0 ? void 0 : _b.call(plugin, particle, delta);
+      }
+      for (const mover of this.movers) {
+        if (mover.isEnabled(particle)) {
+          mover.move(particle, delta);
+        }
+      }
+      if (particle.destroyed) {
+        particlesToDelete.push(particle);
+        continue;
+      }
+      this.quadTree.insert(new _Point.Point(particle.getPosition(), particle));
+    }
+    for (const particle of particlesToDelete) {
+      this.remove(particle);
+    }
+    await this.interactionManager.externalInteract(delta);
+    for (const particle of this.array) {
+      for (const updater of this.updaters) {
+        updater.update(particle, delta);
+      }
+      if (!particle.destroyed && !particle.spawning) {
+        await this.interactionManager.particlesInteract(particle, delta);
+      }
+    }
+    delete container.canvas.resizeFactor;
+  }
+  _applyDensity(options, manualCount, group) {
+    var _a;
+    if (!((_a = options.number.density) === null || _a === void 0 ? void 0 : _a.enable)) {
+      return;
+    }
+    const numberOptions = options.number,
+      densityFactor = this._initDensityFactor(numberOptions.density),
+      optParticlesNumber = numberOptions.value,
+      optParticlesLimit = numberOptions.limit > 0 ? numberOptions.limit : optParticlesNumber,
+      particlesNumber = Math.min(optParticlesNumber, optParticlesLimit) * densityFactor + manualCount,
+      particlesCount = Math.min(this.count, this.array.filter(t => t.group === group).length);
+    this.limit = numberOptions.limit * densityFactor;
+    if (particlesCount < particlesNumber) {
+      this.push(Math.abs(particlesNumber - particlesCount), undefined, options, group);
+    } else if (particlesCount > particlesNumber) {
+      this.removeQuantity(particlesCount - particlesNumber, group);
+    }
+  }
+  _initDensityFactor(densityOptions) {
+    const container = this.container;
+    if (!container.canvas.element || !densityOptions.enable) {
+      return 1;
+    }
+    const canvas = container.canvas.element,
+      pxRatio = container.retina.pixelRatio;
+    return canvas.width * canvas.height / (densityOptions.factor * pxRatio ** 2 * densityOptions.area);
+  }
+  _pushParticle(position, overrideOptions, group, initializer) {
+    try {
+      let particle = this.pool.pop();
+      if (particle) {
+        particle.init(this.nextId, position, overrideOptions, group);
+      } else {
+        particle = new _Particle.Particle(this._engine, this.nextId, this.container, position, overrideOptions, group);
+      }
+      let canAdd = true;
+      if (initializer) {
+        canAdd = initializer(particle);
+      }
+      if (!canAdd) {
+        return;
+      }
+      this.array.push(particle);
+      this.zArray.push(particle);
+      this.nextId++;
+      this._engine.dispatchEvent("particleAdded", {
+        container: this.container,
+        data: {
+          particle
+        }
+      });
+      return particle;
+    } catch (e) {
+      console.warn(`error adding particle: ${e}`);
+      return;
+    }
+  }
+}
+exports.Particles = Particles;
+},{"./Utils/InteractionManager":"../node_modules/tsparticles-engine/esm/Core/Utils/InteractionManager.js","./Particle":"../node_modules/tsparticles-engine/esm/Core/Particle.js","./Utils/Point":"../node_modules/tsparticles-engine/esm/Core/Utils/Point.js","./Utils/QuadTree":"../node_modules/tsparticles-engine/esm/Core/Utils/QuadTree.js","./Utils/Rectangle":"../node_modules/tsparticles-engine/esm/Core/Utils/Rectangle.js","../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Retina.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Retina = void 0;
+var _NumberUtils = require("../Utils/NumberUtils");
+var _Utils = require("../Utils/Utils");
+class Retina {
+  constructor(container) {
+    this.container = container;
+  }
+  init() {
+    const container = this.container,
+      options = container.actualOptions;
+    this.pixelRatio = !options.detectRetina || (0, _Utils.isSsr)() ? 1 : window.devicePixelRatio;
+    this.reduceFactor = 1;
+    const ratio = this.pixelRatio;
+    if (container.canvas.element) {
+      const element = container.canvas.element;
+      container.canvas.size.width = element.offsetWidth * ratio;
+      container.canvas.size.height = element.offsetHeight * ratio;
+    }
+    const particles = options.particles;
+    this.attractDistance = (0, _NumberUtils.getRangeValue)(particles.move.attract.distance) * ratio;
+    this.sizeAnimationSpeed = (0, _NumberUtils.getRangeValue)(particles.size.animation.speed) * ratio;
+    this.maxSpeed = (0, _NumberUtils.getRangeValue)(particles.move.gravity.maxSpeed) * ratio;
+  }
+  initParticle(particle) {
+    const options = particle.options,
+      ratio = this.pixelRatio,
+      moveDistance = options.move.distance,
+      props = particle.retina;
+    props.attractDistance = (0, _NumberUtils.getRangeValue)(options.move.attract.distance) * ratio;
+    props.moveDrift = (0, _NumberUtils.getRangeValue)(options.move.drift) * ratio;
+    props.moveSpeed = (0, _NumberUtils.getRangeValue)(options.move.speed) * ratio;
+    props.sizeAnimationSpeed = (0, _NumberUtils.getRangeValue)(options.size.animation.speed) * ratio;
+    const maxDistance = props.maxDistance;
+    maxDistance.horizontal = moveDistance.horizontal !== undefined ? moveDistance.horizontal * ratio : undefined;
+    maxDistance.vertical = moveDistance.vertical !== undefined ? moveDistance.vertical * ratio : undefined;
+    props.maxSpeed = (0, _NumberUtils.getRangeValue)(options.move.gravity.maxSpeed) * ratio;
+  }
+}
+exports.Retina = Retina;
+},{"../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Core/Container.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Container = void 0;
+var _Utils = require("../Utils/Utils");
+var _Canvas = require("./Canvas");
+var _EventListeners = require("./Utils/EventListeners");
+var _FrameManager = require("./Utils/FrameManager");
+var _Options = require("../Options/Classes/Options");
+var _Particles = require("./Particles");
+var _Retina = require("./Retina");
+var _NumberUtils = require("../Utils/NumberUtils");
+var _OptionsUtils = require("../Utils/OptionsUtils");
+function guardCheck(container) {
+  return container && !container.destroyed;
+}
+function loadContainerOptions(engine, container, ...sourceOptionsArr) {
+  const options = new _Options.Options(engine, container);
+  (0, _OptionsUtils.loadOptions)(options, ...sourceOptionsArr);
+  return options;
+}
+const defaultPathGeneratorKey = "default",
+  defaultPathGenerator = {
+    generate: p => {
+      const v = p.velocity.copy();
+      v.angle += v.length * Math.PI / 180;
+      return v;
+    },
+    init: () => {},
+    update: () => {},
+    reset: () => {}
+  };
+class Container {
+  constructor(engine, id, sourceOptions) {
+    this.id = id;
+    this._engine = engine;
+    this.fpsLimit = 120;
+    this.smooth = false;
+    this._delay = 0;
+    this.duration = 0;
+    this.lifeTime = 0;
+    this._firstStart = true;
+    this.started = false;
+    this.destroyed = false;
+    this._paused = true;
+    this.lastFrameTime = 0;
+    this.zLayers = 100;
+    this.pageHidden = false;
+    this._sourceOptions = sourceOptions;
+    this._initialSourceOptions = sourceOptions;
+    this.retina = new _Retina.Retina(this);
+    this.canvas = new _Canvas.Canvas(this);
+    this.particles = new _Particles.Particles(this._engine, this);
+    this.frameManager = new _FrameManager.FrameManager(this);
+    this.pathGenerators = new Map();
+    this.interactivity = {
+      mouse: {
+        clicking: false,
+        inside: false
+      }
+    };
+    this.plugins = new Map();
+    this.drawers = new Map();
+    this._options = loadContainerOptions(this._engine, this);
+    this.actualOptions = loadContainerOptions(this._engine, this);
+    this._eventListeners = new _EventListeners.EventListeners(this);
+    if (typeof IntersectionObserver !== "undefined" && IntersectionObserver) {
+      this._intersectionObserver = new IntersectionObserver(entries => this._intersectionManager(entries));
+    }
+    this._engine.dispatchEvent("containerBuilt", {
+      container: this
+    });
+  }
+  get options() {
+    return this._options;
+  }
+  get sourceOptions() {
+    return this._sourceOptions;
+  }
+  addClickHandler(callback) {
+    if (!guardCheck(this)) {
+      return;
+    }
+    const el = this.interactivity.element;
+    if (!el) {
+      return;
+    }
+    const clickOrTouchHandler = (e, pos, radius) => {
+      if (!guardCheck(this)) {
+        return;
+      }
+      const pxRatio = this.retina.pixelRatio,
+        posRetina = {
+          x: pos.x * pxRatio,
+          y: pos.y * pxRatio
+        },
+        particles = this.particles.quadTree.queryCircle(posRetina, radius * pxRatio);
+      callback(e, particles);
+    };
+    const clickHandler = e => {
+      if (!guardCheck(this)) {
+        return;
+      }
+      const mouseEvent = e,
+        pos = {
+          x: mouseEvent.offsetX || mouseEvent.clientX,
+          y: mouseEvent.offsetY || mouseEvent.clientY
+        };
+      clickOrTouchHandler(e, pos, 1);
+    };
+    const touchStartHandler = () => {
+      if (!guardCheck(this)) {
+        return;
+      }
+      touched = true;
+      touchMoved = false;
+    };
+    const touchMoveHandler = () => {
+      if (!guardCheck(this)) {
+        return;
+      }
+      touchMoved = true;
+    };
+    const touchEndHandler = e => {
+      if (!guardCheck(this)) {
+        return;
+      }
+      if (touched && !touchMoved) {
+        const touchEvent = e;
+        let lastTouch = touchEvent.touches[touchEvent.touches.length - 1];
+        if (!lastTouch) {
+          lastTouch = touchEvent.changedTouches[touchEvent.changedTouches.length - 1];
+          if (!lastTouch) {
+            return;
+          }
+        }
+        const element = this.canvas.element,
+          canvasRect = element ? element.getBoundingClientRect() : undefined,
+          pos = {
+            x: lastTouch.clientX - (canvasRect ? canvasRect.left : 0),
+            y: lastTouch.clientY - (canvasRect ? canvasRect.top : 0)
+          };
+        clickOrTouchHandler(e, pos, Math.max(lastTouch.radiusX, lastTouch.radiusY));
+      }
+      touched = false;
+      touchMoved = false;
+    };
+    const touchCancelHandler = () => {
+      if (!guardCheck(this)) {
+        return;
+      }
+      touched = false;
+      touchMoved = false;
+    };
+    let touched = false,
+      touchMoved = false;
+    el.addEventListener("click", clickHandler);
+    el.addEventListener("touchstart", touchStartHandler);
+    el.addEventListener("touchmove", touchMoveHandler);
+    el.addEventListener("touchend", touchEndHandler);
+    el.addEventListener("touchcancel", touchCancelHandler);
+  }
+  addPath(key, generator, override = false) {
+    if (!guardCheck(this) || !override && this.pathGenerators.has(key)) {
+      return false;
+    }
+    this.pathGenerators.set(key, generator !== null && generator !== void 0 ? generator : defaultPathGenerator);
+    return true;
+  }
+  destroy() {
+    if (!guardCheck(this)) {
+      return;
+    }
+    this.stop();
+    this.particles.destroy();
+    this.canvas.destroy();
+    for (const [, drawer] of this.drawers) {
+      if (drawer.destroy) {
+        drawer.destroy(this);
+      }
+    }
+    for (const key of this.drawers.keys()) {
+      this.drawers.delete(key);
+    }
+    this._engine.plugins.destroy(this);
+    this.destroyed = true;
+    const mainArr = this._engine.dom(),
+      idx = mainArr.findIndex(t => t === this);
+    if (idx >= 0) {
+      mainArr.splice(idx, 1);
+    }
+    this._engine.dispatchEvent("containerDestroyed", {
+      container: this
+    });
+  }
+  draw(force) {
+    if (!guardCheck(this)) {
+      return;
+    }
+    let refreshTime = force;
+    this._drawAnimationFrame = (0, _Utils.animate)()(async timestamp => {
+      if (refreshTime) {
+        this.lastFrameTime = undefined;
+        refreshTime = false;
+      }
+      await this.frameManager.nextFrame(timestamp);
+    });
+  }
+  exportConfiguration() {
+    return JSON.stringify(this.actualOptions, (key, value) => {
+      if (key === "_engine" || key === "_container") {
+        return;
+      }
+      return value;
+    }, 2);
+  }
+  exportImage(callback, type, quality) {
+    const element = this.canvas.element;
+    if (element) {
+      element.toBlob(callback, type !== null && type !== void 0 ? type : "image/png", quality);
+    }
+  }
+  exportImg(callback) {
+    this.exportImage(callback);
+  }
+  getAnimationStatus() {
+    return !this._paused && !this.pageHidden && guardCheck(this);
+  }
+  handleClickMode(mode) {
+    if (!guardCheck(this)) {
+      return;
+    }
+    this.particles.handleClickMode(mode);
+    for (const [, plugin] of this.plugins) {
+      if (plugin.handleClickMode) {
+        plugin.handleClickMode(mode);
+      }
+    }
+  }
+  async init() {
+    if (!guardCheck(this)) {
+      return;
+    }
+    const shapes = this._engine.plugins.getSupportedShapes();
+    for (const type of shapes) {
+      const drawer = this._engine.plugins.getShapeDrawer(type);
+      if (drawer) {
+        this.drawers.set(type, drawer);
+      }
+    }
+    this._options = loadContainerOptions(this._engine, this, this._initialSourceOptions, this.sourceOptions);
+    this.actualOptions = loadContainerOptions(this._engine, this, this._options);
+    const availablePlugins = this._engine.plugins.getAvailablePlugins(this);
+    for (const [id, plugin] of availablePlugins) {
+      this.plugins.set(id, plugin);
+    }
+    this.retina.init();
+    await this.canvas.init();
+    this.updateActualOptions();
+    this.canvas.initBackground();
+    this.canvas.resize();
+    this.zLayers = this.actualOptions.zLayers;
+    this.duration = (0, _NumberUtils.getRangeValue)(this.actualOptions.duration) * 1000;
+    this._delay = (0, _NumberUtils.getRangeValue)(this.actualOptions.delay) * 1000;
+    this.lifeTime = 0;
+    this.fpsLimit = this.actualOptions.fpsLimit > 0 ? this.actualOptions.fpsLimit : 120;
+    this.smooth = this.actualOptions.smooth;
+    for (const [, drawer] of this.drawers) {
+      if (drawer.init) {
+        await drawer.init(this);
+      }
+    }
+    for (const [, plugin] of this.plugins) {
+      if (plugin.init) {
+        await plugin.init();
+      }
+    }
+    this._engine.dispatchEvent("containerInit", {
+      container: this
+    });
+    this.particles.init();
+    this.particles.setDensity();
+    for (const [, plugin] of this.plugins) {
+      if (plugin.particlesSetup) {
+        plugin.particlesSetup();
+      }
+    }
+    this._engine.dispatchEvent("particlesSetup", {
+      container: this
+    });
+  }
+  async loadTheme(name) {
+    if (!guardCheck(this)) {
+      return;
+    }
+    this._currentTheme = name;
+    await this.refresh();
+  }
+  pause() {
+    if (!guardCheck(this)) {
+      return;
+    }
+    if (this._drawAnimationFrame !== undefined) {
+      (0, _Utils.cancelAnimation)()(this._drawAnimationFrame);
+      delete this._drawAnimationFrame;
+    }
+    if (this._paused) {
+      return;
+    }
+    for (const [, plugin] of this.plugins) {
+      if (plugin.pause) {
+        plugin.pause();
+      }
+    }
+    if (!this.pageHidden) {
+      this._paused = true;
+    }
+    this._engine.dispatchEvent("containerPaused", {
+      container: this
+    });
+  }
+  play(force) {
+    if (!guardCheck(this)) {
+      return;
+    }
+    const needsUpdate = this._paused || force;
+    if (this._firstStart && !this.actualOptions.autoPlay) {
+      this._firstStart = false;
+      return;
+    }
+    if (this._paused) {
+      this._paused = false;
+    }
+    if (needsUpdate) {
+      for (const [, plugin] of this.plugins) {
+        if (plugin.play) {
+          plugin.play();
+        }
+      }
+    }
+    this._engine.dispatchEvent("containerPlay", {
+      container: this
+    });
+    this.draw(needsUpdate || false);
+  }
+  async refresh() {
+    if (!guardCheck(this)) {
+      return;
+    }
+    this.stop();
+    return this.start();
+  }
+  async reset() {
+    if (!guardCheck(this)) {
+      return;
+    }
+    this._options = loadContainerOptions(this._engine, this);
+    return this.refresh();
+  }
+  setNoise(noiseOrGenerator, init, update) {
+    if (!guardCheck(this)) {
+      return;
+    }
+    this.setPath(noiseOrGenerator, init, update);
+  }
+  setPath(pathOrGenerator, init, update) {
+    if (!pathOrGenerator || !guardCheck(this)) {
+      return;
+    }
+    const pathGenerator = Object.assign({}, defaultPathGenerator);
+    if (typeof pathOrGenerator === "function") {
+      pathGenerator.generate = pathOrGenerator;
+      if (init) {
+        pathGenerator.init = init;
+      }
+      if (update) {
+        pathGenerator.update = update;
+      }
+    } else {
+      const oldGenerator = pathGenerator;
+      pathGenerator.generate = pathOrGenerator.generate || oldGenerator.generate;
+      pathGenerator.init = pathOrGenerator.init || oldGenerator.init;
+      pathGenerator.update = pathOrGenerator.update || oldGenerator.update;
+    }
+    this.addPath(defaultPathGeneratorKey, pathGenerator, true);
+  }
+  async start() {
+    if (!guardCheck(this) || this.started) {
+      return;
+    }
+    await this.init();
+    this.started = true;
+    await new Promise(resolve => {
+      this._delayTimeout = setTimeout(async () => {
+        this._eventListeners.addListeners();
+        if (this.interactivity.element instanceof HTMLElement && this._intersectionObserver) {
+          this._intersectionObserver.observe(this.interactivity.element);
+        }
+        for (const [, plugin] of this.plugins) {
+          if (plugin.start) {
+            await plugin.start();
+          }
+        }
+        this._engine.dispatchEvent("containerStarted", {
+          container: this
+        });
+        this.play();
+        resolve();
+      }, this._delay);
+    });
+  }
+  stop() {
+    if (!guardCheck(this) || !this.started) {
+      return;
+    }
+    if (this._delayTimeout) {
+      clearTimeout(this._delayTimeout);
+      delete this._delayTimeout;
+    }
+    this._firstStart = true;
+    this.started = false;
+    this._eventListeners.removeListeners();
+    this.pause();
+    this.particles.clear();
+    this.canvas.stop();
+    if (this.interactivity.element instanceof HTMLElement && this._intersectionObserver) {
+      this._intersectionObserver.unobserve(this.interactivity.element);
+    }
+    for (const [, plugin] of this.plugins) {
+      if (plugin.stop) {
+        plugin.stop();
+      }
+    }
+    for (const key of this.plugins.keys()) {
+      this.plugins.delete(key);
+    }
+    this._sourceOptions = this._options;
+    this._engine.dispatchEvent("containerStopped", {
+      container: this
+    });
+  }
+  updateActualOptions() {
+    this.actualOptions.responsive = [];
+    const newMaxWidth = this.actualOptions.setResponsive(this.canvas.size.width, this.retina.pixelRatio, this._options);
+    this.actualOptions.setTheme(this._currentTheme);
+    if (this.responsiveMaxWidth === newMaxWidth) {
+      return false;
+    }
+    this.responsiveMaxWidth = newMaxWidth;
+    return true;
+  }
+  _intersectionManager(entries) {
+    if (!guardCheck(this) || !this.actualOptions.pauseOnOutsideViewport) {
+      return;
+    }
+    for (const entry of entries) {
+      if (entry.target !== this.interactivity.element) {
+        continue;
+      }
+      (entry.isIntersecting ? this.play : this.pause)();
+    }
+  }
+}
+exports.Container = Container;
+},{"../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","./Canvas":"../node_modules/tsparticles-engine/esm/Core/Canvas.js","./Utils/EventListeners":"../node_modules/tsparticles-engine/esm/Core/Utils/EventListeners.js","./Utils/FrameManager":"../node_modules/tsparticles-engine/esm/Core/Utils/FrameManager.js","../Options/Classes/Options":"../node_modules/tsparticles-engine/esm/Options/Classes/Options.js","./Particles":"../node_modules/tsparticles-engine/esm/Core/Particles.js","./Retina":"../node_modules/tsparticles-engine/esm/Core/Retina.js","../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","../Utils/OptionsUtils":"../node_modules/tsparticles-engine/esm/Utils/OptionsUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Loader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Loader = void 0;
+var _Container = require("./Container");
+var _Constants = require("./Utils/Constants");
+var _NumberUtils = require("../Utils/NumberUtils");
+var _Utils = require("../Utils/Utils");
+async function getDataFromUrl(jsonUrl, index) {
+  const url = (0, _Utils.itemFromSingleOrMultiple)(jsonUrl, index);
+  if (!url) {
+    return;
+  }
+  const response = await fetch(url);
+  if (response.ok) {
+    return response.json();
+  }
+  console.error(`tsParticles - Error ${response.status} while retrieving config file`);
+}
+class Loader {
+  constructor(engine) {
+    this._engine = engine;
+  }
+  load(tagId, options, index) {
+    const params = {
+      index,
+      remote: false
+    };
+    if (typeof tagId === "string") {
+      params.tagId = tagId;
+    } else {
+      params.options = tagId;
+    }
+    if (typeof options === "number") {
+      params.index = options;
+    } else {
+      params.options = options !== null && options !== void 0 ? options : params.options;
+    }
+    return this.loadOptions(params);
+  }
+  async loadJSON(tagId, jsonUrl, index) {
+    let url, id;
+    if (typeof jsonUrl === "number" || jsonUrl === undefined) {
+      url = tagId;
+    } else {
+      id = tagId;
+      url = jsonUrl;
+    }
+    return this.loadRemoteOptions({
+      tagId: id,
+      url,
+      index,
+      remote: true
+    });
+  }
+  async loadOptions(params) {
+    var _a, _b, _c;
+    const tagId = (_a = params.tagId) !== null && _a !== void 0 ? _a : `tsparticles${Math.floor((0, _NumberUtils.getRandom)() * 10000)}`,
+      {
+        index,
+        url: jsonUrl,
+        remote
+      } = params,
+      options = remote ? await getDataFromUrl(jsonUrl, index) : params.options;
+    let domContainer = (_b = params.element) !== null && _b !== void 0 ? _b : document.getElementById(tagId);
+    if (!domContainer) {
+      domContainer = document.createElement("div");
+      domContainer.id = tagId;
+      (_c = document.querySelector("body")) === null || _c === void 0 ? void 0 : _c.append(domContainer);
+    }
+    const currentOptions = (0, _Utils.itemFromSingleOrMultiple)(options, index),
+      dom = this._engine.dom(),
+      oldIndex = dom.findIndex(v => v.id === tagId);
+    if (oldIndex >= 0) {
+      const old = this._engine.domItem(oldIndex);
+      if (old && !old.destroyed) {
+        old.destroy();
+        dom.splice(oldIndex, 1);
+      }
+    }
+    let canvasEl;
+    if (domContainer.tagName.toLowerCase() === "canvas") {
+      canvasEl = domContainer;
+      canvasEl.dataset[_Constants.generatedAttribute] = "false";
+    } else {
+      const existingCanvases = domContainer.getElementsByTagName("canvas");
+      if (existingCanvases.length) {
+        canvasEl = existingCanvases[0];
+        canvasEl.dataset[_Constants.generatedAttribute] = "false";
+      } else {
+        canvasEl = document.createElement("canvas");
+        canvasEl.dataset[_Constants.generatedAttribute] = "true";
+        domContainer.appendChild(canvasEl);
+      }
+    }
+    if (!canvasEl.style.width) {
+      canvasEl.style.width = "100%";
+    }
+    if (!canvasEl.style.height) {
+      canvasEl.style.height = "100%";
+    }
+    const newItem = new _Container.Container(this._engine, tagId, currentOptions);
+    if (oldIndex >= 0) {
+      dom.splice(oldIndex, 0, newItem);
+    } else {
+      dom.push(newItem);
+    }
+    newItem.canvas.loadCanvas(canvasEl);
+    await newItem.start();
+    return newItem;
+  }
+  async loadRemoteOptions(params) {
+    return this.loadOptions(params);
+  }
+  async set(id, domContainer, options, index) {
+    const params = {
+      index,
+      remote: false
+    };
+    if (typeof id === "string") {
+      params.tagId = id;
+    } else {
+      params.element = id;
+    }
+    if (domContainer instanceof HTMLElement) {
+      params.element = domContainer;
+    } else {
+      params.options = domContainer;
+    }
+    if (typeof options === "number") {
+      params.index = options;
+    } else {
+      params.options = options !== null && options !== void 0 ? options : params.options;
+    }
+    return this.loadOptions(params);
+  }
+  async setJSON(id, domContainer, jsonUrl, index) {
+    let url, newId, newIndex, element;
+    if (id instanceof HTMLElement) {
+      element = id;
+      url = domContainer;
+      newIndex = jsonUrl;
+    } else {
+      newId = id;
+      element = domContainer;
+      url = jsonUrl;
+      newIndex = index;
+    }
+    return this.loadRemoteOptions({
+      tagId: newId,
+      url,
+      index: newIndex,
+      element,
+      remote: true
+    });
+  }
+}
+exports.Loader = Loader;
+},{"./Container":"../node_modules/tsparticles-engine/esm/Core/Container.js","./Utils/Constants":"../node_modules/tsparticles-engine/esm/Core/Utils/Constants.js","../Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/Core/Utils/Plugins.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Plugins = void 0;
+var _Utils = require("../../Utils/Utils");
+function getItemsFromInitializer(container, map, initializers, force = false) {
+  let res = map.get(container);
+  if (!res || force) {
+    res = [...initializers.values()].map(t => t(container));
+    map.set(container, res);
+  }
+  return res;
+}
+class Plugins {
+  constructor(engine) {
+    this._engine = engine;
+    this.plugins = [];
+    this._initializers = {
+      interactors: new Map(),
+      movers: new Map(),
+      updaters: new Map()
+    };
+    this.interactors = new Map();
+    this.movers = new Map();
+    this.updaters = new Map();
+    this.presets = new Map();
+    this.drawers = new Map();
+    this.pathGenerators = new Map();
+  }
+  addInteractor(name, initInteractor) {
+    this._initializers.interactors.set(name, initInteractor);
+  }
+  addParticleMover(name, initMover) {
+    this._initializers.movers.set(name, initMover);
+  }
+  addParticleUpdater(name, initUpdater) {
+    this._initializers.updaters.set(name, initUpdater);
+  }
+  addPathGenerator(type, pathGenerator) {
+    if (!this.getPathGenerator(type)) {
+      this.pathGenerators.set(type, pathGenerator);
+    }
+  }
+  addPlugin(plugin) {
+    if (!this.getPlugin(plugin.id)) {
+      this.plugins.push(plugin);
+    }
+  }
+  addPreset(presetKey, options, override = false) {
+    if (override || !this.getPreset(presetKey)) {
+      this.presets.set(presetKey, options);
+    }
+  }
+  addShapeDrawer(types, drawer) {
+    (0, _Utils.executeOnSingleOrMultiple)(types, type => {
+      if (!this.getShapeDrawer(type)) {
+        this.drawers.set(type, drawer);
+      }
+    });
+  }
+  destroy(container) {
+    this.updaters.delete(container);
+    this.movers.delete(container);
+    this.interactors.delete(container);
+  }
+  getAvailablePlugins(container) {
+    const res = new Map();
+    for (const plugin of this.plugins) {
+      if (!plugin.needsPlugin(container.actualOptions)) {
+        continue;
+      }
+      res.set(plugin.id, plugin.getPlugin(container));
+    }
+    return res;
+  }
+  getInteractors(container, force = false) {
+    return getItemsFromInitializer(container, this.interactors, this._initializers.interactors, force);
+  }
+  getMovers(container, force = false) {
+    return getItemsFromInitializer(container, this.movers, this._initializers.movers, force);
+  }
+  getPathGenerator(type) {
+    return this.pathGenerators.get(type);
+  }
+  getPlugin(plugin) {
+    return this.plugins.find(t => t.id === plugin);
+  }
+  getPreset(preset) {
+    return this.presets.get(preset);
+  }
+  getShapeDrawer(type) {
+    return this.drawers.get(type);
+  }
+  getSupportedShapes() {
+    return this.drawers.keys();
+  }
+  getUpdaters(container, force = false) {
+    return getItemsFromInitializer(container, this.updaters, this._initializers.updaters, force);
+  }
+  loadOptions(options, sourceOptions) {
+    for (const plugin of this.plugins) {
+      plugin.loadOptions(options, sourceOptions);
+    }
+  }
+  loadParticlesOptions(container, options, ...sourceOptions) {
+    const updaters = this.updaters.get(container);
+    if (!updaters) {
+      return;
+    }
+    for (const updater of updaters) {
+      if (updater.loadOptions) {
+        updater.loadOptions(options, ...sourceOptions);
+      }
+    }
+  }
+}
+exports.Plugins = Plugins;
+},{"../../Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js"}],"../node_modules/tsparticles-engine/esm/engine.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Engine = void 0;
+var _EventDispatcher = require("./Utils/EventDispatcher");
+var _Loader = require("./Core/Loader");
+var _Plugins = require("./Core/Utils/Plugins");
+class Engine {
+  constructor() {
+    this._domArray = [];
+    this._eventDispatcher = new _EventDispatcher.EventDispatcher();
+    this._initialized = false;
+    this._loader = new _Loader.Loader(this);
+    this.plugins = new _Plugins.Plugins(this);
+  }
+  get version() {
+    return "2.9.3";
+  }
+  addEventListener(type, listener) {
+    this._eventDispatcher.addEventListener(type, listener);
+  }
+  async addInteractor(name, interactorInitializer) {
+    this.plugins.addInteractor(name, interactorInitializer);
+    await this.refresh();
+  }
+  async addMover(name, moverInitializer) {
+    this.plugins.addParticleMover(name, moverInitializer);
+    await this.refresh();
+  }
+  async addParticleUpdater(name, updaterInitializer) {
+    this.plugins.addParticleUpdater(name, updaterInitializer);
+    await this.refresh();
+  }
+  async addPathGenerator(name, generator) {
+    this.plugins.addPathGenerator(name, generator);
+    await this.refresh();
+  }
+  async addPlugin(plugin) {
+    this.plugins.addPlugin(plugin);
+    await this.refresh();
+  }
+  async addPreset(preset, options, override = false) {
+    this.plugins.addPreset(preset, options, override);
+    await this.refresh();
+  }
+  async addShape(shape, drawer, init, afterEffect, destroy) {
+    let customDrawer;
+    if (typeof drawer === "function") {
+      customDrawer = {
+        afterEffect: afterEffect,
+        destroy: destroy,
+        draw: drawer,
+        init: init
+      };
+    } else {
+      customDrawer = drawer;
+    }
+    this.plugins.addShapeDrawer(shape, customDrawer);
+    await this.refresh();
+  }
+  dispatchEvent(type, args) {
+    this._eventDispatcher.dispatchEvent(type, args);
+  }
+  dom() {
+    return this._domArray;
+  }
+  domItem(index) {
+    const dom = this.dom(),
+      item = dom[index];
+    if (item && !item.destroyed) {
+      return item;
+    }
+    dom.splice(index, 1);
+  }
+  init() {
+    if (!this._initialized) {
+      this._initialized = true;
+    }
+  }
+  async load(tagId, options) {
+    return this._loader.load(tagId, options);
+  }
+  async loadFromArray(tagId, options, index) {
+    return this._loader.load(tagId, options, index);
+  }
+  async loadJSON(tagId, pathConfigJson, index) {
+    return this._loader.loadJSON(tagId, pathConfigJson, index);
+  }
+  async refresh() {
+    for (const instance of this.dom()) {
+      await instance.refresh();
+    }
+  }
+  removeEventListener(type, listener) {
+    this._eventDispatcher.removeEventListener(type, listener);
+  }
+  async set(id, element, options) {
+    return this._loader.set(id, element, options);
+  }
+  async setJSON(id, element, pathConfigJson, index) {
+    return this._loader.setJSON(id, element, pathConfigJson, index);
+  }
+  setOnClickHandler(callback) {
+    const dom = this.dom();
+    if (!dom.length) {
+      throw new Error("Can only set click handlers after calling tsParticles.load() or tsParticles.loadJSON()");
+    }
+    for (const domItem of dom) {
+      domItem.addClickHandler(callback);
+    }
+  }
+}
+exports.Engine = Engine;
+},{"./Utils/EventDispatcher":"../node_modules/tsparticles-engine/esm/Utils/EventDispatcher.js","./Core/Loader":"../node_modules/tsparticles-engine/esm/Core/Loader.js","./Core/Utils/Plugins":"../node_modules/tsparticles-engine/esm/Core/Utils/Plugins.js"}],"../node_modules/tsparticles-engine/esm/Utils/HslColorManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HslColorManager = void 0;
+var _NumberUtils = require("./NumberUtils");
+var _ColorUtils = require("./ColorUtils");
+class HslColorManager {
+  constructor() {
+    this.key = "hsl";
+    this.stringPrefix = "hsl";
+  }
+  handleColor(color) {
+    var _a;
+    const colorValue = color.value,
+      hslColor = (_a = colorValue.hsl) !== null && _a !== void 0 ? _a : color.value;
+    if (hslColor.h !== undefined && hslColor.s !== undefined && hslColor.l !== undefined) {
+      return (0, _ColorUtils.hslToRgb)(hslColor);
+    }
+  }
+  handleRangeColor(color) {
+    var _a;
+    const colorValue = color.value,
+      hslColor = (_a = colorValue.hsl) !== null && _a !== void 0 ? _a : color.value;
+    if (hslColor.h !== undefined && hslColor.l !== undefined) {
+      return (0, _ColorUtils.hslToRgb)({
+        h: (0, _NumberUtils.getRangeValue)(hslColor.h),
+        l: (0, _NumberUtils.getRangeValue)(hslColor.l),
+        s: (0, _NumberUtils.getRangeValue)(hslColor.s)
+      });
+    }
+  }
+  parseString(input) {
+    if (!input.startsWith("hsl")) {
+      return;
+    }
+    const regex = /hsla?\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*(,\s*([\d.%]+)\s*)?\)/i,
+      result = regex.exec(input);
+    return result ? (0, _ColorUtils.hslaToRgba)({
+      a: result.length > 4 ? (0, _NumberUtils.parseAlpha)(result[5]) : 1,
+      h: parseInt(result[1], 10),
+      l: parseInt(result[3], 10),
+      s: parseInt(result[2], 10)
+    }) : undefined;
+  }
+}
+exports.HslColorManager = HslColorManager;
+},{"./NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","./ColorUtils":"../node_modules/tsparticles-engine/esm/Utils/ColorUtils.js"}],"../node_modules/tsparticles-engine/esm/Utils/RgbColorManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RgbColorManager = void 0;
+var _NumberUtils = require("./NumberUtils");
+class RgbColorManager {
+  constructor() {
+    this.key = "rgb";
+    this.stringPrefix = "rgb";
+  }
+  handleColor(color) {
+    var _a;
+    const colorValue = color.value,
+      rgbColor = (_a = colorValue.rgb) !== null && _a !== void 0 ? _a : color.value;
+    if (rgbColor.r !== undefined) {
+      return rgbColor;
+    }
+  }
+  handleRangeColor(color) {
+    var _a;
+    const colorValue = color.value,
+      rgbColor = (_a = colorValue.rgb) !== null && _a !== void 0 ? _a : color.value;
+    if (rgbColor.r !== undefined) {
+      return {
+        r: (0, _NumberUtils.getRangeValue)(rgbColor.r),
+        g: (0, _NumberUtils.getRangeValue)(rgbColor.g),
+        b: (0, _NumberUtils.getRangeValue)(rgbColor.b)
+      };
+    }
+  }
+  parseString(input) {
+    if (!input.startsWith(this.stringPrefix)) {
+      return;
+    }
+    const regex = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([\d.%]+)\s*)?\)/i,
+      result = regex.exec(input);
+    return result ? {
+      a: result.length > 4 ? (0, _NumberUtils.parseAlpha)(result[5]) : 1,
+      b: parseInt(result[3], 10),
+      g: parseInt(result[2], 10),
+      r: parseInt(result[1], 10)
+    } : undefined;
+  }
+}
+exports.RgbColorManager = RgbColorManager;
+},{"./NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js"}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/Colors.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IBounds.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IBubbleParticleData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/ICircleBouncer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IColorManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IContainerInteractivity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IContainerPlugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/ICoordinates.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IDelta.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IDimension.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IDistance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IExternalInteractor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IInteractor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IMouseData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IMovePathGenerator.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleColorStyle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleHslAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticlesInteractor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleLife.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleRetinaProps.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleRoll.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleTransformValues.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleValueAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticlesMover.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IPlugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IRangeValue.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IRectSideResult.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IShapeDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/IShapeValues.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Interfaces/ISlowParticleData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Core/Utils/ExternalInteractorBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ExternalInteractorBase = void 0;
+class ExternalInteractorBase {
+  constructor(container) {
+    this.container = container;
+    this.type = "external";
+  }
+}
+exports.ExternalInteractorBase = ExternalInteractorBase;
+},{}],"../node_modules/tsparticles-engine/esm/Core/Utils/ParticlesInteractorBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParticlesInteractorBase = void 0;
+class ParticlesInteractorBase {
+  constructor(container) {
+    this.container = container;
+    this.type = "particles";
+  }
+}
+exports.ParticlesInteractorBase = ParticlesInteractorBase;
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Directions/MoveDirection.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Directions/RotateDirection.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Directions/OutModeDirection.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/ClickMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/DivMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/HoverMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/CollisionMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/OutMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/SizeMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/ThemeMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Modes/ResponsiveMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/AlterType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/DestroyType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/GradientType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/InteractorType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/ParticleOutType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/StartValueType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/DivType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/EasingType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/Types/EventType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/AnimationStatus.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Enums/InteractivityDetect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Background/IBackground.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/BackgroundMask/IBackgroundMask.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/BackgroundMask/IBackgroundMaskCover.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/FullScreen/IFullScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IAnimatable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IAnimatableColor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IColorAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IHslAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IManualParticle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IOptionLoader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IOptionsColor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IResponsive.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/IValueWithRandom.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IClickEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IDivEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IEvents.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IHoverEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IParallax.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Modes/IModeDiv.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Modes/IModes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/IInteractivity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Bounce/IParticlesBounce.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Collisions/ICollisions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Collisions/ICollisionsOverlap.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/IParticlesOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/IShadow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/IStroke.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveAttract.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMove.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveAngle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveCenter.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveGravity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/Path/IMovePath.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IOutModes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/ISpin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveTrail.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Number/IParticlesDensity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Number/IParticlesNumber.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Opacity/IOpacity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Opacity/IOpacityAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/ICharacterShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IImageShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IPolygonShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IShapeValues.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _IShapeValues = require("../../../../Core/Interfaces/IShapeValues");
+Object.keys(_IShapeValues).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _IShapeValues[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IShapeValues[key];
+    }
+  });
+});
+},{"../../../../Core/Interfaces/IShapeValues":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IShapeValues.js"}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IStarShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Size/ISize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Size/ISizeAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/ZIndex/IZIndex.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Theme/ITheme.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Options/Interfaces/Theme/IThemeDefault.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/CustomEventArgs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/CustomEventListener.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/ParticlesGroups.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/PathOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/RangeValue.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/RecursivePartial.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/ShapeData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/ShapeDrawerFunctions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/Types/SingleOrMultiple.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-engine/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  tsParticles: true,
+  CollisionsAbsorb: true,
+  ResizeEvent: true
+};
+Object.defineProperty(exports, "CollisionsAbsorb", {
+  enumerable: true,
+  get: function () {
+    return _CollisionsAbsorb.CollisionsAbsorb;
+  }
+});
+Object.defineProperty(exports, "ResizeEvent", {
+  enumerable: true,
+  get: function () {
+    return _ResizeEvent.ResizeEvent;
+  }
+});
+exports.tsParticles = void 0;
+var _engine = require("./engine");
+var _HslColorManager = require("./Utils/HslColorManager");
+Object.keys(_HslColorManager).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _HslColorManager[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HslColorManager[key];
+    }
+  });
+});
+var _RgbColorManager = require("./Utils/RgbColorManager");
+Object.keys(_RgbColorManager).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _RgbColorManager[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _RgbColorManager[key];
+    }
+  });
+});
+var _ColorUtils = require("./Utils/ColorUtils");
+Object.keys(_ColorUtils).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ColorUtils[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ColorUtils[key];
+    }
+  });
+});
+var _Colors = require("./Core/Interfaces/Colors");
+Object.keys(_Colors).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Colors[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Colors[key];
+    }
+  });
+});
+var _IBounds = require("./Core/Interfaces/IBounds");
+Object.keys(_IBounds).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBounds[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBounds[key];
+    }
+  });
+});
+var _IBubbleParticleData = require("./Core/Interfaces/IBubbleParticleData");
+Object.keys(_IBubbleParticleData).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBubbleParticleData[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBubbleParticleData[key];
+    }
+  });
+});
+var _ICircleBouncer = require("./Core/Interfaces/ICircleBouncer");
+Object.keys(_ICircleBouncer).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ICircleBouncer[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ICircleBouncer[key];
+    }
+  });
+});
+var _IColorManager = require("./Core/Interfaces/IColorManager");
+Object.keys(_IColorManager).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IColorManager[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IColorManager[key];
+    }
+  });
+});
+var _IContainerInteractivity = require("./Core/Interfaces/IContainerInteractivity");
+Object.keys(_IContainerInteractivity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IContainerInteractivity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IContainerInteractivity[key];
+    }
+  });
+});
+var _IContainerPlugin = require("./Core/Interfaces/IContainerPlugin");
+Object.keys(_IContainerPlugin).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IContainerPlugin[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IContainerPlugin[key];
+    }
+  });
+});
+var _ICoordinates = require("./Core/Interfaces/ICoordinates");
+Object.keys(_ICoordinates).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ICoordinates[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ICoordinates[key];
+    }
+  });
+});
+var _IDelta = require("./Core/Interfaces/IDelta");
+Object.keys(_IDelta).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IDelta[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IDelta[key];
+    }
+  });
+});
+var _IDimension = require("./Core/Interfaces/IDimension");
+Object.keys(_IDimension).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IDimension[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IDimension[key];
+    }
+  });
+});
+var _IDistance = require("./Core/Interfaces/IDistance");
+Object.keys(_IDistance).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IDistance[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IDistance[key];
+    }
+  });
+});
+var _IExternalInteractor = require("./Core/Interfaces/IExternalInteractor");
+Object.keys(_IExternalInteractor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IExternalInteractor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IExternalInteractor[key];
+    }
+  });
+});
+var _IInteractor = require("./Core/Interfaces/IInteractor");
+Object.keys(_IInteractor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IInteractor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IInteractor[key];
+    }
+  });
+});
+var _IMouseData = require("./Core/Interfaces/IMouseData");
+Object.keys(_IMouseData).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMouseData[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMouseData[key];
+    }
+  });
+});
+var _IMovePathGenerator = require("./Core/Interfaces/IMovePathGenerator");
+Object.keys(_IMovePathGenerator).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMovePathGenerator[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMovePathGenerator[key];
+    }
+  });
+});
+var _IParticle = require("./Core/Interfaces/IParticle");
+Object.keys(_IParticle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticle[key];
+    }
+  });
+});
+var _IParticleColorStyle = require("./Core/Interfaces/IParticleColorStyle");
+Object.keys(_IParticleColorStyle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleColorStyle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleColorStyle[key];
+    }
+  });
+});
+var _IParticleHslAnimation = require("./Core/Interfaces/IParticleHslAnimation");
+Object.keys(_IParticleHslAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleHslAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleHslAnimation[key];
+    }
+  });
+});
+var _IParticlesInteractor = require("./Core/Interfaces/IParticlesInteractor");
+Object.keys(_IParticlesInteractor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticlesInteractor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticlesInteractor[key];
+    }
+  });
+});
+var _IParticleLife = require("./Core/Interfaces/IParticleLife");
+Object.keys(_IParticleLife).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleLife[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleLife[key];
+    }
+  });
+});
+var _IParticleRetinaProps = require("./Core/Interfaces/IParticleRetinaProps");
+Object.keys(_IParticleRetinaProps).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleRetinaProps[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleRetinaProps[key];
+    }
+  });
+});
+var _IParticleRoll = require("./Core/Interfaces/IParticleRoll");
+Object.keys(_IParticleRoll).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleRoll[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleRoll[key];
+    }
+  });
+});
+var _IParticleTransformValues = require("./Core/Interfaces/IParticleTransformValues");
+Object.keys(_IParticleTransformValues).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleTransformValues[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleTransformValues[key];
+    }
+  });
+});
+var _IParticleUpdater = require("./Core/Interfaces/IParticleUpdater");
+Object.keys(_IParticleUpdater).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleUpdater[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleUpdater[key];
+    }
+  });
+});
+var _IParticleValueAnimation = require("./Core/Interfaces/IParticleValueAnimation");
+Object.keys(_IParticleValueAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticleValueAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticleValueAnimation[key];
+    }
+  });
+});
+var _IParticlesMover = require("./Core/Interfaces/IParticlesMover");
+Object.keys(_IParticlesMover).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticlesMover[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticlesMover[key];
+    }
+  });
+});
+var _IPlugin = require("./Core/Interfaces/IPlugin");
+Object.keys(_IPlugin).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IPlugin[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IPlugin[key];
+    }
+  });
+});
+var _IRangeValue = require("./Core/Interfaces/IRangeValue");
+Object.keys(_IRangeValue).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IRangeValue[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IRangeValue[key];
+    }
+  });
+});
+var _IRectSideResult = require("./Core/Interfaces/IRectSideResult");
+Object.keys(_IRectSideResult).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IRectSideResult[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IRectSideResult[key];
+    }
+  });
+});
+var _IShapeDrawer = require("./Core/Interfaces/IShapeDrawer");
+Object.keys(_IShapeDrawer).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IShapeDrawer[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IShapeDrawer[key];
+    }
+  });
+});
+var _IShapeValues = require("./Core/Interfaces/IShapeValues");
+Object.keys(_IShapeValues).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IShapeValues[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IShapeValues[key];
+    }
+  });
+});
+var _ISlowParticleData = require("./Core/Interfaces/ISlowParticleData");
+Object.keys(_ISlowParticleData).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ISlowParticleData[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ISlowParticleData[key];
+    }
+  });
+});
+var _Circle = require("./Core/Utils/Circle");
+Object.keys(_Circle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Circle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Circle[key];
+    }
+  });
+});
+var _Constants = require("./Core/Utils/Constants");
+Object.keys(_Constants).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Constants[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Constants[key];
+    }
+  });
+});
+var _ExternalInteractorBase = require("./Core/Utils/ExternalInteractorBase");
+Object.keys(_ExternalInteractorBase).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ExternalInteractorBase[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ExternalInteractorBase[key];
+    }
+  });
+});
+var _ParticlesInteractorBase = require("./Core/Utils/ParticlesInteractorBase");
+Object.keys(_ParticlesInteractorBase).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesInteractorBase[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesInteractorBase[key];
+    }
+  });
+});
+var _Point = require("./Core/Utils/Point");
+Object.keys(_Point).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Point[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Point[key];
+    }
+  });
+});
+var _Range = require("./Core/Utils/Range");
+Object.keys(_Range).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Range[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Range[key];
+    }
+  });
+});
+var _Rectangle = require("./Core/Utils/Rectangle");
+Object.keys(_Rectangle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Rectangle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Rectangle[key];
+    }
+  });
+});
+var _Vector = require("./Core/Utils/Vector");
+Object.keys(_Vector).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Vector[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Vector[key];
+    }
+  });
+});
+var _Vector3d = require("./Core/Utils/Vector3d");
+Object.keys(_Vector3d).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Vector3d[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Vector3d[key];
+    }
+  });
+});
+var _MoveDirection = require("./Enums/Directions/MoveDirection");
+Object.keys(_MoveDirection).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MoveDirection[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MoveDirection[key];
+    }
+  });
+});
+var _RotateDirection = require("./Enums/Directions/RotateDirection");
+Object.keys(_RotateDirection).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _RotateDirection[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _RotateDirection[key];
+    }
+  });
+});
+var _OutModeDirection = require("./Enums/Directions/OutModeDirection");
+Object.keys(_OutModeDirection).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _OutModeDirection[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OutModeDirection[key];
+    }
+  });
+});
+var _ClickMode = require("./Enums/Modes/ClickMode");
+Object.keys(_ClickMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ClickMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ClickMode[key];
+    }
+  });
+});
+var _DivMode = require("./Enums/Modes/DivMode");
+Object.keys(_DivMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _DivMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DivMode[key];
+    }
+  });
+});
+var _HoverMode = require("./Enums/Modes/HoverMode");
+Object.keys(_HoverMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _HoverMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HoverMode[key];
+    }
+  });
+});
+var _CollisionMode = require("./Enums/Modes/CollisionMode");
+Object.keys(_CollisionMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _CollisionMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _CollisionMode[key];
+    }
+  });
+});
+var _OutMode = require("./Enums/Modes/OutMode");
+Object.keys(_OutMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _OutMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OutMode[key];
+    }
+  });
+});
+var _SizeMode = require("./Enums/Modes/SizeMode");
+Object.keys(_SizeMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _SizeMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _SizeMode[key];
+    }
+  });
+});
+var _ThemeMode = require("./Enums/Modes/ThemeMode");
+Object.keys(_ThemeMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ThemeMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ThemeMode[key];
+    }
+  });
+});
+var _ResponsiveMode = require("./Enums/Modes/ResponsiveMode");
+Object.keys(_ResponsiveMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ResponsiveMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ResponsiveMode[key];
+    }
+  });
+});
+var _AlterType = require("./Enums/Types/AlterType");
+Object.keys(_AlterType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _AlterType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AlterType[key];
+    }
+  });
+});
+var _DestroyType = require("./Enums/Types/DestroyType");
+Object.keys(_DestroyType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _DestroyType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DestroyType[key];
+    }
+  });
+});
+var _GradientType = require("./Enums/Types/GradientType");
+Object.keys(_GradientType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _GradientType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _GradientType[key];
+    }
+  });
+});
+var _InteractorType = require("./Enums/Types/InteractorType");
+Object.keys(_InteractorType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _InteractorType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _InteractorType[key];
+    }
+  });
+});
+var _ParticleOutType = require("./Enums/Types/ParticleOutType");
+Object.keys(_ParticleOutType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticleOutType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticleOutType[key];
+    }
+  });
+});
+var _StartValueType = require("./Enums/Types/StartValueType");
+Object.keys(_StartValueType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _StartValueType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _StartValueType[key];
+    }
+  });
+});
+var _DivType = require("./Enums/Types/DivType");
+Object.keys(_DivType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _DivType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DivType[key];
+    }
+  });
+});
+var _EasingType = require("./Enums/Types/EasingType");
+Object.keys(_EasingType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _EasingType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EasingType[key];
+    }
+  });
+});
+var _EventType = require("./Enums/Types/EventType");
+Object.keys(_EventType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _EventType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EventType[key];
+    }
+  });
+});
+var _AnimationStatus = require("./Enums/AnimationStatus");
+Object.keys(_AnimationStatus).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _AnimationStatus[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AnimationStatus[key];
+    }
+  });
+});
+var _InteractivityDetect = require("./Enums/InteractivityDetect");
+Object.keys(_InteractivityDetect).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _InteractivityDetect[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _InteractivityDetect[key];
+    }
+  });
+});
+var _AnimatableColor = require("./Options/Classes/AnimatableColor");
+Object.keys(_AnimatableColor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _AnimatableColor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AnimatableColor[key];
+    }
+  });
+});
+var _AnimationOptions = require("./Options/Classes/AnimationOptions");
+Object.keys(_AnimationOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _AnimationOptions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AnimationOptions[key];
+    }
+  });
+});
+var _Background = require("./Options/Classes/Background/Background");
+Object.keys(_Background).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Background[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Background[key];
+    }
+  });
+});
+var _BackgroundMask = require("./Options/Classes/BackgroundMask/BackgroundMask");
+Object.keys(_BackgroundMask).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _BackgroundMask[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _BackgroundMask[key];
+    }
+  });
+});
+var _BackgroundMaskCover = require("./Options/Classes/BackgroundMask/BackgroundMaskCover");
+Object.keys(_BackgroundMaskCover).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _BackgroundMaskCover[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _BackgroundMaskCover[key];
+    }
+  });
+});
+var _ColorAnimation = require("./Options/Classes/ColorAnimation");
+Object.keys(_ColorAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ColorAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ColorAnimation[key];
+    }
+  });
+});
+var _FullScreen = require("./Options/Classes/FullScreen/FullScreen");
+Object.keys(_FullScreen).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _FullScreen[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _FullScreen[key];
+    }
+  });
+});
+var _HslAnimation = require("./Options/Classes/HslAnimation");
+Object.keys(_HslAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _HslAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HslAnimation[key];
+    }
+  });
+});
+var _ClickEvent = require("./Options/Classes/Interactivity/Events/ClickEvent");
+Object.keys(_ClickEvent).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ClickEvent[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ClickEvent[key];
+    }
+  });
+});
+var _DivEvent = require("./Options/Classes/Interactivity/Events/DivEvent");
+Object.keys(_DivEvent).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _DivEvent[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DivEvent[key];
+    }
+  });
+});
+var _Events = require("./Options/Classes/Interactivity/Events/Events");
+Object.keys(_Events).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Events[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Events[key];
+    }
+  });
+});
+var _HoverEvent = require("./Options/Classes/Interactivity/Events/HoverEvent");
+Object.keys(_HoverEvent).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _HoverEvent[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HoverEvent[key];
+    }
+  });
+});
+var _Parallax = require("./Options/Classes/Interactivity/Events/Parallax");
+Object.keys(_Parallax).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Parallax[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Parallax[key];
+    }
+  });
+});
+var _Interactivity = require("./Options/Classes/Interactivity/Interactivity");
+Object.keys(_Interactivity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Interactivity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Interactivity[key];
+    }
+  });
+});
+var _Modes = require("./Options/Classes/Interactivity/Modes/Modes");
+Object.keys(_Modes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Modes[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Modes[key];
+    }
+  });
+});
+var _ManualParticle = require("./Options/Classes/ManualParticle");
+Object.keys(_ManualParticle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ManualParticle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ManualParticle[key];
+    }
+  });
+});
+var _Options = require("./Options/Classes/Options");
+Object.keys(_Options).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Options[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Options[key];
+    }
+  });
+});
+var _OptionsColor = require("./Options/Classes/OptionsColor");
+Object.keys(_OptionsColor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _OptionsColor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OptionsColor[key];
+    }
+  });
+});
+var _ParticlesBounce = require("./Options/Classes/Particles/Bounce/ParticlesBounce");
+Object.keys(_ParticlesBounce).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesBounce[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesBounce[key];
+    }
+  });
+});
+var _ParticlesBounceFactor = require("./Options/Classes/Particles/Bounce/ParticlesBounceFactor");
+Object.keys(_ParticlesBounceFactor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesBounceFactor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesBounceFactor[key];
+    }
+  });
+});
+var _Collisions = require("./Options/Classes/Particles/Collisions/Collisions");
+Object.keys(_Collisions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Collisions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Collisions[key];
+    }
+  });
+});
+var _CollisionsOverlap = require("./Options/Classes/Particles/Collisions/CollisionsOverlap");
+Object.keys(_CollisionsOverlap).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _CollisionsOverlap[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _CollisionsOverlap[key];
+    }
+  });
+});
+var _ParticlesOptions = require("./Options/Classes/Particles/ParticlesOptions");
+Object.keys(_ParticlesOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesOptions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesOptions[key];
+    }
+  });
+});
+var _Shadow = require("./Options/Classes/Particles/Shadow");
+Object.keys(_Shadow).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Shadow[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Shadow[key];
+    }
+  });
+});
+var _Stroke = require("./Options/Classes/Particles/Stroke");
+Object.keys(_Stroke).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Stroke[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Stroke[key];
+    }
+  });
+});
+var _MoveAttract = require("./Options/Classes/Particles/Move/MoveAttract");
+Object.keys(_MoveAttract).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MoveAttract[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MoveAttract[key];
+    }
+  });
+});
+var _Move = require("./Options/Classes/Particles/Move/Move");
+Object.keys(_Move).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Move[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Move[key];
+    }
+  });
+});
+var _MoveAngle = require("./Options/Classes/Particles/Move/MoveAngle");
+Object.keys(_MoveAngle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MoveAngle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MoveAngle[key];
+    }
+  });
+});
+var _MoveCenter = require("./Options/Classes/Particles/Move/MoveCenter");
+Object.keys(_MoveCenter).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MoveCenter[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MoveCenter[key];
+    }
+  });
+});
+var _MoveGravity = require("./Options/Classes/Particles/Move/MoveGravity");
+Object.keys(_MoveGravity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MoveGravity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MoveGravity[key];
+    }
+  });
+});
+var _OutModes = require("./Options/Classes/Particles/Move/OutModes");
+Object.keys(_OutModes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _OutModes[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OutModes[key];
+    }
+  });
+});
+var _MovePath = require("./Options/Classes/Particles/Move/Path/MovePath");
+Object.keys(_MovePath).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MovePath[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MovePath[key];
+    }
+  });
+});
+var _Spin = require("./Options/Classes/Particles/Move/Spin");
+Object.keys(_Spin).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Spin[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Spin[key];
+    }
+  });
+});
+var _MoveTrail = require("./Options/Classes/Particles/Move/MoveTrail");
+Object.keys(_MoveTrail).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _MoveTrail[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _MoveTrail[key];
+    }
+  });
+});
+var _ParticlesNumber = require("./Options/Classes/Particles/Number/ParticlesNumber");
+Object.keys(_ParticlesNumber).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesNumber[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesNumber[key];
+    }
+  });
+});
+var _ParticlesDensity = require("./Options/Classes/Particles/Number/ParticlesDensity");
+Object.keys(_ParticlesDensity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesDensity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesDensity[key];
+    }
+  });
+});
+var _Opacity = require("./Options/Classes/Particles/Opacity/Opacity");
+Object.keys(_Opacity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Opacity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Opacity[key];
+    }
+  });
+});
+var _OpacityAnimation = require("./Options/Classes/Particles/Opacity/OpacityAnimation");
+Object.keys(_OpacityAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _OpacityAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OpacityAnimation[key];
+    }
+  });
+});
+var _Shape = require("./Options/Classes/Particles/Shape/Shape");
+Object.keys(_Shape).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Shape[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Shape[key];
+    }
+  });
+});
+var _Size = require("./Options/Classes/Particles/Size/Size");
+Object.keys(_Size).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Size[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Size[key];
+    }
+  });
+});
+var _SizeAnimation = require("./Options/Classes/Particles/Size/SizeAnimation");
+Object.keys(_SizeAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _SizeAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _SizeAnimation[key];
+    }
+  });
+});
+var _ZIndex = require("./Options/Classes/Particles/ZIndex/ZIndex");
+Object.keys(_ZIndex).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ZIndex[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ZIndex[key];
+    }
+  });
+});
+var _Responsive = require("./Options/Classes/Responsive");
+Object.keys(_Responsive).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Responsive[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Responsive[key];
+    }
+  });
+});
+var _Theme = require("./Options/Classes/Theme/Theme");
+Object.keys(_Theme).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Theme[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Theme[key];
+    }
+  });
+});
+var _ThemeDefault = require("./Options/Classes/Theme/ThemeDefault");
+Object.keys(_ThemeDefault).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ThemeDefault[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ThemeDefault[key];
+    }
+  });
+});
+var _ValueWithRandom = require("./Options/Classes/ValueWithRandom");
+Object.keys(_ValueWithRandom).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ValueWithRandom[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ValueWithRandom[key];
+    }
+  });
+});
+var _IBackground = require("./Options/Interfaces/Background/IBackground");
+Object.keys(_IBackground).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBackground[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBackground[key];
+    }
+  });
+});
+var _IBackgroundMask = require("./Options/Interfaces/BackgroundMask/IBackgroundMask");
+Object.keys(_IBackgroundMask).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBackgroundMask[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBackgroundMask[key];
+    }
+  });
+});
+var _IBackgroundMaskCover = require("./Options/Interfaces/BackgroundMask/IBackgroundMaskCover");
+Object.keys(_IBackgroundMaskCover).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBackgroundMaskCover[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBackgroundMaskCover[key];
+    }
+  });
+});
+var _IFullScreen = require("./Options/Interfaces/FullScreen/IFullScreen");
+Object.keys(_IFullScreen).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IFullScreen[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IFullScreen[key];
+    }
+  });
+});
+var _IAnimatable = require("./Options/Interfaces/IAnimatable");
+Object.keys(_IAnimatable).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IAnimatable[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IAnimatable[key];
+    }
+  });
+});
+var _IAnimatableColor = require("./Options/Interfaces/IAnimatableColor");
+Object.keys(_IAnimatableColor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IAnimatableColor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IAnimatableColor[key];
+    }
+  });
+});
+var _IAnimation = require("./Options/Interfaces/IAnimation");
+Object.keys(_IAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IAnimation[key];
+    }
+  });
+});
+var _IColorAnimation = require("./Options/Interfaces/IColorAnimation");
+Object.keys(_IColorAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IColorAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IColorAnimation[key];
+    }
+  });
+});
+var _IHslAnimation = require("./Options/Interfaces/IHslAnimation");
+Object.keys(_IHslAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IHslAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IHslAnimation[key];
+    }
+  });
+});
+var _IManualParticle = require("./Options/Interfaces/IManualParticle");
+Object.keys(_IManualParticle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IManualParticle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IManualParticle[key];
+    }
+  });
+});
+var _IOptionLoader = require("./Options/Interfaces/IOptionLoader");
+Object.keys(_IOptionLoader).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IOptionLoader[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IOptionLoader[key];
+    }
+  });
+});
+var _IOptions = require("./Options/Interfaces/IOptions");
+Object.keys(_IOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IOptions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IOptions[key];
+    }
+  });
+});
+var _IOptionsColor = require("./Options/Interfaces/IOptionsColor");
+Object.keys(_IOptionsColor).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IOptionsColor[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IOptionsColor[key];
+    }
+  });
+});
+var _IResponsive = require("./Options/Interfaces/IResponsive");
+Object.keys(_IResponsive).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IResponsive[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IResponsive[key];
+    }
+  });
+});
+var _IValueWithRandom = require("./Options/Interfaces/IValueWithRandom");
+Object.keys(_IValueWithRandom).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IValueWithRandom[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IValueWithRandom[key];
+    }
+  });
+});
+var _IClickEvent = require("./Options/Interfaces/Interactivity/Events/IClickEvent");
+Object.keys(_IClickEvent).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IClickEvent[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IClickEvent[key];
+    }
+  });
+});
+var _IDivEvent = require("./Options/Interfaces/Interactivity/Events/IDivEvent");
+Object.keys(_IDivEvent).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IDivEvent[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IDivEvent[key];
+    }
+  });
+});
+var _IEvents = require("./Options/Interfaces/Interactivity/Events/IEvents");
+Object.keys(_IEvents).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IEvents[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IEvents[key];
+    }
+  });
+});
+var _IHoverEvent = require("./Options/Interfaces/Interactivity/Events/IHoverEvent");
+Object.keys(_IHoverEvent).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IHoverEvent[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IHoverEvent[key];
+    }
+  });
+});
+var _IParallax = require("./Options/Interfaces/Interactivity/Events/IParallax");
+Object.keys(_IParallax).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParallax[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParallax[key];
+    }
+  });
+});
+var _IModeDiv = require("./Options/Interfaces/Interactivity/Modes/IModeDiv");
+Object.keys(_IModeDiv).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IModeDiv[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IModeDiv[key];
+    }
+  });
+});
+var _IModes = require("./Options/Interfaces/Interactivity/Modes/IModes");
+Object.keys(_IModes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IModes[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IModes[key];
+    }
+  });
+});
+var _IInteractivity = require("./Options/Interfaces/Interactivity/IInteractivity");
+Object.keys(_IInteractivity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IInteractivity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IInteractivity[key];
+    }
+  });
+});
+var _IParticlesBounce = require("./Options/Interfaces/Particles/Bounce/IParticlesBounce");
+Object.keys(_IParticlesBounce).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticlesBounce[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticlesBounce[key];
+    }
+  });
+});
+var _ICollisions = require("./Options/Interfaces/Particles/Collisions/ICollisions");
+Object.keys(_ICollisions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ICollisions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ICollisions[key];
+    }
+  });
+});
+var _ICollisionsOverlap = require("./Options/Interfaces/Particles/Collisions/ICollisionsOverlap");
+Object.keys(_ICollisionsOverlap).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ICollisionsOverlap[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ICollisionsOverlap[key];
+    }
+  });
+});
+var _IParticlesOptions = require("./Options/Interfaces/Particles/IParticlesOptions");
+Object.keys(_IParticlesOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticlesOptions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticlesOptions[key];
+    }
+  });
+});
+var _IShadow = require("./Options/Interfaces/Particles/IShadow");
+Object.keys(_IShadow).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IShadow[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IShadow[key];
+    }
+  });
+});
+var _IStroke = require("./Options/Interfaces/Particles/IStroke");
+Object.keys(_IStroke).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IStroke[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IStroke[key];
+    }
+  });
+});
+var _IMoveAttract = require("./Options/Interfaces/Particles/Move/IMoveAttract");
+Object.keys(_IMoveAttract).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMoveAttract[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMoveAttract[key];
+    }
+  });
+});
+var _IMove = require("./Options/Interfaces/Particles/Move/IMove");
+Object.keys(_IMove).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMove[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMove[key];
+    }
+  });
+});
+var _IMoveAngle = require("./Options/Interfaces/Particles/Move/IMoveAngle");
+Object.keys(_IMoveAngle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMoveAngle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMoveAngle[key];
+    }
+  });
+});
+var _IMoveCenter = require("./Options/Interfaces/Particles/Move/IMoveCenter");
+Object.keys(_IMoveCenter).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMoveCenter[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMoveCenter[key];
+    }
+  });
+});
+var _IMoveGravity = require("./Options/Interfaces/Particles/Move/IMoveGravity");
+Object.keys(_IMoveGravity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMoveGravity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMoveGravity[key];
+    }
+  });
+});
+var _IMovePath = require("./Options/Interfaces/Particles/Move/Path/IMovePath");
+Object.keys(_IMovePath).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMovePath[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMovePath[key];
+    }
+  });
+});
+var _IOutModes = require("./Options/Interfaces/Particles/Move/IOutModes");
+Object.keys(_IOutModes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IOutModes[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IOutModes[key];
+    }
+  });
+});
+var _ISpin = require("./Options/Interfaces/Particles/Move/ISpin");
+Object.keys(_ISpin).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ISpin[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ISpin[key];
+    }
+  });
+});
+var _IMoveTrail = require("./Options/Interfaces/Particles/Move/IMoveTrail");
+Object.keys(_IMoveTrail).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IMoveTrail[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IMoveTrail[key];
+    }
+  });
+});
+var _IParticlesDensity = require("./Options/Interfaces/Particles/Number/IParticlesDensity");
+Object.keys(_IParticlesDensity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticlesDensity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticlesDensity[key];
+    }
+  });
+});
+var _IParticlesNumber = require("./Options/Interfaces/Particles/Number/IParticlesNumber");
+Object.keys(_IParticlesNumber).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IParticlesNumber[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IParticlesNumber[key];
+    }
+  });
+});
+var _IOpacity = require("./Options/Interfaces/Particles/Opacity/IOpacity");
+Object.keys(_IOpacity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IOpacity[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IOpacity[key];
+    }
+  });
+});
+var _IOpacityAnimation = require("./Options/Interfaces/Particles/Opacity/IOpacityAnimation");
+Object.keys(_IOpacityAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IOpacityAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IOpacityAnimation[key];
+    }
+  });
+});
+var _ICharacterShape = require("./Options/Interfaces/Particles/Shape/ICharacterShape");
+Object.keys(_ICharacterShape).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ICharacterShape[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ICharacterShape[key];
+    }
+  });
+});
+var _IImageShape = require("./Options/Interfaces/Particles/Shape/IImageShape");
+Object.keys(_IImageShape).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IImageShape[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IImageShape[key];
+    }
+  });
+});
+var _IPolygonShape = require("./Options/Interfaces/Particles/Shape/IPolygonShape");
+Object.keys(_IPolygonShape).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IPolygonShape[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IPolygonShape[key];
+    }
+  });
+});
+var _IShape = require("./Options/Interfaces/Particles/Shape/IShape");
+Object.keys(_IShape).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IShape[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IShape[key];
+    }
+  });
+});
+var _IShapeValues2 = require("./Options/Interfaces/Particles/Shape/IShapeValues");
+Object.keys(_IShapeValues2).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IShapeValues2[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IShapeValues2[key];
+    }
+  });
+});
+var _IStarShape = require("./Options/Interfaces/Particles/Shape/IStarShape");
+Object.keys(_IStarShape).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IStarShape[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IStarShape[key];
+    }
+  });
+});
+var _ISize = require("./Options/Interfaces/Particles/Size/ISize");
+Object.keys(_ISize).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ISize[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ISize[key];
+    }
+  });
+});
+var _ISizeAnimation = require("./Options/Interfaces/Particles/Size/ISizeAnimation");
+Object.keys(_ISizeAnimation).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ISizeAnimation[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ISizeAnimation[key];
+    }
+  });
+});
+var _IZIndex = require("./Options/Interfaces/Particles/ZIndex/IZIndex");
+Object.keys(_IZIndex).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IZIndex[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IZIndex[key];
+    }
+  });
+});
+var _ITheme = require("./Options/Interfaces/Theme/ITheme");
+Object.keys(_ITheme).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ITheme[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ITheme[key];
+    }
+  });
+});
+var _IThemeDefault = require("./Options/Interfaces/Theme/IThemeDefault");
+Object.keys(_IThemeDefault).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IThemeDefault[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IThemeDefault[key];
+    }
+  });
+});
+var _CustomEventArgs = require("./Types/CustomEventArgs");
+Object.keys(_CustomEventArgs).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _CustomEventArgs[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _CustomEventArgs[key];
+    }
+  });
+});
+var _CustomEventListener = require("./Types/CustomEventListener");
+Object.keys(_CustomEventListener).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _CustomEventListener[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _CustomEventListener[key];
+    }
+  });
+});
+var _ParticlesGroups = require("./Types/ParticlesGroups");
+Object.keys(_ParticlesGroups).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ParticlesGroups[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ParticlesGroups[key];
+    }
+  });
+});
+var _PathOptions = require("./Types/PathOptions");
+Object.keys(_PathOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _PathOptions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _PathOptions[key];
+    }
+  });
+});
+var _RangeValue = require("./Types/RangeValue");
+Object.keys(_RangeValue).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _RangeValue[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _RangeValue[key];
+    }
+  });
+});
+var _RecursivePartial = require("./Types/RecursivePartial");
+Object.keys(_RecursivePartial).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _RecursivePartial[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _RecursivePartial[key];
+    }
+  });
+});
+var _ShapeData = require("./Types/ShapeData");
+Object.keys(_ShapeData).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ShapeData[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ShapeData[key];
+    }
+  });
+});
+var _ShapeDrawerFunctions = require("./Types/ShapeDrawerFunctions");
+Object.keys(_ShapeDrawerFunctions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ShapeDrawerFunctions[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ShapeDrawerFunctions[key];
+    }
+  });
+});
+var _SingleOrMultiple = require("./Types/SingleOrMultiple");
+Object.keys(_SingleOrMultiple).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _SingleOrMultiple[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _SingleOrMultiple[key];
+    }
+  });
+});
+var _CanvasUtils = require("./Utils/CanvasUtils");
+Object.keys(_CanvasUtils).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _CanvasUtils[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _CanvasUtils[key];
+    }
+  });
+});
+var _NumberUtils = require("./Utils/NumberUtils");
+Object.keys(_NumberUtils).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _NumberUtils[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _NumberUtils[key];
+    }
+  });
+});
+var _OptionsUtils = require("./Utils/OptionsUtils");
+Object.keys(_OptionsUtils).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _OptionsUtils[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OptionsUtils[key];
+    }
+  });
+});
+var _Utils = require("./Utils/Utils");
+Object.keys(_Utils).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Utils[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Utils[key];
+    }
+  });
+});
+var _CollisionsAbsorb = require("./Options/Classes/Particles/Collisions/CollisionsAbsorb");
+var _ResizeEvent = require("./Options/Classes/Interactivity/Events/ResizeEvent");
+const rgbColorManager = new _RgbColorManager.RgbColorManager(),
+  hslColorManager = new _HslColorManager.HslColorManager();
+(0, _ColorUtils.addColorManager)(rgbColorManager);
+(0, _ColorUtils.addColorManager)(hslColorManager);
+const tsParticles = new _engine.Engine();
+exports.tsParticles = tsParticles;
+tsParticles.init();
+},{"./engine":"../node_modules/tsparticles-engine/esm/engine.js","./Utils/HslColorManager":"../node_modules/tsparticles-engine/esm/Utils/HslColorManager.js","./Utils/RgbColorManager":"../node_modules/tsparticles-engine/esm/Utils/RgbColorManager.js","./Utils/ColorUtils":"../node_modules/tsparticles-engine/esm/Utils/ColorUtils.js","./Core/Interfaces/Colors":"../node_modules/tsparticles-engine/esm/Core/Interfaces/Colors.js","./Core/Interfaces/IBounds":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IBounds.js","./Core/Interfaces/IBubbleParticleData":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IBubbleParticleData.js","./Core/Interfaces/ICircleBouncer":"../node_modules/tsparticles-engine/esm/Core/Interfaces/ICircleBouncer.js","./Core/Interfaces/IColorManager":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IColorManager.js","./Core/Interfaces/IContainerInteractivity":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IContainerInteractivity.js","./Core/Interfaces/IContainerPlugin":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IContainerPlugin.js","./Core/Interfaces/ICoordinates":"../node_modules/tsparticles-engine/esm/Core/Interfaces/ICoordinates.js","./Core/Interfaces/IDelta":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IDelta.js","./Core/Interfaces/IDimension":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IDimension.js","./Core/Interfaces/IDistance":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IDistance.js","./Core/Interfaces/IExternalInteractor":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IExternalInteractor.js","./Core/Interfaces/IInteractor":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IInteractor.js","./Core/Interfaces/IMouseData":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IMouseData.js","./Core/Interfaces/IMovePathGenerator":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IMovePathGenerator.js","./Core/Interfaces/IParticle":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticle.js","./Core/Interfaces/IParticleColorStyle":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleColorStyle.js","./Core/Interfaces/IParticleHslAnimation":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleHslAnimation.js","./Core/Interfaces/IParticlesInteractor":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticlesInteractor.js","./Core/Interfaces/IParticleLife":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleLife.js","./Core/Interfaces/IParticleRetinaProps":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleRetinaProps.js","./Core/Interfaces/IParticleRoll":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleRoll.js","./Core/Interfaces/IParticleTransformValues":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleTransformValues.js","./Core/Interfaces/IParticleUpdater":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleUpdater.js","./Core/Interfaces/IParticleValueAnimation":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticleValueAnimation.js","./Core/Interfaces/IParticlesMover":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IParticlesMover.js","./Core/Interfaces/IPlugin":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IPlugin.js","./Core/Interfaces/IRangeValue":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IRangeValue.js","./Core/Interfaces/IRectSideResult":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IRectSideResult.js","./Core/Interfaces/IShapeDrawer":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IShapeDrawer.js","./Core/Interfaces/IShapeValues":"../node_modules/tsparticles-engine/esm/Core/Interfaces/IShapeValues.js","./Core/Interfaces/ISlowParticleData":"../node_modules/tsparticles-engine/esm/Core/Interfaces/ISlowParticleData.js","./Core/Utils/Circle":"../node_modules/tsparticles-engine/esm/Core/Utils/Circle.js","./Core/Utils/Constants":"../node_modules/tsparticles-engine/esm/Core/Utils/Constants.js","./Core/Utils/ExternalInteractorBase":"../node_modules/tsparticles-engine/esm/Core/Utils/ExternalInteractorBase.js","./Core/Utils/ParticlesInteractorBase":"../node_modules/tsparticles-engine/esm/Core/Utils/ParticlesInteractorBase.js","./Core/Utils/Point":"../node_modules/tsparticles-engine/esm/Core/Utils/Point.js","./Core/Utils/Range":"../node_modules/tsparticles-engine/esm/Core/Utils/Range.js","./Core/Utils/Rectangle":"../node_modules/tsparticles-engine/esm/Core/Utils/Rectangle.js","./Core/Utils/Vector":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector.js","./Core/Utils/Vector3d":"../node_modules/tsparticles-engine/esm/Core/Utils/Vector3d.js","./Enums/Directions/MoveDirection":"../node_modules/tsparticles-engine/esm/Enums/Directions/MoveDirection.js","./Enums/Directions/RotateDirection":"../node_modules/tsparticles-engine/esm/Enums/Directions/RotateDirection.js","./Enums/Directions/OutModeDirection":"../node_modules/tsparticles-engine/esm/Enums/Directions/OutModeDirection.js","./Enums/Modes/ClickMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/ClickMode.js","./Enums/Modes/DivMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/DivMode.js","./Enums/Modes/HoverMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/HoverMode.js","./Enums/Modes/CollisionMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/CollisionMode.js","./Enums/Modes/OutMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/OutMode.js","./Enums/Modes/SizeMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/SizeMode.js","./Enums/Modes/ThemeMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/ThemeMode.js","./Enums/Modes/ResponsiveMode":"../node_modules/tsparticles-engine/esm/Enums/Modes/ResponsiveMode.js","./Enums/Types/AlterType":"../node_modules/tsparticles-engine/esm/Enums/Types/AlterType.js","./Enums/Types/DestroyType":"../node_modules/tsparticles-engine/esm/Enums/Types/DestroyType.js","./Enums/Types/GradientType":"../node_modules/tsparticles-engine/esm/Enums/Types/GradientType.js","./Enums/Types/InteractorType":"../node_modules/tsparticles-engine/esm/Enums/Types/InteractorType.js","./Enums/Types/ParticleOutType":"../node_modules/tsparticles-engine/esm/Enums/Types/ParticleOutType.js","./Enums/Types/StartValueType":"../node_modules/tsparticles-engine/esm/Enums/Types/StartValueType.js","./Enums/Types/DivType":"../node_modules/tsparticles-engine/esm/Enums/Types/DivType.js","./Enums/Types/EasingType":"../node_modules/tsparticles-engine/esm/Enums/Types/EasingType.js","./Enums/Types/EventType":"../node_modules/tsparticles-engine/esm/Enums/Types/EventType.js","./Enums/AnimationStatus":"../node_modules/tsparticles-engine/esm/Enums/AnimationStatus.js","./Enums/InteractivityDetect":"../node_modules/tsparticles-engine/esm/Enums/InteractivityDetect.js","./Options/Classes/AnimatableColor":"../node_modules/tsparticles-engine/esm/Options/Classes/AnimatableColor.js","./Options/Classes/AnimationOptions":"../node_modules/tsparticles-engine/esm/Options/Classes/AnimationOptions.js","./Options/Classes/Background/Background":"../node_modules/tsparticles-engine/esm/Options/Classes/Background/Background.js","./Options/Classes/BackgroundMask/BackgroundMask":"../node_modules/tsparticles-engine/esm/Options/Classes/BackgroundMask/BackgroundMask.js","./Options/Classes/BackgroundMask/BackgroundMaskCover":"../node_modules/tsparticles-engine/esm/Options/Classes/BackgroundMask/BackgroundMaskCover.js","./Options/Classes/ColorAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/ColorAnimation.js","./Options/Classes/FullScreen/FullScreen":"../node_modules/tsparticles-engine/esm/Options/Classes/FullScreen/FullScreen.js","./Options/Classes/HslAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/HslAnimation.js","./Options/Classes/Interactivity/Events/ClickEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/ClickEvent.js","./Options/Classes/Interactivity/Events/DivEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/DivEvent.js","./Options/Classes/Interactivity/Events/Events":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/Events.js","./Options/Classes/Interactivity/Events/HoverEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/HoverEvent.js","./Options/Classes/Interactivity/Events/Parallax":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/Parallax.js","./Options/Classes/Interactivity/Interactivity":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Interactivity.js","./Options/Classes/Interactivity/Modes/Modes":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Modes/Modes.js","./Options/Classes/ManualParticle":"../node_modules/tsparticles-engine/esm/Options/Classes/ManualParticle.js","./Options/Classes/Options":"../node_modules/tsparticles-engine/esm/Options/Classes/Options.js","./Options/Classes/OptionsColor":"../node_modules/tsparticles-engine/esm/Options/Classes/OptionsColor.js","./Options/Classes/Particles/Bounce/ParticlesBounce":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounce.js","./Options/Classes/Particles/Bounce/ParticlesBounceFactor":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Bounce/ParticlesBounceFactor.js","./Options/Classes/Particles/Collisions/Collisions":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/Collisions.js","./Options/Classes/Particles/Collisions/CollisionsOverlap":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/CollisionsOverlap.js","./Options/Classes/Particles/ParticlesOptions":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/ParticlesOptions.js","./Options/Classes/Particles/Shadow":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Shadow.js","./Options/Classes/Particles/Stroke":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Stroke.js","./Options/Classes/Particles/Move/MoveAttract":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveAttract.js","./Options/Classes/Particles/Move/Move":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Move.js","./Options/Classes/Particles/Move/MoveAngle":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveAngle.js","./Options/Classes/Particles/Move/MoveCenter":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveCenter.js","./Options/Classes/Particles/Move/MoveGravity":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveGravity.js","./Options/Classes/Particles/Move/OutModes":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/OutModes.js","./Options/Classes/Particles/Move/Path/MovePath":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Path/MovePath.js","./Options/Classes/Particles/Move/Spin":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/Spin.js","./Options/Classes/Particles/Move/MoveTrail":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Move/MoveTrail.js","./Options/Classes/Particles/Number/ParticlesNumber":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Number/ParticlesNumber.js","./Options/Classes/Particles/Number/ParticlesDensity":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Number/ParticlesDensity.js","./Options/Classes/Particles/Opacity/Opacity":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Opacity/Opacity.js","./Options/Classes/Particles/Opacity/OpacityAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Opacity/OpacityAnimation.js","./Options/Classes/Particles/Shape/Shape":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Shape/Shape.js","./Options/Classes/Particles/Size/Size":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Size/Size.js","./Options/Classes/Particles/Size/SizeAnimation":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Size/SizeAnimation.js","./Options/Classes/Particles/ZIndex/ZIndex":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/ZIndex/ZIndex.js","./Options/Classes/Responsive":"../node_modules/tsparticles-engine/esm/Options/Classes/Responsive.js","./Options/Classes/Theme/Theme":"../node_modules/tsparticles-engine/esm/Options/Classes/Theme/Theme.js","./Options/Classes/Theme/ThemeDefault":"../node_modules/tsparticles-engine/esm/Options/Classes/Theme/ThemeDefault.js","./Options/Classes/ValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Classes/ValueWithRandom.js","./Options/Interfaces/Background/IBackground":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Background/IBackground.js","./Options/Interfaces/BackgroundMask/IBackgroundMask":"../node_modules/tsparticles-engine/esm/Options/Interfaces/BackgroundMask/IBackgroundMask.js","./Options/Interfaces/BackgroundMask/IBackgroundMaskCover":"../node_modules/tsparticles-engine/esm/Options/Interfaces/BackgroundMask/IBackgroundMaskCover.js","./Options/Interfaces/FullScreen/IFullScreen":"../node_modules/tsparticles-engine/esm/Options/Interfaces/FullScreen/IFullScreen.js","./Options/Interfaces/IAnimatable":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IAnimatable.js","./Options/Interfaces/IAnimatableColor":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IAnimatableColor.js","./Options/Interfaces/IAnimation":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IAnimation.js","./Options/Interfaces/IColorAnimation":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IColorAnimation.js","./Options/Interfaces/IHslAnimation":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IHslAnimation.js","./Options/Interfaces/IManualParticle":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IManualParticle.js","./Options/Interfaces/IOptionLoader":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IOptionLoader.js","./Options/Interfaces/IOptions":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IOptions.js","./Options/Interfaces/IOptionsColor":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IOptionsColor.js","./Options/Interfaces/IResponsive":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IResponsive.js","./Options/Interfaces/IValueWithRandom":"../node_modules/tsparticles-engine/esm/Options/Interfaces/IValueWithRandom.js","./Options/Interfaces/Interactivity/Events/IClickEvent":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IClickEvent.js","./Options/Interfaces/Interactivity/Events/IDivEvent":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IDivEvent.js","./Options/Interfaces/Interactivity/Events/IEvents":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IEvents.js","./Options/Interfaces/Interactivity/Events/IHoverEvent":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IHoverEvent.js","./Options/Interfaces/Interactivity/Events/IParallax":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Events/IParallax.js","./Options/Interfaces/Interactivity/Modes/IModeDiv":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Modes/IModeDiv.js","./Options/Interfaces/Interactivity/Modes/IModes":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/Modes/IModes.js","./Options/Interfaces/Interactivity/IInteractivity":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Interactivity/IInteractivity.js","./Options/Interfaces/Particles/Bounce/IParticlesBounce":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Bounce/IParticlesBounce.js","./Options/Interfaces/Particles/Collisions/ICollisions":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Collisions/ICollisions.js","./Options/Interfaces/Particles/Collisions/ICollisionsOverlap":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Collisions/ICollisionsOverlap.js","./Options/Interfaces/Particles/IParticlesOptions":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/IParticlesOptions.js","./Options/Interfaces/Particles/IShadow":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/IShadow.js","./Options/Interfaces/Particles/IStroke":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/IStroke.js","./Options/Interfaces/Particles/Move/IMoveAttract":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveAttract.js","./Options/Interfaces/Particles/Move/IMove":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMove.js","./Options/Interfaces/Particles/Move/IMoveAngle":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveAngle.js","./Options/Interfaces/Particles/Move/IMoveCenter":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveCenter.js","./Options/Interfaces/Particles/Move/IMoveGravity":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveGravity.js","./Options/Interfaces/Particles/Move/Path/IMovePath":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/Path/IMovePath.js","./Options/Interfaces/Particles/Move/IOutModes":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IOutModes.js","./Options/Interfaces/Particles/Move/ISpin":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/ISpin.js","./Options/Interfaces/Particles/Move/IMoveTrail":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Move/IMoveTrail.js","./Options/Interfaces/Particles/Number/IParticlesDensity":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Number/IParticlesDensity.js","./Options/Interfaces/Particles/Number/IParticlesNumber":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Number/IParticlesNumber.js","./Options/Interfaces/Particles/Opacity/IOpacity":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Opacity/IOpacity.js","./Options/Interfaces/Particles/Opacity/IOpacityAnimation":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Opacity/IOpacityAnimation.js","./Options/Interfaces/Particles/Shape/ICharacterShape":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/ICharacterShape.js","./Options/Interfaces/Particles/Shape/IImageShape":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IImageShape.js","./Options/Interfaces/Particles/Shape/IPolygonShape":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IPolygonShape.js","./Options/Interfaces/Particles/Shape/IShape":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IShape.js","./Options/Interfaces/Particles/Shape/IShapeValues":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IShapeValues.js","./Options/Interfaces/Particles/Shape/IStarShape":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Shape/IStarShape.js","./Options/Interfaces/Particles/Size/ISize":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Size/ISize.js","./Options/Interfaces/Particles/Size/ISizeAnimation":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/Size/ISizeAnimation.js","./Options/Interfaces/Particles/ZIndex/IZIndex":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Particles/ZIndex/IZIndex.js","./Options/Interfaces/Theme/ITheme":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Theme/ITheme.js","./Options/Interfaces/Theme/IThemeDefault":"../node_modules/tsparticles-engine/esm/Options/Interfaces/Theme/IThemeDefault.js","./Types/CustomEventArgs":"../node_modules/tsparticles-engine/esm/Types/CustomEventArgs.js","./Types/CustomEventListener":"../node_modules/tsparticles-engine/esm/Types/CustomEventListener.js","./Types/ParticlesGroups":"../node_modules/tsparticles-engine/esm/Types/ParticlesGroups.js","./Types/PathOptions":"../node_modules/tsparticles-engine/esm/Types/PathOptions.js","./Types/RangeValue":"../node_modules/tsparticles-engine/esm/Types/RangeValue.js","./Types/RecursivePartial":"../node_modules/tsparticles-engine/esm/Types/RecursivePartial.js","./Types/ShapeData":"../node_modules/tsparticles-engine/esm/Types/ShapeData.js","./Types/ShapeDrawerFunctions":"../node_modules/tsparticles-engine/esm/Types/ShapeDrawerFunctions.js","./Types/SingleOrMultiple":"../node_modules/tsparticles-engine/esm/Types/SingleOrMultiple.js","./Utils/CanvasUtils":"../node_modules/tsparticles-engine/esm/Utils/CanvasUtils.js","./Utils/NumberUtils":"../node_modules/tsparticles-engine/esm/Utils/NumberUtils.js","./Utils/OptionsUtils":"../node_modules/tsparticles-engine/esm/Utils/OptionsUtils.js","./Utils/Utils":"../node_modules/tsparticles-engine/esm/Utils/Utils.js","./Options/Classes/Particles/Collisions/CollisionsAbsorb":"../node_modules/tsparticles-engine/esm/Options/Classes/Particles/Collisions/CollisionsAbsorb.js","./Options/Classes/Interactivity/Events/ResizeEvent":"../node_modules/tsparticles-engine/esm/Options/Classes/Interactivity/Events/ResizeEvent.js"}],"../node_modules/fast-deep-equal/react.js":[function(require,module,exports) {
+'use strict';
+
+// do not edit .js files directly - edit src/index.jst
+
+
+
+module.exports = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (key === '_owner' && a.$$typeof) {
+        // React-specific: avoid traversing React elements' _owner.
+        //  _owner contains circular references
+        // and is not needed when comparing the actual elements (and not their owners)
+        continue;
+      }
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+},{}],"../node_modules/react-tsparticles/esm/Particles.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _tsparticlesEngine = require("tsparticles-engine");
+var _react2 = _interopRequireDefault(require("fast-deep-equal/react"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const defaultId = "tsparticles";
+class Particles extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      init: false,
+      library: undefined
+    };
+  }
+  destroy() {
+    if (!this.state.library) {
+      return;
+    }
+    this.state.library.destroy();
+    this.setState({
+      library: undefined
+    });
+  }
+  shouldComponentUpdate(nextProps) {
+    return !(0, _react2.default)(nextProps, this.props);
+  }
+  componentDidUpdate() {
+    this.refresh();
+  }
+  forceUpdate() {
+    this.refresh().then(() => {
+      super.forceUpdate();
+    });
+  }
+  componentDidMount() {
+    (async () => {
+      if (this.props.init) {
+        await this.props.init(_tsparticlesEngine.tsParticles);
+      }
+      this.setState({
+        init: true
+      }, async () => {
+        await this.loadParticles();
+      });
+    })();
+  }
+  componentWillUnmount() {
+    this.destroy();
+  }
+  render() {
+    const {
+      width,
+      height,
+      className,
+      canvasClassName,
+      id
+    } = this.props;
+    return _react.default.createElement("div", {
+      className: className,
+      id: id
+    }, _react.default.createElement("canvas", {
+      className: canvasClassName,
+      style: Object.assign(Object.assign({}, this.props.style), {
+        width,
+        height
+      })
+    }));
+  }
+  async refresh() {
+    this.destroy();
+    await this.loadParticles();
+  }
+  async loadParticles() {
+    var _a, _b, _c;
+    if (!this.state.init) {
+      return;
+    }
+    const cb = async container => {
+      if (this.props.container) {
+        this.props.container.current = container;
+      }
+      this.setState({
+        library: container
+      });
+      if (this.props.loaded) {
+        await this.props.loaded(container);
+      }
+    };
+    const id = (_b = (_a = this.props.id) !== null && _a !== void 0 ? _a : Particles.defaultProps.id) !== null && _b !== void 0 ? _b : defaultId,
+      container = this.props.url ? await _tsparticlesEngine.tsParticles.loadJSON(id, this.props.url) : await _tsparticlesEngine.tsParticles.load(id, (_c = this.props.params) !== null && _c !== void 0 ? _c : this.props.options);
+    await cb(container);
+  }
+}
+exports.default = Particles;
+Particles.defaultProps = {
+  width: "100%",
+  height: "100%",
+  options: {},
+  style: {},
+  url: undefined,
+  id: defaultId
+};
+},{"react":"../node_modules/react/index.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","fast-deep-equal/react":"../node_modules/fast-deep-equal/react.js"}],"../node_modules/react-tsparticles/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Particles", {
+  enumerable: true,
+  get: function () {
+    return _Particles.default;
+  }
+});
+exports.default = void 0;
+var _Particles = _interopRequireDefault(require("./Particles"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _default = _Particles.default;
+exports.default = _default;
+},{"./Particles":"../node_modules/react-tsparticles/esm/Particles.js"}],"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/AbsorberSizeLimit.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AbsorberSizeLimit = void 0;
+class AbsorberSizeLimit {
+  constructor() {
+    this.radius = 0;
+    this.mass = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.mass !== undefined) {
+      this.mass = data.mass;
+    }
+    if (data.radius !== undefined) {
+      this.radius = data.radius;
+    }
+  }
+}
+exports.AbsorberSizeLimit = AbsorberSizeLimit;
+},{}],"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/AbsorberSize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AbsorberSize = void 0;
+var _AbsorberSizeLimit = require("./AbsorberSizeLimit");
+var _tsparticlesEngine = require("tsparticles-engine");
+class AbsorberSize extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.density = 5;
+    this.value = 50;
+    this.limit = new _AbsorberSizeLimit.AbsorberSizeLimit();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    super.load(data);
+    if (data.density !== undefined) {
+      this.density = data.density;
+    }
+    if (typeof data.limit === "number") {
+      this.limit.radius = data.limit;
+    } else {
+      this.limit.load(data.limit);
+    }
+  }
+}
+exports.AbsorberSize = AbsorberSize;
+},{"./AbsorberSizeLimit":"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/AbsorberSizeLimit.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/Absorber.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Absorber = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _AbsorberSize = require("./AbsorberSize");
+class Absorber {
+  constructor() {
+    this.color = new _tsparticlesEngine.OptionsColor();
+    this.color.value = "#000000";
+    this.draggable = false;
+    this.opacity = 1;
+    this.destroy = true;
+    this.orbits = false;
+    this.size = new _AbsorberSize.AbsorberSize();
+  }
+  load(data) {
+    if (data === undefined) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    }
+    if (data.draggable !== undefined) {
+      this.draggable = data.draggable;
+    }
+    this.name = data.name;
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+    if (data.position !== undefined) {
+      this.position = {};
+      if (data.position.x !== undefined) {
+        this.position.x = (0, _tsparticlesEngine.setRangeValue)(data.position.x);
+      }
+      if (data.position.y !== undefined) {
+        this.position.y = (0, _tsparticlesEngine.setRangeValue)(data.position.y);
+      }
+    }
+    if (data.size !== undefined) {
+      this.size.load(data.size);
+    }
+    if (data.destroy !== undefined) {
+      this.destroy = data.destroy;
+    }
+    if (data.orbits !== undefined) {
+      this.orbits = data.orbits;
+    }
+  }
+}
+exports.Absorber = Absorber;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./AbsorberSize":"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/AbsorberSize.js"}],"../node_modules/tsparticles-plugin-absorbers/esm/AbsorberInstance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AbsorberInstance = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Absorber = require("./Options/Classes/Absorber");
+class AbsorberInstance {
+  constructor(absorbers, container, options, position) {
+    var _a, _b, _c;
+    this.absorbers = absorbers;
+    this.container = container;
+    this.initialPosition = position ? _tsparticlesEngine.Vector.create(position.x, position.y) : undefined;
+    if (options instanceof _Absorber.Absorber) {
+      this.options = options;
+    } else {
+      this.options = new _Absorber.Absorber();
+      this.options.load(options);
+    }
+    this.dragging = false;
+    this.name = this.options.name;
+    this.opacity = this.options.opacity;
+    this.size = (0, _tsparticlesEngine.getRangeValue)(this.options.size.value) * container.retina.pixelRatio;
+    this.mass = this.size * this.options.size.density * container.retina.reduceFactor;
+    const limit = this.options.size.limit;
+    this.limit = {
+      radius: limit.radius * container.retina.pixelRatio * container.retina.reduceFactor,
+      mass: limit.mass
+    };
+    this.color = (_a = (0, _tsparticlesEngine.rangeColorToRgb)(this.options.color)) !== null && _a !== void 0 ? _a : {
+      b: 0,
+      g: 0,
+      r: 0
+    };
+    this.position = (_c = (_b = this.initialPosition) === null || _b === void 0 ? void 0 : _b.copy()) !== null && _c !== void 0 ? _c : this.calcPosition();
+  }
+  attract(particle) {
+    const container = this.container,
+      options = this.options;
+    if (options.draggable) {
+      const mouse = container.interactivity.mouse;
+      if (mouse.clicking && mouse.downPosition) {
+        const mouseDist = (0, _tsparticlesEngine.getDistance)(this.position, mouse.downPosition);
+        if (mouseDist <= this.size) {
+          this.dragging = true;
+        }
+      } else {
+        this.dragging = false;
+      }
+      if (this.dragging && mouse.position) {
+        this.position.x = mouse.position.x;
+        this.position.y = mouse.position.y;
+      }
+    }
+    const pos = particle.getPosition(),
+      {
+        dx,
+        dy,
+        distance
+      } = (0, _tsparticlesEngine.getDistances)(this.position, pos),
+      v = _tsparticlesEngine.Vector.create(dx, dy);
+    v.length = this.mass / Math.pow(distance, 2) * container.retina.reduceFactor;
+    if (distance < this.size + particle.getRadius()) {
+      const sizeFactor = particle.getRadius() * 0.033 * container.retina.pixelRatio;
+      if (this.size > particle.getRadius() && distance < this.size - particle.getRadius() || particle.absorberOrbit !== undefined && particle.absorberOrbit.length < 0) {
+        if (options.destroy) {
+          particle.destroy();
+        } else {
+          particle.needsNewPosition = true;
+          this.updateParticlePosition(particle, v);
+        }
+      } else {
+        if (options.destroy) {
+          particle.size.value -= sizeFactor;
+        }
+        this.updateParticlePosition(particle, v);
+      }
+      if (this.limit.radius <= 0 || this.size < this.limit.radius) {
+        this.size += sizeFactor;
+      }
+      if (this.limit.mass <= 0 || this.mass < this.limit.mass) {
+        this.mass += sizeFactor * this.options.size.density * container.retina.reduceFactor;
+      }
+    } else {
+      this.updateParticlePosition(particle, v);
+    }
+  }
+  draw(context) {
+    context.translate(this.position.x, this.position.y);
+    context.beginPath();
+    context.arc(0, 0, this.size, 0, Math.PI * 2, false);
+    context.closePath();
+    context.fillStyle = (0, _tsparticlesEngine.getStyleFromRgb)(this.color, this.opacity);
+    context.fill();
+  }
+  resize() {
+    const initialPosition = this.initialPosition;
+    this.position = initialPosition && (0, _tsparticlesEngine.isPointInside)(initialPosition, this.container.canvas.size, _tsparticlesEngine.Vector.origin) ? initialPosition : this.calcPosition();
+  }
+  calcPosition() {
+    const exactPosition = (0, _tsparticlesEngine.calcPositionOrRandomFromSizeRanged)({
+      size: this.container.canvas.size,
+      position: this.options.position
+    });
+    return _tsparticlesEngine.Vector.create(exactPosition.x, exactPosition.y);
+  }
+  updateParticlePosition(particle, v) {
+    var _a;
+    if (particle.destroyed) {
+      return;
+    }
+    const container = this.container,
+      canvasSize = container.canvas.size;
+    if (particle.needsNewPosition) {
+      const newPosition = (0, _tsparticlesEngine.calcPositionOrRandomFromSize)({
+        size: canvasSize
+      });
+      particle.position.setTo(newPosition);
+      particle.velocity.setTo(particle.initialVelocity);
+      particle.absorberOrbit = undefined;
+      particle.needsNewPosition = false;
+    }
+    if (this.options.orbits) {
+      if (particle.absorberOrbit === undefined) {
+        particle.absorberOrbit = _tsparticlesEngine.Vector.create(0, 0);
+        particle.absorberOrbit.length = (0, _tsparticlesEngine.getDistance)(particle.getPosition(), this.position);
+        particle.absorberOrbit.angle = (0, _tsparticlesEngine.getRandom)() * Math.PI * 2;
+      }
+      if (particle.absorberOrbit.length <= this.size && !this.options.destroy) {
+        const minSize = Math.min(canvasSize.width, canvasSize.height);
+        particle.absorberOrbit.length = minSize * (1 + ((0, _tsparticlesEngine.getRandom)() * 0.2 - 0.1));
+      }
+      if (particle.absorberOrbitDirection === undefined) {
+        particle.absorberOrbitDirection = particle.velocity.x >= 0 ? "clockwise" : "counter-clockwise";
+      }
+      const orbitRadius = particle.absorberOrbit.length,
+        orbitAngle = particle.absorberOrbit.angle,
+        orbitDirection = particle.absorberOrbitDirection;
+      particle.velocity.setTo(_tsparticlesEngine.Vector.origin);
+      const updateFunc = {
+        x: orbitDirection === "clockwise" ? Math.cos : Math.sin,
+        y: orbitDirection === "clockwise" ? Math.sin : Math.cos
+      };
+      particle.position.x = this.position.x + orbitRadius * updateFunc.x(orbitAngle);
+      particle.position.y = this.position.y + orbitRadius * updateFunc.y(orbitAngle);
+      particle.absorberOrbit.length -= v.length;
+      particle.absorberOrbit.angle += ((_a = particle.retina.moveSpeed) !== null && _a !== void 0 ? _a : 0) * container.retina.pixelRatio / 100 * container.retina.reduceFactor;
+    } else {
+      const addV = _tsparticlesEngine.Vector.origin;
+      addV.length = v.length;
+      addV.angle = v.angle;
+      particle.velocity.addTo(addV);
+    }
+  }
+}
+exports.AbsorberInstance = AbsorberInstance;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Absorber":"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/Absorber.js"}],"../node_modules/tsparticles-plugin-absorbers/esm/Absorbers.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Absorbers = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _AbsorberInstance = require("./AbsorberInstance");
+class Absorbers {
+  constructor(container) {
+    this.container = container;
+    this.array = [];
+    this.absorbers = [];
+    this.interactivityAbsorbers = [];
+    container.getAbsorber = idxOrName => idxOrName === undefined || typeof idxOrName === "number" ? this.array[idxOrName || 0] : this.array.find(t => t.name === idxOrName);
+    container.addAbsorber = (options, position) => this.addAbsorber(options, position);
+  }
+  addAbsorber(options, position) {
+    const absorber = new _AbsorberInstance.AbsorberInstance(this, this.container, options, position);
+    this.array.push(absorber);
+    return absorber;
+  }
+  draw(context) {
+    for (const absorber of this.array) {
+      absorber.draw(context);
+    }
+  }
+  handleClickMode(mode) {
+    const absorberOptions = this.absorbers,
+      modeAbsorbers = this.interactivityAbsorbers;
+    if (mode === "absorber") {
+      const absorbersModeOptions = (0, _tsparticlesEngine.itemFromSingleOrMultiple)(modeAbsorbers),
+        absorbersOptions = absorbersModeOptions !== null && absorbersModeOptions !== void 0 ? absorbersModeOptions : (0, _tsparticlesEngine.itemFromSingleOrMultiple)(absorberOptions),
+        aPosition = this.container.interactivity.mouse.clickPosition;
+      this.addAbsorber(absorbersOptions, aPosition);
+    }
+  }
+  async init() {
+    this.absorbers = this.container.actualOptions.absorbers;
+    this.interactivityAbsorbers = this.container.actualOptions.interactivity.modes.absorbers;
+    (0, _tsparticlesEngine.executeOnSingleOrMultiple)(this.absorbers, absorber => {
+      this.addAbsorber(absorber);
+    });
+  }
+  particleUpdate(particle) {
+    for (const absorber of this.array) {
+      absorber.attract(particle);
+      if (particle.destroyed) {
+        break;
+      }
+    }
+  }
+  removeAbsorber(absorber) {
+    const index = this.array.indexOf(absorber);
+    if (index >= 0) {
+      this.array.splice(index, 1);
+    }
+  }
+  resize() {
+    for (const absorber of this.array) {
+      absorber.resize();
+    }
+  }
+  stop() {
+    this.array = [];
+  }
+}
+exports.Absorbers = Absorbers;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./AbsorberInstance":"../node_modules/tsparticles-plugin-absorbers/esm/AbsorberInstance.js"}],"../node_modules/tsparticles-plugin-absorbers/esm/AbsorberContainer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-plugin-absorbers/esm/Enums/AbsorberClickMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-plugin-absorbers/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadAbsorbersPlugin: true
+};
+exports.loadAbsorbersPlugin = loadAbsorbersPlugin;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Absorber = require("./Options/Classes/Absorber");
+var _Absorbers = require("./Absorbers");
+var _AbsorberContainer = require("./AbsorberContainer");
+Object.keys(_AbsorberContainer).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _AbsorberContainer[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AbsorberContainer[key];
+    }
+  });
+});
+var _AbsorberClickMode = require("./Enums/AbsorberClickMode");
+Object.keys(_AbsorberClickMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _AbsorberClickMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AbsorberClickMode[key];
+    }
+  });
+});
+class AbsorbersPlugin {
+  constructor() {
+    this.id = "absorbers";
+  }
+  getPlugin(container) {
+    return new _Absorbers.Absorbers(container);
+  }
+  loadOptions(options, source) {
+    var _a, _b;
+    if (!this.needsPlugin(options) && !this.needsPlugin(source)) {
+      return;
+    }
+    if (source === null || source === void 0 ? void 0 : source.absorbers) {
+      options.absorbers = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(source.absorbers, absorber => {
+        const tmp = new _Absorber.Absorber();
+        tmp.load(absorber);
+        return tmp;
+      });
+    }
+    options.interactivity.modes.absorbers = (0, _tsparticlesEngine.executeOnSingleOrMultiple)((_b = (_a = source === null || source === void 0 ? void 0 : source.interactivity) === null || _a === void 0 ? void 0 : _a.modes) === null || _b === void 0 ? void 0 : _b.absorbers, absorber => {
+      const tmp = new _Absorber.Absorber();
+      tmp.load(absorber);
+      return tmp;
+    });
+  }
+  needsPlugin(options) {
+    var _a, _b, _c;
+    if (!options) {
+      return false;
+    }
+    const absorbers = options.absorbers;
+    if (absorbers instanceof Array) {
+      return !!absorbers.length;
+    } else if (absorbers) {
+      return true;
+    } else if (((_c = (_b = (_a = options.interactivity) === null || _a === void 0 ? void 0 : _a.events) === null || _b === void 0 ? void 0 : _b.onClick) === null || _c === void 0 ? void 0 : _c.mode) && (0, _tsparticlesEngine.isInArray)("absorber", options.interactivity.events.onClick.mode)) {
+      return true;
+    }
+    return false;
+  }
+}
+async function loadAbsorbersPlugin(engine) {
+  const plugin = new AbsorbersPlugin();
+  await engine.addPlugin(plugin);
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Absorber":"../node_modules/tsparticles-plugin-absorbers/esm/Options/Classes/Absorber.js","./Absorbers":"../node_modules/tsparticles-plugin-absorbers/esm/Absorbers.js","./AbsorberContainer":"../node_modules/tsparticles-plugin-absorbers/esm/AbsorberContainer.js","./Enums/AbsorberClickMode":"../node_modules/tsparticles-plugin-absorbers/esm/Enums/AbsorberClickMode.js"}],"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/DestroyBounds.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DestroyBounds = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class DestroyBounds {
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.bottom !== undefined) {
+      this.bottom = (0, _tsparticlesEngine.setRangeValue)(data.bottom);
+    }
+    if (data.left !== undefined) {
+      this.left = (0, _tsparticlesEngine.setRangeValue)(data.left);
+    }
+    if (data.right !== undefined) {
+      this.right = (0, _tsparticlesEngine.setRangeValue)(data.right);
+    }
+    if (data.top !== undefined) {
+      this.top = (0, _tsparticlesEngine.setRangeValue)(data.top);
+    }
+  }
+}
+exports.DestroyBounds = DestroyBounds;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/SplitFactor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SplitFactor = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class SplitFactor extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.value = 3;
+  }
+}
+exports.SplitFactor = SplitFactor;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/SplitRate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SplitRate = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class SplitRate extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.value = {
+      min: 4,
+      max: 9
+    };
+  }
+}
+exports.SplitRate = SplitRate;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/Split.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Split = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _SplitFactor = require("./SplitFactor");
+var _SplitRate = require("./SplitRate");
+class Split {
+  constructor() {
+    this.count = 1;
+    this.factor = new _SplitFactor.SplitFactor();
+    this.rate = new _SplitRate.SplitRate();
+    this.sizeOffset = true;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    }
+    if (data.count !== undefined) {
+      this.count = data.count;
+    }
+    this.factor.load(data.factor);
+    this.rate.load(data.rate);
+    this.particles = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(data.particles, particles => {
+      return (0, _tsparticlesEngine.deepExtend)({}, particles);
+    });
+    if (data.sizeOffset !== undefined) {
+      this.sizeOffset = data.sizeOffset;
+    }
+    if (data.colorOffset) {
+      this.colorOffset = (_a = this.colorOffset) !== null && _a !== void 0 ? _a : {};
+      if (data.colorOffset.h !== undefined) {
+        this.colorOffset.h = data.colorOffset.h;
+      }
+      if (data.colorOffset.s !== undefined) {
+        this.colorOffset.s = data.colorOffset.s;
+      }
+      if (data.colorOffset.l !== undefined) {
+        this.colorOffset.l = data.colorOffset.l;
+      }
+    }
+  }
+}
+exports.Split = Split;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./SplitFactor":"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/SplitFactor.js","./SplitRate":"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/SplitRate.js"}],"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/Destroy.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Destroy = void 0;
+var _DestroyBounds = require("./DestroyBounds");
+var _Split = require("./Split");
+class Destroy {
+  constructor() {
+    this.bounds = new _DestroyBounds.DestroyBounds();
+    this.mode = "none";
+    this.split = new _Split.Split();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.mode) {
+      this.mode = data.mode;
+    }
+    if (data.bounds) {
+      this.bounds.load(data.bounds);
+    }
+    this.split.load(data.split);
+  }
+}
+exports.Destroy = Destroy;
+},{"./DestroyBounds":"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/DestroyBounds.js","./Split":"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/Split.js"}],"../node_modules/tsparticles-updater-destroy/esm/DestroyUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DestroyUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Destroy = require("./Options/Classes/Destroy");
+class DestroyUpdater {
+  constructor(engine, container) {
+    this.engine = engine;
+    this.container = container;
+  }
+  init(particle) {
+    const container = this.container,
+      particlesOptions = particle.options,
+      destroyOptions = particlesOptions.destroy;
+    if (!destroyOptions) {
+      return;
+    }
+    particle.splitCount = 0;
+    const destroyBounds = destroyOptions.bounds;
+    if (!particle.destroyBounds) {
+      particle.destroyBounds = {};
+    }
+    if (destroyBounds.bottom) {
+      particle.destroyBounds.bottom = (0, _tsparticlesEngine.getRangeValue)(destroyBounds.bottom) * container.canvas.size.height / 100;
+    }
+    if (destroyBounds.left) {
+      particle.destroyBounds.left = (0, _tsparticlesEngine.getRangeValue)(destroyBounds.left) * container.canvas.size.width / 100;
+    }
+    if (destroyBounds.right) {
+      particle.destroyBounds.right = (0, _tsparticlesEngine.getRangeValue)(destroyBounds.right) * container.canvas.size.width / 100;
+    }
+    if (destroyBounds.top) {
+      particle.destroyBounds.top = (0, _tsparticlesEngine.getRangeValue)(destroyBounds.top) * container.canvas.size.height / 100;
+    }
+  }
+  isEnabled(particle) {
+    return !particle.destroyed;
+  }
+  loadOptions(options, ...sources) {
+    if (!options.destroy) {
+      options.destroy = new _Destroy.Destroy();
+    }
+    for (const source of sources) {
+      options.destroy.load(source === null || source === void 0 ? void 0 : source.destroy);
+    }
+  }
+  particleDestroyed(particle, override) {
+    if (override) {
+      return;
+    }
+    const destroyOptions = particle.options.destroy;
+    if (destroyOptions && destroyOptions.mode === "split") {
+      this.split(particle);
+    }
+  }
+  update(particle) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    const position = particle.getPosition(),
+      bounds = particle.destroyBounds;
+    if (!bounds) {
+      return;
+    }
+    if (bounds.bottom !== undefined && position.y >= bounds.bottom || bounds.left !== undefined && position.x <= bounds.left || bounds.right !== undefined && position.x >= bounds.right || bounds.top !== undefined && position.y <= bounds.top) {
+      particle.destroy();
+    }
+  }
+  addSplitParticle(parent, splitParticlesOptions) {
+    var _a, _b, _c;
+    const destroyOptions = parent.options.destroy;
+    if (!destroyOptions) {
+      return;
+    }
+    const splitOptions = destroyOptions.split,
+      options = (0, _tsparticlesEngine.loadParticlesOptions)(this.engine, this.container, parent.options),
+      factor = (0, _tsparticlesEngine.getValue)(splitOptions.factor),
+      parentColor = parent.getFillColor();
+    if (splitOptions.color) {
+      options.color.load(splitOptions.color);
+    } else if (splitOptions.colorOffset && parentColor) {
+      options.color.load({
+        value: {
+          hsl: {
+            h: parentColor.h + (0, _tsparticlesEngine.getRangeValue)((_a = splitOptions.colorOffset.h) !== null && _a !== void 0 ? _a : 0),
+            s: parentColor.s + (0, _tsparticlesEngine.getRangeValue)((_b = splitOptions.colorOffset.s) !== null && _b !== void 0 ? _b : 0),
+            l: parentColor.l + (0, _tsparticlesEngine.getRangeValue)((_c = splitOptions.colorOffset.l) !== null && _c !== void 0 ? _c : 0)
+          }
+        }
+      });
+    } else {
+      options.color.load({
+        value: {
+          hsl: parent.getFillColor()
+        }
+      });
+    }
+    options.move.load({
+      center: {
+        x: parent.position.x,
+        y: parent.position.y,
+        mode: "precise"
+      }
+    });
+    if (typeof options.size.value === "number") {
+      options.size.value /= factor;
+    } else {
+      options.size.value.min /= factor;
+      options.size.value.max /= factor;
+    }
+    options.load(splitParticlesOptions);
+    const offset = splitOptions.sizeOffset ? (0, _tsparticlesEngine.setRangeValue)(-parent.size.value, parent.size.value) : 0,
+      position = {
+        x: parent.position.x + (0, _tsparticlesEngine.randomInRange)(offset),
+        y: parent.position.y + (0, _tsparticlesEngine.randomInRange)(offset)
+      };
+    return this.container.particles.addParticle(position, options, parent.group, particle => {
+      var _a;
+      if (particle.size.value < 0.5) {
+        return false;
+      }
+      particle.velocity.length = (0, _tsparticlesEngine.randomInRange)((0, _tsparticlesEngine.setRangeValue)(parent.velocity.length, particle.velocity.length));
+      particle.splitCount = ((_a = parent.splitCount) !== null && _a !== void 0 ? _a : 0) + 1;
+      particle.unbreakable = true;
+      setTimeout(() => {
+        particle.unbreakable = false;
+      }, 500);
+      return true;
+    });
+  }
+  split(particle) {
+    const destroyOptions = particle.options.destroy;
+    if (!destroyOptions) {
+      return;
+    }
+    const splitOptions = destroyOptions.split;
+    if (splitOptions.count >= 0 && (particle.splitCount === undefined || particle.splitCount++ > splitOptions.count)) {
+      return;
+    }
+    const rate = (0, _tsparticlesEngine.getValue)(splitOptions.rate),
+      particlesSplitOptions = (0, _tsparticlesEngine.itemFromSingleOrMultiple)(splitOptions.particles);
+    for (let i = 0; i < rate; i++) {
+      this.addSplitParticle(particle, particlesSplitOptions);
+    }
+  }
+}
+exports.DestroyUpdater = DestroyUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Destroy":"../node_modules/tsparticles-updater-destroy/esm/Options/Classes/Destroy.js"}],"../node_modules/tsparticles-updater-destroy/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadDestroyUpdater = loadDestroyUpdater;
+var _DestroyUpdater = require("./DestroyUpdater");
+async function loadDestroyUpdater(engine) {
+  await engine.addParticleUpdater("destroy", container => new _DestroyUpdater.DestroyUpdater(engine, container));
+}
+},{"./DestroyUpdater":"../node_modules/tsparticles-updater-destroy/esm/DestroyUpdater.js"}],"../node_modules/tsparticles-plugin-emitters/esm/Shapes/Circle/CircleShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CircleShape = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class CircleShape {
+  randomPosition(position, size, fill) {
+    const generateTheta = (x, y) => {
+        const u = (0, _tsparticlesEngine.getRandom)() / 4.0,
+          theta = Math.atan(y / x * Math.tan(2 * Math.PI * u)),
+          v = (0, _tsparticlesEngine.getRandom)();
+        if (v < 0.25) {
+          return theta;
+        } else if (v < 0.5) {
+          return Math.PI - theta;
+        } else if (v < 0.75) {
+          return Math.PI + theta;
+        } else {
+          return -theta;
+        }
+      },
+      radius = (x, y, theta) => x * y / Math.sqrt((y * Math.cos(theta)) ** 2 + (x * Math.sin(theta)) ** 2),
+      [a, b] = [size.width / 2, size.height / 2],
+      randomTheta = generateTheta(a, b),
+      maxRadius = radius(a, b, randomTheta),
+      randomRadius = fill ? maxRadius * Math.sqrt((0, _tsparticlesEngine.getRandom)()) : maxRadius;
+    return {
+      x: position.x + randomRadius * Math.cos(randomTheta),
+      y: position.y + randomRadius * Math.sin(randomTheta)
+    };
+  }
+}
+exports.CircleShape = CircleShape;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterLife.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EmitterLife = void 0;
+class EmitterLife {
+  constructor() {
+    this.wait = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.count !== undefined) {
+      this.count = data.count;
+    }
+    if (data.delay !== undefined) {
+      this.delay = data.delay;
+    }
+    if (data.duration !== undefined) {
+      this.duration = data.duration;
+    }
+    if (data.wait !== undefined) {
+      this.wait = data.wait;
+    }
+  }
+}
+exports.EmitterLife = EmitterLife;
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterRate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EmitterRate = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class EmitterRate {
+  constructor() {
+    this.quantity = 1;
+    this.delay = 0.1;
+  }
+  load(data) {
+    if (data === undefined) {
+      return;
+    }
+    if (data.quantity !== undefined) {
+      this.quantity = (0, _tsparticlesEngine.setRangeValue)(data.quantity);
+    }
+    if (data.delay !== undefined) {
+      this.delay = (0, _tsparticlesEngine.setRangeValue)(data.delay);
+    }
+  }
+}
+exports.EmitterRate = EmitterRate;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterSize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EmitterSize = void 0;
+class EmitterSize {
+  constructor() {
+    this.mode = "percent";
+    this.height = 0;
+    this.width = 0;
+  }
+  load(data) {
+    if (data === undefined) {
+      return;
+    }
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    if (data.height !== undefined) {
+      this.height = data.height;
+    }
+    if (data.width !== undefined) {
+      this.width = data.width;
+    }
+  }
+}
+exports.EmitterSize = EmitterSize;
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/Emitter.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Emitter = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _EmitterLife = require("./EmitterLife");
+var _EmitterRate = require("./EmitterRate");
+var _EmitterSize = require("./EmitterSize");
+class Emitter {
+  constructor() {
+    this.autoPlay = true;
+    this.fill = true;
+    this.life = new _EmitterLife.EmitterLife();
+    this.rate = new _EmitterRate.EmitterRate();
+    this.shape = "square";
+    this.startCount = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.autoPlay !== undefined) {
+      this.autoPlay = data.autoPlay;
+    }
+    if (data.size !== undefined) {
+      if (!this.size) {
+        this.size = new _EmitterSize.EmitterSize();
+      }
+      this.size.load(data.size);
+    }
+    if (data.direction !== undefined) {
+      this.direction = data.direction;
+    }
+    this.domId = data.domId;
+    if (data.fill !== undefined) {
+      this.fill = data.fill;
+    }
+    this.life.load(data.life);
+    this.name = data.name;
+    this.particles = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(data.particles, particles => {
+      return (0, _tsparticlesEngine.deepExtend)({}, particles);
+    });
+    this.rate.load(data.rate);
+    if (data.shape !== undefined) {
+      this.shape = data.shape;
+    }
+    if (data.position !== undefined) {
+      this.position = {};
+      if (data.position.x !== undefined) {
+        this.position.x = (0, _tsparticlesEngine.setRangeValue)(data.position.x);
+      }
+      if (data.position.y !== undefined) {
+        this.position.y = (0, _tsparticlesEngine.setRangeValue)(data.position.y);
+      }
+    }
+    if (data.spawnColor !== undefined) {
+      if (this.spawnColor === undefined) {
+        this.spawnColor = new _tsparticlesEngine.AnimatableColor();
+      }
+      this.spawnColor.load(data.spawnColor);
+    }
+    if (data.startCount !== undefined) {
+      this.startCount = data.startCount;
+    }
+  }
+}
+exports.Emitter = Emitter;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./EmitterLife":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterLife.js","./EmitterRate":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterRate.js","./EmitterSize":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterSize.js"}],"../node_modules/tsparticles-plugin-emitters/esm/EmitterInstance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EmitterInstance = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Emitter = require("./Options/Classes/Emitter");
+var _EmitterSize = require("./Options/Classes/EmitterSize");
+class EmitterInstance {
+  constructor(engine, emitters, container, options, position) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    var _h;
+    this.emitters = emitters;
+    this.container = container;
+    this._engine = engine;
+    this._currentDuration = 0;
+    this._currentEmitDelay = 0;
+    this._currentSpawnDelay = 0;
+    this._initialPosition = position;
+    if (options instanceof _Emitter.Emitter) {
+      this.options = options;
+    } else {
+      this.options = new _Emitter.Emitter();
+      this.options.load(options);
+    }
+    this._spawnDelay = ((_a = this.options.life.delay) !== null && _a !== void 0 ? _a : 0) * 1000 / this.container.retina.reduceFactor;
+    this.position = (_b = this._initialPosition) !== null && _b !== void 0 ? _b : this.calcPosition();
+    this.name = this.options.name;
+    this._shape = (_c = this._engine.emitterShapeManager) === null || _c === void 0 ? void 0 : _c.getShape(this.options.shape);
+    this.fill = this.options.fill;
+    this._firstSpawn = !this.options.life.wait;
+    this._startParticlesAdded = false;
+    let particlesOptions = (0, _tsparticlesEngine.deepExtend)({}, this.options.particles);
+    particlesOptions !== null && particlesOptions !== void 0 ? particlesOptions : particlesOptions = {};
+    (_d = particlesOptions.move) !== null && _d !== void 0 ? _d : particlesOptions.move = {};
+    (_e = (_h = particlesOptions.move).direction) !== null && _e !== void 0 ? _e : _h.direction = this.options.direction;
+    if (this.options.spawnColor) {
+      this.spawnColor = (0, _tsparticlesEngine.rangeColorToHsl)(this.options.spawnColor);
+    }
+    this._paused = !this.options.autoPlay;
+    this._particlesOptions = particlesOptions;
+    this.size = (_f = this.options.size) !== null && _f !== void 0 ? _f : (() => {
+      const size = new _EmitterSize.EmitterSize();
+      size.load({
+        height: 0,
+        mode: "percent",
+        width: 0
+      });
+      return size;
+    })();
+    this._lifeCount = (_g = this.options.life.count) !== null && _g !== void 0 ? _g : -1;
+    this._immortal = this._lifeCount <= 0;
+    this._engine.dispatchEvent("emitterCreated", {
+      container,
+      data: {
+        emitter: this
+      }
+    });
+    this.play();
+  }
+  externalPause() {
+    this._paused = true;
+    this.pause();
+  }
+  externalPlay() {
+    this._paused = false;
+    this.play();
+  }
+  getPosition() {
+    if (this.options.domId) {
+      const container = this.container,
+        element = document.getElementById(this.options.domId);
+      if (element) {
+        const elRect = element.getBoundingClientRect();
+        return {
+          x: (elRect.x + elRect.width / 2) * container.retina.pixelRatio,
+          y: (elRect.y + elRect.height / 2) * container.retina.pixelRatio
+        };
+      }
+    }
+    return this.position;
+  }
+  getSize() {
+    const container = this.container;
+    if (this.options.domId) {
+      const element = document.getElementById(this.options.domId);
+      if (element) {
+        const elRect = element.getBoundingClientRect();
+        return {
+          width: elRect.width * container.retina.pixelRatio,
+          height: elRect.height * container.retina.pixelRatio
+        };
+      }
+    }
+    return {
+      width: this.size.mode === "percent" ? container.canvas.size.width * this.size.width / 100 : this.size.width,
+      height: this.size.mode === "percent" ? container.canvas.size.height * this.size.height / 100 : this.size.height
+    };
+  }
+  pause() {
+    if (this._paused) {
+      return;
+    }
+    delete this._emitDelay;
+  }
+  play() {
+    var _a;
+    if (this._paused) {
+      return;
+    }
+    if (!(this.container.retina.reduceFactor && (this._lifeCount > 0 || this._immortal || !this.options.life.count) && (this._firstSpawn || this._currentSpawnDelay >= ((_a = this._spawnDelay) !== null && _a !== void 0 ? _a : 0)))) {
+      return;
+    }
+    if (this._emitDelay === undefined) {
+      const delay = (0, _tsparticlesEngine.getRangeValue)(this.options.rate.delay);
+      this._emitDelay = 1000 * delay / this.container.retina.reduceFactor;
+    }
+    if (this._lifeCount > 0 || this._immortal) {
+      this.prepareToDie();
+    }
+  }
+  resize() {
+    const initialPosition = this._initialPosition;
+    this.position = initialPosition && (0, _tsparticlesEngine.isPointInside)(initialPosition, this.container.canvas.size, _tsparticlesEngine.Vector.origin) ? initialPosition : this.calcPosition();
+  }
+  update(delta) {
+    var _a, _b, _c;
+    if (this._paused) {
+      return;
+    }
+    if (this._firstSpawn) {
+      this._firstSpawn = false;
+      this._currentSpawnDelay = (_a = this._spawnDelay) !== null && _a !== void 0 ? _a : 0;
+      this._currentEmitDelay = (_b = this._emitDelay) !== null && _b !== void 0 ? _b : 0;
+    }
+    if (!this._startParticlesAdded) {
+      this._startParticlesAdded = true;
+      this.emitParticles(this.options.startCount);
+    }
+    if (this._duration !== undefined) {
+      this._currentDuration += delta.value;
+      if (this._currentDuration >= this._duration) {
+        this.pause();
+        if (this._spawnDelay !== undefined) {
+          delete this._spawnDelay;
+        }
+        if (!this._immortal) {
+          this._lifeCount--;
+        }
+        if (this._lifeCount > 0 || this._immortal) {
+          this.position = this.calcPosition();
+          this._spawnDelay = ((_c = this.options.life.delay) !== null && _c !== void 0 ? _c : 0) * 1000 / this.container.retina.reduceFactor;
+        } else {
+          this.destroy();
+        }
+        this._currentDuration -= this._duration;
+        delete this._duration;
+      }
+    }
+    if (this._spawnDelay !== undefined) {
+      this._currentSpawnDelay += delta.value;
+      if (this._currentSpawnDelay >= this._spawnDelay) {
+        this._engine.dispatchEvent("emitterPlay", {
+          container: this.container
+        });
+        this.play();
+        this._currentSpawnDelay -= this._currentSpawnDelay;
+        delete this._spawnDelay;
+      }
+    }
+    if (this._emitDelay !== undefined) {
+      this._currentEmitDelay += delta.value;
+      if (this._currentEmitDelay >= this._emitDelay) {
+        this.emit();
+        this._currentEmitDelay -= this._emitDelay;
+      }
+    }
+  }
+  calcPosition() {
+    return (0, _tsparticlesEngine.calcPositionOrRandomFromSizeRanged)({
+      size: this.container.canvas.size,
+      position: this.options.position
+    });
+  }
+  destroy() {
+    this.emitters.removeEmitter(this);
+    this._engine.dispatchEvent("emitterDestroyed", {
+      container: this.container,
+      data: {
+        emitter: this
+      }
+    });
+  }
+  emit() {
+    if (this._paused) {
+      return;
+    }
+    const quantity = (0, _tsparticlesEngine.getRangeValue)(this.options.rate.quantity);
+    this.emitParticles(quantity);
+  }
+  emitParticles(quantity) {
+    var _a, _b, _c;
+    const position = this.getPosition(),
+      size = this.getSize(),
+      singleParticlesOptions = (0, _tsparticlesEngine.itemFromSingleOrMultiple)(this._particlesOptions);
+    for (let i = 0; i < quantity; i++) {
+      const particlesOptions = (0, _tsparticlesEngine.deepExtend)({}, singleParticlesOptions);
+      if (this.spawnColor) {
+        const hslAnimation = (_a = this.options.spawnColor) === null || _a === void 0 ? void 0 : _a.animation;
+        if (hslAnimation) {
+          this.spawnColor.h = this.setColorAnimation(hslAnimation.h, this.spawnColor.h, 360);
+          this.spawnColor.s = this.setColorAnimation(hslAnimation.s, this.spawnColor.s, 100);
+          this.spawnColor.l = this.setColorAnimation(hslAnimation.l, this.spawnColor.l, 100);
+        }
+        if (!particlesOptions.color) {
+          particlesOptions.color = {
+            value: this.spawnColor
+          };
+        } else {
+          particlesOptions.color.value = this.spawnColor;
+        }
+      }
+      if (!position) {
+        return;
+      }
+      const pPosition = (_c = (_b = this._shape) === null || _b === void 0 ? void 0 : _b.randomPosition(position, size, this.fill)) !== null && _c !== void 0 ? _c : position;
+      this.container.particles.addParticle(pPosition, particlesOptions);
+    }
+  }
+  prepareToDie() {
+    var _a;
+    if (this._paused) {
+      return;
+    }
+    const duration = (_a = this.options.life) === null || _a === void 0 ? void 0 : _a.duration;
+    if (this.container.retina.reduceFactor && (this._lifeCount > 0 || this._immortal) && duration !== undefined && duration > 0) {
+      this._duration = duration * 1000;
+    }
+  }
+  setColorAnimation(animation, initValue, maxValue) {
+    var _a;
+    const container = this.container;
+    if (!animation.enable) {
+      return initValue;
+    }
+    const colorOffset = (0, _tsparticlesEngine.randomInRange)(animation.offset),
+      delay = (0, _tsparticlesEngine.getRangeValue)(this.options.rate.delay),
+      emitFactor = 1000 * delay / container.retina.reduceFactor,
+      colorSpeed = (0, _tsparticlesEngine.getRangeValue)((_a = animation.speed) !== null && _a !== void 0 ? _a : 0);
+    return (initValue + colorSpeed * container.fpsLimit / emitFactor + colorOffset * 3.6) % maxValue;
+  }
+}
+exports.EmitterInstance = EmitterInstance;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Emitter":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/Emitter.js","./Options/Classes/EmitterSize":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/EmitterSize.js"}],"../node_modules/tsparticles-plugin-emitters/esm/Emitters.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Emitters = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Emitter = require("./Options/Classes/Emitter");
+var _EmitterInstance = require("./EmitterInstance");
+class Emitters {
+  constructor(engine, container) {
+    this.container = container;
+    this._engine = engine;
+    this.array = [];
+    this.emitters = [];
+    this.interactivityEmitters = {
+      random: {
+        count: 1,
+        enable: false
+      },
+      value: []
+    };
+    container.getEmitter = idxOrName => idxOrName === undefined || typeof idxOrName === "number" ? this.array[idxOrName || 0] : this.array.find(t => t.name === idxOrName);
+    container.addEmitter = (options, position) => this.addEmitter(options, position);
+    container.removeEmitter = idxOrName => {
+      const emitter = container.getEmitter(idxOrName);
+      if (emitter) {
+        this.removeEmitter(emitter);
+      }
+    };
+    container.playEmitter = idxOrName => {
+      const emitter = container.getEmitter(idxOrName);
+      if (emitter) {
+        emitter.externalPlay();
+      }
+    };
+    container.pauseEmitter = idxOrName => {
+      const emitter = container.getEmitter(idxOrName);
+      if (emitter) {
+        emitter.externalPause();
+      }
+    };
+  }
+  addEmitter(options, position) {
+    const emitterOptions = new _Emitter.Emitter();
+    emitterOptions.load(options);
+    const emitter = new _EmitterInstance.EmitterInstance(this._engine, this, this.container, emitterOptions, position);
+    this.array.push(emitter);
+    return emitter;
+  }
+  handleClickMode(mode) {
+    const emitterOptions = this.emitters,
+      modeEmitters = this.interactivityEmitters;
+    if (mode !== "emitter") {
+      return;
+    }
+    let emittersModeOptions;
+    if (modeEmitters && modeEmitters.value instanceof Array) {
+      if (modeEmitters.value.length > 0 && modeEmitters.random.enable) {
+        emittersModeOptions = [];
+        const usedIndexes = [];
+        for (let i = 0; i < modeEmitters.random.count; i++) {
+          const idx = (0, _tsparticlesEngine.arrayRandomIndex)(modeEmitters.value);
+          if (usedIndexes.includes(idx) && usedIndexes.length < modeEmitters.value.length) {
+            i--;
+            continue;
+          }
+          usedIndexes.push(idx);
+          emittersModeOptions.push((0, _tsparticlesEngine.itemFromArray)(modeEmitters.value, idx));
+        }
+      } else {
+        emittersModeOptions = modeEmitters.value;
+      }
+    } else {
+      emittersModeOptions = modeEmitters === null || modeEmitters === void 0 ? void 0 : modeEmitters.value;
+    }
+    const emittersOptions = emittersModeOptions !== null && emittersModeOptions !== void 0 ? emittersModeOptions : emitterOptions,
+      ePosition = this.container.interactivity.mouse.clickPosition;
+    (0, _tsparticlesEngine.executeOnSingleOrMultiple)(emittersOptions, emitter => {
+      this.addEmitter(emitter, ePosition);
+    });
+  }
+  async init() {
+    this.emitters = this.container.actualOptions.emitters;
+    this.interactivityEmitters = this.container.actualOptions.interactivity.modes.emitters;
+    if (!this.emitters) {
+      return;
+    }
+    if (this.emitters instanceof Array) {
+      for (const emitterOptions of this.emitters) {
+        this.addEmitter(emitterOptions);
+      }
+    } else {
+      this.addEmitter(this.emitters);
+    }
+  }
+  pause() {
+    for (const emitter of this.array) {
+      emitter.pause();
+    }
+  }
+  play() {
+    for (const emitter of this.array) {
+      emitter.play();
+    }
+  }
+  removeEmitter(emitter) {
+    const index = this.array.indexOf(emitter);
+    if (index >= 0) {
+      this.array.splice(index, 1);
+    }
+  }
+  resize() {
+    for (const emitter of this.array) {
+      emitter.resize();
+    }
+  }
+  stop() {
+    this.array = [];
+  }
+  update(delta) {
+    for (const emitter of this.array) {
+      emitter.update(delta);
+    }
+  }
+}
+exports.Emitters = Emitters;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Emitter":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/Emitter.js","./EmitterInstance":"../node_modules/tsparticles-plugin-emitters/esm/EmitterInstance.js"}],"../node_modules/tsparticles-plugin-emitters/esm/ShapeManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ShapeManager = void 0;
+const shapes = new Map();
+class ShapeManager {
+  constructor(engine) {
+    this._engine = engine;
+  }
+  addShape(name, drawer) {
+    if (!this.getShape(name)) {
+      shapes.set(name, drawer);
+    }
+  }
+  getShape(name) {
+    return shapes.get(name);
+  }
+  getSupportedShapes() {
+    return shapes.keys();
+  }
+}
+exports.ShapeManager = ShapeManager;
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/Shapes/Square/SquareShape.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SquareShape = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+function randomSquareCoordinate(position, offset) {
+  return position + offset * ((0, _tsparticlesEngine.getRandom)() - 0.5);
+}
+class SquareShape {
+  randomPosition(position, size, fill) {
+    if (fill) {
+      return {
+        x: randomSquareCoordinate(position.x, size.width),
+        y: randomSquareCoordinate(position.y, size.height)
+      };
+    } else {
+      const halfW = size.width / 2,
+        halfH = size.height / 2,
+        side = Math.floor((0, _tsparticlesEngine.getRandom)() * 4),
+        v = ((0, _tsparticlesEngine.getRandom)() - 0.5) * 2;
+      switch (side) {
+        case 0:
+          return {
+            x: position.x + v * halfW,
+            y: position.y - halfH
+          };
+        case 1:
+          return {
+            x: position.x - halfW,
+            y: position.y + v * halfH
+          };
+        case 2:
+          return {
+            x: position.x + v * halfW,
+            y: position.y + halfH
+          };
+        case 3:
+        default:
+          return {
+            x: position.x + halfW,
+            y: position.y + v * halfH
+          };
+      }
+    }
+  }
+}
+exports.SquareShape = SquareShape;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-plugin-emitters/esm/EmitterContainer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/EmittersEngine.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/Enums/EmitterClickMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/Enums/EmitterShapeType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-plugin-emitters/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadEmittersPlugin: true
+};
+exports.loadEmittersPlugin = loadEmittersPlugin;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _CircleShape = require("./Shapes/Circle/CircleShape");
+var _Emitter = require("./Options/Classes/Emitter");
+var _Emitters = require("./Emitters");
+var _ShapeManager = require("./ShapeManager");
+var _SquareShape = require("./Shapes/Square/SquareShape");
+var _EmitterContainer = require("./EmitterContainer");
+Object.keys(_EmitterContainer).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _EmitterContainer[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EmitterContainer[key];
+    }
+  });
+});
+var _EmittersEngine = require("./EmittersEngine");
+Object.keys(_EmittersEngine).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _EmittersEngine[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EmittersEngine[key];
+    }
+  });
+});
+var _EmitterClickMode = require("./Enums/EmitterClickMode");
+Object.keys(_EmitterClickMode).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _EmitterClickMode[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EmitterClickMode[key];
+    }
+  });
+});
+var _EmitterShapeType = require("./Enums/EmitterShapeType");
+Object.keys(_EmitterShapeType).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _EmitterShapeType[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EmitterShapeType[key];
+    }
+  });
+});
+class EmittersPlugin {
+  constructor(engine) {
+    this._engine = engine;
+    this.id = "emitters";
+  }
+  getPlugin(container) {
+    return new _Emitters.Emitters(this._engine, container);
+  }
+  loadOptions(options, source) {
+    var _a, _b, _c, _d, _e, _f;
+    if (!this.needsPlugin(options) && !this.needsPlugin(source)) {
+      return;
+    }
+    if (source === null || source === void 0 ? void 0 : source.emitters) {
+      options.emitters = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(source.emitters, emitter => {
+        const tmp = new _Emitter.Emitter();
+        tmp.load(emitter);
+        return tmp;
+      });
+    }
+    const interactivityEmitters = (_b = (_a = source === null || source === void 0 ? void 0 : source.interactivity) === null || _a === void 0 ? void 0 : _a.modes) === null || _b === void 0 ? void 0 : _b.emitters;
+    if (interactivityEmitters) {
+      if (interactivityEmitters instanceof Array) {
+        options.interactivity.modes.emitters = {
+          random: {
+            count: 1,
+            enable: true
+          },
+          value: interactivityEmitters.map(s => {
+            const tmp = new _Emitter.Emitter();
+            tmp.load(s);
+            return tmp;
+          })
+        };
+      } else {
+        const emitterMode = interactivityEmitters;
+        if (emitterMode.value !== undefined) {
+          if (emitterMode.value instanceof Array) {
+            options.interactivity.modes.emitters = {
+              random: {
+                count: (_c = emitterMode.random.count) !== null && _c !== void 0 ? _c : 1,
+                enable: (_d = emitterMode.random.enable) !== null && _d !== void 0 ? _d : false
+              },
+              value: emitterMode.value.map(s => {
+                const tmp = new _Emitter.Emitter();
+                tmp.load(s);
+                return tmp;
+              })
+            };
+          } else {
+            const tmp = new _Emitter.Emitter();
+            tmp.load(emitterMode.value);
+            options.interactivity.modes.emitters = {
+              random: {
+                count: (_e = emitterMode.random.count) !== null && _e !== void 0 ? _e : 1,
+                enable: (_f = emitterMode.random.enable) !== null && _f !== void 0 ? _f : false
+              },
+              value: tmp
+            };
+          }
+        } else {
+          const emitterOptions = options.interactivity.modes.emitters = {
+            random: {
+              count: 1,
+              enable: false
+            },
+            value: new _Emitter.Emitter()
+          };
+          emitterOptions.value.load(interactivityEmitters);
+        }
+      }
+    }
+  }
+  needsPlugin(options) {
+    var _a, _b, _c;
+    if (!options) {
+      return false;
+    }
+    const emitters = options.emitters;
+    return emitters instanceof Array && !!emitters.length || emitters !== undefined || !!((_c = (_b = (_a = options.interactivity) === null || _a === void 0 ? void 0 : _a.events) === null || _b === void 0 ? void 0 : _b.onClick) === null || _c === void 0 ? void 0 : _c.mode) && (0, _tsparticlesEngine.isInArray)("emitter", options.interactivity.events.onClick.mode);
+  }
+}
+async function loadEmittersPlugin(engine) {
+  if (!engine.emitterShapeManager) {
+    engine.emitterShapeManager = new _ShapeManager.ShapeManager(engine);
+  }
+  if (!engine.addEmitterShape) {
+    engine.addEmitterShape = (name, shape) => {
+      var _a;
+      (_a = engine.emitterShapeManager) === null || _a === void 0 ? void 0 : _a.addShape(name, shape);
+    };
+  }
+  const plugin = new EmittersPlugin(engine);
+  await engine.addPlugin(plugin);
+  engine.addEmitterShape("circle", new _CircleShape.CircleShape());
+  engine.addEmitterShape("square", new _SquareShape.SquareShape());
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Shapes/Circle/CircleShape":"../node_modules/tsparticles-plugin-emitters/esm/Shapes/Circle/CircleShape.js","./Options/Classes/Emitter":"../node_modules/tsparticles-plugin-emitters/esm/Options/Classes/Emitter.js","./Emitters":"../node_modules/tsparticles-plugin-emitters/esm/Emitters.js","./ShapeManager":"../node_modules/tsparticles-plugin-emitters/esm/ShapeManager.js","./Shapes/Square/SquareShape":"../node_modules/tsparticles-plugin-emitters/esm/Shapes/Square/SquareShape.js","./EmitterContainer":"../node_modules/tsparticles-plugin-emitters/esm/EmitterContainer.js","./EmittersEngine":"../node_modules/tsparticles-plugin-emitters/esm/EmittersEngine.js","./Enums/EmitterClickMode":"../node_modules/tsparticles-plugin-emitters/esm/Enums/EmitterClickMode.js","./Enums/EmitterShapeType":"../node_modules/tsparticles-plugin-emitters/esm/Enums/EmitterShapeType.js"}],"../node_modules/tsparticles-interaction-external-trail/esm/Options/Classes/Trail.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Trail = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class Trail {
+  constructor() {
+    this.delay = 1;
+    this.pauseOnStop = false;
+    this.quantity = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.delay !== undefined) {
+      this.delay = data.delay;
+    }
+    if (data.quantity !== undefined) {
+      this.quantity = data.quantity;
+    }
+    if (data.particles !== undefined) {
+      this.particles = (0, _tsparticlesEngine.deepExtend)({}, data.particles);
+    }
+    if (data.pauseOnStop !== undefined) {
+      this.pauseOnStop = data.pauseOnStop;
+    }
+  }
+}
+exports.Trail = Trail;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-trail/esm/TrailMaker.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TrailMaker = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Trail = require("./Options/Classes/Trail");
+class TrailMaker extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+    this._delay = 0;
+  }
+  clear() {}
+  init() {}
+  async interact(delta) {
+    var _a, _b, _c, _d;
+    if (!this.container.retina.reduceFactor) {
+      return;
+    }
+    const container = this.container,
+      options = container.actualOptions,
+      trailOptions = options.interactivity.modes.trail;
+    if (!trailOptions) {
+      return;
+    }
+    const optDelay = trailOptions.delay * 1000 / this.container.retina.reduceFactor;
+    if (this._delay < optDelay) {
+      this._delay += delta.value;
+    }
+    if (this._delay < optDelay) {
+      return;
+    }
+    let canEmit = true;
+    if (trailOptions.pauseOnStop) {
+      if (container.interactivity.mouse.position === this._lastPosition || ((_a = container.interactivity.mouse.position) === null || _a === void 0 ? void 0 : _a.x) === ((_b = this._lastPosition) === null || _b === void 0 ? void 0 : _b.x) && ((_c = container.interactivity.mouse.position) === null || _c === void 0 ? void 0 : _c.y) === ((_d = this._lastPosition) === null || _d === void 0 ? void 0 : _d.y)) {
+        canEmit = false;
+      }
+    }
+    if (container.interactivity.mouse.position) {
+      this._lastPosition = {
+        x: container.interactivity.mouse.position.x,
+        y: container.interactivity.mouse.position.y
+      };
+    } else {
+      delete this._lastPosition;
+    }
+    if (canEmit) {
+      container.particles.push(trailOptions.quantity, container.interactivity.mouse, trailOptions.particles);
+    }
+    this._delay -= optDelay;
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      options = container.actualOptions,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : options.interactivity).events;
+    return mouse.clicking && mouse.inside && !!mouse.position && (0, _tsparticlesEngine.isInArray)("trail", events.onClick.mode) || mouse.inside && !!mouse.position && (0, _tsparticlesEngine.isInArray)("trail", events.onHover.mode);
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.trail) {
+      options.trail = new _Trail.Trail();
+    }
+    for (const source of sources) {
+      options.trail.load(source === null || source === void 0 ? void 0 : source.trail);
+    }
+  }
+  reset() {}
+}
+exports.TrailMaker = TrailMaker;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Trail":"../node_modules/tsparticles-interaction-external-trail/esm/Options/Classes/Trail.js"}],"../node_modules/tsparticles-interaction-external-trail/esm/Options/Interfaces/ITrail.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-trail/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalTrailInteraction: true
+};
+exports.loadExternalTrailInteraction = loadExternalTrailInteraction;
+var _TrailMaker = require("./TrailMaker");
+var _Trail = require("./Options/Classes/Trail");
+Object.keys(_Trail).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Trail[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Trail[key];
+    }
+  });
+});
+var _ITrail = require("./Options/Interfaces/ITrail");
+Object.keys(_ITrail).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ITrail[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ITrail[key];
+    }
+  });
+});
+async function loadExternalTrailInteraction(engine) {
+  await engine.addInteractor("externalTrail", container => new _TrailMaker.TrailMaker(container));
+}
+},{"./TrailMaker":"../node_modules/tsparticles-interaction-external-trail/esm/TrailMaker.js","./Options/Classes/Trail":"../node_modules/tsparticles-interaction-external-trail/esm/Options/Classes/Trail.js","./Options/Interfaces/ITrail":"../node_modules/tsparticles-interaction-external-trail/esm/Options/Interfaces/ITrail.js"}],"../node_modules/tsparticles-updater-roll/esm/Options/Classes/RollLight.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RollLight = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class RollLight {
+  constructor() {
+    this.enable = false;
+    this.value = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.value !== undefined) {
+      this.value = (0, _tsparticlesEngine.setRangeValue)(data.value);
+    }
+  }
+}
+exports.RollLight = RollLight;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-roll/esm/Options/Classes/Roll.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Roll = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _RollLight = require("./RollLight");
+class Roll {
+  constructor() {
+    this.darken = new _RollLight.RollLight();
+    this.enable = false;
+    this.enlighten = new _RollLight.RollLight();
+    this.mode = "vertical";
+    this.speed = 25;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.backColor !== undefined) {
+      this.backColor = _tsparticlesEngine.OptionsColor.create(this.backColor, data.backColor);
+    }
+    this.darken.load(data.darken);
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    this.enlighten.load(data.enlighten);
+    if (data.mode !== undefined) {
+      this.mode = data.mode;
+    }
+    if (data.speed !== undefined) {
+      this.speed = (0, _tsparticlesEngine.setRangeValue)(data.speed);
+    }
+  }
+}
+exports.Roll = Roll;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./RollLight":"../node_modules/tsparticles-updater-roll/esm/Options/Classes/RollLight.js"}],"../node_modules/tsparticles-updater-roll/esm/RollUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RollUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Roll = require("./Options/Classes/Roll");
+function updateRoll(particle, delta) {
+  const roll = particle.options.roll;
+  if (!particle.roll || !(roll === null || roll === void 0 ? void 0 : roll.enable)) {
+    return;
+  }
+  const speed = particle.roll.speed * delta.factor,
+    max = 2 * Math.PI;
+  particle.roll.angle += speed;
+  if (particle.roll.angle > max) {
+    particle.roll.angle -= max;
+  }
+}
+class RollUpdater {
+  getTransformValues(particle) {
+    var _a;
+    const roll = ((_a = particle.roll) === null || _a === void 0 ? void 0 : _a.enable) && particle.roll,
+      rollHorizontal = roll && roll.horizontal,
+      rollVertical = roll && roll.vertical;
+    return {
+      a: rollHorizontal ? Math.cos(roll.angle) : undefined,
+      d: rollVertical ? Math.sin(roll.angle) : undefined
+    };
+  }
+  init(particle) {
+    const rollOpt = particle.options.roll;
+    if (rollOpt === null || rollOpt === void 0 ? void 0 : rollOpt.enable) {
+      particle.roll = {
+        enable: rollOpt.enable,
+        horizontal: rollOpt.mode === "horizontal" || rollOpt.mode === "both",
+        vertical: rollOpt.mode === "vertical" || rollOpt.mode === "both",
+        angle: (0, _tsparticlesEngine.getRandom)() * Math.PI * 2,
+        speed: (0, _tsparticlesEngine.getRangeValue)(rollOpt.speed) / 360
+      };
+      if (rollOpt.backColor) {
+        particle.backColor = (0, _tsparticlesEngine.rangeColorToHsl)(rollOpt.backColor);
+      } else if (rollOpt.darken.enable && rollOpt.enlighten.enable) {
+        const alterType = (0, _tsparticlesEngine.getRandom)() >= 0.5 ? "darken" : "enlighten";
+        particle.roll.alter = {
+          type: alterType,
+          value: (0, _tsparticlesEngine.getRangeValue)(alterType === "darken" ? rollOpt.darken.value : rollOpt.enlighten.value)
+        };
+      } else if (rollOpt.darken.enable) {
+        particle.roll.alter = {
+          type: "darken",
+          value: (0, _tsparticlesEngine.getRangeValue)(rollOpt.darken.value)
+        };
+      } else if (rollOpt.enlighten.enable) {
+        particle.roll.alter = {
+          type: "enlighten",
+          value: (0, _tsparticlesEngine.getRangeValue)(rollOpt.enlighten.value)
+        };
+      }
+    } else {
+      particle.roll = {
+        enable: false,
+        horizontal: false,
+        vertical: false,
+        angle: 0,
+        speed: 0
+      };
+    }
+  }
+  isEnabled(particle) {
+    const roll = particle.options.roll;
+    return !particle.destroyed && !particle.spawning && !!(roll === null || roll === void 0 ? void 0 : roll.enable);
+  }
+  loadOptions(options, ...sources) {
+    if (!options.roll) {
+      options.roll = new _Roll.Roll();
+    }
+    for (const source of sources) {
+      options.roll.load(source === null || source === void 0 ? void 0 : source.roll);
+    }
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateRoll(particle, delta);
+  }
+}
+exports.RollUpdater = RollUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Roll":"../node_modules/tsparticles-updater-roll/esm/Options/Classes/Roll.js"}],"../node_modules/tsparticles-updater-roll/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadRollUpdater = loadRollUpdater;
+var _RollUpdater = require("./RollUpdater");
+async function loadRollUpdater(engine) {
+  await engine.addParticleUpdater("roll", () => new _RollUpdater.RollUpdater());
+}
+},{"./RollUpdater":"../node_modules/tsparticles-updater-roll/esm/RollUpdater.js"}],"../node_modules/tsparticles-particles.js/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initPjs = void 0;
+const initPjs = engine => {
+  const particlesJS = (tagId, options) => {
+    return engine.load(tagId, options);
+  };
+  particlesJS.load = (tagId, pathConfigJson, callback) => {
+    engine.loadJSON(tagId, pathConfigJson).then(container => {
+      if (container) {
+        callback(container);
+      }
+    }).catch(() => {
+      callback(undefined);
+    });
+  };
+  particlesJS.setOnClickHandler = callback => {
+    engine.setOnClickHandler(callback);
+  };
+  const pJSDom = engine.dom();
+  return {
+    particlesJS,
+    pJSDom
+  };
+};
+exports.initPjs = initPjs;
+},{}],"../node_modules/tsparticles-updater-angle/esm/Options/Classes/RotateAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RotateAnimation = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class RotateAnimation {
+  constructor() {
+    this.enable = false;
+    this.speed = 0;
+    this.decay = 0;
+    this.sync = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.speed !== undefined) {
+      this.speed = (0, _tsparticlesEngine.setRangeValue)(data.speed);
+    }
+    if (data.decay !== undefined) {
+      this.decay = (0, _tsparticlesEngine.setRangeValue)(data.decay);
+    }
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.RotateAnimation = RotateAnimation;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-angle/esm/Options/Classes/Rotate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Rotate = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _RotateAnimation = require("./RotateAnimation");
+class Rotate extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.animation = new _RotateAnimation.RotateAnimation();
+    this.direction = "clockwise";
+    this.path = false;
+    this.value = 0;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    super.load(data);
+    if (data.direction !== undefined) {
+      this.direction = data.direction;
+    }
+    this.animation.load(data.animation);
+    if (data.path !== undefined) {
+      this.path = data.path;
+    }
+  }
+}
+exports.Rotate = Rotate;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./RotateAnimation":"../node_modules/tsparticles-updater-angle/esm/Options/Classes/RotateAnimation.js"}],"../node_modules/tsparticles-updater-angle/esm/RotateUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RotateUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Rotate = require("./Options/Classes/Rotate");
+function updateAngle(particle, delta) {
+  var _a, _b;
+  const rotate = particle.rotate,
+    rotateOptions = particle.options.rotate;
+  if (!rotate || !rotateOptions) {
+    return;
+  }
+  const rotateAnimation = rotateOptions.animation,
+    speed = ((_a = rotate.velocity) !== null && _a !== void 0 ? _a : 0) * delta.factor,
+    max = 2 * Math.PI,
+    decay = (_b = rotate.decay) !== null && _b !== void 0 ? _b : 1;
+  if (!rotateAnimation.enable) {
+    return;
+  }
+  switch (rotate.status) {
+    case "increasing":
+      rotate.value += speed;
+      if (rotate.value > max) {
+        rotate.value -= max;
+      }
+      break;
+    case "decreasing":
+    default:
+      rotate.value -= speed;
+      if (rotate.value < 0) {
+        rotate.value += max;
+      }
+      break;
+  }
+  if (rotate.velocity && decay !== 1) {
+    rotate.velocity *= decay;
+  }
+}
+class RotateUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  init(particle) {
+    const rotateOptions = particle.options.rotate;
+    if (!rotateOptions) {
+      return;
+    }
+    particle.rotate = {
+      enable: rotateOptions.animation.enable,
+      value: (0, _tsparticlesEngine.getRangeValue)(rotateOptions.value) * Math.PI / 180
+    };
+    particle.pathRotation = rotateOptions.path;
+    let rotateDirection = rotateOptions.direction;
+    if (rotateDirection === "random") {
+      const index = Math.floor((0, _tsparticlesEngine.getRandom)() * 2);
+      rotateDirection = index > 0 ? "counter-clockwise" : "clockwise";
+    }
+    switch (rotateDirection) {
+      case "counter-clockwise":
+      case "counterClockwise":
+        particle.rotate.status = "decreasing";
+        break;
+      case "clockwise":
+        particle.rotate.status = "increasing";
+        break;
+    }
+    const rotateAnimation = rotateOptions.animation;
+    if (rotateAnimation.enable) {
+      particle.rotate.decay = 1 - (0, _tsparticlesEngine.getRangeValue)(rotateAnimation.decay);
+      particle.rotate.velocity = (0, _tsparticlesEngine.getRangeValue)(rotateAnimation.speed) / 360 * this.container.retina.reduceFactor;
+      if (!rotateAnimation.sync) {
+        particle.rotate.velocity *= (0, _tsparticlesEngine.getRandom)();
+      }
+    }
+    particle.rotation = particle.rotate.value;
+  }
+  isEnabled(particle) {
+    const rotate = particle.options.rotate;
+    if (!rotate) {
+      return false;
+    }
+    return !particle.destroyed && !particle.spawning && rotate.animation.enable && !rotate.path;
+  }
+  loadOptions(options, ...sources) {
+    if (!options.rotate) {
+      options.rotate = new _Rotate.Rotate();
+    }
+    for (const source of sources) {
+      options.rotate.load(source === null || source === void 0 ? void 0 : source.rotate);
+    }
+  }
+  update(particle, delta) {
+    var _a, _b;
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateAngle(particle, delta);
+    particle.rotation = (_b = (_a = particle.rotate) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : 0;
+  }
+}
+exports.RotateUpdater = RotateUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Rotate":"../node_modules/tsparticles-updater-angle/esm/Options/Classes/Rotate.js"}],"../node_modules/tsparticles-updater-angle/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadAngleUpdater = loadAngleUpdater;
+var _RotateUpdater = require("./RotateUpdater");
+async function loadAngleUpdater(engine) {
+  await engine.addParticleUpdater("rotate", container => new _RotateUpdater.RotateUpdater(container));
+}
+},{"./RotateUpdater":"../node_modules/tsparticles-updater-angle/esm/RotateUpdater.js"}],"../node_modules/tsparticles-move-base/esm/Utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.applyDistance = applyDistance;
+exports.applyPath = applyPath;
+exports.getProximitySpeedFactor = getProximitySpeedFactor;
+exports.spin = spin;
+var _tsparticlesEngine = require("tsparticles-engine");
+function applyDistance(particle) {
+  const initialPosition = particle.initialPosition,
+    {
+      dx,
+      dy
+    } = (0, _tsparticlesEngine.getDistances)(initialPosition, particle.position),
+    dxFixed = Math.abs(dx),
+    dyFixed = Math.abs(dy),
+    hDistance = particle.retina.maxDistance.horizontal,
+    vDistance = particle.retina.maxDistance.vertical;
+  if (!hDistance && !vDistance) {
+    return;
+  }
+  if ((hDistance && dxFixed >= hDistance || vDistance && dyFixed >= vDistance) && !particle.misplaced) {
+    particle.misplaced = !!hDistance && dxFixed > hDistance || !!vDistance && dyFixed > vDistance;
+    if (hDistance) {
+      particle.velocity.x = particle.velocity.y / 2 - particle.velocity.x;
+    }
+    if (vDistance) {
+      particle.velocity.y = particle.velocity.x / 2 - particle.velocity.y;
+    }
+  } else if ((!hDistance || dxFixed < hDistance) && (!vDistance || dyFixed < vDistance) && particle.misplaced) {
+    particle.misplaced = false;
+  } else if (particle.misplaced) {
+    const pos = particle.position,
+      vel = particle.velocity;
+    if (hDistance && (pos.x < initialPosition.x && vel.x < 0 || pos.x > initialPosition.x && vel.x > 0)) {
+      vel.x *= -(0, _tsparticlesEngine.getRandom)();
+    }
+    if (vDistance && (pos.y < initialPosition.y && vel.y < 0 || pos.y > initialPosition.y && vel.y > 0)) {
+      vel.y *= -(0, _tsparticlesEngine.getRandom)();
+    }
+  }
+}
+function spin(particle, moveSpeed) {
+  const container = particle.container;
+  if (!particle.spin) {
+    return;
+  }
+  const updateFunc = {
+    x: particle.spin.direction === "clockwise" ? Math.cos : Math.sin,
+    y: particle.spin.direction === "clockwise" ? Math.sin : Math.cos
+  };
+  particle.position.x = particle.spin.center.x + particle.spin.radius * updateFunc.x(particle.spin.angle);
+  particle.position.y = particle.spin.center.y + particle.spin.radius * updateFunc.y(particle.spin.angle);
+  particle.spin.radius += particle.spin.acceleration;
+  const maxCanvasSize = Math.max(container.canvas.size.width, container.canvas.size.height);
+  if (particle.spin.radius > maxCanvasSize / 2) {
+    particle.spin.radius = maxCanvasSize / 2;
+    particle.spin.acceleration *= -1;
+  } else if (particle.spin.radius < 0) {
+    particle.spin.radius = 0;
+    particle.spin.acceleration *= -1;
+  }
+  particle.spin.angle += moveSpeed / 100 * (1 - particle.spin.radius / maxCanvasSize);
+}
+function applyPath(particle, delta) {
+  var _a;
+  const particlesOptions = particle.options,
+    pathOptions = particlesOptions.move.path,
+    pathEnabled = pathOptions.enable;
+  if (!pathEnabled) {
+    return;
+  }
+  if (particle.lastPathTime <= particle.pathDelay) {
+    particle.lastPathTime += delta.value;
+    return;
+  }
+  const path = (_a = particle.pathGenerator) === null || _a === void 0 ? void 0 : _a.generate(particle);
+  if (path) {
+    particle.velocity.addTo(path);
+  }
+  if (pathOptions.clamp) {
+    particle.velocity.x = (0, _tsparticlesEngine.clamp)(particle.velocity.x, -1, 1);
+    particle.velocity.y = (0, _tsparticlesEngine.clamp)(particle.velocity.y, -1, 1);
+  }
+  particle.lastPathTime -= particle.pathDelay;
+}
+function getProximitySpeedFactor(particle) {
+  return particle.slow.inRange ? particle.slow.factor : 1;
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-move-base/esm/BaseMover.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BaseMover = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Utils = require("./Utils");
+class BaseMover {
+  init(particle) {
+    var _a;
+    const container = particle.container,
+      options = particle.options,
+      gravityOptions = options.move.gravity,
+      spinOptions = options.move.spin;
+    particle.gravity = {
+      enable: gravityOptions.enable,
+      acceleration: (0, _tsparticlesEngine.getRangeValue)(gravityOptions.acceleration),
+      inverse: gravityOptions.inverse
+    };
+    if (spinOptions.enable) {
+      const spinPos = (_a = spinOptions.position) !== null && _a !== void 0 ? _a : {
+          x: 50,
+          y: 50
+        },
+        spinCenter = {
+          x: spinPos.x / 100 * container.canvas.size.width,
+          y: spinPos.y / 100 * container.canvas.size.height
+        },
+        pos = particle.getPosition(),
+        distance = (0, _tsparticlesEngine.getDistance)(pos, spinCenter),
+        spinAcceleration = (0, _tsparticlesEngine.getRangeValue)(spinOptions.acceleration);
+      particle.retina.spinAcceleration = spinAcceleration * container.retina.pixelRatio;
+      particle.spin = {
+        center: spinCenter,
+        direction: particle.velocity.x >= 0 ? "clockwise" : "counter-clockwise",
+        angle: particle.velocity.angle,
+        radius: distance,
+        acceleration: particle.retina.spinAcceleration
+      };
+    }
+  }
+  isEnabled(particle) {
+    return !particle.destroyed && particle.options.move.enable;
+  }
+  move(particle, delta) {
+    var _a, _b, _c;
+    var _d, _e;
+    const particleOptions = particle.options,
+      moveOptions = particleOptions.move;
+    if (!moveOptions.enable) {
+      return;
+    }
+    const container = particle.container,
+      slowFactor = (0, _Utils.getProximitySpeedFactor)(particle),
+      baseSpeed = ((_a = (_d = particle.retina).moveSpeed) !== null && _a !== void 0 ? _a : _d.moveSpeed = (0, _tsparticlesEngine.getRangeValue)(moveOptions.speed) * container.retina.pixelRatio) * container.retina.reduceFactor,
+      moveDrift = (_b = (_e = particle.retina).moveDrift) !== null && _b !== void 0 ? _b : _e.moveDrift = (0, _tsparticlesEngine.getRangeValue)(particle.options.move.drift) * container.retina.pixelRatio,
+      maxSize = (0, _tsparticlesEngine.getRangeMax)(particleOptions.size.value) * container.retina.pixelRatio,
+      sizeFactor = moveOptions.size ? particle.getRadius() / maxSize : 1,
+      speedFactor = sizeFactor * slowFactor * (delta.factor || 1),
+      diffFactor = 2,
+      moveSpeed = baseSpeed * speedFactor / diffFactor;
+    if (moveOptions.spin.enable) {
+      (0, _Utils.spin)(particle, moveSpeed);
+    } else {
+      (0, _Utils.applyPath)(particle, delta);
+      const gravityOptions = particle.gravity,
+        gravityFactor = (gravityOptions === null || gravityOptions === void 0 ? void 0 : gravityOptions.enable) && gravityOptions.inverse ? -1 : 1;
+      if ((gravityOptions === null || gravityOptions === void 0 ? void 0 : gravityOptions.enable) && moveSpeed) {
+        particle.velocity.y += gravityFactor * (gravityOptions.acceleration * delta.factor) / (60 * moveSpeed);
+      }
+      if (moveDrift && moveSpeed) {
+        particle.velocity.x += moveDrift * delta.factor / (60 * moveSpeed);
+      }
+      const decay = particle.moveDecay;
+      if (decay != 1) {
+        particle.velocity.multTo(decay);
+      }
+      const velocity = particle.velocity.mult(moveSpeed),
+        maxSpeed = (_c = particle.retina.maxSpeed) !== null && _c !== void 0 ? _c : container.retina.maxSpeed;
+      if ((gravityOptions === null || gravityOptions === void 0 ? void 0 : gravityOptions.enable) && maxSpeed > 0 && (!gravityOptions.inverse && velocity.y >= 0 && velocity.y >= maxSpeed || gravityOptions.inverse && velocity.y <= 0 && velocity.y <= -maxSpeed)) {
+        velocity.y = gravityFactor * maxSpeed;
+        if (moveSpeed) {
+          particle.velocity.y = velocity.y / moveSpeed;
+        }
+      }
+      const zIndexOptions = particle.options.zIndex,
+        zVelocityFactor = (1 - particle.zIndexFactor) ** zIndexOptions.velocityRate;
+      if (zVelocityFactor != 1) {
+        velocity.multTo(zVelocityFactor);
+      }
+      particle.position.addTo(velocity);
+      if (moveOptions.vibrate) {
+        particle.position.x += Math.sin(particle.position.x * Math.cos(particle.position.y));
+        particle.position.y += Math.cos(particle.position.y * Math.sin(particle.position.x));
+      }
+    }
+    (0, _Utils.applyDistance)(particle);
+  }
+}
+exports.BaseMover = BaseMover;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Utils":"../node_modules/tsparticles-move-base/esm/Utils.js"}],"../node_modules/tsparticles-move-base/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadBaseMover = loadBaseMover;
+var _BaseMover = require("./BaseMover");
+async function loadBaseMover(engine) {
+  engine.addMover("base", () => new _BaseMover.BaseMover());
+}
+},{"./BaseMover":"../node_modules/tsparticles-move-base/esm/BaseMover.js"}],"../node_modules/tsparticles-shape-circle/esm/CircleDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CircleDrawer = void 0;
+class CircleDrawer {
+  draw(context, particle, radius) {
+    if (!particle.circleRange) {
+      particle.circleRange = {
+        min: 0,
+        max: Math.PI * 2
+      };
+    }
+    const circleRange = particle.circleRange;
+    context.arc(0, 0, radius, circleRange.min, circleRange.max, false);
+  }
+  getSidesCount() {
+    return 12;
+  }
+  particleInit(container, particle) {
+    var _a;
+    const shapeData = particle.shapeData,
+      angle = (_a = shapeData === null || shapeData === void 0 ? void 0 : shapeData.angle) !== null && _a !== void 0 ? _a : {
+        max: 360,
+        min: 0
+      };
+    particle.circleRange = typeof angle !== "object" ? {
+      min: 0,
+      max: angle * Math.PI / 180
+    } : {
+      min: angle.min * Math.PI / 180,
+      max: angle.max * Math.PI / 180
+    };
+  }
+}
+exports.CircleDrawer = CircleDrawer;
+},{}],"../node_modules/tsparticles-shape-circle/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadCircleShape = loadCircleShape;
+var _CircleDrawer = require("./CircleDrawer");
+async function loadCircleShape(engine) {
+  await engine.addShape("circle", new _CircleDrawer.CircleDrawer());
+}
+},{"./CircleDrawer":"../node_modules/tsparticles-shape-circle/esm/CircleDrawer.js"}],"../node_modules/tsparticles-updater-color/esm/ColorUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ColorUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+function updateColorValue(delta, value, valueAnimation, max, decrease) {
+  var _a, _b;
+  const colorValue = value;
+  if (!colorValue || !valueAnimation.enable || colorValue.loops !== undefined && colorValue.maxLoops !== undefined && colorValue.maxLoops > 0 && colorValue.loops >= colorValue.maxLoops) {
+    return;
+  }
+  const offset = (0, _tsparticlesEngine.randomInRange)(valueAnimation.offset),
+    velocity = ((_a = value.velocity) !== null && _a !== void 0 ? _a : 0) * delta.factor + offset * 3.6,
+    decay = (_b = value.decay) !== null && _b !== void 0 ? _b : 1;
+  if (!decrease || colorValue.status === "increasing") {
+    colorValue.value += velocity;
+    if (colorValue.value > max) {
+      if (!colorValue.loops) {
+        colorValue.loops = 0;
+      }
+      colorValue.loops++;
+      if (decrease) {
+        colorValue.status = "decreasing";
+        colorValue.value -= colorValue.value % max;
+      }
+    }
+  } else {
+    colorValue.value -= velocity;
+    if (colorValue.value < 0) {
+      if (!colorValue.loops) {
+        colorValue.loops = 0;
+      }
+      colorValue.loops++;
+      colorValue.status = "increasing";
+      colorValue.value += colorValue.value;
+    }
+  }
+  if (colorValue.velocity && decay !== 1) {
+    colorValue.velocity *= decay;
+  }
+  if (colorValue.value > max) {
+    colorValue.value %= max;
+  }
+}
+function updateColor(particle, delta) {
+  var _a, _b, _c;
+  const animationOptions = particle.options.color.animation;
+  const h = (_a = particle.color) === null || _a === void 0 ? void 0 : _a.h,
+    s = (_b = particle.color) === null || _b === void 0 ? void 0 : _b.s,
+    l = (_c = particle.color) === null || _c === void 0 ? void 0 : _c.l;
+  if (h) {
+    updateColorValue(delta, h, animationOptions.h, 360, false);
+  }
+  if (s) {
+    updateColorValue(delta, s, animationOptions.s, 100, true);
+  }
+  if (l) {
+    updateColorValue(delta, l, animationOptions.l, 100, true);
+  }
+}
+class ColorUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  init(particle) {
+    const hslColor = (0, _tsparticlesEngine.rangeColorToHsl)(particle.options.color, particle.id, particle.options.reduceDuplicates);
+    if (hslColor) {
+      particle.color = (0, _tsparticlesEngine.getHslAnimationFromHsl)(hslColor, particle.options.color.animation, this.container.retina.reduceFactor);
+    }
+  }
+  isEnabled(particle) {
+    var _a, _b, _c;
+    const animationOptions = particle.options.color.animation;
+    return !particle.destroyed && !particle.spawning && (((_a = particle.color) === null || _a === void 0 ? void 0 : _a.h.value) !== undefined && animationOptions.h.enable || ((_b = particle.color) === null || _b === void 0 ? void 0 : _b.s.value) !== undefined && animationOptions.s.enable || ((_c = particle.color) === null || _c === void 0 ? void 0 : _c.l.value) !== undefined && animationOptions.l.enable);
+  }
+  update(particle, delta) {
+    updateColor(particle, delta);
+  }
+}
+exports.ColorUpdater = ColorUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-color/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadColorUpdater = loadColorUpdater;
+var _ColorUpdater = require("./ColorUpdater");
+async function loadColorUpdater(engine) {
+  await engine.addParticleUpdater("color", container => new _ColorUpdater.ColorUpdater(container));
+}
+},{"./ColorUpdater":"../node_modules/tsparticles-updater-color/esm/ColorUpdater.js"}],"../node_modules/tsparticles-interaction-external-attract/esm/Options/Classes/Attract.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attract = void 0;
+class Attract {
+  constructor() {
+    this.distance = 200;
+    this.duration = 0.4;
+    this.easing = "ease-out-quad";
+    this.factor = 1;
+    this.maxSpeed = 50;
+    this.speed = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+    if (data.duration !== undefined) {
+      this.duration = data.duration;
+    }
+    if (data.easing !== undefined) {
+      this.easing = data.easing;
+    }
+    if (data.factor !== undefined) {
+      this.factor = data.factor;
+    }
+    if (data.maxSpeed !== undefined) {
+      this.maxSpeed = data.maxSpeed;
+    }
+    if (data.speed !== undefined) {
+      this.speed = data.speed;
+    }
+  }
+}
+exports.Attract = Attract;
+},{}],"../node_modules/tsparticles-interaction-external-attract/esm/Attractor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attractor = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Attract = require("./Options/Classes/Attract");
+class Attractor extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(engine, container) {
+    super(container);
+    this._engine = engine;
+    if (!container.attract) {
+      container.attract = {
+        particles: []
+      };
+    }
+    this.handleClickMode = mode => {
+      const options = this.container.actualOptions,
+        attract = options.interactivity.modes.attract;
+      if (!attract || mode !== "attract") {
+        return;
+      }
+      if (!container.attract) {
+        container.attract = {
+          particles: []
+        };
+      }
+      container.attract.clicking = true;
+      container.attract.count = 0;
+      for (const particle of container.attract.particles) {
+        if (!this.isEnabled(particle)) {
+          continue;
+        }
+        particle.velocity.setTo(particle.initialVelocity);
+      }
+      container.attract.particles = [];
+      container.attract.finish = false;
+      setTimeout(() => {
+        if (!container.destroyed) {
+          if (!container.attract) {
+            container.attract = {
+              particles: []
+            };
+          }
+          container.attract.clicking = false;
+        }
+      }, attract.duration * 1000);
+    };
+  }
+  clear() {}
+  init() {
+    const container = this.container,
+      attract = container.actualOptions.interactivity.modes.attract;
+    if (!attract) {
+      return;
+    }
+    container.retina.attractModeDistance = attract.distance * container.retina.pixelRatio;
+  }
+  async interact() {
+    const container = this.container,
+      options = container.actualOptions,
+      mouseMoveStatus = container.interactivity.status === _tsparticlesEngine.mouseMoveEvent,
+      events = options.interactivity.events,
+      hoverEnabled = events.onHover.enable,
+      hoverMode = events.onHover.mode,
+      clickEnabled = events.onClick.enable,
+      clickMode = events.onClick.mode;
+    if (mouseMoveStatus && hoverEnabled && (0, _tsparticlesEngine.isInArray)("attract", hoverMode)) {
+      this.hoverAttract();
+    } else if (clickEnabled && (0, _tsparticlesEngine.isInArray)("attract", clickMode)) {
+      this.clickAttract();
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      options = container.actualOptions,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : options.interactivity).events;
+    if ((!mouse.position || !events.onHover.enable) && (!mouse.clickPosition || !events.onClick.enable)) {
+      return false;
+    }
+    const hoverMode = events.onHover.mode,
+      clickMode = events.onClick.mode;
+    return (0, _tsparticlesEngine.isInArray)("attract", hoverMode) || (0, _tsparticlesEngine.isInArray)("attract", clickMode);
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.attract) {
+      options.attract = new _Attract.Attract();
+    }
+    for (const source of sources) {
+      options.attract.load(source === null || source === void 0 ? void 0 : source.attract);
+    }
+  }
+  reset() {}
+  clickAttract() {
+    const container = this.container;
+    if (!container.attract) {
+      container.attract = {
+        particles: []
+      };
+    }
+    if (!container.attract.finish) {
+      if (!container.attract.count) {
+        container.attract.count = 0;
+      }
+      container.attract.count++;
+      if (container.attract.count === container.particles.count) {
+        container.attract.finish = true;
+      }
+    }
+    if (container.attract.clicking) {
+      const mousePos = container.interactivity.mouse.clickPosition,
+        attractRadius = container.retina.attractModeDistance;
+      if (!attractRadius || attractRadius < 0 || !mousePos) {
+        return;
+      }
+      this.processAttract(mousePos, attractRadius, new _tsparticlesEngine.Circle(mousePos.x, mousePos.y, attractRadius));
+    } else if (container.attract.clicking === false) {
+      container.attract.particles = [];
+    }
+    return;
+  }
+  hoverAttract() {
+    const container = this.container,
+      mousePos = container.interactivity.mouse.position,
+      attractRadius = container.retina.attractModeDistance;
+    if (!attractRadius || attractRadius < 0 || !mousePos) {
+      return;
+    }
+    this.processAttract(mousePos, attractRadius, new _tsparticlesEngine.Circle(mousePos.x, mousePos.y, attractRadius));
+  }
+  processAttract(position, attractRadius, area) {
+    const container = this.container,
+      attractOptions = container.actualOptions.interactivity.modes.attract;
+    if (!attractOptions) {
+      return;
+    }
+    const query = container.particles.quadTree.query(area, p => this.isEnabled(p));
+    for (const particle of query) {
+      const {
+        dx,
+        dy,
+        distance
+      } = (0, _tsparticlesEngine.getDistances)(particle.position, position);
+      const velocity = attractOptions.speed * attractOptions.factor;
+      const attractFactor = (0, _tsparticlesEngine.clamp)((0, _tsparticlesEngine.getEasing)(attractOptions.easing)(1 - distance / attractRadius) * velocity, 0, attractOptions.maxSpeed);
+      const normVec = _tsparticlesEngine.Vector.create(distance === 0 ? velocity : dx / distance * attractFactor, distance === 0 ? velocity : dy / distance * attractFactor);
+      particle.position.subFrom(normVec);
+    }
+  }
+}
+exports.Attractor = Attractor;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Attract":"../node_modules/tsparticles-interaction-external-attract/esm/Options/Classes/Attract.js"}],"../node_modules/tsparticles-interaction-external-attract/esm/Options/Interfaces/IAttract.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-attract/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalAttractInteraction: true
+};
+exports.loadExternalAttractInteraction = loadExternalAttractInteraction;
+var _Attractor = require("./Attractor");
+var _Attract = require("./Options/Classes/Attract");
+Object.keys(_Attract).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Attract[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Attract[key];
+    }
+  });
+});
+var _IAttract = require("./Options/Interfaces/IAttract");
+Object.keys(_IAttract).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IAttract[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IAttract[key];
+    }
+  });
+});
+async function loadExternalAttractInteraction(engine) {
+  await engine.addInteractor("externalAttract", container => new _Attractor.Attractor(engine, container));
+}
+},{"./Attractor":"../node_modules/tsparticles-interaction-external-attract/esm/Attractor.js","./Options/Classes/Attract":"../node_modules/tsparticles-interaction-external-attract/esm/Options/Classes/Attract.js","./Options/Interfaces/IAttract":"../node_modules/tsparticles-interaction-external-attract/esm/Options/Interfaces/IAttract.js"}],"../node_modules/tsparticles-interaction-external-bounce/esm/Options/Classes/Bounce.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bounce = void 0;
+class Bounce {
+  constructor() {
+    this.distance = 200;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+  }
+}
+exports.Bounce = Bounce;
+},{}],"../node_modules/tsparticles-interaction-external-bounce/esm/Bouncer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bouncer = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Bounce = require("./Options/Classes/Bounce");
+class Bouncer extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+  }
+  clear() {}
+  init() {
+    const container = this.container,
+      bounce = container.actualOptions.interactivity.modes.bounce;
+    if (!bounce) {
+      return;
+    }
+    container.retina.bounceModeDistance = bounce.distance * container.retina.pixelRatio;
+  }
+  async interact() {
+    const container = this.container,
+      options = container.actualOptions,
+      events = options.interactivity.events,
+      mouseMoveStatus = container.interactivity.status === _tsparticlesEngine.mouseMoveEvent,
+      hoverEnabled = events.onHover.enable,
+      hoverMode = events.onHover.mode,
+      divs = events.onDiv;
+    if (mouseMoveStatus && hoverEnabled && (0, _tsparticlesEngine.isInArray)("bounce", hoverMode)) {
+      this.processMouseBounce();
+    } else {
+      (0, _tsparticlesEngine.divModeExecute)("bounce", divs, (selector, div) => this.singleSelectorBounce(selector, div));
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      options = container.actualOptions,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : options.interactivity).events,
+      divs = events.onDiv;
+    return mouse.position && events.onHover.enable && (0, _tsparticlesEngine.isInArray)("bounce", events.onHover.mode) || (0, _tsparticlesEngine.isDivModeEnabled)("bounce", divs);
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.bounce) {
+      options.bounce = new _Bounce.Bounce();
+    }
+    for (const source of sources) {
+      options.bounce.load(source === null || source === void 0 ? void 0 : source.bounce);
+    }
+  }
+  reset() {}
+  processBounce(position, radius, area) {
+    const query = this.container.particles.quadTree.query(area, p => this.isEnabled(p));
+    for (const particle of query) {
+      if (area instanceof _tsparticlesEngine.Circle) {
+        (0, _tsparticlesEngine.circleBounce)((0, _tsparticlesEngine.circleBounceDataFromParticle)(particle), {
+          position,
+          radius,
+          mass: radius ** 2 * Math.PI / 2,
+          velocity: _tsparticlesEngine.Vector.origin,
+          factor: _tsparticlesEngine.Vector.origin
+        });
+      } else if (area instanceof _tsparticlesEngine.Rectangle) {
+        (0, _tsparticlesEngine.rectBounce)(particle, (0, _tsparticlesEngine.calculateBounds)(position, radius));
+      }
+    }
+  }
+  processMouseBounce() {
+    const container = this.container,
+      pxRatio = container.retina.pixelRatio,
+      tolerance = 10 * pxRatio,
+      mousePos = container.interactivity.mouse.position,
+      radius = container.retina.bounceModeDistance;
+    if (!radius || radius < 0 || !mousePos) {
+      return;
+    }
+    this.processBounce(mousePos, radius, new _tsparticlesEngine.Circle(mousePos.x, mousePos.y, radius + tolerance));
+  }
+  singleSelectorBounce(selector, div) {
+    const container = this.container,
+      query = document.querySelectorAll(selector);
+    if (!query.length) {
+      return;
+    }
+    query.forEach(item => {
+      const elem = item,
+        pxRatio = container.retina.pixelRatio,
+        pos = {
+          x: (elem.offsetLeft + elem.offsetWidth / 2) * pxRatio,
+          y: (elem.offsetTop + elem.offsetHeight / 2) * pxRatio
+        },
+        radius = elem.offsetWidth / 2 * pxRatio,
+        tolerance = 10 * pxRatio,
+        area = div.type === "circle" ? new _tsparticlesEngine.Circle(pos.x, pos.y, radius + tolerance) : new _tsparticlesEngine.Rectangle(elem.offsetLeft * pxRatio - tolerance, elem.offsetTop * pxRatio - tolerance, elem.offsetWidth * pxRatio + tolerance * 2, elem.offsetHeight * pxRatio + tolerance * 2);
+      this.processBounce(pos, radius, area);
+    });
+  }
+}
+exports.Bouncer = Bouncer;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Bounce":"../node_modules/tsparticles-interaction-external-bounce/esm/Options/Classes/Bounce.js"}],"../node_modules/tsparticles-interaction-external-bounce/esm/Options/Interfaces/IBounce.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-bounce/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalBounceInteraction: true
+};
+exports.loadExternalBounceInteraction = loadExternalBounceInteraction;
+var _Bouncer = require("./Bouncer");
+var _Bounce = require("./Options/Classes/Bounce");
+Object.keys(_Bounce).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Bounce[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Bounce[key];
+    }
+  });
+});
+var _IBounce = require("./Options/Interfaces/IBounce");
+Object.keys(_IBounce).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBounce[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBounce[key];
+    }
+  });
+});
+async function loadExternalBounceInteraction(engine) {
+  await engine.addInteractor("externalBounce", container => new _Bouncer.Bouncer(container));
+}
+},{"./Bouncer":"../node_modules/tsparticles-interaction-external-bounce/esm/Bouncer.js","./Options/Classes/Bounce":"../node_modules/tsparticles-interaction-external-bounce/esm/Options/Classes/Bounce.js","./Options/Interfaces/IBounce":"../node_modules/tsparticles-interaction-external-bounce/esm/Options/Interfaces/IBounce.js"}],"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BubbleBase = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class BubbleBase {
+  constructor() {
+    this.distance = 200;
+    this.duration = 0.4;
+    this.mix = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+    if (data.duration !== undefined) {
+      this.duration = data.duration;
+    }
+    if (data.mix !== undefined) {
+      this.mix = data.mix;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+    if (data.color !== undefined) {
+      const sourceColor = this.color instanceof Array ? undefined : this.color;
+      this.color = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(data.color, color => {
+        return _tsparticlesEngine.OptionsColor.create(sourceColor, color);
+      });
+    }
+    if (data.size !== undefined) {
+      this.size = data.size;
+    }
+  }
+}
+exports.BubbleBase = BubbleBase;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleDiv.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BubbleDiv = void 0;
+var _BubbleBase = require("./BubbleBase");
+var _tsparticlesEngine = require("tsparticles-engine");
+class BubbleDiv extends _BubbleBase.BubbleBase {
+  constructor() {
+    super();
+    this.selectors = [];
+  }
+  get ids() {
+    return (0, _tsparticlesEngine.executeOnSingleOrMultiple)(this.selectors, t => t.replace("#", ""));
+  }
+  set ids(value) {
+    this.selectors = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(value, t => `#${t}`);
+  }
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    if (data.ids !== undefined) {
+      this.ids = data.ids;
+    }
+    if (data.selectors !== undefined) {
+      this.selectors = data.selectors;
+    }
+  }
+}
+exports.BubbleDiv = BubbleDiv;
+},{"./BubbleBase":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleBase.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/Bubble.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bubble = void 0;
+var _BubbleBase = require("./BubbleBase");
+var _BubbleDiv = require("./BubbleDiv");
+var _tsparticlesEngine = require("tsparticles-engine");
+class Bubble extends _BubbleBase.BubbleBase {
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    this.divs = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(data.divs, div => {
+      const tmp = new _BubbleDiv.BubbleDiv();
+      tmp.load(div);
+      return tmp;
+    });
+  }
+}
+exports.Bubble = Bubble;
+},{"./BubbleBase":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleBase.js","./BubbleDiv":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleDiv.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-bubble/esm/Bubbler.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bubbler = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Bubble = require("./Options/Classes/Bubble");
+function calculateBubbleValue(particleValue, modeValue, optionsValue, ratio) {
+  if (modeValue >= optionsValue) {
+    const value = particleValue + (modeValue - optionsValue) * ratio;
+    return (0, _tsparticlesEngine.clamp)(value, particleValue, modeValue);
+  } else if (modeValue < optionsValue) {
+    const value = particleValue - (optionsValue - modeValue) * ratio;
+    return (0, _tsparticlesEngine.clamp)(value, modeValue, particleValue);
+  }
+}
+class Bubbler extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+    if (!container.bubble) {
+      container.bubble = {};
+    }
+    this.handleClickMode = mode => {
+      if (mode !== "bubble") {
+        return;
+      }
+      if (!container.bubble) {
+        container.bubble = {};
+      }
+      container.bubble.clicking = true;
+    };
+  }
+  clear(particle, delta, force) {
+    if (particle.bubble.inRange && !force) {
+      return;
+    }
+    delete particle.bubble.div;
+    delete particle.bubble.opacity;
+    delete particle.bubble.radius;
+    delete particle.bubble.color;
+  }
+  init() {
+    const container = this.container,
+      bubble = container.actualOptions.interactivity.modes.bubble;
+    if (!bubble) {
+      return;
+    }
+    container.retina.bubbleModeDistance = bubble.distance * container.retina.pixelRatio;
+    if (bubble.size !== undefined) {
+      container.retina.bubbleModeSize = bubble.size * container.retina.pixelRatio;
+    }
+  }
+  async interact(delta) {
+    const options = this.container.actualOptions,
+      events = options.interactivity.events,
+      onHover = events.onHover,
+      onClick = events.onClick,
+      hoverEnabled = onHover.enable,
+      hoverMode = onHover.mode,
+      clickEnabled = onClick.enable,
+      clickMode = onClick.mode,
+      divs = events.onDiv;
+    if (hoverEnabled && (0, _tsparticlesEngine.isInArray)("bubble", hoverMode)) {
+      this.hoverBubble(delta);
+    } else if (clickEnabled && (0, _tsparticlesEngine.isInArray)("bubble", clickMode)) {
+      this.clickBubble(delta);
+    } else {
+      (0, _tsparticlesEngine.divModeExecute)("bubble", divs, (selector, div) => this.singleSelectorHover(delta, selector, div));
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      options = container.actualOptions,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : options.interactivity).events,
+      divs = events.onDiv,
+      divBubble = (0, _tsparticlesEngine.isDivModeEnabled)("bubble", divs);
+    if (!(divBubble || events.onHover.enable && mouse.position || events.onClick.enable && mouse.clickPosition)) {
+      return false;
+    }
+    const hoverMode = events.onHover.mode;
+    const clickMode = events.onClick.mode;
+    return (0, _tsparticlesEngine.isInArray)("bubble", hoverMode) || (0, _tsparticlesEngine.isInArray)("bubble", clickMode) || divBubble;
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.bubble) {
+      options.bubble = new _Bubble.Bubble();
+    }
+    for (const source of sources) {
+      options.bubble.load(source === null || source === void 0 ? void 0 : source.bubble);
+    }
+  }
+  reset(particle) {
+    particle.bubble.inRange = false;
+  }
+  clickBubble(delta) {
+    var _a, _b;
+    const container = this.container,
+      options = container.actualOptions,
+      mouseClickPos = container.interactivity.mouse.clickPosition,
+      bubble = options.interactivity.modes.bubble;
+    if (!bubble || !mouseClickPos) {
+      return;
+    }
+    if (!container.bubble) {
+      container.bubble = {};
+    }
+    const distance = container.retina.bubbleModeDistance;
+    if (!distance || distance < 0) {
+      return;
+    }
+    const query = container.particles.quadTree.queryCircle(mouseClickPos, distance, p => this.isEnabled(p));
+    for (const particle of query) {
+      if (!container.bubble.clicking) {
+        continue;
+      }
+      particle.bubble.inRange = !container.bubble.durationEnd;
+      const pos = particle.getPosition(),
+        distMouse = (0, _tsparticlesEngine.getDistance)(pos, mouseClickPos),
+        timeSpent = (new Date().getTime() - (container.interactivity.mouse.clickTime || 0)) / 1000;
+      if (timeSpent > bubble.duration) {
+        container.bubble.durationEnd = true;
+      }
+      if (timeSpent > bubble.duration * 2) {
+        container.bubble.clicking = false;
+        container.bubble.durationEnd = false;
+      }
+      const sizeData = {
+        bubbleObj: {
+          optValue: container.retina.bubbleModeSize,
+          value: particle.bubble.radius
+        },
+        particlesObj: {
+          optValue: (0, _tsparticlesEngine.getRangeMax)(particle.options.size.value) * container.retina.pixelRatio,
+          value: particle.size.value
+        },
+        type: "size"
+      };
+      this.process(particle, distMouse, timeSpent, sizeData);
+      const opacityData = {
+        bubbleObj: {
+          optValue: bubble.opacity,
+          value: particle.bubble.opacity
+        },
+        particlesObj: {
+          optValue: (0, _tsparticlesEngine.getRangeMax)(particle.options.opacity.value),
+          value: (_b = (_a = particle.opacity) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : 1
+        },
+        type: "opacity"
+      };
+      this.process(particle, distMouse, timeSpent, opacityData);
+      if (!container.bubble.durationEnd) {
+        if (distMouse <= distance) {
+          this.hoverBubbleColor(particle, distMouse);
+        } else {
+          delete particle.bubble.color;
+        }
+      } else {
+        delete particle.bubble.color;
+      }
+    }
+  }
+  hoverBubble(delta) {
+    const container = this.container,
+      mousePos = container.interactivity.mouse.position,
+      distance = container.retina.bubbleModeDistance;
+    if (!distance || distance < 0 || mousePos === undefined) {
+      return;
+    }
+    const query = container.particles.quadTree.queryCircle(mousePos, distance, p => this.isEnabled(p));
+    for (const particle of query) {
+      particle.bubble.inRange = true;
+      const pos = particle.getPosition(),
+        pointDistance = (0, _tsparticlesEngine.getDistance)(pos, mousePos),
+        ratio = 1 - pointDistance / distance;
+      if (pointDistance <= distance) {
+        if (ratio >= 0 && container.interactivity.status === _tsparticlesEngine.mouseMoveEvent) {
+          this.hoverBubbleSize(particle, ratio);
+          this.hoverBubbleOpacity(particle, ratio);
+          this.hoverBubbleColor(particle, ratio);
+        }
+      } else {
+        this.reset(particle);
+      }
+      if (container.interactivity.status === _tsparticlesEngine.mouseLeaveEvent) {
+        this.reset(particle);
+      }
+    }
+  }
+  hoverBubbleColor(particle, ratio, divBubble) {
+    const options = this.container.actualOptions;
+    const bubbleOptions = divBubble !== null && divBubble !== void 0 ? divBubble : options.interactivity.modes.bubble;
+    if (!bubbleOptions) {
+      return;
+    }
+    if (!particle.bubble.finalColor) {
+      const modeColor = bubbleOptions.color;
+      if (!modeColor) {
+        return;
+      }
+      const bubbleColor = (0, _tsparticlesEngine.itemFromSingleOrMultiple)(modeColor);
+      particle.bubble.finalColor = (0, _tsparticlesEngine.rangeColorToHsl)(bubbleColor);
+    }
+    if (!particle.bubble.finalColor) {
+      return;
+    }
+    if (bubbleOptions.mix) {
+      particle.bubble.color = undefined;
+      const pColor = particle.getFillColor();
+      particle.bubble.color = pColor ? (0, _tsparticlesEngine.rgbToHsl)((0, _tsparticlesEngine.colorMix)(pColor, particle.bubble.finalColor, 1 - ratio, ratio)) : particle.bubble.finalColor;
+    } else {
+      particle.bubble.color = particle.bubble.finalColor;
+    }
+  }
+  hoverBubbleOpacity(particle, ratio, divBubble) {
+    var _a, _b, _c, _d;
+    const container = this.container,
+      options = container.actualOptions,
+      modeOpacity = (_a = divBubble === null || divBubble === void 0 ? void 0 : divBubble.opacity) !== null && _a !== void 0 ? _a : (_b = options.interactivity.modes.bubble) === null || _b === void 0 ? void 0 : _b.opacity;
+    if (!modeOpacity) {
+      return;
+    }
+    const optOpacity = particle.options.opacity.value;
+    const pOpacity = (_d = (_c = particle.opacity) === null || _c === void 0 ? void 0 : _c.value) !== null && _d !== void 0 ? _d : 1;
+    const opacity = calculateBubbleValue(pOpacity, modeOpacity, (0, _tsparticlesEngine.getRangeMax)(optOpacity), ratio);
+    if (opacity !== undefined) {
+      particle.bubble.opacity = opacity;
+    }
+  }
+  hoverBubbleSize(particle, ratio, divBubble) {
+    const container = this.container,
+      modeSize = (divBubble === null || divBubble === void 0 ? void 0 : divBubble.size) ? divBubble.size * container.retina.pixelRatio : container.retina.bubbleModeSize;
+    if (modeSize === undefined) {
+      return;
+    }
+    const optSize = (0, _tsparticlesEngine.getRangeMax)(particle.options.size.value) * container.retina.pixelRatio;
+    const pSize = particle.size.value;
+    const size = calculateBubbleValue(pSize, modeSize, optSize, ratio);
+    if (size !== undefined) {
+      particle.bubble.radius = size;
+    }
+  }
+  process(particle, distMouse, timeSpent, data) {
+    const container = this.container,
+      bubbleParam = data.bubbleObj.optValue,
+      options = container.actualOptions,
+      bubble = options.interactivity.modes.bubble;
+    if (!bubble || bubbleParam === undefined) {
+      return;
+    }
+    const bubbleDuration = bubble.duration,
+      bubbleDistance = container.retina.bubbleModeDistance,
+      particlesParam = data.particlesObj.optValue,
+      pObjBubble = data.bubbleObj.value,
+      pObj = data.particlesObj.value || 0,
+      type = data.type;
+    if (!bubbleDistance || bubbleDistance < 0 || bubbleParam === particlesParam) {
+      return;
+    }
+    if (!container.bubble) {
+      container.bubble = {};
+    }
+    if (!container.bubble.durationEnd) {
+      if (distMouse <= bubbleDistance) {
+        const obj = pObjBubble !== null && pObjBubble !== void 0 ? pObjBubble : pObj;
+        if (obj !== bubbleParam) {
+          const value = pObj - timeSpent * (pObj - bubbleParam) / bubbleDuration;
+          if (type === "size") {
+            particle.bubble.radius = value;
+          }
+          if (type === "opacity") {
+            particle.bubble.opacity = value;
+          }
+        }
+      } else {
+        if (type === "size") {
+          delete particle.bubble.radius;
+        }
+        if (type === "opacity") {
+          delete particle.bubble.opacity;
+        }
+      }
+    } else if (pObjBubble) {
+      if (type === "size") {
+        delete particle.bubble.radius;
+      }
+      if (type === "opacity") {
+        delete particle.bubble.opacity;
+      }
+    }
+  }
+  singleSelectorHover(delta, selector, div) {
+    const container = this.container,
+      selectors = document.querySelectorAll(selector),
+      bubble = container.actualOptions.interactivity.modes.bubble;
+    if (!bubble || !selectors.length) {
+      return;
+    }
+    selectors.forEach(item => {
+      const elem = item,
+        pxRatio = container.retina.pixelRatio,
+        pos = {
+          x: (elem.offsetLeft + elem.offsetWidth / 2) * pxRatio,
+          y: (elem.offsetTop + elem.offsetHeight / 2) * pxRatio
+        },
+        repulseRadius = elem.offsetWidth / 2 * pxRatio,
+        area = div.type === "circle" ? new _tsparticlesEngine.Circle(pos.x, pos.y, repulseRadius) : new _tsparticlesEngine.Rectangle(elem.offsetLeft * pxRatio, elem.offsetTop * pxRatio, elem.offsetWidth * pxRatio, elem.offsetHeight * pxRatio),
+        query = container.particles.quadTree.query(area, p => this.isEnabled(p));
+      for (const particle of query) {
+        if (!area.contains(particle.getPosition())) {
+          continue;
+        }
+        particle.bubble.inRange = true;
+        const divs = bubble.divs;
+        const divBubble = (0, _tsparticlesEngine.divMode)(divs, elem);
+        if (!particle.bubble.div || particle.bubble.div !== elem) {
+          this.clear(particle, delta, true);
+          particle.bubble.div = elem;
+        }
+        this.hoverBubbleSize(particle, 1, divBubble);
+        this.hoverBubbleOpacity(particle, 1, divBubble);
+        this.hoverBubbleColor(particle, 1, divBubble);
+      }
+    });
+  }
+}
+exports.Bubbler = Bubbler;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Bubble":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/Bubble.js"}],"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Interfaces/IBubbleBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Interfaces/IBubbleDiv.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Interfaces/IBubble.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-bubble/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalBubbleInteraction: true
+};
+exports.loadExternalBubbleInteraction = loadExternalBubbleInteraction;
+var _Bubbler = require("./Bubbler");
+var _BubbleBase = require("./Options/Classes/BubbleBase");
+Object.keys(_BubbleBase).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _BubbleBase[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _BubbleBase[key];
+    }
+  });
+});
+var _BubbleDiv = require("./Options/Classes/BubbleDiv");
+Object.keys(_BubbleDiv).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _BubbleDiv[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _BubbleDiv[key];
+    }
+  });
+});
+var _Bubble = require("./Options/Classes/Bubble");
+Object.keys(_Bubble).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Bubble[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Bubble[key];
+    }
+  });
+});
+var _IBubbleBase = require("./Options/Interfaces/IBubbleBase");
+Object.keys(_IBubbleBase).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBubbleBase[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBubbleBase[key];
+    }
+  });
+});
+var _IBubbleDiv = require("./Options/Interfaces/IBubbleDiv");
+Object.keys(_IBubbleDiv).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBubbleDiv[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBubbleDiv[key];
+    }
+  });
+});
+var _IBubble = require("./Options/Interfaces/IBubble");
+Object.keys(_IBubble).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IBubble[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IBubble[key];
+    }
+  });
+});
+async function loadExternalBubbleInteraction(engine) {
+  await engine.addInteractor("externalBubble", container => new _Bubbler.Bubbler(container));
+}
+},{"./Bubbler":"../node_modules/tsparticles-interaction-external-bubble/esm/Bubbler.js","./Options/Classes/BubbleBase":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleBase.js","./Options/Classes/BubbleDiv":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/BubbleDiv.js","./Options/Classes/Bubble":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Classes/Bubble.js","./Options/Interfaces/IBubbleBase":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Interfaces/IBubbleBase.js","./Options/Interfaces/IBubbleDiv":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Interfaces/IBubbleDiv.js","./Options/Interfaces/IBubble":"../node_modules/tsparticles-interaction-external-bubble/esm/Options/Interfaces/IBubble.js"}],"../node_modules/tsparticles-interaction-external-connect/esm/Options/Classes/ConnectLinks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ConnectLinks = void 0;
+class ConnectLinks {
+  constructor() {
+    this.opacity = 0.5;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+  }
+}
+exports.ConnectLinks = ConnectLinks;
+},{}],"../node_modules/tsparticles-interaction-external-connect/esm/Options/Classes/Connect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Connect = void 0;
+var _ConnectLinks = require("./ConnectLinks");
+class Connect {
+  constructor() {
+    this.distance = 80;
+    this.links = new _ConnectLinks.ConnectLinks();
+    this.radius = 60;
+  }
+  get lineLinked() {
+    return this.links;
+  }
+  set lineLinked(value) {
+    this.links = value;
+  }
+  get line_linked() {
+    return this.links;
+  }
+  set line_linked(value) {
+    this.links = value;
+  }
+  load(data) {
+    var _a, _b;
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+    this.links.load((_b = (_a = data.links) !== null && _a !== void 0 ? _a : data.lineLinked) !== null && _b !== void 0 ? _b : data.line_linked);
+    if (data.radius !== undefined) {
+      this.radius = data.radius;
+    }
+  }
+}
+exports.Connect = Connect;
+},{"./ConnectLinks":"../node_modules/tsparticles-interaction-external-connect/esm/Options/Classes/ConnectLinks.js"}],"../node_modules/tsparticles-interaction-external-connect/esm/Connector.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Connector = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Connect = require("./Options/Classes/Connect");
+function gradient(context, p1, p2, opacity) {
+  const gradStop = Math.floor(p2.getRadius() / p1.getRadius()),
+    color1 = p1.getFillColor(),
+    color2 = p2.getFillColor();
+  if (!color1 || !color2) {
+    return;
+  }
+  const sourcePos = p1.getPosition(),
+    destPos = p2.getPosition(),
+    midRgb = (0, _tsparticlesEngine.colorMix)(color1, color2, p1.getRadius(), p2.getRadius()),
+    grad = context.createLinearGradient(sourcePos.x, sourcePos.y, destPos.x, destPos.y);
+  grad.addColorStop(0, (0, _tsparticlesEngine.getStyleFromHsl)(color1, opacity));
+  grad.addColorStop(gradStop > 1 ? 1 : gradStop, (0, _tsparticlesEngine.getStyleFromRgb)(midRgb, opacity));
+  grad.addColorStop(1, (0, _tsparticlesEngine.getStyleFromHsl)(color2, opacity));
+  return grad;
+}
+function drawConnectLine(context, width, lineStyle, begin, end) {
+  (0, _tsparticlesEngine.drawLine)(context, begin, end);
+  context.lineWidth = width;
+  context.strokeStyle = lineStyle;
+  context.stroke();
+}
+function lineStyle(container, ctx, p1, p2) {
+  const options = container.actualOptions,
+    connectOptions = options.interactivity.modes.connect;
+  if (!connectOptions) {
+    return;
+  }
+  return gradient(ctx, p1, p2, connectOptions.links.opacity);
+}
+function drawConnection(container, p1, p2) {
+  container.canvas.draw(ctx => {
+    var _a;
+    const ls = lineStyle(container, ctx, p1, p2);
+    if (!ls) {
+      return;
+    }
+    const pos1 = p1.getPosition(),
+      pos2 = p2.getPosition();
+    drawConnectLine(ctx, (_a = p1.retina.linksWidth) !== null && _a !== void 0 ? _a : 0, ls, pos1, pos2);
+  });
+}
+class Connector extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+  }
+  clear() {}
+  init() {
+    const container = this.container,
+      connect = container.actualOptions.interactivity.modes.connect;
+    if (!connect) {
+      return;
+    }
+    container.retina.connectModeDistance = connect.distance * container.retina.pixelRatio;
+    container.retina.connectModeRadius = connect.radius * container.retina.pixelRatio;
+  }
+  async interact() {
+    const container = this.container,
+      options = container.actualOptions;
+    if (options.interactivity.events.onHover.enable && container.interactivity.status === "pointermove") {
+      const mousePos = container.interactivity.mouse.position;
+      if (!container.retina.connectModeDistance || container.retina.connectModeDistance < 0 || !container.retina.connectModeRadius || container.retina.connectModeRadius < 0 || !mousePos) {
+        return;
+      }
+      const distance = Math.abs(container.retina.connectModeRadius),
+        query = container.particles.quadTree.queryCircle(mousePos, distance, p => this.isEnabled(p));
+      let i = 0;
+      for (const p1 of query) {
+        const pos1 = p1.getPosition();
+        for (const p2 of query.slice(i + 1)) {
+          const pos2 = p2.getPosition(),
+            distMax = Math.abs(container.retina.connectModeDistance),
+            xDiff = Math.abs(pos1.x - pos2.x),
+            yDiff = Math.abs(pos1.y - pos2.y);
+          if (xDiff < distMax && yDiff < distMax) {
+            drawConnection(container, p1, p2);
+          }
+        }
+        ++i;
+      }
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : container.actualOptions.interactivity).events;
+    if (!(events.onHover.enable && mouse.position)) {
+      return false;
+    }
+    return (0, _tsparticlesEngine.isInArray)("connect", events.onHover.mode);
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.connect) {
+      options.connect = new _Connect.Connect();
+    }
+    for (const source of sources) {
+      options.connect.load(source === null || source === void 0 ? void 0 : source.connect);
+    }
+  }
+  reset() {}
+}
+exports.Connector = Connector;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Connect":"../node_modules/tsparticles-interaction-external-connect/esm/Options/Classes/Connect.js"}],"../node_modules/tsparticles-interaction-external-connect/esm/Options/Interfaces/IConnect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-connect/esm/Options/Interfaces/IConnectLinks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-connect/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalConnectInteraction: true
+};
+exports.loadExternalConnectInteraction = loadExternalConnectInteraction;
+var _Connector = require("./Connector");
+var _Connect = require("./Options/Classes/Connect");
+Object.keys(_Connect).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Connect[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Connect[key];
+    }
+  });
+});
+var _ConnectLinks = require("./Options/Classes/ConnectLinks");
+Object.keys(_ConnectLinks).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ConnectLinks[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ConnectLinks[key];
+    }
+  });
+});
+var _IConnect = require("./Options/Interfaces/IConnect");
+Object.keys(_IConnect).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IConnect[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IConnect[key];
+    }
+  });
+});
+var _IConnectLinks = require("./Options/Interfaces/IConnectLinks");
+Object.keys(_IConnectLinks).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IConnectLinks[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IConnectLinks[key];
+    }
+  });
+});
+async function loadExternalConnectInteraction(engine) {
+  await engine.addInteractor("externalConnect", container => new _Connector.Connector(container));
+}
+},{"./Connector":"../node_modules/tsparticles-interaction-external-connect/esm/Connector.js","./Options/Classes/Connect":"../node_modules/tsparticles-interaction-external-connect/esm/Options/Classes/Connect.js","./Options/Classes/ConnectLinks":"../node_modules/tsparticles-interaction-external-connect/esm/Options/Classes/ConnectLinks.js","./Options/Interfaces/IConnect":"../node_modules/tsparticles-interaction-external-connect/esm/Options/Interfaces/IConnect.js","./Options/Interfaces/IConnectLinks":"../node_modules/tsparticles-interaction-external-connect/esm/Options/Interfaces/IConnectLinks.js"}],"../node_modules/tsparticles-interaction-external-grab/esm/Options/Classes/GrabLinks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.GrabLinks = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class GrabLinks {
+  constructor() {
+    this.blink = false;
+    this.consent = false;
+    this.opacity = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.blink !== undefined) {
+      this.blink = data.blink;
+    }
+    if (data.color !== undefined) {
+      this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    }
+    if (data.consent !== undefined) {
+      this.consent = data.consent;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+  }
+}
+exports.GrabLinks = GrabLinks;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-grab/esm/Options/Classes/Grab.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Grab = void 0;
+var _GrabLinks = require("./GrabLinks");
+class Grab {
+  constructor() {
+    this.distance = 100;
+    this.links = new _GrabLinks.GrabLinks();
+  }
+  get lineLinked() {
+    return this.links;
+  }
+  set lineLinked(value) {
+    this.links = value;
+  }
+  get line_linked() {
+    return this.links;
+  }
+  set line_linked(value) {
+    this.links = value;
+  }
+  load(data) {
+    var _a, _b;
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+    this.links.load((_b = (_a = data.links) !== null && _a !== void 0 ? _a : data.lineLinked) !== null && _b !== void 0 ? _b : data.line_linked);
+  }
+}
+exports.Grab = Grab;
+},{"./GrabLinks":"../node_modules/tsparticles-interaction-external-grab/esm/Options/Classes/GrabLinks.js"}],"../node_modules/tsparticles-interaction-external-grab/esm/Grabber.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Grabber = void 0;
+exports.drawGrabLine = drawGrabLine;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Grab = require("./Options/Classes/Grab");
+function drawGrabLine(context, width, begin, end, colorLine, opacity) {
+  (0, _tsparticlesEngine.drawLine)(context, begin, end);
+  context.strokeStyle = (0, _tsparticlesEngine.getStyleFromRgb)(colorLine, opacity);
+  context.lineWidth = width;
+  context.stroke();
+}
+function drawGrab(container, particle, lineColor, opacity, mousePos) {
+  container.canvas.draw(ctx => {
+    var _a;
+    const beginPos = particle.getPosition();
+    drawGrabLine(ctx, (_a = particle.retina.linksWidth) !== null && _a !== void 0 ? _a : 0, beginPos, mousePos, lineColor, opacity);
+  });
+}
+class Grabber extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+  }
+  clear() {}
+  init() {
+    const container = this.container,
+      grab = container.actualOptions.interactivity.modes.grab;
+    if (!grab) {
+      return;
+    }
+    container.retina.grabModeDistance = grab.distance * container.retina.pixelRatio;
+  }
+  async interact() {
+    var _a, _b;
+    const container = this.container,
+      options = container.actualOptions,
+      interactivity = options.interactivity;
+    if (!interactivity.modes.grab || !interactivity.events.onHover.enable || container.interactivity.status !== _tsparticlesEngine.mouseMoveEvent) {
+      return;
+    }
+    const mousePos = container.interactivity.mouse.position;
+    if (!mousePos) {
+      return;
+    }
+    const distance = container.retina.grabModeDistance;
+    if (!distance || distance < 0) {
+      return;
+    }
+    const query = container.particles.quadTree.queryCircle(mousePos, distance, p => this.isEnabled(p));
+    for (const particle of query) {
+      const pos = particle.getPosition(),
+        pointDistance = (0, _tsparticlesEngine.getDistance)(pos, mousePos);
+      if (pointDistance > distance) {
+        continue;
+      }
+      const grabLineOptions = interactivity.modes.grab.links,
+        lineOpacity = grabLineOptions.opacity,
+        opacityLine = lineOpacity - pointDistance * lineOpacity / distance;
+      if (opacityLine <= 0) {
+        continue;
+      }
+      const optColor = (_a = grabLineOptions.color) !== null && _a !== void 0 ? _a : (_b = particle.options.links) === null || _b === void 0 ? void 0 : _b.color;
+      if (!container.particles.grabLineColor && optColor) {
+        const linksOptions = interactivity.modes.grab.links;
+        container.particles.grabLineColor = (0, _tsparticlesEngine.getLinkRandomColor)(optColor, linksOptions.blink, linksOptions.consent);
+      }
+      const colorLine = (0, _tsparticlesEngine.getLinkColor)(particle, undefined, container.particles.grabLineColor);
+      if (!colorLine) {
+        return;
+      }
+      drawGrab(container, particle, colorLine, opacityLine, mousePos);
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : container.actualOptions.interactivity).events;
+    return events.onHover.enable && !!mouse.position && (0, _tsparticlesEngine.isInArray)("grab", events.onHover.mode);
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.grab) {
+      options.grab = new _Grab.Grab();
+    }
+    for (const source of sources) {
+      options.grab.load(source === null || source === void 0 ? void 0 : source.grab);
+    }
+  }
+  reset() {}
+}
+exports.Grabber = Grabber;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Grab":"../node_modules/tsparticles-interaction-external-grab/esm/Options/Classes/Grab.js"}],"../node_modules/tsparticles-interaction-external-grab/esm/Options/Interfaces/IGrab.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-grab/esm/Options/Interfaces/IGrabLinks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-grab/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalGrabInteraction: true
+};
+exports.loadExternalGrabInteraction = loadExternalGrabInteraction;
+var _Grabber = require("./Grabber");
+var _Grab = require("./Options/Classes/Grab");
+Object.keys(_Grab).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Grab[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Grab[key];
+    }
+  });
+});
+var _GrabLinks = require("./Options/Classes/GrabLinks");
+Object.keys(_GrabLinks).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _GrabLinks[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _GrabLinks[key];
+    }
+  });
+});
+var _IGrab = require("./Options/Interfaces/IGrab");
+Object.keys(_IGrab).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IGrab[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IGrab[key];
+    }
+  });
+});
+var _IGrabLinks = require("./Options/Interfaces/IGrabLinks");
+Object.keys(_IGrabLinks).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IGrabLinks[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IGrabLinks[key];
+    }
+  });
+});
+async function loadExternalGrabInteraction(engine) {
+  await engine.addInteractor("externalGrab", container => new _Grabber.Grabber(container));
+}
+},{"./Grabber":"../node_modules/tsparticles-interaction-external-grab/esm/Grabber.js","./Options/Classes/Grab":"../node_modules/tsparticles-interaction-external-grab/esm/Options/Classes/Grab.js","./Options/Classes/GrabLinks":"../node_modules/tsparticles-interaction-external-grab/esm/Options/Classes/GrabLinks.js","./Options/Interfaces/IGrab":"../node_modules/tsparticles-interaction-external-grab/esm/Options/Interfaces/IGrab.js","./Options/Interfaces/IGrabLinks":"../node_modules/tsparticles-interaction-external-grab/esm/Options/Interfaces/IGrabLinks.js"}],"../node_modules/tsparticles-interaction-external-pause/esm/Pauser.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Pauser = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class Pauser extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+    this.handleClickMode = mode => {
+      if (mode !== "pause") {
+        return;
+      }
+      const container = this.container;
+      if (container.getAnimationStatus()) {
+        container.pause();
+      } else {
+        container.play();
+      }
+    };
+  }
+  clear() {}
+  init() {}
+  async interact() {}
+  isEnabled() {
+    return true;
+  }
+  reset() {}
+}
+exports.Pauser = Pauser;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-pause/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadExternalPauseInteraction = loadExternalPauseInteraction;
+var _Pauser = require("./Pauser");
+function loadExternalPauseInteraction(engine) {
+  engine.addInteractor("externalPause", container => new _Pauser.Pauser(container));
+}
+},{"./Pauser":"../node_modules/tsparticles-interaction-external-pause/esm/Pauser.js"}],"../node_modules/tsparticles-interaction-external-push/esm/Options/Classes/Push.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Push = void 0;
+class Push {
+  constructor() {
+    this.default = true;
+    this.groups = [];
+    this.quantity = 4;
+  }
+  get particles_nb() {
+    return this.quantity;
+  }
+  set particles_nb(value) {
+    this.quantity = value;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    if (data.default !== undefined) {
+      this.default = data.default;
+    }
+    if (data.groups !== undefined) {
+      this.groups = data.groups.map(t => t);
+    }
+    if (!this.groups.length) {
+      this.default = true;
+    }
+    const quantity = (_a = data.quantity) !== null && _a !== void 0 ? _a : data.particles_nb;
+    if (quantity !== undefined) {
+      this.quantity = quantity;
+    }
+  }
+}
+exports.Push = Push;
+},{}],"../node_modules/tsparticles-interaction-external-push/esm/Pusher.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Pusher = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Push = require("./Options/Classes/Push");
+class Pusher extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+    this.handleClickMode = mode => {
+      if (mode !== "push") {
+        return;
+      }
+      const container = this.container,
+        options = container.actualOptions,
+        pushOptions = options.interactivity.modes.push;
+      if (!pushOptions) {
+        return;
+      }
+      const pushNb = pushOptions.quantity;
+      if (pushNb <= 0) {
+        return;
+      }
+      const group = (0, _tsparticlesEngine.itemFromArray)([undefined, ...pushOptions.groups]),
+        groupOptions = group !== undefined ? container.actualOptions.particles.groups[group] : undefined;
+      container.particles.push(pushNb, container.interactivity.mouse, groupOptions, group);
+    };
+  }
+  clear() {}
+  init() {}
+  async interact() {}
+  isEnabled() {
+    return true;
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.push) {
+      options.push = new _Push.Push();
+    }
+    for (const source of sources) {
+      options.push.load(source === null || source === void 0 ? void 0 : source.push);
+    }
+  }
+  reset() {}
+}
+exports.Pusher = Pusher;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Push":"../node_modules/tsparticles-interaction-external-push/esm/Options/Classes/Push.js"}],"../node_modules/tsparticles-interaction-external-push/esm/Options/Interfaces/IPush.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-push/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalPushInteraction: true
+};
+exports.loadExternalPushInteraction = loadExternalPushInteraction;
+var _Pusher = require("./Pusher");
+var _Push = require("./Options/Classes/Push");
+Object.keys(_Push).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Push[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Push[key];
+    }
+  });
+});
+var _IPush = require("./Options/Interfaces/IPush");
+Object.keys(_IPush).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IPush[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IPush[key];
+    }
+  });
+});
+async function loadExternalPushInteraction(engine) {
+  await engine.addInteractor("externalPush", container => new _Pusher.Pusher(container));
+}
+},{"./Pusher":"../node_modules/tsparticles-interaction-external-push/esm/Pusher.js","./Options/Classes/Push":"../node_modules/tsparticles-interaction-external-push/esm/Options/Classes/Push.js","./Options/Interfaces/IPush":"../node_modules/tsparticles-interaction-external-push/esm/Options/Interfaces/IPush.js"}],"../node_modules/tsparticles-interaction-external-remove/esm/Options/Classes/Remove.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Remove = void 0;
+class Remove {
+  constructor() {
+    this.quantity = 2;
+  }
+  get particles_nb() {
+    return this.quantity;
+  }
+  set particles_nb(value) {
+    this.quantity = value;
+  }
+  load(data) {
+    var _a;
+    if (!data) {
+      return;
+    }
+    const quantity = (_a = data.quantity) !== null && _a !== void 0 ? _a : data.particles_nb;
+    if (quantity !== undefined) {
+      this.quantity = quantity;
+    }
+  }
+}
+exports.Remove = Remove;
+},{}],"../node_modules/tsparticles-interaction-external-remove/esm/Remover.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Remover = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Remove = require("./Options/Classes/Remove");
+class Remover extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+    this.handleClickMode = mode => {
+      const container = this.container,
+        options = container.actualOptions;
+      if (!options.interactivity.modes.remove || mode !== "remove") {
+        return;
+      }
+      const removeNb = options.interactivity.modes.remove.quantity;
+      container.particles.removeQuantity(removeNb);
+    };
+  }
+  clear() {}
+  init() {}
+  async interact() {}
+  isEnabled() {
+    return true;
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.remove) {
+      options.remove = new _Remove.Remove();
+    }
+    for (const source of sources) {
+      options.remove.load(source === null || source === void 0 ? void 0 : source.remove);
+    }
+  }
+  reset() {}
+}
+exports.Remover = Remover;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Remove":"../node_modules/tsparticles-interaction-external-remove/esm/Options/Classes/Remove.js"}],"../node_modules/tsparticles-interaction-external-remove/esm/Options/Interfaces/IRemove.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-remove/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalRemoveInteraction: true
+};
+exports.loadExternalRemoveInteraction = loadExternalRemoveInteraction;
+var _Remover = require("./Remover");
+var _Remove = require("./Options/Classes/Remove");
+Object.keys(_Remove).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Remove[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Remove[key];
+    }
+  });
+});
+var _IRemove = require("./Options/Interfaces/IRemove");
+Object.keys(_IRemove).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IRemove[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IRemove[key];
+    }
+  });
+});
+function loadExternalRemoveInteraction(engine) {
+  engine.addInteractor("externalRemove", container => new _Remover.Remover(container));
+}
+},{"./Remover":"../node_modules/tsparticles-interaction-external-remove/esm/Remover.js","./Options/Classes/Remove":"../node_modules/tsparticles-interaction-external-remove/esm/Options/Classes/Remove.js","./Options/Interfaces/IRemove":"../node_modules/tsparticles-interaction-external-remove/esm/Options/Interfaces/IRemove.js"}],"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RepulseBase = void 0;
+class RepulseBase {
+  constructor() {
+    this.distance = 200;
+    this.duration = 0.4;
+    this.factor = 100;
+    this.speed = 1;
+    this.maxSpeed = 50;
+    this.easing = "ease-out-quad";
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+    if (data.duration !== undefined) {
+      this.duration = data.duration;
+    }
+    if (data.easing !== undefined) {
+      this.easing = data.easing;
+    }
+    if (data.factor !== undefined) {
+      this.factor = data.factor;
+    }
+    if (data.speed !== undefined) {
+      this.speed = data.speed;
+    }
+    if (data.maxSpeed !== undefined) {
+      this.maxSpeed = data.maxSpeed;
+    }
+  }
+}
+exports.RepulseBase = RepulseBase;
+},{}],"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseDiv.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RepulseDiv = void 0;
+var _RepulseBase = require("./RepulseBase");
+var _tsparticlesEngine = require("tsparticles-engine");
+class RepulseDiv extends _RepulseBase.RepulseBase {
+  constructor() {
+    super();
+    this.selectors = [];
+  }
+  get ids() {
+    return (0, _tsparticlesEngine.executeOnSingleOrMultiple)(this.selectors, t => t.replace("#", ""));
+  }
+  set ids(value) {
+    this.selectors = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(value, t => `#${t}`);
+  }
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    if (data.ids !== undefined) {
+      this.ids = data.ids;
+    }
+    if (data.selectors !== undefined) {
+      this.selectors = data.selectors;
+    }
+  }
+}
+exports.RepulseDiv = RepulseDiv;
+},{"./RepulseBase":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseBase.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/Repulse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Repulse = void 0;
+var _RepulseBase = require("./RepulseBase");
+var _RepulseDiv = require("./RepulseDiv");
+var _tsparticlesEngine = require("tsparticles-engine");
+class Repulse extends _RepulseBase.RepulseBase {
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    this.divs = (0, _tsparticlesEngine.executeOnSingleOrMultiple)(data.divs, div => {
+      const tmp = new _RepulseDiv.RepulseDiv();
+      tmp.load(div);
+      return tmp;
+    });
+  }
+}
+exports.Repulse = Repulse;
+},{"./RepulseBase":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseBase.js","./RepulseDiv":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseDiv.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-external-repulse/esm/Repulser.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Repulser = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Repulse = require("./Options/Classes/Repulse");
+class Repulser extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(engine, container) {
+    super(container);
+    this._engine = engine;
+    if (!container.repulse) {
+      container.repulse = {
+        particles: []
+      };
+    }
+    this.handleClickMode = mode => {
+      const options = this.container.actualOptions,
+        repulse = options.interactivity.modes.repulse;
+      if (!repulse || mode !== "repulse") {
+        return;
+      }
+      if (!container.repulse) {
+        container.repulse = {
+          particles: []
+        };
+      }
+      container.repulse.clicking = true;
+      container.repulse.count = 0;
+      for (const particle of container.repulse.particles) {
+        if (!this.isEnabled(particle)) {
+          continue;
+        }
+        particle.velocity.setTo(particle.initialVelocity);
+      }
+      container.repulse.particles = [];
+      container.repulse.finish = false;
+      setTimeout(() => {
+        if (!container.destroyed) {
+          if (!container.repulse) {
+            container.repulse = {
+              particles: []
+            };
+          }
+          container.repulse.clicking = false;
+        }
+      }, repulse.duration * 1000);
+    };
+  }
+  clear() {}
+  init() {
+    const container = this.container,
+      repulse = container.actualOptions.interactivity.modes.repulse;
+    if (!repulse) {
+      return;
+    }
+    container.retina.repulseModeDistance = repulse.distance * container.retina.pixelRatio;
+  }
+  async interact() {
+    const container = this.container,
+      options = container.actualOptions,
+      mouseMoveStatus = container.interactivity.status === _tsparticlesEngine.mouseMoveEvent,
+      events = options.interactivity.events,
+      hoverEnabled = events.onHover.enable,
+      hoverMode = events.onHover.mode,
+      clickEnabled = events.onClick.enable,
+      clickMode = events.onClick.mode,
+      divs = events.onDiv;
+    if (mouseMoveStatus && hoverEnabled && (0, _tsparticlesEngine.isInArray)("repulse", hoverMode)) {
+      this.hoverRepulse();
+    } else if (clickEnabled && (0, _tsparticlesEngine.isInArray)("repulse", clickMode)) {
+      this.clickRepulse();
+    } else {
+      (0, _tsparticlesEngine.divModeExecute)("repulse", divs, (selector, div) => this.singleSelectorRepulse(selector, div));
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      options = container.actualOptions,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : options.interactivity).events,
+      divs = events.onDiv,
+      divRepulse = (0, _tsparticlesEngine.isDivModeEnabled)("repulse", divs);
+    if (!(divRepulse || events.onHover.enable && mouse.position || events.onClick.enable && mouse.clickPosition)) {
+      return false;
+    }
+    const hoverMode = events.onHover.mode,
+      clickMode = events.onClick.mode;
+    return (0, _tsparticlesEngine.isInArray)("repulse", hoverMode) || (0, _tsparticlesEngine.isInArray)("repulse", clickMode) || divRepulse;
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.repulse) {
+      options.repulse = new _Repulse.Repulse();
+    }
+    for (const source of sources) {
+      options.repulse.load(source === null || source === void 0 ? void 0 : source.repulse);
+    }
+  }
+  reset() {}
+  clickRepulse() {
+    const container = this.container,
+      repulse = container.actualOptions.interactivity.modes.repulse;
+    if (!repulse) {
+      return;
+    }
+    if (!container.repulse) {
+      container.repulse = {
+        particles: []
+      };
+    }
+    if (!container.repulse.finish) {
+      if (!container.repulse.count) {
+        container.repulse.count = 0;
+      }
+      container.repulse.count++;
+      if (container.repulse.count === container.particles.count) {
+        container.repulse.finish = true;
+      }
+    }
+    if (container.repulse.clicking) {
+      const repulseDistance = container.retina.repulseModeDistance;
+      if (!repulseDistance || repulseDistance < 0) {
+        return;
+      }
+      const repulseRadius = Math.pow(repulseDistance / 6, 3),
+        mouseClickPos = container.interactivity.mouse.clickPosition;
+      if (mouseClickPos === undefined) {
+        return;
+      }
+      const range = new _tsparticlesEngine.Circle(mouseClickPos.x, mouseClickPos.y, repulseRadius),
+        query = container.particles.quadTree.query(range, p => this.isEnabled(p));
+      for (const particle of query) {
+        const {
+            dx,
+            dy,
+            distance
+          } = (0, _tsparticlesEngine.getDistances)(mouseClickPos, particle.position),
+          d = distance ** 2,
+          velocity = repulse.speed,
+          force = -repulseRadius * velocity / d;
+        if (d <= repulseRadius) {
+          container.repulse.particles.push(particle);
+          const vect = _tsparticlesEngine.Vector.create(dx, dy);
+          vect.length = force;
+          particle.velocity.setTo(vect);
+        }
+      }
+    } else if (container.repulse.clicking === false) {
+      for (const particle of container.repulse.particles) {
+        particle.velocity.setTo(particle.initialVelocity);
+      }
+      container.repulse.particles = [];
+    }
+  }
+  hoverRepulse() {
+    const container = this.container,
+      mousePos = container.interactivity.mouse.position,
+      repulseRadius = container.retina.repulseModeDistance;
+    if (!repulseRadius || repulseRadius < 0 || !mousePos) {
+      return;
+    }
+    this.processRepulse(mousePos, repulseRadius, new _tsparticlesEngine.Circle(mousePos.x, mousePos.y, repulseRadius));
+  }
+  processRepulse(position, repulseRadius, area, divRepulse) {
+    var _a;
+    const container = this.container,
+      query = container.particles.quadTree.query(area, p => this.isEnabled(p)),
+      repulseOptions = container.actualOptions.interactivity.modes.repulse;
+    if (!repulseOptions) {
+      return;
+    }
+    for (const particle of query) {
+      const {
+          dx,
+          dy,
+          distance
+        } = (0, _tsparticlesEngine.getDistances)(particle.position, position),
+        velocity = ((_a = divRepulse === null || divRepulse === void 0 ? void 0 : divRepulse.speed) !== null && _a !== void 0 ? _a : repulseOptions.speed) * repulseOptions.factor,
+        repulseFactor = (0, _tsparticlesEngine.clamp)((0, _tsparticlesEngine.getEasing)(repulseOptions.easing)(1 - distance / repulseRadius) * velocity, 0, repulseOptions.maxSpeed),
+        normVec = _tsparticlesEngine.Vector.create(distance === 0 ? velocity : dx / distance * repulseFactor, distance === 0 ? velocity : dy / distance * repulseFactor);
+      particle.position.addTo(normVec);
+    }
+  }
+  singleSelectorRepulse(selector, div) {
+    const container = this.container,
+      repulse = container.actualOptions.interactivity.modes.repulse;
+    if (!repulse) {
+      return;
+    }
+    const query = document.querySelectorAll(selector);
+    if (!query.length) {
+      return;
+    }
+    query.forEach(item => {
+      const elem = item,
+        pxRatio = container.retina.pixelRatio,
+        pos = {
+          x: (elem.offsetLeft + elem.offsetWidth / 2) * pxRatio,
+          y: (elem.offsetTop + elem.offsetHeight / 2) * pxRatio
+        },
+        repulseRadius = elem.offsetWidth / 2 * pxRatio,
+        area = div.type === "circle" ? new _tsparticlesEngine.Circle(pos.x, pos.y, repulseRadius) : new _tsparticlesEngine.Rectangle(elem.offsetLeft * pxRatio, elem.offsetTop * pxRatio, elem.offsetWidth * pxRatio, elem.offsetHeight * pxRatio),
+        divs = repulse.divs,
+        divRepulse = (0, _tsparticlesEngine.divMode)(divs, elem);
+      this.processRepulse(pos, repulseRadius, area, divRepulse);
+    });
+  }
+}
+exports.Repulser = Repulser;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Repulse":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/Repulse.js"}],"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Interfaces/IRepulseBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Interfaces/IRepulseDiv.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Interfaces/IRepulse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-repulse/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalRepulseInteraction: true
+};
+exports.loadExternalRepulseInteraction = loadExternalRepulseInteraction;
+var _Repulser = require("./Repulser");
+var _RepulseBase = require("./Options/Classes/RepulseBase");
+Object.keys(_RepulseBase).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _RepulseBase[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _RepulseBase[key];
+    }
+  });
+});
+var _RepulseDiv = require("./Options/Classes/RepulseDiv");
+Object.keys(_RepulseDiv).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _RepulseDiv[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _RepulseDiv[key];
+    }
+  });
+});
+var _Repulse = require("./Options/Classes/Repulse");
+Object.keys(_Repulse).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Repulse[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Repulse[key];
+    }
+  });
+});
+var _IRepulseBase = require("./Options/Interfaces/IRepulseBase");
+Object.keys(_IRepulseBase).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IRepulseBase[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IRepulseBase[key];
+    }
+  });
+});
+var _IRepulseDiv = require("./Options/Interfaces/IRepulseDiv");
+Object.keys(_IRepulseDiv).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IRepulseDiv[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IRepulseDiv[key];
+    }
+  });
+});
+var _IRepulse = require("./Options/Interfaces/IRepulse");
+Object.keys(_IRepulse).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _IRepulse[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IRepulse[key];
+    }
+  });
+});
+async function loadExternalRepulseInteraction(engine) {
+  await engine.addInteractor("externalRepulse", container => new _Repulser.Repulser(engine, container));
+}
+},{"./Repulser":"../node_modules/tsparticles-interaction-external-repulse/esm/Repulser.js","./Options/Classes/RepulseBase":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseBase.js","./Options/Classes/RepulseDiv":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/RepulseDiv.js","./Options/Classes/Repulse":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Classes/Repulse.js","./Options/Interfaces/IRepulseBase":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Interfaces/IRepulseBase.js","./Options/Interfaces/IRepulseDiv":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Interfaces/IRepulseDiv.js","./Options/Interfaces/IRepulse":"../node_modules/tsparticles-interaction-external-repulse/esm/Options/Interfaces/IRepulse.js"}],"../node_modules/tsparticles-interaction-external-slow/esm/Options/Classes/Slow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Slow = void 0;
+class Slow {
+  constructor() {
+    this.factor = 3;
+    this.radius = 200;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.factor !== undefined) {
+      this.factor = data.factor;
+    }
+    if (data.radius !== undefined) {
+      this.radius = data.radius;
+    }
+  }
+}
+exports.Slow = Slow;
+},{}],"../node_modules/tsparticles-interaction-external-slow/esm/Slower.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Slower = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Slow = require("./Options/Classes/Slow");
+class Slower extends _tsparticlesEngine.ExternalInteractorBase {
+  constructor(container) {
+    super(container);
+  }
+  clear(particle, delta, force) {
+    if (particle.slow.inRange && !force) {
+      return;
+    }
+    particle.slow.factor = 1;
+  }
+  init() {
+    const container = this.container,
+      slow = container.actualOptions.interactivity.modes.slow;
+    if (!slow) {
+      return;
+    }
+    container.retina.slowModeRadius = slow.radius * container.retina.pixelRatio;
+  }
+  async interact() {}
+  isEnabled(particle) {
+    var _a;
+    const container = this.container,
+      mouse = container.interactivity.mouse,
+      events = ((_a = particle === null || particle === void 0 ? void 0 : particle.interactivity) !== null && _a !== void 0 ? _a : container.actualOptions.interactivity).events;
+    return events.onHover.enable && !!mouse.position && (0, _tsparticlesEngine.isInArray)("slow", events.onHover.mode);
+  }
+  loadModeOptions(options, ...sources) {
+    if (!options.slow) {
+      options.slow = new _Slow.Slow();
+    }
+    for (const source of sources) {
+      options.slow.load(source === null || source === void 0 ? void 0 : source.slow);
+    }
+  }
+  reset(particle) {
+    particle.slow.inRange = false;
+    const container = this.container,
+      options = container.actualOptions,
+      mousePos = container.interactivity.mouse.position,
+      radius = container.retina.slowModeRadius,
+      slow = options.interactivity.modes.slow;
+    if (!slow || !radius || radius < 0 || !mousePos) {
+      return;
+    }
+    const particlePos = particle.getPosition(),
+      dist = (0, _tsparticlesEngine.getDistance)(mousePos, particlePos),
+      proximityFactor = dist / radius,
+      slowFactor = slow.factor;
+    if (dist <= radius) {
+      particle.slow.inRange = true;
+      particle.slow.factor = proximityFactor / slowFactor;
+    }
+  }
+}
+exports.Slower = Slower;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Slow":"../node_modules/tsparticles-interaction-external-slow/esm/Options/Classes/Slow.js"}],"../node_modules/tsparticles-interaction-external-slow/esm/Options/Interfaces/ISlow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-external-slow/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadExternalSlowInteraction: true
+};
+exports.loadExternalSlowInteraction = loadExternalSlowInteraction;
+var _Slower = require("./Slower");
+var _Slow = require("./Options/Classes/Slow");
+Object.keys(_Slow).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Slow[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Slow[key];
+    }
+  });
+});
+var _ISlow = require("./Options/Interfaces/ISlow");
+Object.keys(_ISlow).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ISlow[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ISlow[key];
+    }
+  });
+});
+async function loadExternalSlowInteraction(engine) {
+  await engine.addInteractor("externalSlow", container => new _Slower.Slower(container));
+}
+},{"./Slower":"../node_modules/tsparticles-interaction-external-slow/esm/Slower.js","./Options/Classes/Slow":"../node_modules/tsparticles-interaction-external-slow/esm/Options/Classes/Slow.js","./Options/Interfaces/ISlow":"../node_modules/tsparticles-interaction-external-slow/esm/Options/Interfaces/ISlow.js"}],"../node_modules/tsparticles-shape-image/esm/Utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.downloadSvgImage = downloadSvgImage;
+exports.loadImage = loadImage;
+exports.replaceImageColor = replaceImageColor;
+var _tsparticlesEngine = require("tsparticles-engine");
+const currentColorRegex = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d.]+%?\))|currentcolor/gi;
+function replaceColorSvg(imageShape, color, opacity) {
+  const {
+    svgData
+  } = imageShape;
+  if (!svgData) {
+    return "";
+  }
+  const colorStyle = (0, _tsparticlesEngine.getStyleFromHsl)(color, opacity);
+  if (svgData.includes("fill")) {
+    return svgData.replace(currentColorRegex, () => colorStyle);
+  }
+  const preFillIndex = svgData.indexOf(">");
+  return `${svgData.substring(0, preFillIndex)} fill="${colorStyle}"${svgData.substring(preFillIndex)}`;
+}
+async function loadImage(image) {
+  return new Promise(resolve => {
+    image.loading = true;
+    const img = new Image();
+    image.element = img;
+    img.addEventListener("load", () => {
+      image.loading = false;
+      resolve();
+    });
+    img.addEventListener("error", () => {
+      image.element = undefined;
+      image.error = true;
+      image.loading = false;
+      console.error(`Error tsParticles - loading image: ${image.source}`);
+      resolve();
+    });
+    img.src = image.source;
+  });
+}
+async function downloadSvgImage(image) {
+  if (image.type !== "svg") {
+    await loadImage(image);
+    return;
+  }
+  image.loading = true;
+  const response = await fetch(image.source);
+  if (!response.ok) {
+    console.error("Error tsParticles - Image not found");
+    image.error = true;
+  }
+  if (!image.error) {
+    image.svgData = await response.text();
+  }
+  image.loading = false;
+}
+function replaceImageColor(image, imageData, color, particle) {
+  var _a, _b, _c;
+  const svgColoredData = replaceColorSvg(image, color, (_b = (_a = particle.opacity) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : 1),
+    imageRes = {
+      color,
+      data: Object.assign(Object.assign({}, image), {
+        svgData: svgColoredData
+      }),
+      loaded: false,
+      ratio: imageData.width / imageData.height,
+      replaceColor: (_c = imageData.replaceColor) !== null && _c !== void 0 ? _c : imageData.replace_color,
+      source: imageData.src
+    };
+  return new Promise(resolve => {
+    const svg = new Blob([svgColoredData], {
+        type: "image/svg+xml"
+      }),
+      domUrl = URL || window.URL || window.webkitURL || window,
+      url = domUrl.createObjectURL(svg),
+      img = new Image();
+    img.addEventListener("load", () => {
+      imageRes.loaded = true;
+      imageRes.element = img;
+      resolve(imageRes);
+      domUrl.revokeObjectURL(url);
+    });
+    img.addEventListener("error", async () => {
+      domUrl.revokeObjectURL(url);
+      const img2 = Object.assign(Object.assign({}, image), {
+        error: false,
+        loading: true
+      });
+      await loadImage(img2);
+      imageRes.loaded = true;
+      imageRes.element = img2.element;
+      resolve(imageRes);
+    });
+    img.src = url;
+  });
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-shape-image/esm/ImageDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ImageDrawer = void 0;
+var _Utils = require("./Utils");
+class ImageDrawer {
+  constructor() {
+    this._images = [];
+  }
+  addImage(container, image) {
+    const containerImages = this.getImages(container);
+    containerImages === null || containerImages === void 0 ? void 0 : containerImages.images.push(image);
+  }
+  destroy() {
+    this._images = [];
+  }
+  draw(context, particle, radius, opacity) {
+    var _a;
+    const image = particle.image,
+      element = image === null || image === void 0 ? void 0 : image.element;
+    if (!element) {
+      return;
+    }
+    const ratio = (_a = image === null || image === void 0 ? void 0 : image.ratio) !== null && _a !== void 0 ? _a : 1,
+      pos = {
+        x: -radius,
+        y: -radius
+      };
+    context.globalAlpha = opacity;
+    context.drawImage(element, pos.x, pos.y, radius * 2, radius * 2 / ratio);
+    context.globalAlpha = 1;
+  }
+  getImages(container) {
+    const containerImages = this._images.find(t => t.id === container.id);
+    if (!containerImages) {
+      this._images.push({
+        id: container.id,
+        images: []
+      });
+      return this.getImages(container);
+    } else {
+      return containerImages;
+    }
+  }
+  getSidesCount() {
+    return 12;
+  }
+  loadShape(particle) {
+    if (particle.shape !== "image" && particle.shape !== "images") {
+      return;
+    }
+    const container = particle.container,
+      images = this.getImages(container).images,
+      imageData = particle.shapeData,
+      image = images.find(t => t.source === imageData.src);
+    if (!image) {
+      this.loadImageShape(container, imageData).then(() => {
+        this.loadShape(particle);
+      });
+    }
+  }
+  particleInit(container, particle) {
+    var _a;
+    if (particle.shape !== "image" && particle.shape !== "images") {
+      return;
+    }
+    const images = this.getImages(container).images,
+      imageData = particle.shapeData,
+      color = particle.getFillColor(),
+      replaceColor = (_a = imageData.replaceColor) !== null && _a !== void 0 ? _a : imageData.replace_color,
+      image = images.find(t => t.source === imageData.src);
+    if (!image) {
+      return;
+    }
+    if (image.loading) {
+      setTimeout(() => {
+        this.particleInit(container, particle);
+      });
+      return;
+    }
+    (async () => {
+      var _a, _b;
+      let imageRes;
+      if (image.svgData && color) {
+        imageRes = await (0, _Utils.replaceImageColor)(image, imageData, color, particle);
+      } else {
+        imageRes = {
+          color,
+          data: image,
+          element: image.element,
+          loaded: true,
+          ratio: imageData.width / imageData.height,
+          replaceColor: replaceColor,
+          source: imageData.src
+        };
+      }
+      if (!imageRes.ratio) {
+        imageRes.ratio = 1;
+      }
+      const fill = (_a = imageData.fill) !== null && _a !== void 0 ? _a : particle.fill,
+        close = (_b = imageData.close) !== null && _b !== void 0 ? _b : particle.close,
+        imageShape = {
+          image: imageRes,
+          fill,
+          close
+        };
+      particle.image = imageShape.image;
+      particle.fill = imageShape.fill;
+      particle.close = imageShape.close;
+    })();
+  }
+  async loadImageShape(container, imageShape) {
+    var _a;
+    const source = imageShape.src;
+    if (!source) {
+      throw new Error("Error tsParticles - No image.src");
+    }
+    try {
+      const image = {
+        source: source,
+        type: source.substring(source.length - 3),
+        error: false,
+        loading: true
+      };
+      this.addImage(container, image);
+      const imageFunc = ((_a = imageShape.replaceColor) !== null && _a !== void 0 ? _a : imageShape.replace_color) ? _Utils.downloadSvgImage : _Utils.loadImage;
+      await imageFunc(image);
+    } catch (_b) {
+      throw new Error(`tsParticles error - ${imageShape.src} not found`);
+    }
+  }
+}
+exports.ImageDrawer = ImageDrawer;
+},{"./Utils":"../node_modules/tsparticles-shape-image/esm/Utils.js"}],"../node_modules/tsparticles-shape-image/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadImageShape = loadImageShape;
+var _ImageDrawer = require("./ImageDrawer");
+async function loadImageShape(engine) {
+  await engine.addShape(["image", "images"], new _ImageDrawer.ImageDrawer());
+}
+},{"./ImageDrawer":"../node_modules/tsparticles-shape-image/esm/ImageDrawer.js"}],"../node_modules/tsparticles-updater-life/esm/Options/Classes/LifeDelay.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LifeDelay = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class LifeDelay extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.sync = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    super.load(data);
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.LifeDelay = LifeDelay;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-life/esm/Options/Classes/LifeDuration.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LifeDuration = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class LifeDuration extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.random.minimumValue = 0.0001;
+    this.sync = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    super.load(data);
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.LifeDuration = LifeDuration;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-life/esm/Options/Classes/Life.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Life = void 0;
+var _LifeDelay = require("./LifeDelay");
+var _LifeDuration = require("./LifeDuration");
+class Life {
+  constructor() {
+    this.count = 0;
+    this.delay = new _LifeDelay.LifeDelay();
+    this.duration = new _LifeDuration.LifeDuration();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.count !== undefined) {
+      this.count = data.count;
+    }
+    this.delay.load(data.delay);
+    this.duration.load(data.duration);
+  }
+}
+exports.Life = Life;
+},{"./LifeDelay":"../node_modules/tsparticles-updater-life/esm/Options/Classes/LifeDelay.js","./LifeDuration":"../node_modules/tsparticles-updater-life/esm/Options/Classes/LifeDuration.js"}],"../node_modules/tsparticles-updater-life/esm/LifeUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LifeUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Life = require("./Options/Classes/Life");
+class LifeUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  init(particle) {
+    const container = this.container,
+      particlesOptions = particle.options,
+      lifeOptions = particlesOptions.life;
+    if (!lifeOptions) {
+      return;
+    }
+    particle.life = {
+      delay: container.retina.reduceFactor ? (0, _tsparticlesEngine.getRangeValue)(lifeOptions.delay.value) * (lifeOptions.delay.sync ? 1 : (0, _tsparticlesEngine.getRandom)()) / container.retina.reduceFactor * 1000 : 0,
+      delayTime: 0,
+      duration: container.retina.reduceFactor ? (0, _tsparticlesEngine.getRangeValue)(lifeOptions.duration.value) * (lifeOptions.duration.sync ? 1 : (0, _tsparticlesEngine.getRandom)()) / container.retina.reduceFactor * 1000 : 0,
+      time: 0,
+      count: lifeOptions.count
+    };
+    if (particle.life.duration <= 0) {
+      particle.life.duration = -1;
+    }
+    if (particle.life.count <= 0) {
+      particle.life.count = -1;
+    }
+    if (particle.life) {
+      particle.spawning = particle.life.delay > 0;
+    }
+  }
+  isEnabled(particle) {
+    return !particle.destroyed;
+  }
+  loadOptions(options, ...sources) {
+    if (!options.life) {
+      options.life = new _Life.Life();
+    }
+    for (const source of sources) {
+      options.life.load(source === null || source === void 0 ? void 0 : source.life);
+    }
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle) || !particle.life) {
+      return;
+    }
+    const life = particle.life;
+    let justSpawned = false;
+    if (particle.spawning) {
+      life.delayTime += delta.value;
+      if (life.delayTime >= particle.life.delay) {
+        justSpawned = true;
+        particle.spawning = false;
+        life.delayTime = 0;
+        life.time = 0;
+      } else {
+        return;
+      }
+    }
+    if (life.duration === -1) {
+      return;
+    }
+    if (particle.spawning) {
+      return;
+    }
+    if (justSpawned) {
+      life.time = 0;
+    } else {
+      life.time += delta.value;
+    }
+    if (life.time < life.duration) {
+      return;
+    }
+    life.time = 0;
+    if (particle.life.count > 0) {
+      particle.life.count--;
+    }
+    if (particle.life.count === 0) {
+      particle.destroy();
+      return;
+    }
+    const canvasSize = this.container.canvas.size,
+      widthRange = (0, _tsparticlesEngine.setRangeValue)(0, canvasSize.width),
+      heightRange = (0, _tsparticlesEngine.setRangeValue)(0, canvasSize.width);
+    particle.position.x = (0, _tsparticlesEngine.randomInRange)(widthRange);
+    particle.position.y = (0, _tsparticlesEngine.randomInRange)(heightRange);
+    particle.spawning = true;
+    life.delayTime = 0;
+    life.time = 0;
+    particle.reset();
+    const lifeOptions = particle.options.life;
+    if (lifeOptions) {
+      life.delay = (0, _tsparticlesEngine.getRangeValue)(lifeOptions.delay.value) * 1000;
+      life.duration = (0, _tsparticlesEngine.getRangeValue)(lifeOptions.duration.value) * 1000;
+    }
+  }
+}
+exports.LifeUpdater = LifeUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Life":"../node_modules/tsparticles-updater-life/esm/Options/Classes/Life.js"}],"../node_modules/tsparticles-updater-life/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadLifeUpdater = loadLifeUpdater;
+var _LifeUpdater = require("./LifeUpdater");
+async function loadLifeUpdater(engine) {
+  await engine.addParticleUpdater("life", container => new _LifeUpdater.LifeUpdater(container));
+}
+},{"./LifeUpdater":"../node_modules/tsparticles-updater-life/esm/LifeUpdater.js"}],"../node_modules/tsparticles-shape-line/esm/LineDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LineDrawer = void 0;
+class LineDrawer {
+  draw(context, particle, radius) {
+    context.moveTo(-radius / 2, 0);
+    context.lineTo(radius / 2, 0);
+  }
+  getSidesCount() {
+    return 1;
+  }
+}
+exports.LineDrawer = LineDrawer;
+},{}],"../node_modules/tsparticles-shape-line/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadLineShape = loadLineShape;
+var _LineDrawer = require("./LineDrawer");
+async function loadLineShape(engine) {
+  await engine.addShape("line", new _LineDrawer.LineDrawer());
+}
+},{"./LineDrawer":"../node_modules/tsparticles-shape-line/esm/LineDrawer.js"}],"../node_modules/tsparticles-updater-opacity/esm/OpacityUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OpacityUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+function checkDestroy(particle, value, minValue, maxValue) {
+  switch (particle.options.opacity.animation.destroy) {
+    case "max":
+      if (value >= maxValue) {
+        particle.destroy();
+      }
+      break;
+    case "min":
+      if (value <= minValue) {
+        particle.destroy();
+      }
+      break;
+  }
+}
+function updateOpacity(particle, delta) {
+  var _a, _b, _c, _d, _e, _f;
+  if (!particle.opacity) {
+    return;
+  }
+  const minValue = particle.opacity.min,
+    maxValue = particle.opacity.max,
+    decay = (_a = particle.opacity.decay) !== null && _a !== void 0 ? _a : 1;
+  if (particle.destroyed || !particle.opacity.enable || ((_b = particle.opacity.maxLoops) !== null && _b !== void 0 ? _b : 0) > 0 && ((_c = particle.opacity.loops) !== null && _c !== void 0 ? _c : 0) > ((_d = particle.opacity.maxLoops) !== null && _d !== void 0 ? _d : 0)) {
+    return;
+  }
+  switch (particle.opacity.status) {
+    case "increasing":
+      if (particle.opacity.value >= maxValue) {
+        particle.opacity.status = "decreasing";
+        if (!particle.opacity.loops) {
+          particle.opacity.loops = 0;
+        }
+        particle.opacity.loops++;
+      } else {
+        particle.opacity.value += ((_e = particle.opacity.velocity) !== null && _e !== void 0 ? _e : 0) * delta.factor;
+      }
+      break;
+    case "decreasing":
+      if (particle.opacity.value <= minValue) {
+        particle.opacity.status = "increasing";
+        if (!particle.opacity.loops) {
+          particle.opacity.loops = 0;
+        }
+        particle.opacity.loops++;
+      } else {
+        particle.opacity.value -= ((_f = particle.opacity.velocity) !== null && _f !== void 0 ? _f : 0) * delta.factor;
+      }
+      break;
+  }
+  if (particle.opacity.velocity && particle.opacity.decay !== 1) {
+    particle.opacity.velocity *= decay;
+  }
+  checkDestroy(particle, particle.opacity.value, minValue, maxValue);
+  if (!particle.destroyed) {
+    particle.opacity.value = (0, _tsparticlesEngine.clamp)(particle.opacity.value, minValue, maxValue);
+  }
+}
+class OpacityUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  init(particle) {
+    const opacityOptions = particle.options.opacity;
+    particle.opacity = {
+      enable: opacityOptions.animation.enable,
+      max: (0, _tsparticlesEngine.getRangeMax)(opacityOptions.value),
+      min: (0, _tsparticlesEngine.getRangeMin)(opacityOptions.value),
+      value: (0, _tsparticlesEngine.getRangeValue)(opacityOptions.value),
+      loops: 0,
+      maxLoops: (0, _tsparticlesEngine.getRangeValue)(opacityOptions.animation.count)
+    };
+    const opacityAnimation = opacityOptions.animation;
+    if (opacityAnimation.enable) {
+      particle.opacity.decay = 1 - (0, _tsparticlesEngine.getRangeValue)(opacityAnimation.decay);
+      particle.opacity.status = "increasing";
+      const opacityRange = opacityOptions.value;
+      particle.opacity.min = (0, _tsparticlesEngine.getRangeMin)(opacityRange);
+      particle.opacity.max = (0, _tsparticlesEngine.getRangeMax)(opacityRange);
+      switch (opacityAnimation.startValue) {
+        case "min":
+          particle.opacity.value = particle.opacity.min;
+          particle.opacity.status = "increasing";
+          break;
+        case "random":
+          particle.opacity.value = (0, _tsparticlesEngine.randomInRange)(particle.opacity);
+          particle.opacity.status = (0, _tsparticlesEngine.getRandom)() >= 0.5 ? "increasing" : "decreasing";
+          break;
+        case "max":
+        default:
+          particle.opacity.value = particle.opacity.max;
+          particle.opacity.status = "decreasing";
+          break;
+      }
+      particle.opacity.velocity = (0, _tsparticlesEngine.getRangeValue)(opacityAnimation.speed) / 100 * this.container.retina.reduceFactor;
+      if (!opacityAnimation.sync) {
+        particle.opacity.velocity *= (0, _tsparticlesEngine.getRandom)();
+      }
+    }
+    particle.opacity.initialValue = particle.opacity.value;
+  }
+  isEnabled(particle) {
+    var _a, _b, _c, _d;
+    return !particle.destroyed && !particle.spawning && !!particle.opacity && particle.opacity.enable && (((_a = particle.opacity.maxLoops) !== null && _a !== void 0 ? _a : 0) <= 0 || ((_b = particle.opacity.maxLoops) !== null && _b !== void 0 ? _b : 0) > 0 && ((_c = particle.opacity.loops) !== null && _c !== void 0 ? _c : 0) < ((_d = particle.opacity.maxLoops) !== null && _d !== void 0 ? _d : 0));
+  }
+  reset(particle) {
+    if (particle.opacity) {
+      particle.opacity.loops = 0;
+    }
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateOpacity(particle, delta);
+  }
+}
+exports.OpacityUpdater = OpacityUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-opacity/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadOpacityUpdater = loadOpacityUpdater;
+var _OpacityUpdater = require("./OpacityUpdater");
+async function loadOpacityUpdater(engine) {
+  await engine.addParticleUpdater("opacity", container => new _OpacityUpdater.OpacityUpdater(container));
+}
+},{"./OpacityUpdater":"../node_modules/tsparticles-updater-opacity/esm/OpacityUpdater.js"}],"../node_modules/tsparticles-updater-out-modes/esm/Utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bounceHorizontal = bounceHorizontal;
+exports.bounceVertical = bounceVertical;
+var _tsparticlesEngine = require("tsparticles-engine");
+function bounceHorizontal(data) {
+  if (data.outMode !== "bounce" && data.outMode !== "bounce-horizontal" && data.outMode !== "bounceHorizontal" && data.outMode !== "split") {
+    return;
+  }
+  if (data.bounds.right < 0) {
+    data.particle.position.x = data.size + data.offset.x;
+  } else if (data.bounds.left > data.canvasSize.width) {
+    data.particle.position.x = data.canvasSize.width - data.size - data.offset.x;
+  }
+  const velocity = data.particle.velocity.x;
+  let bounced = false;
+  if (data.direction === "right" && data.bounds.right >= data.canvasSize.width && velocity > 0 || data.direction === "left" && data.bounds.left <= 0 && velocity < 0) {
+    const newVelocity = (0, _tsparticlesEngine.getValue)(data.particle.options.bounce.horizontal);
+    data.particle.velocity.x *= -newVelocity;
+    bounced = true;
+  }
+  if (!bounced) {
+    return;
+  }
+  const minPos = data.offset.x + data.size;
+  if (data.bounds.right >= data.canvasSize.width) {
+    data.particle.position.x = data.canvasSize.width - minPos;
+  } else if (data.bounds.left <= 0) {
+    data.particle.position.x = minPos;
+  }
+  if (data.outMode === "split") {
+    data.particle.destroy();
+  }
+}
+function bounceVertical(data) {
+  if (data.outMode !== "bounce" && data.outMode !== "bounce-vertical" && data.outMode !== "bounceVertical" && data.outMode !== "split") {
+    return;
+  }
+  if (data.bounds.bottom < 0) {
+    data.particle.position.y = data.size + data.offset.y;
+  } else if (data.bounds.top > data.canvasSize.height) {
+    data.particle.position.y = data.canvasSize.height - data.size - data.offset.y;
+  }
+  const velocity = data.particle.velocity.y;
+  let bounced = false;
+  if (data.direction === "bottom" && data.bounds.bottom >= data.canvasSize.height && velocity > 0 || data.direction === "top" && data.bounds.top <= 0 && velocity < 0) {
+    const newVelocity = (0, _tsparticlesEngine.getValue)(data.particle.options.bounce.vertical);
+    data.particle.velocity.y *= -newVelocity;
+    bounced = true;
+  }
+  if (!bounced) {
+    return;
+  }
+  const minPos = data.offset.y + data.size;
+  if (data.bounds.bottom >= data.canvasSize.height) {
+    data.particle.position.y = data.canvasSize.height - minPos;
+  } else if (data.bounds.top <= 0) {
+    data.particle.position.y = minPos;
+  }
+  if (data.outMode === "split") {
+    data.particle.destroy();
+  }
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-out-modes/esm/BounceOutMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BounceOutMode = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Utils = require("./Utils");
+class BounceOutMode {
+  constructor(container) {
+    this.container = container;
+    this.modes = ["bounce", "bounce-vertical", "bounce-horizontal", "bounceVertical", "bounceHorizontal", "split"];
+  }
+  update(particle, direction, delta, outMode) {
+    if (!this.modes.includes(outMode)) {
+      return;
+    }
+    const container = this.container;
+    let handled = false;
+    for (const [, plugin] of container.plugins) {
+      if (plugin.particleBounce !== undefined) {
+        handled = plugin.particleBounce(particle, delta, direction);
+      }
+      if (handled) {
+        break;
+      }
+    }
+    if (handled) {
+      return;
+    }
+    const pos = particle.getPosition(),
+      offset = particle.offset,
+      size = particle.getRadius(),
+      bounds = (0, _tsparticlesEngine.calculateBounds)(pos, size),
+      canvasSize = container.canvas.size;
+    (0, _Utils.bounceHorizontal)({
+      particle,
+      outMode,
+      direction,
+      bounds,
+      canvasSize,
+      offset,
+      size
+    });
+    (0, _Utils.bounceVertical)({
+      particle,
+      outMode,
+      direction,
+      bounds,
+      canvasSize,
+      offset,
+      size
+    });
+  }
+}
+exports.BounceOutMode = BounceOutMode;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Utils":"../node_modules/tsparticles-updater-out-modes/esm/Utils.js"}],"../node_modules/tsparticles-updater-out-modes/esm/DestroyOutMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DestroyOutMode = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class DestroyOutMode {
+  constructor(container) {
+    this.container = container;
+    this.modes = ["destroy"];
+  }
+  update(particle, direction, delta, outMode) {
+    if (!this.modes.includes(outMode)) {
+      return;
+    }
+    const container = this.container;
+    switch (particle.outType) {
+      case "normal":
+      case "outside":
+        if ((0, _tsparticlesEngine.isPointInside)(particle.position, container.canvas.size, _tsparticlesEngine.Vector.origin, particle.getRadius(), direction)) {
+          return;
+        }
+        break;
+      case "inside":
+        {
+          const {
+            dx,
+            dy
+          } = (0, _tsparticlesEngine.getDistances)(particle.position, particle.moveCenter);
+          const {
+            x: vx,
+            y: vy
+          } = particle.velocity;
+          if (vx < 0 && dx > particle.moveCenter.radius || vy < 0 && dy > particle.moveCenter.radius || vx >= 0 && dx < -particle.moveCenter.radius || vy >= 0 && dy < -particle.moveCenter.radius) {
+            return;
+          }
+          break;
+        }
+    }
+    container.particles.remove(particle, undefined, true);
+  }
+}
+exports.DestroyOutMode = DestroyOutMode;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-out-modes/esm/NoneOutMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NoneOutMode = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class NoneOutMode {
+  constructor(container) {
+    this.container = container;
+    this.modes = ["none"];
+  }
+  update(particle, direction, delta, outMode) {
+    if (!this.modes.includes(outMode)) {
+      return;
+    }
+    if (particle.options.move.distance.horizontal && (direction === "left" || direction === "right") || particle.options.move.distance.vertical && (direction === "top" || direction === "bottom")) {
+      return;
+    }
+    const gravityOptions = particle.options.move.gravity,
+      container = this.container;
+    const canvasSize = container.canvas.size;
+    const pRadius = particle.getRadius();
+    if (!gravityOptions.enable) {
+      if (particle.velocity.y > 0 && particle.position.y <= canvasSize.height + pRadius || particle.velocity.y < 0 && particle.position.y >= -pRadius || particle.velocity.x > 0 && particle.position.x <= canvasSize.width + pRadius || particle.velocity.x < 0 && particle.position.x >= -pRadius) {
+        return;
+      }
+      if (!(0, _tsparticlesEngine.isPointInside)(particle.position, container.canvas.size, _tsparticlesEngine.Vector.origin, pRadius, direction)) {
+        container.particles.remove(particle);
+      }
+    } else {
+      const position = particle.position;
+      if (!gravityOptions.inverse && position.y > canvasSize.height + pRadius && direction === "bottom" || gravityOptions.inverse && position.y < -pRadius && direction === "top") {
+        container.particles.remove(particle);
+      }
+    }
+  }
+}
+exports.NoneOutMode = NoneOutMode;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-out-modes/esm/OutOutMode.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OutOutMode = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class OutOutMode {
+  constructor(container) {
+    this.container = container;
+    this.modes = ["out"];
+  }
+  update(particle, direction, delta, outMode) {
+    if (!this.modes.includes(outMode)) {
+      return;
+    }
+    const container = this.container;
+    switch (particle.outType) {
+      case "inside":
+        {
+          const {
+            x: vx,
+            y: vy
+          } = particle.velocity;
+          const circVec = _tsparticlesEngine.Vector.origin;
+          circVec.length = particle.moveCenter.radius;
+          circVec.angle = particle.velocity.angle + Math.PI;
+          circVec.addTo(_tsparticlesEngine.Vector.create(particle.moveCenter));
+          const {
+            dx,
+            dy
+          } = (0, _tsparticlesEngine.getDistances)(particle.position, circVec);
+          if (vx <= 0 && dx >= 0 || vy <= 0 && dy >= 0 || vx >= 0 && dx <= 0 || vy >= 0 && dy <= 0) {
+            return;
+          }
+          particle.position.x = Math.floor((0, _tsparticlesEngine.randomInRange)({
+            min: 0,
+            max: container.canvas.size.width
+          }));
+          particle.position.y = Math.floor((0, _tsparticlesEngine.randomInRange)({
+            min: 0,
+            max: container.canvas.size.height
+          }));
+          const {
+            dx: newDx,
+            dy: newDy
+          } = (0, _tsparticlesEngine.getDistances)(particle.position, particle.moveCenter);
+          particle.direction = Math.atan2(-newDy, -newDx);
+          particle.velocity.angle = particle.direction;
+          break;
+        }
+      default:
+        {
+          if ((0, _tsparticlesEngine.isPointInside)(particle.position, container.canvas.size, _tsparticlesEngine.Vector.origin, particle.getRadius(), direction)) {
+            return;
+          }
+          switch (particle.outType) {
+            case "outside":
+              {
+                particle.position.x = Math.floor((0, _tsparticlesEngine.randomInRange)({
+                  min: -particle.moveCenter.radius,
+                  max: particle.moveCenter.radius
+                })) + particle.moveCenter.x;
+                particle.position.y = Math.floor((0, _tsparticlesEngine.randomInRange)({
+                  min: -particle.moveCenter.radius,
+                  max: particle.moveCenter.radius
+                })) + particle.moveCenter.y;
+                const {
+                  dx,
+                  dy
+                } = (0, _tsparticlesEngine.getDistances)(particle.position, particle.moveCenter);
+                if (particle.moveCenter.radius) {
+                  particle.direction = Math.atan2(dy, dx);
+                  particle.velocity.angle = particle.direction;
+                }
+                break;
+              }
+            case "normal":
+              {
+                const wrap = particle.options.move.warp,
+                  canvasSize = container.canvas.size,
+                  newPos = {
+                    bottom: canvasSize.height + particle.getRadius() + particle.offset.y,
+                    left: -particle.getRadius() - particle.offset.x,
+                    right: canvasSize.width + particle.getRadius() + particle.offset.x,
+                    top: -particle.getRadius() - particle.offset.y
+                  },
+                  sizeValue = particle.getRadius(),
+                  nextBounds = (0, _tsparticlesEngine.calculateBounds)(particle.position, sizeValue);
+                if (direction === "right" && nextBounds.left > canvasSize.width + particle.offset.x) {
+                  particle.position.x = newPos.left;
+                  particle.initialPosition.x = particle.position.x;
+                  if (!wrap) {
+                    particle.position.y = (0, _tsparticlesEngine.getRandom)() * canvasSize.height;
+                    particle.initialPosition.y = particle.position.y;
+                  }
+                } else if (direction === "left" && nextBounds.right < -particle.offset.x) {
+                  particle.position.x = newPos.right;
+                  particle.initialPosition.x = particle.position.x;
+                  if (!wrap) {
+                    particle.position.y = (0, _tsparticlesEngine.getRandom)() * canvasSize.height;
+                    particle.initialPosition.y = particle.position.y;
+                  }
+                }
+                if (direction === "bottom" && nextBounds.top > canvasSize.height + particle.offset.y) {
+                  if (!wrap) {
+                    particle.position.x = (0, _tsparticlesEngine.getRandom)() * canvasSize.width;
+                    particle.initialPosition.x = particle.position.x;
+                  }
+                  particle.position.y = newPos.top;
+                  particle.initialPosition.y = particle.position.y;
+                } else if (direction === "top" && nextBounds.bottom < -particle.offset.y) {
+                  if (!wrap) {
+                    particle.position.x = (0, _tsparticlesEngine.getRandom)() * canvasSize.width;
+                    particle.initialPosition.x = particle.position.x;
+                  }
+                  particle.position.y = newPos.bottom;
+                  particle.initialPosition.y = particle.position.y;
+                }
+                break;
+              }
+          }
+          break;
+        }
+    }
+  }
+}
+exports.OutOutMode = OutOutMode;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-out-modes/esm/OutOfCanvasUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OutOfCanvasUpdater = void 0;
+var _BounceOutMode = require("./BounceOutMode");
+var _DestroyOutMode = require("./DestroyOutMode");
+var _NoneOutMode = require("./NoneOutMode");
+var _OutOutMode = require("./OutOutMode");
+class OutOfCanvasUpdater {
+  constructor(container) {
+    this.container = container;
+    this.updaters = [new _BounceOutMode.BounceOutMode(container), new _DestroyOutMode.DestroyOutMode(container), new _OutOutMode.OutOutMode(container), new _NoneOutMode.NoneOutMode(container)];
+  }
+  init() {}
+  isEnabled(particle) {
+    return !particle.destroyed && !particle.spawning;
+  }
+  update(particle, delta) {
+    var _a, _b, _c, _d;
+    const outModes = particle.options.move.outModes;
+    this.updateOutMode(particle, delta, (_a = outModes.bottom) !== null && _a !== void 0 ? _a : outModes.default, "bottom");
+    this.updateOutMode(particle, delta, (_b = outModes.left) !== null && _b !== void 0 ? _b : outModes.default, "left");
+    this.updateOutMode(particle, delta, (_c = outModes.right) !== null && _c !== void 0 ? _c : outModes.default, "right");
+    this.updateOutMode(particle, delta, (_d = outModes.top) !== null && _d !== void 0 ? _d : outModes.default, "top");
+  }
+  updateOutMode(particle, delta, outMode, direction) {
+    for (const updater of this.updaters) {
+      updater.update(particle, direction, delta, outMode);
+    }
+  }
+}
+exports.OutOfCanvasUpdater = OutOfCanvasUpdater;
+},{"./BounceOutMode":"../node_modules/tsparticles-updater-out-modes/esm/BounceOutMode.js","./DestroyOutMode":"../node_modules/tsparticles-updater-out-modes/esm/DestroyOutMode.js","./NoneOutMode":"../node_modules/tsparticles-updater-out-modes/esm/NoneOutMode.js","./OutOutMode":"../node_modules/tsparticles-updater-out-modes/esm/OutOutMode.js"}],"../node_modules/tsparticles-updater-out-modes/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadOutModesUpdater = loadOutModesUpdater;
+var _OutOfCanvasUpdater = require("./OutOfCanvasUpdater");
+async function loadOutModesUpdater(engine) {
+  await engine.addParticleUpdater("outModes", container => new _OutOfCanvasUpdater.OutOfCanvasUpdater(container));
+}
+},{"./OutOfCanvasUpdater":"../node_modules/tsparticles-updater-out-modes/esm/OutOfCanvasUpdater.js"}],"../node_modules/tsparticles-move-parallax/esm/ParallaxMover.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ParallaxMover = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class ParallaxMover {
+  init() {}
+  isEnabled(particle) {
+    return !(0, _tsparticlesEngine.isSsr)() && !particle.destroyed && particle.container.actualOptions.interactivity.events.onHover.parallax.enable;
+  }
+  move(particle) {
+    const container = particle.container,
+      options = container.actualOptions;
+    if ((0, _tsparticlesEngine.isSsr)() || !options.interactivity.events.onHover.parallax.enable) {
+      return;
+    }
+    const parallaxForce = options.interactivity.events.onHover.parallax.force,
+      mousePos = container.interactivity.mouse.position;
+    if (!mousePos) {
+      return;
+    }
+    const canvasCenter = {
+        x: container.canvas.size.width / 2,
+        y: container.canvas.size.height / 2
+      },
+      parallaxSmooth = options.interactivity.events.onHover.parallax.smooth,
+      factor = particle.getRadius() / parallaxForce,
+      centerDistance = {
+        x: (mousePos.x - canvasCenter.x) * factor,
+        y: (mousePos.y - canvasCenter.y) * factor
+      };
+    particle.offset.x += (centerDistance.x - particle.offset.x) / parallaxSmooth;
+    particle.offset.y += (centerDistance.y - particle.offset.y) / parallaxSmooth;
+  }
+}
+exports.ParallaxMover = ParallaxMover;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-move-parallax/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadParallaxMover = loadParallaxMover;
+var _ParallaxMover = require("./ParallaxMover");
+async function loadParallaxMover(engine) {
+  engine.addMover("parallax", () => new _ParallaxMover.ParallaxMover());
+}
+},{"./ParallaxMover":"../node_modules/tsparticles-move-parallax/esm/ParallaxMover.js"}],"../node_modules/tsparticles-interaction-particles-attract/esm/Attractor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attractor = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class Attractor extends _tsparticlesEngine.ParticlesInteractorBase {
+  constructor(container) {
+    super(container);
+  }
+  clear() {}
+  init() {}
+  async interact(p1) {
+    var _a;
+    const container = this.container,
+      distance = (_a = p1.retina.attractDistance) !== null && _a !== void 0 ? _a : container.retina.attractDistance,
+      pos1 = p1.getPosition(),
+      query = container.particles.quadTree.queryCircle(pos1, distance);
+    for (const p2 of query) {
+      if (p1 === p2 || !p2.options.move.attract.enable || p2.destroyed || p2.spawning) {
+        continue;
+      }
+      const pos2 = p2.getPosition(),
+        {
+          dx,
+          dy
+        } = (0, _tsparticlesEngine.getDistances)(pos1, pos2),
+        rotate = p1.options.move.attract.rotate,
+        ax = dx / (rotate.x * 1000),
+        ay = dy / (rotate.y * 1000),
+        p1Factor = p2.size.value / p1.size.value,
+        p2Factor = 1 / p1Factor;
+      p1.velocity.x -= ax * p1Factor;
+      p1.velocity.y -= ay * p1Factor;
+      p2.velocity.x += ax * p2Factor;
+      p2.velocity.y += ay * p2Factor;
+    }
+  }
+  isEnabled(particle) {
+    return particle.options.move.attract.enable;
+  }
+  reset() {}
+}
+exports.Attractor = Attractor;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-attract/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadParticlesAttractInteraction = loadParticlesAttractInteraction;
+var _Attractor = require("./Attractor");
+async function loadParticlesAttractInteraction(engine) {
+  await engine.addInteractor("particlesAttract", container => new _Attractor.Attractor(container));
+}
+},{"./Attractor":"../node_modules/tsparticles-interaction-particles-attract/esm/Attractor.js"}],"../node_modules/tsparticles-interaction-particles-collisions/esm/Absorb.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.absorb = absorb;
+var _tsparticlesEngine = require("tsparticles-engine");
+function updateAbsorb(p1, r1, p2, r2, delta, pixelRatio) {
+  const factor = (0, _tsparticlesEngine.clamp)(p1.options.collisions.absorb.speed * delta.factor / 10, 0, r2);
+  p1.size.value += factor / 2;
+  p2.size.value -= factor;
+  if (r2 <= pixelRatio) {
+    p2.size.value = 0;
+    p2.destroy();
+  }
+}
+function absorb(p1, p2, delta, pixelRatio) {
+  const r1 = p1.getRadius(),
+    r2 = p2.getRadius();
+  if (r1 === undefined && r2 !== undefined) {
+    p1.destroy();
+  } else if (r1 !== undefined && r2 === undefined) {
+    p2.destroy();
+  } else if (r1 !== undefined && r2 !== undefined) {
+    if (r1 >= r2) {
+      updateAbsorb(p1, r1, p2, r2, delta, pixelRatio);
+    } else {
+      updateAbsorb(p2, r2, p1, r1, delta, pixelRatio);
+    }
+  }
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-collisions/esm/Bounce.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bounce = bounce;
+var _tsparticlesEngine = require("tsparticles-engine");
+function bounce(p1, p2) {
+  (0, _tsparticlesEngine.circleBounce)((0, _tsparticlesEngine.circleBounceDataFromParticle)(p1), (0, _tsparticlesEngine.circleBounceDataFromParticle)(p2));
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-collisions/esm/Destroy.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.destroy = destroy;
+var _Bounce = require("./Bounce");
+function destroy(p1, p2) {
+  if (!p1.unbreakable && !p2.unbreakable) {
+    (0, _Bounce.bounce)(p1, p2);
+  }
+  if (p1.getRadius() === undefined && p2.getRadius() !== undefined) {
+    p1.destroy();
+  } else if (p1.getRadius() !== undefined && p2.getRadius() === undefined) {
+    p2.destroy();
+  } else if (p1.getRadius() !== undefined && p2.getRadius() !== undefined) {
+    const deleteP = p1.getRadius() >= p2.getRadius() ? p1 : p2;
+    deleteP.destroy();
+  }
+}
+},{"./Bounce":"../node_modules/tsparticles-interaction-particles-collisions/esm/Bounce.js"}],"../node_modules/tsparticles-interaction-particles-collisions/esm/ResolveCollision.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.resolveCollision = resolveCollision;
+var _Absorb = require("./Absorb");
+var _Bounce = require("./Bounce");
+var _Destroy = require("./Destroy");
+function resolveCollision(p1, p2, delta, pixelRatio) {
+  switch (p1.options.collisions.mode) {
+    case "absorb":
+      {
+        (0, _Absorb.absorb)(p1, p2, delta, pixelRatio);
+        break;
+      }
+    case "bounce":
+      {
+        (0, _Bounce.bounce)(p1, p2);
+        break;
+      }
+    case "destroy":
+      {
+        (0, _Destroy.destroy)(p1, p2);
+        break;
+      }
+  }
+}
+},{"./Absorb":"../node_modules/tsparticles-interaction-particles-collisions/esm/Absorb.js","./Bounce":"../node_modules/tsparticles-interaction-particles-collisions/esm/Bounce.js","./Destroy":"../node_modules/tsparticles-interaction-particles-collisions/esm/Destroy.js"}],"../node_modules/tsparticles-interaction-particles-collisions/esm/Collider.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Collider = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _ResolveCollision = require("./ResolveCollision");
+class Collider extends _tsparticlesEngine.ParticlesInteractorBase {
+  constructor(container) {
+    super(container);
+  }
+  clear() {}
+  init() {}
+  async interact(p1, delta) {
+    const container = this.container,
+      pos1 = p1.getPosition(),
+      radius1 = p1.getRadius(),
+      query = container.particles.quadTree.queryCircle(pos1, radius1 * 2);
+    for (const p2 of query) {
+      if (p1 === p2 || !p2.options.collisions.enable || p1.options.collisions.mode !== p2.options.collisions.mode || p2.destroyed || p2.spawning) {
+        continue;
+      }
+      const pos2 = p2.getPosition(),
+        radius2 = p2.getRadius();
+      if (Math.abs(Math.round(pos1.z) - Math.round(pos2.z)) > radius1 + radius2) {
+        continue;
+      }
+      const dist = (0, _tsparticlesEngine.getDistance)(pos1, pos2),
+        distP = radius1 + radius2;
+      if (dist > distP) {
+        continue;
+      }
+      (0, _ResolveCollision.resolveCollision)(p1, p2, delta, container.retina.pixelRatio);
+    }
+  }
+  isEnabled(particle) {
+    return particle.options.collisions.enable;
+  }
+  reset() {}
+}
+exports.Collider = Collider;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./ResolveCollision":"../node_modules/tsparticles-interaction-particles-collisions/esm/ResolveCollision.js"}],"../node_modules/tsparticles-interaction-particles-collisions/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadParticlesCollisionsInteraction = loadParticlesCollisionsInteraction;
+var _Collider = require("./Collider");
+async function loadParticlesCollisionsInteraction(engine) {
+  await engine.addInteractor("particlesCollisions", container => new _Collider.Collider(container));
+}
+},{"./Collider":"../node_modules/tsparticles-interaction-particles-collisions/esm/Collider.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/CircleWarp.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CircleWarp = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class CircleWarp extends _tsparticlesEngine.Circle {
+  constructor(x, y, radius, canvasSize) {
+    super(x, y, radius);
+    this.canvasSize = canvasSize;
+    this.canvasSize = Object.assign({}, canvasSize);
+  }
+  contains(point) {
+    if (super.contains(point)) {
+      return true;
+    }
+    const posNE = {
+      x: point.x - this.canvasSize.width,
+      y: point.y
+    };
+    if (super.contains(posNE)) {
+      return true;
+    }
+    const posSE = {
+      x: point.x - this.canvasSize.width,
+      y: point.y - this.canvasSize.height
+    };
+    if (super.contains(posSE)) {
+      return true;
+    }
+    const posSW = {
+      x: point.x,
+      y: point.y - this.canvasSize.height
+    };
+    return super.contains(posSW);
+  }
+  intersects(range) {
+    if (super.intersects(range)) {
+      return true;
+    }
+    const rect = range,
+      circle = range,
+      newPos = {
+        x: range.position.x - this.canvasSize.width,
+        y: range.position.y - this.canvasSize.height
+      };
+    if (circle.radius !== undefined) {
+      const biggerCircle = new _tsparticlesEngine.Circle(newPos.x, newPos.y, circle.radius * 2);
+      return super.intersects(biggerCircle);
+    } else if (rect.size !== undefined) {
+      const rectSW = new _tsparticlesEngine.Rectangle(newPos.x, newPos.y, rect.size.width * 2, rect.size.height * 2);
+      return super.intersects(rectSW);
+    }
+    return false;
+  }
+}
+exports.CircleWarp = CircleWarp;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/LinksShadow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LinksShadow = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class LinksShadow {
+  constructor() {
+    this.blur = 5;
+    this.color = new _tsparticlesEngine.OptionsColor();
+    this.color.value = "#000";
+    this.enable = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.blur !== undefined) {
+      this.blur = data.blur;
+    }
+    this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+  }
+}
+exports.LinksShadow = LinksShadow;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/LinksTriangle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LinksTriangle = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class LinksTriangle {
+  constructor() {
+    this.enable = false;
+    this.frequency = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.frequency !== undefined) {
+      this.frequency = data.frequency;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+  }
+}
+exports.LinksTriangle = LinksTriangle;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/Links.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Links = void 0;
+var _LinksShadow = require("./LinksShadow");
+var _LinksTriangle = require("./LinksTriangle");
+var _tsparticlesEngine = require("tsparticles-engine");
+class Links {
+  constructor() {
+    this.blink = false;
+    this.color = new _tsparticlesEngine.OptionsColor();
+    this.color.value = "#fff";
+    this.consent = false;
+    this.distance = 100;
+    this.enable = false;
+    this.frequency = 1;
+    this.opacity = 1;
+    this.shadow = new _LinksShadow.LinksShadow();
+    this.triangles = new _LinksTriangle.LinksTriangle();
+    this.width = 1;
+    this.warp = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.id !== undefined) {
+      this.id = data.id;
+    }
+    if (data.blink !== undefined) {
+      this.blink = data.blink;
+    }
+    this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    if (data.consent !== undefined) {
+      this.consent = data.consent;
+    }
+    if (data.distance !== undefined) {
+      this.distance = data.distance;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.frequency !== undefined) {
+      this.frequency = data.frequency;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = data.opacity;
+    }
+    this.shadow.load(data.shadow);
+    this.triangles.load(data.triangles);
+    if (data.width !== undefined) {
+      this.width = data.width;
+    }
+    if (data.warp !== undefined) {
+      this.warp = data.warp;
+    }
+  }
+}
+exports.Links = Links;
+},{"./LinksShadow":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/LinksShadow.js","./LinksTriangle":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/LinksTriangle.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/Linker.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Linker = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _CircleWarp = require("./CircleWarp");
+var _Links = require("./Options/Classes/Links");
+function getLinkDistance(pos1, pos2, optDistance, canvasSize, warp) {
+  let distance = (0, _tsparticlesEngine.getDistance)(pos1, pos2);
+  if (!warp || distance <= optDistance) {
+    return distance;
+  }
+  const pos2NE = {
+    x: pos2.x - canvasSize.width,
+    y: pos2.y
+  };
+  distance = (0, _tsparticlesEngine.getDistance)(pos1, pos2NE);
+  if (distance <= optDistance) {
+    return distance;
+  }
+  const pos2SE = {
+    x: pos2.x - canvasSize.width,
+    y: pos2.y - canvasSize.height
+  };
+  distance = (0, _tsparticlesEngine.getDistance)(pos1, pos2SE);
+  if (distance <= optDistance) {
+    return distance;
+  }
+  const pos2SW = {
+    x: pos2.x,
+    y: pos2.y - canvasSize.height
+  };
+  distance = (0, _tsparticlesEngine.getDistance)(pos1, pos2SW);
+  return distance;
+}
+class Linker extends _tsparticlesEngine.ParticlesInteractorBase {
+  constructor(container) {
+    super(container);
+    this.linkContainer = container;
+  }
+  clear() {}
+  init() {
+    this.linkContainer.particles.linksColor = undefined;
+    this.linkContainer.particles.linksColors = new Map();
+  }
+  async interact(p1) {
+    var _a;
+    if (!p1.options.links) {
+      return;
+    }
+    p1.links = [];
+    const pos1 = p1.getPosition(),
+      container = this.container,
+      canvasSize = container.canvas.size;
+    if (pos1.x < 0 || pos1.y < 0 || pos1.x > canvasSize.width || pos1.y > canvasSize.height) {
+      return;
+    }
+    const linkOpt1 = p1.options.links,
+      optOpacity = linkOpt1.opacity,
+      optDistance = (_a = p1.retina.linksDistance) !== null && _a !== void 0 ? _a : 0,
+      warp = linkOpt1.warp,
+      range = warp ? new _CircleWarp.CircleWarp(pos1.x, pos1.y, optDistance, canvasSize) : new _tsparticlesEngine.Circle(pos1.x, pos1.y, optDistance),
+      query = container.particles.quadTree.query(range);
+    for (const p2 of query) {
+      const linkOpt2 = p2.options.links;
+      if (p1 === p2 || !(linkOpt2 === null || linkOpt2 === void 0 ? void 0 : linkOpt2.enable) || linkOpt1.id !== linkOpt2.id || p2.spawning || p2.destroyed || !p2.links || p1.links.map(t => t.destination).indexOf(p2) !== -1 || p2.links.map(t => t.destination).indexOf(p1) !== -1) {
+        continue;
+      }
+      const pos2 = p2.getPosition();
+      if (pos2.x < 0 || pos2.y < 0 || pos2.x > canvasSize.width || pos2.y > canvasSize.height) {
+        continue;
+      }
+      const distance = getLinkDistance(pos1, pos2, optDistance, canvasSize, warp && linkOpt2.warp);
+      if (distance > optDistance) {
+        return;
+      }
+      const opacityLine = (1 - distance / optDistance) * optOpacity;
+      this.setColor(p1);
+      p1.links.push({
+        destination: p2,
+        opacity: opacityLine
+      });
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    return !!((_a = particle.options.links) === null || _a === void 0 ? void 0 : _a.enable);
+  }
+  loadParticlesOptions(options, ...sources) {
+    var _a, _b;
+    if (!options.links) {
+      options.links = new _Links.Links();
+    }
+    for (const source of sources) {
+      options.links.load((_b = (_a = source === null || source === void 0 ? void 0 : source.links) !== null && _a !== void 0 ? _a : source === null || source === void 0 ? void 0 : source.lineLinked) !== null && _b !== void 0 ? _b : source === null || source === void 0 ? void 0 : source.line_linked);
+    }
+  }
+  reset() {}
+  setColor(p1) {
+    if (!p1.options.links) {
+      return;
+    }
+    const container = this.linkContainer,
+      linksOptions = p1.options.links;
+    let linkColor = linksOptions.id === undefined ? container.particles.linksColor : container.particles.linksColors.get(linksOptions.id);
+    if (linkColor) {
+      return;
+    }
+    const optColor = linksOptions.color;
+    linkColor = (0, _tsparticlesEngine.getLinkRandomColor)(optColor, linksOptions.blink, linksOptions.consent);
+    if (linksOptions.id === undefined) {
+      container.particles.linksColor = linkColor;
+    } else {
+      container.particles.linksColors.set(linksOptions.id, linkColor);
+    }
+  }
+}
+exports.Linker = Linker;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./CircleWarp":"../node_modules/tsparticles-interaction-particles-links/esm/CircleWarp.js","./Options/Classes/Links":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/Links.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/interaction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadInteraction = loadInteraction;
+var _Linker = require("./Linker");
+async function loadInteraction(engine) {
+  await engine.addInteractor("particlesLinks", container => new _Linker.Linker(container));
+}
+},{"./Linker":"../node_modules/tsparticles-interaction-particles-links/esm/Linker.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/Utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.drawLinkLine = drawLinkLine;
+exports.drawLinkTriangle = drawLinkTriangle;
+var _tsparticlesEngine = require("tsparticles-engine");
+function drawLinkLine(context, width, begin, end, maxDistance, canvasSize, warp, backgroundMask, composite, colorLine, opacity, shadow) {
+  let drawn = false;
+  if ((0, _tsparticlesEngine.getDistance)(begin, end) <= maxDistance) {
+    (0, _tsparticlesEngine.drawLine)(context, begin, end);
+    drawn = true;
+  } else if (warp) {
+    let pi1;
+    let pi2;
+    const endNE = {
+      x: end.x - canvasSize.width,
+      y: end.y
+    };
+    const d1 = (0, _tsparticlesEngine.getDistances)(begin, endNE);
+    if (d1.distance <= maxDistance) {
+      const yi = begin.y - d1.dy / d1.dx * begin.x;
+      pi1 = {
+        x: 0,
+        y: yi
+      };
+      pi2 = {
+        x: canvasSize.width,
+        y: yi
+      };
+    } else {
+      const endSW = {
+        x: end.x,
+        y: end.y - canvasSize.height
+      };
+      const d2 = (0, _tsparticlesEngine.getDistances)(begin, endSW);
+      if (d2.distance <= maxDistance) {
+        const yi = begin.y - d2.dy / d2.dx * begin.x;
+        const xi = -yi / (d2.dy / d2.dx);
+        pi1 = {
+          x: xi,
+          y: 0
+        };
+        pi2 = {
+          x: xi,
+          y: canvasSize.height
+        };
+      } else {
+        const endSE = {
+          x: end.x - canvasSize.width,
+          y: end.y - canvasSize.height
+        };
+        const d3 = (0, _tsparticlesEngine.getDistances)(begin, endSE);
+        if (d3.distance <= maxDistance) {
+          const yi = begin.y - d3.dy / d3.dx * begin.x;
+          const xi = -yi / (d3.dy / d3.dx);
+          pi1 = {
+            x: xi,
+            y: yi
+          };
+          pi2 = {
+            x: pi1.x + canvasSize.width,
+            y: pi1.y + canvasSize.height
+          };
+        }
+      }
+    }
+    if (pi1 && pi2) {
+      (0, _tsparticlesEngine.drawLine)(context, begin, pi1);
+      (0, _tsparticlesEngine.drawLine)(context, end, pi2);
+      drawn = true;
+    }
+  }
+  if (!drawn) {
+    return;
+  }
+  context.lineWidth = width;
+  if (backgroundMask) {
+    context.globalCompositeOperation = composite;
+  }
+  context.strokeStyle = (0, _tsparticlesEngine.getStyleFromRgb)(colorLine, opacity);
+  if (shadow.enable) {
+    const shadowColor = (0, _tsparticlesEngine.rangeColorToRgb)(shadow.color);
+    if (shadowColor) {
+      context.shadowBlur = shadow.blur;
+      context.shadowColor = (0, _tsparticlesEngine.getStyleFromRgb)(shadowColor);
+    }
+  }
+  context.stroke();
+}
+function drawLinkTriangle(context, pos1, pos2, pos3, backgroundMask, composite, colorTriangle, opacityTriangle) {
+  (0, _tsparticlesEngine.drawTriangle)(context, pos1, pos2, pos3);
+  if (backgroundMask) {
+    context.globalCompositeOperation = composite;
+  }
+  context.fillStyle = (0, _tsparticlesEngine.getStyleFromRgb)(colorTriangle, opacityTriangle);
+  context.fill();
+}
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/LinkInstance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LinkInstance = void 0;
+var _Utils = require("./Utils");
+var _tsparticlesEngine = require("tsparticles-engine");
+function getLinkKey(ids) {
+  ids.sort((a, b) => a - b);
+  return ids.join("_");
+}
+function setLinkFrequency(particles, dictionary) {
+  const key = getLinkKey(particles.map(t => t.id));
+  let res = dictionary.get(key);
+  if (res === undefined) {
+    res = (0, _tsparticlesEngine.getRandom)();
+    dictionary.set(key, res);
+  }
+  return res;
+}
+class LinkInstance {
+  constructor(container) {
+    this.container = container;
+    this._freqs = {
+      links: new Map(),
+      triangles: new Map()
+    };
+  }
+  drawParticle(context, particle) {
+    var _a;
+    const pOptions = particle.options;
+    if (!particle.links || particle.links.length <= 0) {
+      return;
+    }
+    const p1Links = particle.links.filter(l => pOptions.links && this.getLinkFrequency(particle, l.destination) <= pOptions.links.frequency);
+    for (const link of p1Links) {
+      this.drawTriangles(pOptions, particle, link, p1Links);
+      if (link.opacity > 0 && ((_a = particle.retina.linksWidth) !== null && _a !== void 0 ? _a : 0) > 0) {
+        this.drawLinkLine(particle, link);
+      }
+    }
+  }
+  async init() {
+    this._freqs.links = new Map();
+    this._freqs.triangles = new Map();
+  }
+  particleCreated(particle) {
+    particle.links = [];
+    if (!particle.options.links) {
+      return;
+    }
+    const ratio = this.container.retina.pixelRatio;
+    particle.retina.linksDistance = particle.options.links.distance * ratio;
+    particle.retina.linksWidth = particle.options.links.width * ratio;
+  }
+  particleDestroyed(particle) {
+    particle.links = [];
+  }
+  drawLinkLine(p1, link) {
+    const container = this.container,
+      options = container.actualOptions,
+      p2 = link.destination,
+      pos1 = p1.getPosition(),
+      pos2 = p2.getPosition();
+    let opacity = link.opacity;
+    container.canvas.draw(ctx => {
+      var _a, _b, _c;
+      if (!p1.options.links) {
+        return;
+      }
+      let colorLine;
+      const twinkle = (_a = p1.options.twinkle) === null || _a === void 0 ? void 0 : _a.lines;
+      if (twinkle === null || twinkle === void 0 ? void 0 : twinkle.enable) {
+        const twinkleFreq = twinkle.frequency,
+          twinkleRgb = (0, _tsparticlesEngine.rangeColorToRgb)(twinkle.color),
+          twinkling = (0, _tsparticlesEngine.getRandom)() < twinkleFreq;
+        if (twinkling && twinkleRgb) {
+          colorLine = twinkleRgb;
+          opacity = (0, _tsparticlesEngine.getRangeValue)(twinkle.opacity);
+        }
+      }
+      if (!colorLine) {
+        const linksOptions = p1.options.links,
+          linkColor = (linksOptions === null || linksOptions === void 0 ? void 0 : linksOptions.id) !== undefined ? container.particles.linksColors.get(linksOptions.id) : container.particles.linksColor;
+        colorLine = (0, _tsparticlesEngine.getLinkColor)(p1, p2, linkColor);
+      }
+      if (!colorLine) {
+        return;
+      }
+      const width = (_b = p1.retina.linksWidth) !== null && _b !== void 0 ? _b : 0,
+        maxDistance = (_c = p1.retina.linksDistance) !== null && _c !== void 0 ? _c : 0;
+      (0, _Utils.drawLinkLine)(ctx, width, pos1, pos2, maxDistance, container.canvas.size, p1.options.links.warp, options.backgroundMask.enable, options.backgroundMask.composite, colorLine, opacity, p1.options.links.shadow);
+    });
+  }
+  drawLinkTriangle(p1, link1, link2) {
+    var _a;
+    if (!p1.options.links) {
+      return;
+    }
+    const container = this.container,
+      options = container.actualOptions,
+      p2 = link1.destination,
+      p3 = link2.destination,
+      triangleOptions = p1.options.links.triangles,
+      opacityTriangle = (_a = triangleOptions.opacity) !== null && _a !== void 0 ? _a : (link1.opacity + link2.opacity) / 2;
+    if (opacityTriangle <= 0) {
+      return;
+    }
+    container.canvas.draw(ctx => {
+      var _a;
+      const pos1 = p1.getPosition(),
+        pos2 = p2.getPosition(),
+        pos3 = p3.getPosition(),
+        linksDistance = (_a = p1.retina.linksDistance) !== null && _a !== void 0 ? _a : 0;
+      if ((0, _tsparticlesEngine.getDistance)(pos1, pos2) > linksDistance || (0, _tsparticlesEngine.getDistance)(pos3, pos2) > linksDistance || (0, _tsparticlesEngine.getDistance)(pos3, pos1) > linksDistance) {
+        return;
+      }
+      let colorTriangle = (0, _tsparticlesEngine.rangeColorToRgb)(triangleOptions.color);
+      if (!colorTriangle) {
+        const linksOptions = p1.options.links,
+          linkColor = (linksOptions === null || linksOptions === void 0 ? void 0 : linksOptions.id) !== undefined ? container.particles.linksColors.get(linksOptions.id) : container.particles.linksColor;
+        colorTriangle = (0, _tsparticlesEngine.getLinkColor)(p1, p2, linkColor);
+      }
+      if (!colorTriangle) {
+        return;
+      }
+      (0, _Utils.drawLinkTriangle)(ctx, pos1, pos2, pos3, options.backgroundMask.enable, options.backgroundMask.composite, colorTriangle, opacityTriangle);
+    });
+  }
+  drawTriangles(options, p1, link, p1Links) {
+    var _a, _b, _c;
+    const p2 = link.destination;
+    if (!(((_a = options.links) === null || _a === void 0 ? void 0 : _a.triangles.enable) && ((_b = p2.options.links) === null || _b === void 0 ? void 0 : _b.triangles.enable))) {
+      return;
+    }
+    const vertices = (_c = p2.links) === null || _c === void 0 ? void 0 : _c.filter(t => {
+      const linkFreq = this.getLinkFrequency(p2, t.destination);
+      return p2.options.links && linkFreq <= p2.options.links.frequency && p1Links.findIndex(l => l.destination === t.destination) >= 0;
+    });
+    if (!(vertices === null || vertices === void 0 ? void 0 : vertices.length)) {
+      return;
+    }
+    for (const vertex of vertices) {
+      const p3 = vertex.destination,
+        triangleFreq = this.getTriangleFrequency(p1, p2, p3);
+      if (triangleFreq > options.links.triangles.frequency) {
+        continue;
+      }
+      this.drawLinkTriangle(p1, link, vertex);
+    }
+  }
+  getLinkFrequency(p1, p2) {
+    return setLinkFrequency([p1, p2], this._freqs.links);
+  }
+  getTriangleFrequency(p1, p2, p3) {
+    return setLinkFrequency([p1, p2, p3], this._freqs.triangles);
+  }
+}
+exports.LinkInstance = LinkInstance;
+},{"./Utils":"../node_modules/tsparticles-interaction-particles-links/esm/Utils.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/plugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadPlugin = loadPlugin;
+var _LinkInstance = require("./LinkInstance");
+class LinksPlugin {
+  constructor() {
+    this.id = "links";
+  }
+  getPlugin(container) {
+    return new _LinkInstance.LinkInstance(container);
+  }
+  loadOptions() {}
+  needsPlugin() {
+    return true;
+  }
+}
+async function loadPlugin(engine) {
+  const plugin = new LinksPlugin();
+  await engine.addPlugin(plugin);
+}
+},{"./LinkInstance":"../node_modules/tsparticles-interaction-particles-links/esm/LinkInstance.js"}],"../node_modules/tsparticles-interaction-particles-links/esm/Options/Interfaces/ILinks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-particles-links/esm/Options/Interfaces/ILinksShadow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-particles-links/esm/Options/Interfaces/ILinksTriangle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+},{}],"../node_modules/tsparticles-interaction-particles-links/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  loadParticlesLinksInteraction: true
+};
+exports.loadParticlesLinksInteraction = loadParticlesLinksInteraction;
+var _interaction = require("./interaction");
+var _plugin = require("./plugin");
+var _Links = require("./Options/Classes/Links");
+Object.keys(_Links).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _Links[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Links[key];
+    }
+  });
+});
+var _LinksShadow = require("./Options/Classes/LinksShadow");
+Object.keys(_LinksShadow).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _LinksShadow[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _LinksShadow[key];
+    }
+  });
+});
+var _LinksTriangle = require("./Options/Classes/LinksTriangle");
+Object.keys(_LinksTriangle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _LinksTriangle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _LinksTriangle[key];
+    }
+  });
+});
+var _ILinks = require("./Options/Interfaces/ILinks");
+Object.keys(_ILinks).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ILinks[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ILinks[key];
+    }
+  });
+});
+var _ILinksShadow = require("./Options/Interfaces/ILinksShadow");
+Object.keys(_ILinksShadow).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ILinksShadow[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ILinksShadow[key];
+    }
+  });
+});
+var _ILinksTriangle = require("./Options/Interfaces/ILinksTriangle");
+Object.keys(_ILinksTriangle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ILinksTriangle[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ILinksTriangle[key];
+    }
+  });
+});
+async function loadParticlesLinksInteraction(engine) {
+  await (0, _interaction.loadInteraction)(engine);
+  await (0, _plugin.loadPlugin)(engine);
+}
+},{"./interaction":"../node_modules/tsparticles-interaction-particles-links/esm/interaction.js","./plugin":"../node_modules/tsparticles-interaction-particles-links/esm/plugin.js","./Options/Classes/Links":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/Links.js","./Options/Classes/LinksShadow":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/LinksShadow.js","./Options/Classes/LinksTriangle":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Classes/LinksTriangle.js","./Options/Interfaces/ILinks":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Interfaces/ILinks.js","./Options/Interfaces/ILinksShadow":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Interfaces/ILinksShadow.js","./Options/Interfaces/ILinksTriangle":"../node_modules/tsparticles-interaction-particles-links/esm/Options/Interfaces/ILinksTriangle.js"}],"../node_modules/tsparticles-shape-polygon/esm/PolygonDrawerBase.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PolygonDrawerBase = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class PolygonDrawerBase {
+  draw(context, particle, radius) {
+    const start = this.getCenter(particle, radius),
+      side = this.getSidesData(particle, radius),
+      sideCount = side.count.numerator * side.count.denominator,
+      decimalSides = side.count.numerator / side.count.denominator,
+      interiorAngleDegrees = 180 * (decimalSides - 2) / decimalSides,
+      interiorAngle = Math.PI - Math.PI * interiorAngleDegrees / 180;
+    if (!context) {
+      return;
+    }
+    context.beginPath();
+    context.translate(start.x, start.y);
+    context.moveTo(0, 0);
+    for (let i = 0; i < sideCount; i++) {
+      context.lineTo(side.length, 0);
+      context.translate(side.length, 0);
+      context.rotate(interiorAngle);
+    }
+  }
+  getSidesCount(particle) {
+    var _a, _b;
+    const polygon = particle.shapeData,
+      sides = Math.round((0, _tsparticlesEngine.getRangeValue)((_b = (_a = polygon === null || polygon === void 0 ? void 0 : polygon.sides) !== null && _a !== void 0 ? _a : polygon === null || polygon === void 0 ? void 0 : polygon.nb_sides) !== null && _b !== void 0 ? _b : 5));
+    return sides;
+  }
+}
+exports.PolygonDrawerBase = PolygonDrawerBase;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-shape-polygon/esm/PolygonDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PolygonDrawer = void 0;
+var _PolygonDrawerBase = require("./PolygonDrawerBase");
+class PolygonDrawer extends _PolygonDrawerBase.PolygonDrawerBase {
+  getCenter(particle, radius) {
+    return {
+      x: -radius / (particle.sides / 3.5),
+      y: -radius / (2.66 / 3.5)
+    };
+  }
+  getSidesData(particle, radius) {
+    const sides = particle.sides;
+    return {
+      count: {
+        denominator: 1,
+        numerator: sides
+      },
+      length: radius * 2.66 / (sides / 3)
+    };
+  }
+}
+exports.PolygonDrawer = PolygonDrawer;
+},{"./PolygonDrawerBase":"../node_modules/tsparticles-shape-polygon/esm/PolygonDrawerBase.js"}],"../node_modules/tsparticles-shape-polygon/esm/TriangleDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TriangleDrawer = void 0;
+var _PolygonDrawerBase = require("./PolygonDrawerBase");
+class TriangleDrawer extends _PolygonDrawerBase.PolygonDrawerBase {
+  getCenter(particle, radius) {
+    return {
+      x: -radius,
+      y: radius / 1.66
+    };
+  }
+  getSidesCount() {
+    return 3;
+  }
+  getSidesData(particle, radius) {
+    return {
+      count: {
+        denominator: 2,
+        numerator: 3
+      },
+      length: radius * 2
+    };
+  }
+}
+exports.TriangleDrawer = TriangleDrawer;
+},{"./PolygonDrawerBase":"../node_modules/tsparticles-shape-polygon/esm/PolygonDrawerBase.js"}],"../node_modules/tsparticles-shape-polygon/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadGenericPolygonShape = loadGenericPolygonShape;
+exports.loadPolygonShape = loadPolygonShape;
+exports.loadTriangleShape = loadTriangleShape;
+var _PolygonDrawer = require("./PolygonDrawer");
+var _TriangleDrawer = require("./TriangleDrawer");
+async function loadGenericPolygonShape(engine) {
+  await engine.addShape("polygon", new _PolygonDrawer.PolygonDrawer());
+}
+async function loadTriangleShape(engine) {
+  await engine.addShape("triangle", new _TriangleDrawer.TriangleDrawer());
+}
+async function loadPolygonShape(engine) {
+  await loadGenericPolygonShape(engine);
+  await loadTriangleShape(engine);
+}
+},{"./PolygonDrawer":"../node_modules/tsparticles-shape-polygon/esm/PolygonDrawer.js","./TriangleDrawer":"../node_modules/tsparticles-shape-polygon/esm/TriangleDrawer.js"}],"../node_modules/tsparticles-updater-size/esm/SizeUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SizeUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+function checkDestroy(particle, value, minValue, maxValue) {
+  switch (particle.options.size.animation.destroy) {
+    case "max":
+      if (value >= maxValue) {
+        particle.destroy();
+      }
+      break;
+    case "min":
+      if (value <= minValue) {
+        particle.destroy();
+      }
+      break;
+  }
+}
+function updateSize(particle, delta) {
+  var _a, _b, _c, _d, _e;
+  const sizeVelocity = ((_a = particle.size.velocity) !== null && _a !== void 0 ? _a : 0) * delta.factor,
+    minValue = particle.size.min,
+    maxValue = particle.size.max,
+    decay = (_b = particle.size.decay) !== null && _b !== void 0 ? _b : 1;
+  if (particle.destroyed || !particle.size.enable || ((_c = particle.size.maxLoops) !== null && _c !== void 0 ? _c : 0) > 0 && ((_d = particle.size.loops) !== null && _d !== void 0 ? _d : 0) > ((_e = particle.size.maxLoops) !== null && _e !== void 0 ? _e : 0)) {
+    return;
+  }
+  switch (particle.size.status) {
+    case "increasing":
+      if (particle.size.value >= maxValue) {
+        particle.size.status = "decreasing";
+        if (!particle.size.loops) {
+          particle.size.loops = 0;
+        }
+        particle.size.loops++;
+      } else {
+        particle.size.value += sizeVelocity;
+      }
+      break;
+    case "decreasing":
+      if (particle.size.value <= minValue) {
+        particle.size.status = "increasing";
+        if (!particle.size.loops) {
+          particle.size.loops = 0;
+        }
+        particle.size.loops++;
+      } else {
+        particle.size.value -= sizeVelocity;
+      }
+  }
+  if (particle.size.velocity && decay !== 1) {
+    particle.size.velocity *= decay;
+  }
+  checkDestroy(particle, particle.size.value, minValue, maxValue);
+  if (!particle.destroyed) {
+    particle.size.value = (0, _tsparticlesEngine.clamp)(particle.size.value, minValue, maxValue);
+  }
+}
+class SizeUpdater {
+  init(particle) {
+    var _a;
+    const container = particle.container,
+      sizeOptions = particle.options.size,
+      sizeAnimation = sizeOptions.animation;
+    if (sizeAnimation.enable) {
+      particle.size.velocity = ((_a = particle.retina.sizeAnimationSpeed) !== null && _a !== void 0 ? _a : container.retina.sizeAnimationSpeed) / 100 * container.retina.reduceFactor;
+      if (!sizeAnimation.sync) {
+        particle.size.velocity *= (0, _tsparticlesEngine.getRandom)();
+      }
+    }
+  }
+  isEnabled(particle) {
+    var _a, _b, _c, _d;
+    return !particle.destroyed && !particle.spawning && particle.size.enable && (((_a = particle.size.maxLoops) !== null && _a !== void 0 ? _a : 0) <= 0 || ((_b = particle.size.maxLoops) !== null && _b !== void 0 ? _b : 0) > 0 && ((_c = particle.size.loops) !== null && _c !== void 0 ? _c : 0) < ((_d = particle.size.maxLoops) !== null && _d !== void 0 ? _d : 0));
+  }
+  reset(particle) {
+    particle.size.loops = 0;
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateSize(particle, delta);
+  }
+}
+exports.SizeUpdater = SizeUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-size/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadSizeUpdater = loadSizeUpdater;
+var _SizeUpdater = require("./SizeUpdater");
+async function loadSizeUpdater(engine) {
+  await engine.addParticleUpdater("size", () => new _SizeUpdater.SizeUpdater());
+}
+},{"./SizeUpdater":"../node_modules/tsparticles-updater-size/esm/SizeUpdater.js"}],"../node_modules/tsparticles-shape-square/esm/SquareDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SquareDrawer = void 0;
+const fixFactor = Math.sqrt(2);
+class SquareDrawer {
+  draw(context, particle, radius) {
+    context.rect(-radius / fixFactor, -radius / fixFactor, radius * 2 / fixFactor, radius * 2 / fixFactor);
+  }
+  getSidesCount() {
+    return 4;
+  }
+}
+exports.SquareDrawer = SquareDrawer;
+},{}],"../node_modules/tsparticles-shape-square/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadSquareShape = loadSquareShape;
+var _SquareDrawer = require("./SquareDrawer");
+async function loadSquareShape(engine) {
+  const drawer = new _SquareDrawer.SquareDrawer();
+  await engine.addShape(["edge", "square"], drawer);
+}
+},{"./SquareDrawer":"../node_modules/tsparticles-shape-square/esm/SquareDrawer.js"}],"../node_modules/tsparticles-shape-star/esm/StarDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StarDrawer = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class StarDrawer {
+  draw(context, particle, radius) {
+    var _a;
+    const sides = particle.sides,
+      inset = (_a = particle.starInset) !== null && _a !== void 0 ? _a : 2;
+    context.moveTo(0, 0 - radius);
+    for (let i = 0; i < sides; i++) {
+      context.rotate(Math.PI / sides);
+      context.lineTo(0, 0 - radius * inset);
+      context.rotate(Math.PI / sides);
+      context.lineTo(0, 0 - radius);
+    }
+  }
+  getSidesCount(particle) {
+    var _a, _b;
+    const star = particle.shapeData;
+    return Math.round((0, _tsparticlesEngine.getRangeValue)((_b = (_a = star === null || star === void 0 ? void 0 : star.sides) !== null && _a !== void 0 ? _a : star === null || star === void 0 ? void 0 : star.nb_sides) !== null && _b !== void 0 ? _b : 5));
+  }
+  particleInit(container, particle) {
+    var _a;
+    const star = particle.shapeData,
+      inset = (0, _tsparticlesEngine.getRangeValue)((_a = star === null || star === void 0 ? void 0 : star.inset) !== null && _a !== void 0 ? _a : 2);
+    particle.starInset = inset;
+  }
+}
+exports.StarDrawer = StarDrawer;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-shape-star/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadStarShape = loadStarShape;
+var _StarDrawer = require("./StarDrawer");
+async function loadStarShape(engine) {
+  await engine.addShape("star", new _StarDrawer.StarDrawer());
+}
+},{"./StarDrawer":"../node_modules/tsparticles-shape-star/esm/StarDrawer.js"}],"../node_modules/tsparticles-updater-stroke-color/esm/StrokeColorUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StrokeColorUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+function updateColorValue(delta, value, valueAnimation, max, decrease) {
+  var _a, _b;
+  const colorValue = value;
+  if (!colorValue || !colorValue.enable || colorValue.loops !== undefined && colorValue.maxLoops !== undefined && colorValue.maxLoops > 0 && colorValue.loops >= colorValue.maxLoops) {
+    return;
+  }
+  const offset = (0, _tsparticlesEngine.randomInRange)(valueAnimation.offset),
+    velocity = ((_a = value.velocity) !== null && _a !== void 0 ? _a : 0) * delta.factor + offset * 3.6,
+    decay = (_b = value.decay) !== null && _b !== void 0 ? _b : 1;
+  if (!decrease || colorValue.status === "increasing") {
+    colorValue.value += velocity;
+    if (colorValue.value > max) {
+      if (!colorValue.loops) {
+        colorValue.loops = 0;
+      }
+      colorValue.loops++;
+      if (decrease) {
+        colorValue.status = "decreasing";
+        colorValue.value -= colorValue.value % max;
+      }
+    }
+  } else {
+    colorValue.value -= velocity;
+    if (colorValue.value < 0) {
+      if (!colorValue.loops) {
+        colorValue.loops = 0;
+      }
+      colorValue.loops++;
+      colorValue.status = "increasing";
+      colorValue.value += colorValue.value;
+    }
+  }
+  if (colorValue.velocity && decay !== 1) {
+    colorValue.velocity *= decay;
+  }
+  if (colorValue.value > max) {
+    colorValue.value %= max;
+  }
+}
+function updateStrokeColor(particle, delta) {
+  if (!particle.strokeColor || !particle.strokeAnimation) {
+    return;
+  }
+  const h = particle.strokeColor.h;
+  if (h) {
+    updateColorValue(delta, h, particle.strokeAnimation.h, 360, false);
+  }
+  const s = particle.strokeColor.s;
+  if (s) {
+    updateColorValue(delta, s, particle.strokeAnimation.s, 100, true);
+  }
+  const l = particle.strokeColor.l;
+  if (l) {
+    updateColorValue(delta, l, particle.strokeAnimation.l, 100, true);
+  }
+}
+class StrokeColorUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  init(particle) {
+    var _a, _b, _c;
+    const container = this.container;
+    const stroke = (0, _tsparticlesEngine.itemFromSingleOrMultiple)(particle.options.stroke, particle.id, particle.options.reduceDuplicates);
+    particle.strokeWidth = (0, _tsparticlesEngine.getRangeValue)(stroke.width) * container.retina.pixelRatio;
+    particle.strokeOpacity = (0, _tsparticlesEngine.getRangeValue)((_a = stroke.opacity) !== null && _a !== void 0 ? _a : 1);
+    particle.strokeAnimation = (_b = stroke.color) === null || _b === void 0 ? void 0 : _b.animation;
+    const strokeHslColor = (_c = (0, _tsparticlesEngine.rangeColorToHsl)(stroke.color)) !== null && _c !== void 0 ? _c : particle.getFillColor();
+    if (strokeHslColor) {
+      particle.strokeColor = (0, _tsparticlesEngine.getHslAnimationFromHsl)(strokeHslColor, particle.strokeAnimation, container.retina.reduceFactor);
+    }
+  }
+  isEnabled(particle) {
+    var _a, _b, _c;
+    const color = particle.strokeAnimation;
+    return !particle.destroyed && !particle.spawning && !!color && (((_a = particle.strokeColor) === null || _a === void 0 ? void 0 : _a.h.value) !== undefined && particle.strokeColor.h.enable || ((_b = particle.strokeColor) === null || _b === void 0 ? void 0 : _b.s.value) !== undefined && particle.strokeColor.s.enable || ((_c = particle.strokeColor) === null || _c === void 0 ? void 0 : _c.l.value) !== undefined && particle.strokeColor.l.enable);
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateStrokeColor(particle, delta);
+  }
+}
+exports.StrokeColorUpdater = StrokeColorUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-stroke-color/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadStrokeColorUpdater = loadStrokeColorUpdater;
+var _StrokeColorUpdater = require("./StrokeColorUpdater");
+async function loadStrokeColorUpdater(engine) {
+  await engine.addParticleUpdater("strokeColor", container => new _StrokeColorUpdater.StrokeColorUpdater(container));
+}
+},{"./StrokeColorUpdater":"../node_modules/tsparticles-updater-stroke-color/esm/StrokeColorUpdater.js"}],"../node_modules/tsparticles-shape-text/esm/TextDrawer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.validTypes = exports.TextDrawer = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+const validTypes = ["text", "character", "char"];
+exports.validTypes = validTypes;
+class TextDrawer {
+  draw(context, particle, radius, opacity) {
+    var _a, _b, _c;
+    const character = particle.shapeData;
+    if (character === undefined) {
+      return;
+    }
+    const textData = character.value;
+    if (textData === undefined) {
+      return;
+    }
+    const textParticle = particle;
+    if (textParticle.text === undefined) {
+      textParticle.text = (0, _tsparticlesEngine.itemFromSingleOrMultiple)(textData, particle.randomIndexData);
+    }
+    const text = textParticle.text,
+      style = (_a = character.style) !== null && _a !== void 0 ? _a : "",
+      weight = (_b = character.weight) !== null && _b !== void 0 ? _b : "400",
+      size = Math.round(radius) * 2,
+      font = (_c = character.font) !== null && _c !== void 0 ? _c : "Verdana",
+      fill = particle.fill,
+      offsetX = text.length * radius / 2;
+    context.font = `${style} ${weight} ${size}px "${font}"`;
+    const pos = {
+      x: -offsetX,
+      y: radius / 2
+    };
+    context.globalAlpha = opacity;
+    if (fill) {
+      context.fillText(text, pos.x, pos.y);
+    } else {
+      context.strokeText(text, pos.x, pos.y);
+    }
+    context.globalAlpha = 1;
+  }
+  getSidesCount() {
+    return 12;
+  }
+  async init(container) {
+    const options = container.actualOptions;
+    if (validTypes.find(t => (0, _tsparticlesEngine.isInArray)(t, options.particles.shape.type))) {
+      const shapeOptions = validTypes.map(t => options.particles.shape.options[t]).find(t => !!t),
+        promises = [];
+      (0, _tsparticlesEngine.executeOnSingleOrMultiple)(shapeOptions, shape => {
+        promises.push((0, _tsparticlesEngine.loadFont)(shape.font, shape.weight));
+      });
+      await Promise.all(promises);
+    }
+  }
+}
+exports.TextDrawer = TextDrawer;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-shape-text/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadTextShape = loadTextShape;
+var _TextDrawer = require("./TextDrawer");
+async function loadTextShape(engine) {
+  await engine.addShape(_TextDrawer.validTypes, new _TextDrawer.TextDrawer());
+}
+},{"./TextDrawer":"../node_modules/tsparticles-shape-text/esm/TextDrawer.js"}],"../node_modules/tsparticles-slim/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadSlim = loadSlim;
+var _tsparticlesParticles = require("tsparticles-particles.js");
+var _tsparticlesUpdaterAngle = require("tsparticles-updater-angle");
+var _tsparticlesMoveBase = require("tsparticles-move-base");
+var _tsparticlesShapeCircle = require("tsparticles-shape-circle");
+var _tsparticlesUpdaterColor = require("tsparticles-updater-color");
+var _tsparticlesInteractionExternalAttract = require("tsparticles-interaction-external-attract");
+var _tsparticlesInteractionExternalBounce = require("tsparticles-interaction-external-bounce");
+var _tsparticlesInteractionExternalBubble = require("tsparticles-interaction-external-bubble");
+var _tsparticlesInteractionExternalConnect = require("tsparticles-interaction-external-connect");
+var _tsparticlesInteractionExternalGrab = require("tsparticles-interaction-external-grab");
+var _tsparticlesInteractionExternalPause = require("tsparticles-interaction-external-pause");
+var _tsparticlesInteractionExternalPush = require("tsparticles-interaction-external-push");
+var _tsparticlesInteractionExternalRemove = require("tsparticles-interaction-external-remove");
+var _tsparticlesInteractionExternalRepulse = require("tsparticles-interaction-external-repulse");
+var _tsparticlesInteractionExternalSlow = require("tsparticles-interaction-external-slow");
+var _tsparticlesShapeImage = require("tsparticles-shape-image");
+var _tsparticlesUpdaterLife = require("tsparticles-updater-life");
+var _tsparticlesShapeLine = require("tsparticles-shape-line");
+var _tsparticlesUpdaterOpacity = require("tsparticles-updater-opacity");
+var _tsparticlesUpdaterOutModes = require("tsparticles-updater-out-modes");
+var _tsparticlesMoveParallax = require("tsparticles-move-parallax");
+var _tsparticlesInteractionParticlesAttract = require("tsparticles-interaction-particles-attract");
+var _tsparticlesInteractionParticlesCollisions = require("tsparticles-interaction-particles-collisions");
+var _tsparticlesInteractionParticlesLinks = require("tsparticles-interaction-particles-links");
+var _tsparticlesShapePolygon = require("tsparticles-shape-polygon");
+var _tsparticlesUpdaterSize = require("tsparticles-updater-size");
+var _tsparticlesShapeSquare = require("tsparticles-shape-square");
+var _tsparticlesShapeStar = require("tsparticles-shape-star");
+var _tsparticlesUpdaterStrokeColor = require("tsparticles-updater-stroke-color");
+var _tsparticlesShapeText = require("tsparticles-shape-text");
+async function loadSlim(engine) {
+  await (0, _tsparticlesMoveBase.loadBaseMover)(engine);
+  await (0, _tsparticlesMoveParallax.loadParallaxMover)(engine);
+  await (0, _tsparticlesInteractionExternalAttract.loadExternalAttractInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalBounce.loadExternalBounceInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalBubble.loadExternalBubbleInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalConnect.loadExternalConnectInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalGrab.loadExternalGrabInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalPause.loadExternalPauseInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalPush.loadExternalPushInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalRemove.loadExternalRemoveInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalRepulse.loadExternalRepulseInteraction)(engine);
+  await (0, _tsparticlesInteractionExternalSlow.loadExternalSlowInteraction)(engine);
+  await (0, _tsparticlesInteractionParticlesAttract.loadParticlesAttractInteraction)(engine);
+  await (0, _tsparticlesInteractionParticlesCollisions.loadParticlesCollisionsInteraction)(engine);
+  await (0, _tsparticlesInteractionParticlesLinks.loadParticlesLinksInteraction)(engine);
+  await (0, _tsparticlesShapeCircle.loadCircleShape)(engine);
+  await (0, _tsparticlesShapeImage.loadImageShape)(engine);
+  await (0, _tsparticlesShapeLine.loadLineShape)(engine);
+  await (0, _tsparticlesShapePolygon.loadPolygonShape)(engine);
+  await (0, _tsparticlesShapeSquare.loadSquareShape)(engine);
+  await (0, _tsparticlesShapeStar.loadStarShape)(engine);
+  await (0, _tsparticlesShapeText.loadTextShape)(engine);
+  await (0, _tsparticlesUpdaterLife.loadLifeUpdater)(engine);
+  await (0, _tsparticlesUpdaterOpacity.loadOpacityUpdater)(engine);
+  await (0, _tsparticlesUpdaterSize.loadSizeUpdater)(engine);
+  await (0, _tsparticlesUpdaterAngle.loadAngleUpdater)(engine);
+  await (0, _tsparticlesUpdaterColor.loadColorUpdater)(engine);
+  await (0, _tsparticlesUpdaterStrokeColor.loadStrokeColorUpdater)(engine);
+  await (0, _tsparticlesUpdaterOutModes.loadOutModesUpdater)(engine);
+  await (0, _tsparticlesParticles.initPjs)(engine);
+}
+},{"tsparticles-particles.js":"../node_modules/tsparticles-particles.js/esm/index.js","tsparticles-updater-angle":"../node_modules/tsparticles-updater-angle/esm/index.js","tsparticles-move-base":"../node_modules/tsparticles-move-base/esm/index.js","tsparticles-shape-circle":"../node_modules/tsparticles-shape-circle/esm/index.js","tsparticles-updater-color":"../node_modules/tsparticles-updater-color/esm/index.js","tsparticles-interaction-external-attract":"../node_modules/tsparticles-interaction-external-attract/esm/index.js","tsparticles-interaction-external-bounce":"../node_modules/tsparticles-interaction-external-bounce/esm/index.js","tsparticles-interaction-external-bubble":"../node_modules/tsparticles-interaction-external-bubble/esm/index.js","tsparticles-interaction-external-connect":"../node_modules/tsparticles-interaction-external-connect/esm/index.js","tsparticles-interaction-external-grab":"../node_modules/tsparticles-interaction-external-grab/esm/index.js","tsparticles-interaction-external-pause":"../node_modules/tsparticles-interaction-external-pause/esm/index.js","tsparticles-interaction-external-push":"../node_modules/tsparticles-interaction-external-push/esm/index.js","tsparticles-interaction-external-remove":"../node_modules/tsparticles-interaction-external-remove/esm/index.js","tsparticles-interaction-external-repulse":"../node_modules/tsparticles-interaction-external-repulse/esm/index.js","tsparticles-interaction-external-slow":"../node_modules/tsparticles-interaction-external-slow/esm/index.js","tsparticles-shape-image":"../node_modules/tsparticles-shape-image/esm/index.js","tsparticles-updater-life":"../node_modules/tsparticles-updater-life/esm/index.js","tsparticles-shape-line":"../node_modules/tsparticles-shape-line/esm/index.js","tsparticles-updater-opacity":"../node_modules/tsparticles-updater-opacity/esm/index.js","tsparticles-updater-out-modes":"../node_modules/tsparticles-updater-out-modes/esm/index.js","tsparticles-move-parallax":"../node_modules/tsparticles-move-parallax/esm/index.js","tsparticles-interaction-particles-attract":"../node_modules/tsparticles-interaction-particles-attract/esm/index.js","tsparticles-interaction-particles-collisions":"../node_modules/tsparticles-interaction-particles-collisions/esm/index.js","tsparticles-interaction-particles-links":"../node_modules/tsparticles-interaction-particles-links/esm/index.js","tsparticles-shape-polygon":"../node_modules/tsparticles-shape-polygon/esm/index.js","tsparticles-updater-size":"../node_modules/tsparticles-updater-size/esm/index.js","tsparticles-shape-square":"../node_modules/tsparticles-shape-square/esm/index.js","tsparticles-shape-star":"../node_modules/tsparticles-shape-star/esm/index.js","tsparticles-updater-stroke-color":"../node_modules/tsparticles-updater-stroke-color/esm/index.js","tsparticles-shape-text":"../node_modules/tsparticles-shape-text/esm/index.js"}],"../node_modules/tsparticles-updater-tilt/esm/Options/Classes/TiltAnimation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TiltAnimation = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class TiltAnimation {
+  constructor() {
+    this.enable = false;
+    this.speed = 0;
+    this.decay = 0;
+    this.sync = false;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.speed !== undefined) {
+      this.speed = (0, _tsparticlesEngine.setRangeValue)(data.speed);
+    }
+    if (data.decay !== undefined) {
+      this.decay = (0, _tsparticlesEngine.setRangeValue)(data.decay);
+    }
+    if (data.sync !== undefined) {
+      this.sync = data.sync;
+    }
+  }
+}
+exports.TiltAnimation = TiltAnimation;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-tilt/esm/Options/Classes/Tilt.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Tilt = void 0;
+var _TiltAnimation = require("./TiltAnimation");
+var _tsparticlesEngine = require("tsparticles-engine");
+class Tilt extends _tsparticlesEngine.ValueWithRandom {
+  constructor() {
+    super();
+    this.animation = new _TiltAnimation.TiltAnimation();
+    this.direction = "clockwise";
+    this.enable = false;
+    this.value = 0;
+  }
+  load(data) {
+    super.load(data);
+    if (!data) {
+      return;
+    }
+    this.animation.load(data.animation);
+    if (data.direction !== undefined) {
+      this.direction = data.direction;
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+  }
+}
+exports.Tilt = Tilt;
+},{"./TiltAnimation":"../node_modules/tsparticles-updater-tilt/esm/Options/Classes/TiltAnimation.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-tilt/esm/TiltUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TiltUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Tilt = require("./Options/Classes/Tilt");
+function updateTilt(particle, delta) {
+  var _a, _b;
+  if (!particle.tilt || !particle.options.tilt) {
+    return;
+  }
+  const tilt = particle.options.tilt,
+    tiltAnimation = tilt.animation,
+    speed = ((_a = particle.tilt.velocity) !== null && _a !== void 0 ? _a : 0) * delta.factor,
+    max = 2 * Math.PI,
+    decay = (_b = particle.tilt.decay) !== null && _b !== void 0 ? _b : 1;
+  if (!tiltAnimation.enable) {
+    return;
+  }
+  switch (particle.tilt.status) {
+    case "increasing":
+      particle.tilt.value += speed;
+      if (particle.tilt.value > max) {
+        particle.tilt.value -= max;
+      }
+      break;
+    case "decreasing":
+    default:
+      particle.tilt.value -= speed;
+      if (particle.tilt.value < 0) {
+        particle.tilt.value += max;
+      }
+      break;
+  }
+  if (particle.tilt.velocity && decay !== 1) {
+    particle.tilt.velocity *= decay;
+  }
+}
+class TiltUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  getTransformValues(particle) {
+    var _a;
+    const tilt = ((_a = particle.tilt) === null || _a === void 0 ? void 0 : _a.enable) && particle.tilt;
+    return {
+      b: tilt ? Math.cos(tilt.value) * tilt.cosDirection : undefined,
+      c: tilt ? Math.sin(tilt.value) * tilt.sinDirection : undefined
+    };
+  }
+  init(particle) {
+    var _a;
+    const tiltOptions = particle.options.tilt;
+    if (!tiltOptions) {
+      return;
+    }
+    particle.tilt = {
+      enable: tiltOptions.enable,
+      value: (0, _tsparticlesEngine.getRangeValue)(tiltOptions.value) * Math.PI / 180,
+      sinDirection: (0, _tsparticlesEngine.getRandom)() >= 0.5 ? 1 : -1,
+      cosDirection: (0, _tsparticlesEngine.getRandom)() >= 0.5 ? 1 : -1
+    };
+    let tiltDirection = tiltOptions.direction;
+    if (tiltDirection === "random") {
+      const index = Math.floor((0, _tsparticlesEngine.getRandom)() * 2);
+      tiltDirection = index > 0 ? "counter-clockwise" : "clockwise";
+    }
+    switch (tiltDirection) {
+      case "counter-clockwise":
+      case "counterClockwise":
+        particle.tilt.status = "decreasing";
+        break;
+      case "clockwise":
+        particle.tilt.status = "increasing";
+        break;
+    }
+    const tiltAnimation = (_a = particle.options.tilt) === null || _a === void 0 ? void 0 : _a.animation;
+    if (tiltAnimation === null || tiltAnimation === void 0 ? void 0 : tiltAnimation.enable) {
+      particle.tilt.decay = 1 - (0, _tsparticlesEngine.getRangeValue)(tiltAnimation.decay);
+      particle.tilt.velocity = (0, _tsparticlesEngine.getRangeValue)(tiltAnimation.speed) / 360 * this.container.retina.reduceFactor;
+      if (!tiltAnimation.sync) {
+        particle.tilt.velocity *= (0, _tsparticlesEngine.getRandom)();
+      }
+    }
+  }
+  isEnabled(particle) {
+    var _a;
+    const tiltAnimation = (_a = particle.options.tilt) === null || _a === void 0 ? void 0 : _a.animation;
+    return !particle.destroyed && !particle.spawning && !!(tiltAnimation === null || tiltAnimation === void 0 ? void 0 : tiltAnimation.enable);
+  }
+  loadOptions(options, ...sources) {
+    if (!options.tilt) {
+      options.tilt = new _Tilt.Tilt();
+    }
+    for (const source of sources) {
+      options.tilt.load(source === null || source === void 0 ? void 0 : source.tilt);
+    }
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateTilt(particle, delta);
+  }
+}
+exports.TiltUpdater = TiltUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Tilt":"../node_modules/tsparticles-updater-tilt/esm/Options/Classes/Tilt.js"}],"../node_modules/tsparticles-updater-tilt/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadTiltUpdater = loadTiltUpdater;
+var _TiltUpdater = require("./TiltUpdater");
+async function loadTiltUpdater(engine) {
+  await engine.addParticleUpdater("tilt", container => new _TiltUpdater.TiltUpdater(container));
+}
+},{"./TiltUpdater":"../node_modules/tsparticles-updater-tilt/esm/TiltUpdater.js"}],"../node_modules/tsparticles-updater-twinkle/esm/Options/Classes/TwinkleValues.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TwinkleValues = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class TwinkleValues {
+  constructor() {
+    this.enable = false;
+    this.frequency = 0.05;
+    this.opacity = 1;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.color !== undefined) {
+      this.color = _tsparticlesEngine.OptionsColor.create(this.color, data.color);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.frequency !== undefined) {
+      this.frequency = data.frequency;
+    }
+    if (data.opacity !== undefined) {
+      this.opacity = (0, _tsparticlesEngine.setRangeValue)(data.opacity);
+    }
+  }
+}
+exports.TwinkleValues = TwinkleValues;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-twinkle/esm/Options/Classes/Twinkle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Twinkle = void 0;
+var _TwinkleValues = require("./TwinkleValues");
+class Twinkle {
+  constructor() {
+    this.lines = new _TwinkleValues.TwinkleValues();
+    this.particles = new _TwinkleValues.TwinkleValues();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    this.lines.load(data.lines);
+    this.particles.load(data.particles);
+  }
+}
+exports.Twinkle = Twinkle;
+},{"./TwinkleValues":"../node_modules/tsparticles-updater-twinkle/esm/Options/Classes/TwinkleValues.js"}],"../node_modules/tsparticles-updater-twinkle/esm/TwinkleUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TwinkleUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Twinkle = require("./Options/Classes/Twinkle");
+class TwinkleUpdater {
+  getColorStyles(particle, context, radius, opacity) {
+    const pOptions = particle.options,
+      twinkleOptions = pOptions.twinkle;
+    if (!twinkleOptions) {
+      return {};
+    }
+    const twinkle = twinkleOptions.particles,
+      twinkling = twinkle.enable && (0, _tsparticlesEngine.getRandom)() < twinkle.frequency,
+      zIndexOptions = particle.options.zIndex,
+      zOpacityFactor = (1 - particle.zIndexFactor) ** zIndexOptions.opacityRate,
+      twinklingOpacity = twinkling ? (0, _tsparticlesEngine.getRangeValue)(twinkle.opacity) * zOpacityFactor : opacity,
+      twinkleRgb = (0, _tsparticlesEngine.rangeColorToHsl)(twinkle.color),
+      twinkleStyle = twinkleRgb ? (0, _tsparticlesEngine.getStyleFromHsl)(twinkleRgb, twinklingOpacity) : undefined,
+      res = {},
+      needsTwinkle = twinkling && twinkleStyle;
+    res.fill = needsTwinkle ? twinkleStyle : undefined;
+    res.stroke = needsTwinkle ? twinkleStyle : undefined;
+    return res;
+  }
+  init() {}
+  isEnabled(particle) {
+    const pOptions = particle.options,
+      twinkleOptions = pOptions.twinkle;
+    if (!twinkleOptions) {
+      return false;
+    }
+    return twinkleOptions.particles.enable;
+  }
+  loadOptions(options, ...sources) {
+    if (!options.twinkle) {
+      options.twinkle = new _Twinkle.Twinkle();
+    }
+    for (const source of sources) {
+      options.twinkle.load(source === null || source === void 0 ? void 0 : source.twinkle);
+    }
+  }
+  update() {}
+}
+exports.TwinkleUpdater = TwinkleUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Twinkle":"../node_modules/tsparticles-updater-twinkle/esm/Options/Classes/Twinkle.js"}],"../node_modules/tsparticles-updater-twinkle/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadTwinkleUpdater = loadTwinkleUpdater;
+var _TwinkleUpdater = require("./TwinkleUpdater");
+async function loadTwinkleUpdater(engine) {
+  await engine.addParticleUpdater("twinkle", () => new _TwinkleUpdater.TwinkleUpdater());
+}
+},{"./TwinkleUpdater":"../node_modules/tsparticles-updater-twinkle/esm/TwinkleUpdater.js"}],"../node_modules/tsparticles-updater-wobble/esm/Options/Classes/WobbleSpeed.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WobbleSpeed = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+class WobbleSpeed {
+  constructor() {
+    this.angle = 50;
+    this.move = 10;
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.angle !== undefined) {
+      this.angle = (0, _tsparticlesEngine.setRangeValue)(data.angle);
+    }
+    if (data.move !== undefined) {
+      this.move = (0, _tsparticlesEngine.setRangeValue)(data.move);
+    }
+  }
+}
+exports.WobbleSpeed = WobbleSpeed;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-wobble/esm/Options/Classes/Wobble.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Wobble = void 0;
+var _WobbleSpeed = require("./WobbleSpeed");
+var _tsparticlesEngine = require("tsparticles-engine");
+class Wobble {
+  constructor() {
+    this.distance = 5;
+    this.enable = false;
+    this.speed = new _WobbleSpeed.WobbleSpeed();
+  }
+  load(data) {
+    if (!data) {
+      return;
+    }
+    if (data.distance !== undefined) {
+      this.distance = (0, _tsparticlesEngine.setRangeValue)(data.distance);
+    }
+    if (data.enable !== undefined) {
+      this.enable = data.enable;
+    }
+    if (data.speed !== undefined) {
+      if (typeof data.speed === "number") {
+        this.speed.load({
+          angle: data.speed
+        });
+      } else {
+        const rangeSpeed = data.speed;
+        if (rangeSpeed.min !== undefined) {
+          this.speed.load({
+            angle: rangeSpeed
+          });
+        } else {
+          this.speed.load(data.speed);
+        }
+      }
+    }
+  }
+}
+exports.Wobble = Wobble;
+},{"./WobbleSpeed":"../node_modules/tsparticles-updater-wobble/esm/Options/Classes/WobbleSpeed.js","tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js"}],"../node_modules/tsparticles-updater-wobble/esm/WobbleUpdater.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WobbleUpdater = void 0;
+var _tsparticlesEngine = require("tsparticles-engine");
+var _Wobble = require("./Options/Classes/Wobble");
+function updateWobble(particle, delta) {
+  var _a;
+  const wobble = particle.options.wobble;
+  if (!(wobble === null || wobble === void 0 ? void 0 : wobble.enable) || !particle.wobble) {
+    return;
+  }
+  const angleSpeed = particle.wobble.angleSpeed * delta.factor,
+    moveSpeed = particle.wobble.moveSpeed * delta.factor,
+    distance = moveSpeed * (((_a = particle.retina.wobbleDistance) !== null && _a !== void 0 ? _a : 0) * delta.factor) / (1000 / 60),
+    max = 2 * Math.PI;
+  particle.wobble.angle += angleSpeed;
+  if (particle.wobble.angle > max) {
+    particle.wobble.angle -= max;
+  }
+  particle.position.x += distance * Math.cos(particle.wobble.angle);
+  particle.position.y += distance * Math.abs(Math.sin(particle.wobble.angle));
+}
+class WobbleUpdater {
+  constructor(container) {
+    this.container = container;
+  }
+  init(particle) {
+    var _a;
+    const wobbleOpt = particle.options.wobble;
+    if (wobbleOpt === null || wobbleOpt === void 0 ? void 0 : wobbleOpt.enable) {
+      particle.wobble = {
+        angle: (0, _tsparticlesEngine.getRandom)() * Math.PI * 2,
+        angleSpeed: (0, _tsparticlesEngine.getRangeValue)(wobbleOpt.speed.angle) / 360,
+        moveSpeed: (0, _tsparticlesEngine.getRangeValue)(wobbleOpt.speed.move) / 10
+      };
+    } else {
+      particle.wobble = {
+        angle: 0,
+        angleSpeed: 0,
+        moveSpeed: 0
+      };
+    }
+    particle.retina.wobbleDistance = (0, _tsparticlesEngine.getRangeValue)((_a = wobbleOpt === null || wobbleOpt === void 0 ? void 0 : wobbleOpt.distance) !== null && _a !== void 0 ? _a : 0) * this.container.retina.pixelRatio;
+  }
+  isEnabled(particle) {
+    var _a;
+    return !particle.destroyed && !particle.spawning && !!((_a = particle.options.wobble) === null || _a === void 0 ? void 0 : _a.enable);
+  }
+  loadOptions(options, ...sources) {
+    if (!options.wobble) {
+      options.wobble = new _Wobble.Wobble();
+    }
+    for (const source of sources) {
+      options.wobble.load(source === null || source === void 0 ? void 0 : source.wobble);
+    }
+  }
+  update(particle, delta) {
+    if (!this.isEnabled(particle)) {
+      return;
+    }
+    updateWobble(particle, delta);
+  }
+}
+exports.WobbleUpdater = WobbleUpdater;
+},{"tsparticles-engine":"../node_modules/tsparticles-engine/esm/index.js","./Options/Classes/Wobble":"../node_modules/tsparticles-updater-wobble/esm/Options/Classes/Wobble.js"}],"../node_modules/tsparticles-updater-wobble/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadWobbleUpdater = loadWobbleUpdater;
+var _WobbleUpdater = require("./WobbleUpdater");
+async function loadWobbleUpdater(engine) {
+  await engine.addParticleUpdater("wobble", container => new _WobbleUpdater.WobbleUpdater(container));
+}
+},{"./WobbleUpdater":"../node_modules/tsparticles-updater-wobble/esm/WobbleUpdater.js"}],"../node_modules/tsparticles/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadFull = loadFull;
+var _tsparticlesPluginAbsorbers = require("tsparticles-plugin-absorbers");
+var _tsparticlesUpdaterDestroy = require("tsparticles-updater-destroy");
+var _tsparticlesPluginEmitters = require("tsparticles-plugin-emitters");
+var _tsparticlesInteractionExternalTrail = require("tsparticles-interaction-external-trail");
+var _tsparticlesUpdaterRoll = require("tsparticles-updater-roll");
+var _tsparticlesSlim = require("tsparticles-slim");
+var _tsparticlesUpdaterTilt = require("tsparticles-updater-tilt");
+var _tsparticlesUpdaterTwinkle = require("tsparticles-updater-twinkle");
+var _tsparticlesUpdaterWobble = require("tsparticles-updater-wobble");
+async function loadFull(engine) {
+  await (0, _tsparticlesSlim.loadSlim)(engine);
+  await (0, _tsparticlesUpdaterDestroy.loadDestroyUpdater)(engine);
+  await (0, _tsparticlesUpdaterRoll.loadRollUpdater)(engine);
+  await (0, _tsparticlesUpdaterTilt.loadTiltUpdater)(engine);
+  await (0, _tsparticlesUpdaterTwinkle.loadTwinkleUpdater)(engine);
+  await (0, _tsparticlesUpdaterWobble.loadWobbleUpdater)(engine);
+  await (0, _tsparticlesInteractionExternalTrail.loadExternalTrailInteraction)(engine);
+  await (0, _tsparticlesPluginAbsorbers.loadAbsorbersPlugin)(engine);
+  await (0, _tsparticlesPluginEmitters.loadEmittersPlugin)(engine);
+}
+},{"tsparticles-plugin-absorbers":"../node_modules/tsparticles-plugin-absorbers/esm/index.js","tsparticles-updater-destroy":"../node_modules/tsparticles-updater-destroy/esm/index.js","tsparticles-plugin-emitters":"../node_modules/tsparticles-plugin-emitters/esm/index.js","tsparticles-interaction-external-trail":"../node_modules/tsparticles-interaction-external-trail/esm/index.js","tsparticles-updater-roll":"../node_modules/tsparticles-updater-roll/esm/index.js","tsparticles-slim":"../node_modules/tsparticles-slim/esm/index.js","tsparticles-updater-tilt":"../node_modules/tsparticles-updater-tilt/esm/index.js","tsparticles-updater-twinkle":"../node_modules/tsparticles-updater-twinkle/esm/index.js","tsparticles-updater-wobble":"../node_modules/tsparticles-updater-wobble/esm/index.js"}],"../node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
 },{}],"../node_modules/process/browser.js":[function(require,module,exports) {
 
@@ -32434,7 +49045,67 @@ module.exports = {
 },{}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
-var __rest = this && this.__rest || function (s, e) {
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = void 0 && (void 0).__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var __rest = void 0 && (void 0).__rest || function (s, e) {
   var t = {};
   for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
   if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
@@ -32442,7 +49113,7 @@ var __rest = this && this.__rest || function (s, e) {
   }
   return t;
 };
-var __importDefault = this && this.__importDefault || function (mod) {
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
   };
@@ -32450,7 +49121,9 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var react_1 = __importDefault(require("react"));
+var react_1 = __importStar(require("react"));
+var react_tsparticles_1 = __importDefault(require("react-tsparticles"));
+var tsparticles_1 = require("tsparticles");
 var DocHead_1 = __importDefault(require("./components/DocHead"));
 var Header_1 = __importDefault(require("./components/Header"));
 var Footer_1 = __importDefault(require("./components/Footer"));
@@ -32468,7 +49141,161 @@ var _content_yml_1$defaul = content_yml_1.default,
   rest = __rest(content_yml_1.default, ["docTitle", "blogUrl", "header", "footer", "hero"]);
 var sections = rest.sections;
 var App = function App() {
-  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(DocHead_1.default, {
+  var particlesInit = (0, react_1.useCallback)(function (engine) {
+    return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regenerator.default.mark(function _callee() {
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return (0, tsparticles_1.loadFull)(engine);
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }));
+  }, []);
+  var particlesLoaded = (0, react_1.useCallback)(function (container) {
+    return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+      return _regenerator.default.wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return console.log('container', container);
+          case 2:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }));
+  }, []);
+  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_tsparticles_1.default, {
+    id: "tsparticles",
+    init: particlesInit,
+    loaded: particlesLoaded,
+    options: {
+      fps_limit: 60,
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onclick: {
+            enable: true,
+            mode: 'push'
+          },
+          onhover: {
+            enable: true,
+            mode: 'attract',
+            parallax: {
+              enable: false,
+              force: 60,
+              smooth: 10
+            }
+          },
+          resize: true
+        },
+        modes: {
+          push: {
+            quantity: 4
+          },
+          attract: {
+            distance: 200,
+            duration: 0.4,
+            factor: 5
+          }
+        }
+      },
+      particles: {
+        color: {
+          value: '#1d3b61'
+        },
+        line_linked: {
+          color: '#1d3b61',
+          distance: 150,
+          enable: true,
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 1200
+          },
+          bounce: false,
+          direction: 'none',
+          enable: true,
+          out_mode: 'out',
+          random: false,
+          speed: 1,
+          straight: false
+        },
+        number: {
+          density: {
+            enable: true,
+            value_area: 800
+          },
+          value: 80
+        },
+        opacity: {
+          anim: {
+            enable: false,
+            opacity_min: 0.1,
+            speed: 1,
+            sync: false
+          },
+          random: false,
+          value: 0.5
+        },
+        shape: {
+          character: {
+            fill: false,
+            font: 'Verdana',
+            style: '',
+            value: '*',
+            weight: '400'
+          },
+          image: {
+            height: 100,
+            replace_color: true,
+            src: 'images/github.svg',
+            width: 100
+          },
+          polygon: {
+            nb_sides: 5
+          },
+          stroke: {
+            color: '#000000',
+            width: 0
+          },
+          type: 'circle'
+        },
+        size: {
+          anim: {
+            enable: false,
+            size_min: 0.1,
+            speed: 40,
+            sync: false
+          },
+          random: true,
+          value: 5
+        }
+      },
+      polygon: {
+        draw: {
+          enable: false,
+          lineColor: '#ffffff',
+          lineWidth: 0.5
+        },
+        move: {
+          radius: 10
+        },
+        scale: 1,
+        type: 'none',
+        url: ''
+      },
+      retina_detect: true
+    }
+  }), react_1.default.createElement(DocHead_1.default, {
     title: docTitle
   }), react_1.default.createElement(Header_1.default, Object.assign({
     blogUrl: blogUrl
@@ -32478,7 +49305,7 @@ var App = function App() {
   }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer)));
 };
 exports.default = App;
-},{"react":"../node_modules/react/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Header":"components/Header/index.ts","./components/Footer":"components/Footer/index.ts","./components/Hero":"components/Hero/index.ts","./components/About":"components/About/index.ts","./components/Projects":"components/Projects/index.ts","./components/Career":"components/Career/index.ts","./content.yml":"content.yml"}],"styles/main.scss":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","react":"../node_modules/react/index.js","react-tsparticles":"../node_modules/react-tsparticles/esm/index.js","tsparticles":"../node_modules/tsparticles/esm/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Header":"components/Header/index.ts","./components/Footer":"components/Footer/index.ts","./components/Hero":"components/Hero/index.ts","./components/About":"components/About/index.ts","./components/Projects":"components/Projects/index.ts","./components/Career":"components/Career/index.ts","./content.yml":"content.yml"}],"styles/main.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
@@ -32608,7 +49435,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62365" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58635" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
