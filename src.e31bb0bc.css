@@ -1489,7 +1489,7 @@
   }
 }
 .project-box {
-  background: #102035;
+  background: rgba(16, 32, 53, 0.75);
   border-radius: 0.3125rem;
   color: #ffffff;
   height: 100%;
@@ -1731,14 +1731,16 @@ dl > *:nth-child(3n):not(:last-child) {
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
+  font-weight: 600;
   padding: 0.625rem 1rem;
   text-decoration: none;
 }
 .btn-link:hover {
   background: #8375d9;
+  text-decoration: none;
 }
 .btn-link:focus {
-  box-shadow: 0 0 0 0.1875rem #81effc;
+  box-shadow: 0 0 0 0.125rem #77cdf2;
 }
 
 .text-align-center {
