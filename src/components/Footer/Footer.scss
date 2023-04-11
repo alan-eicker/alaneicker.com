@@ -5,8 +5,10 @@
   color: $white;
   font-size: rem(14);
   padding: rem(40 20);
+  position: relative;
   text-align: center;
   width: 100%;
+  z-index: 4;
 
   p {
     a {
