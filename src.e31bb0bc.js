@@ -48864,7 +48864,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Career_1).default;
   }
 });
-},{"./Career":"components/Career/Career.tsx"}],"content.yml":[function(require,module,exports) {
+},{"./Career":"components/Career/Career.tsx"}],"content.yaml":[function(require,module,exports) {
 module.exports = {
   docTitle: "Alan Eicker | Front End Engineer",
   blogUrl: {
@@ -49042,6 +49042,135 @@ module.exports = {
     }
   }
 };
+},{}],"configs/particles.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var particlesConfig = {
+  fps_limit: 60,
+  interactivity: {
+    detect_on: 'canvas',
+    events: {
+      onclick: {
+        enable: true,
+        mode: 'push'
+      },
+      onhover: {
+        enable: true,
+        mode: 'attract',
+        parallax: {
+          enable: false,
+          force: 60,
+          smooth: 10
+        }
+      },
+      resize: true
+    },
+    modes: {
+      push: {
+        quantity: 4
+      },
+      attract: {
+        distance: 200,
+        duration: 0.4,
+        factor: 5
+      }
+    }
+  },
+  particles: {
+    color: {
+      value: '#1d3b61'
+    },
+    line_linked: {
+      color: '#1d3b61',
+      distance: 150,
+      enable: true,
+      opacity: 0.4,
+      width: 1
+    },
+    move: {
+      attract: {
+        enable: false,
+        rotateX: 600,
+        rotateY: 1200
+      },
+      bounce: false,
+      direction: 'none',
+      enable: true,
+      out_mode: 'out',
+      random: false,
+      speed: 1,
+      straight: false
+    },
+    number: {
+      density: {
+        enable: true,
+        value_area: 800
+      },
+      value: 80
+    },
+    opacity: {
+      anim: {
+        enable: false,
+        opacity_min: 0.1,
+        speed: 1,
+        sync: false
+      },
+      random: false,
+      value: 0.5
+    },
+    shape: {
+      character: {
+        fill: false,
+        font: 'Verdana',
+        style: '',
+        value: '*',
+        weight: '400'
+      },
+      image: {
+        height: 100,
+        replace_color: true,
+        src: 'images/github.svg',
+        width: 100
+      },
+      polygon: {
+        nb_sides: 5
+      },
+      stroke: {
+        color: '#000000',
+        width: 0
+      },
+      type: 'circle'
+    },
+    size: {
+      anim: {
+        enable: false,
+        size_min: 0.1,
+        speed: 40,
+        sync: false
+      },
+      random: true,
+      value: 5
+    }
+  },
+  polygon: {
+    draw: {
+      enable: false,
+      lineColor: '#ffffff',
+      lineWidth: 0.5
+    },
+    move: {
+      radius: 10
+    },
+    scale: 1,
+    type: 'none',
+    url: ''
+  },
+  retina_detect: true
+};
+exports.default = particlesConfig;
 },{}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -49131,14 +49260,15 @@ var Hero_1 = __importDefault(require("./components/Hero"));
 var About_1 = __importDefault(require("./components/About"));
 var Projects_1 = __importDefault(require("./components/Projects"));
 var Career_1 = __importDefault(require("./components/Career"));
-var content_yml_1 = __importDefault(require("./content.yml"));
-var _content_yml_1$defaul = content_yml_1.default,
-  docTitle = _content_yml_1$defaul.docTitle,
-  blogUrl = _content_yml_1$defaul.blogUrl,
-  header = _content_yml_1$defaul.header,
-  footer = _content_yml_1$defaul.footer,
-  hero = _content_yml_1$defaul.hero,
-  rest = __rest(content_yml_1.default, ["docTitle", "blogUrl", "header", "footer", "hero"]);
+var content_yaml_1 = __importDefault(require("./content.yaml"));
+var particles_1 = __importDefault(require("./configs/particles"));
+var _content_yaml_1$defau = content_yaml_1.default,
+  docTitle = _content_yaml_1$defau.docTitle,
+  blogUrl = _content_yaml_1$defau.blogUrl,
+  header = _content_yaml_1$defau.header,
+  footer = _content_yaml_1$defau.footer,
+  hero = _content_yaml_1$defau.hero,
+  rest = __rest(content_yaml_1.default, ["docTitle", "blogUrl", "header", "footer", "hero"]);
 var sections = rest.sections;
 var App = function App() {
   var particlesInit = (0, react_1.useCallback)(function (engine) {
@@ -49173,128 +49303,7 @@ var App = function App() {
     id: "tsparticles",
     init: particlesInit,
     loaded: particlesLoaded,
-    options: {
-      fps_limit: 60,
-      interactivity: {
-        detect_on: 'canvas',
-        events: {
-          onclick: {
-            enable: true,
-            mode: 'push'
-          },
-          onhover: {
-            enable: true,
-            mode: 'attract',
-            parallax: {
-              enable: false,
-              force: 60,
-              smooth: 10
-            }
-          },
-          resize: true
-        },
-        modes: {
-          push: {
-            quantity: 4
-          },
-          attract: {
-            distance: 200,
-            duration: 0.4,
-            factor: 5
-          }
-        }
-      },
-      particles: {
-        color: {
-          value: '#1d3b61'
-        },
-        line_linked: {
-          color: '#1d3b61',
-          distance: 150,
-          enable: true,
-          opacity: 0.4,
-          width: 1
-        },
-        move: {
-          attract: {
-            enable: false,
-            rotateX: 600,
-            rotateY: 1200
-          },
-          bounce: false,
-          direction: 'none',
-          enable: true,
-          out_mode: 'out',
-          random: false,
-          speed: 1,
-          straight: false
-        },
-        number: {
-          density: {
-            enable: true,
-            value_area: 800
-          },
-          value: 80
-        },
-        opacity: {
-          anim: {
-            enable: false,
-            opacity_min: 0.1,
-            speed: 1,
-            sync: false
-          },
-          random: false,
-          value: 0.5
-        },
-        shape: {
-          character: {
-            fill: false,
-            font: 'Verdana',
-            style: '',
-            value: '*',
-            weight: '400'
-          },
-          image: {
-            height: 100,
-            replace_color: true,
-            src: 'images/github.svg',
-            width: 100
-          },
-          polygon: {
-            nb_sides: 5
-          },
-          stroke: {
-            color: '#000000',
-            width: 0
-          },
-          type: 'circle'
-        },
-        size: {
-          anim: {
-            enable: false,
-            size_min: 0.1,
-            speed: 40,
-            sync: false
-          },
-          random: true,
-          value: 5
-        }
-      },
-      polygon: {
-        draw: {
-          enable: false,
-          lineColor: '#ffffff',
-          lineWidth: 0.5
-        },
-        move: {
-          radius: 10
-        },
-        scale: 1,
-        type: 'none',
-        url: ''
-      },
-      retina_detect: true
-    }
+    options: particles_1.default
   }), react_1.default.createElement(DocHead_1.default, {
     title: docTitle
   }), react_1.default.createElement(Header_1.default, Object.assign({
@@ -49305,7 +49314,7 @@ var App = function App() {
   }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer)));
 };
 exports.default = App;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","react":"../node_modules/react/index.js","react-tsparticles":"../node_modules/react-tsparticles/esm/index.js","tsparticles":"../node_modules/tsparticles/esm/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Header":"components/Header/index.ts","./components/Footer":"components/Footer/index.ts","./components/Hero":"components/Hero/index.ts","./components/About":"components/About/index.ts","./components/Projects":"components/Projects/index.ts","./components/Career":"components/Career/index.ts","./content.yml":"content.yml"}],"styles/main.scss":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","react":"../node_modules/react/index.js","react-tsparticles":"../node_modules/react-tsparticles/esm/index.js","tsparticles":"../node_modules/tsparticles/esm/index.js","./components/DocHead":"components/DocHead/index.ts","./components/Header":"components/Header/index.ts","./components/Footer":"components/Footer/index.ts","./components/Hero":"components/Hero/index.ts","./components/About":"components/About/index.ts","./components/Projects":"components/Projects/index.ts","./components/Career":"components/Career/index.ts","./content.yaml":"content.yaml","./configs/particles":"configs/particles.ts"}],"styles/main.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
@@ -49435,7 +49444,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61829" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65113" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
