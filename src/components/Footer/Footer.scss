@@ -3,12 +3,16 @@
 .footer {
   background: darken($midnight-blue, 3%);
   color: $white;
-  font-size: rem(14);
+  font-size: rem(13);
   padding: rem(40 20);
   position: relative;
-  text-align: center;
   width: 100%;
   z-index: 4;
+
+  &__head,
+  &__footer {
+    text-align: center;
+  }
 
   p {
     a {
@@ -18,5 +22,15 @@
 
   p {
     margin: rem(0 0 2);
+  }
+
+  @media (min-width: pixel($breakpoint-medium)) {
+    &__head {
+      text-align: left;
+    }
+
+    &__footer {
+      text-align: right;
+    }
   }
 }

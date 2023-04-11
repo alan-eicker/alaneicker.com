@@ -1,7 +1,7 @@
 @import '../../styles/abstracts.scss';
 
 .icon-list {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
 
   & > * {
