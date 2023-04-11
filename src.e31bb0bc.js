@@ -46997,187 +46997,7 @@ Object.defineProperty(exports, "default", {
     return __importDefault(Header_1).default;
   }
 });
-},{"./Header":"components/Header/Header.tsx"}],"../node_modules/@babel/runtime/helpers/toPrimitive.js":[function(require,module,exports) {
-var _typeof = require("./typeof.js")["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js"}],"../node_modules/@babel/runtime/helpers/toPropertyKey.js":[function(require,module,exports) {
-var _typeof = require("./typeof.js")["default"];
-var toPrimitive = require("./toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
-}
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js","./toPrimitive.js":"../node_modules/@babel/runtime/helpers/toPrimitive.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
-var toPropertyKey = require("./toPropertyKey.js");
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
-},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"components/IconList/IconList.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/IconList/IconList.tsx":[function(require,module,exports) {
-"use strict";
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var classnames_1 = __importDefault(require("classnames"));
-require("./IconList.scss");
-var IconList = function IconList(_ref) {
-  var label = _ref.label,
-    items = _ref.items,
-    justify = _ref.justify,
-    size = _ref.size;
-  return react_1.default.createElement(react_1.default.Fragment, null, label && react_1.default.createElement("p", {
-    className: "screenreader-only"
-  }, label), react_1.default.createElement("ul", {
-    className: (0, classnames_1.default)('icon-list', (0, _defineProperty2.default)({}, "icon-list--".concat(justify), justify))
-  }, items.map(function (item) {
-    return react_1.default.createElement("li", {
-      key: item.icon,
-      className: (0, classnames_1.default)({
-        'icon-list--custom-font-size': size
-      })
-    }, item.url ? react_1.default.createElement("a", {
-      href: item.url,
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, react_1.default.createElement("i", {
-      className: item.icon,
-      "aria-hidden": "true",
-      style: {
-        fontSize: size
-      }
-    }), react_1.default.createElement("span", {
-      className: "screenreader-only"
-    }, item.name)) : react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("i", {
-      className: item.icon,
-      "aria-hidden": "true",
-      style: {
-        fontSize: size
-      }
-    }), react_1.default.createElement("span", {
-      className: "screenreader-only"
-    }, item.name)));
-  })));
-};
-exports.default = IconList;
-},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","./IconList.scss":"components/IconList/IconList.scss"}],"components/IconList/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var IconList_1 = require("./IconList");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(IconList_1).default;
-  }
-});
-},{"./IconList":"components/IconList/IconList.tsx"}],"components/Footer/Footer.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Footer/Footer.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var react_1 = __importDefault(require("react"));
-var IconList_1 = __importDefault(require("../IconList"));
-require("./Footer.scss");
-var Footer = function Footer(_ref) {
-  var copyright = _ref.copyright,
-    contactInfo = _ref.contactInfo,
-    iconCredits = _ref.iconCredits,
-    socialLinks = _ref.socialLinks;
-  return react_1.default.createElement("footer", {
-    className: "footer"
-  }, react_1.default.createElement(IconList_1.default, {
-    label: "find me on the web at",
-    items: socialLinks,
-    justify: "center",
-    size: 28
-  }), react_1.default.createElement("p", null, "Call me at ", react_1.default.createElement("a", {
-    href: "tel:".concat(contactInfo.phone)
-  }, contactInfo.phone), " or email me at", ' ', react_1.default.createElement("a", {
-    href: "mailto:".concat(contactInfo.email)
-  }, contactInfo.email)), react_1.default.createElement("p", null, "\xA9 ", new Date().getFullYear(), " ", copyright), react_1.default.createElement("p", null, react_1.default.createElement("a", {
-    target: "_blank",
-    href: iconCredits.iconUrl,
-    rel: "noreferrer"
-  }, iconCredits.iconName), ' ', "icon by", ' ', react_1.default.createElement("a", {
-    target: "_blank",
-    href: iconCredits.websiteLinkUrl,
-    rel: "noreferrer"
-  }, iconCredits.websiteLinkText)));
-};
-exports.default = Footer;
-},{"react":"../node_modules/react/index.js","../IconList":"components/IconList/index.ts","./Footer.scss":"components/Footer/Footer.scss"}],"components/Footer/index.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Footer_1 = require("./Footer");
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return __importDefault(Footer_1).default;
-  }
-});
-},{"./Footer":"components/Footer/Footer.tsx"}],"../node_modules/flexboxgrid2/flexboxgrid2.css":[function(require,module,exports) {
+},{"./Header":"components/Header/Header.tsx"}],"../node_modules/flexboxgrid2/flexboxgrid2.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
@@ -48421,7 +48241,194 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.Grid = _Grid3.default;
 exports.Row = _Row3.default;
 exports.Col = _Col3.default;
-},{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"components/Section/Section.scss":[function(require,module,exports) {
+},{"./components/Row":"../node_modules/react-flexbox-grid/lib/components/Row.js","./components/Col":"../node_modules/react-flexbox-grid/lib/components/Col.js","./components/Grid":"../node_modules/react-flexbox-grid/lib/components/Grid.js"}],"../node_modules/@babel/runtime/helpers/toPrimitive.js":[function(require,module,exports) {
+var _typeof = require("./typeof.js")["default"];
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js"}],"../node_modules/@babel/runtime/helpers/toPropertyKey.js":[function(require,module,exports) {
+var _typeof = require("./typeof.js")["default"];
+var toPrimitive = require("./toPrimitive.js");
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./typeof.js":"../node_modules/@babel/runtime/helpers/typeof.js","./toPrimitive.js":"../node_modules/@babel/runtime/helpers/toPrimitive.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+var toPropertyKey = require("./toPropertyKey.js");
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+},{"./toPropertyKey.js":"../node_modules/@babel/runtime/helpers/toPropertyKey.js"}],"components/IconList/IconList.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/IconList/IconList.tsx":[function(require,module,exports) {
+"use strict";
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var classnames_1 = __importDefault(require("classnames"));
+require("./IconList.scss");
+var IconList = function IconList(_ref) {
+  var label = _ref.label,
+    items = _ref.items,
+    justify = _ref.justify,
+    size = _ref.size;
+  return react_1.default.createElement(react_1.default.Fragment, null, label && react_1.default.createElement("p", {
+    className: "screenreader-only"
+  }, label), react_1.default.createElement("ul", {
+    className: (0, classnames_1.default)('icon-list', (0, _defineProperty2.default)({}, "icon-list--".concat(justify), justify))
+  }, items.map(function (item) {
+    return react_1.default.createElement("li", {
+      key: item.icon,
+      className: (0, classnames_1.default)({
+        'icon-list--custom-font-size': size
+      })
+    }, item.url ? react_1.default.createElement("a", {
+      href: item.url,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, react_1.default.createElement("i", {
+      className: item.icon,
+      "aria-hidden": "true",
+      style: {
+        fontSize: size
+      }
+    }), react_1.default.createElement("span", {
+      className: "screenreader-only"
+    }, item.name)) : react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("i", {
+      className: item.icon,
+      "aria-hidden": "true",
+      style: {
+        fontSize: size
+      }
+    }), react_1.default.createElement("span", {
+      className: "screenreader-only"
+    }, item.name)));
+  })));
+};
+exports.default = IconList;
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","./IconList.scss":"components/IconList/IconList.scss"}],"components/IconList/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var IconList_1 = require("./IconList");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(IconList_1).default;
+  }
+});
+},{"./IconList":"components/IconList/IconList.tsx"}],"components/Footer/Footer.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Footer/Footer.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var react_flexbox_grid_1 = require("react-flexbox-grid");
+var IconList_1 = __importDefault(require("../IconList"));
+require("./Footer.scss");
+var Footer = function Footer(_ref) {
+  var copyright = _ref.copyright,
+    contactInfo = _ref.contactInfo,
+    iconCredits = _ref.iconCredits,
+    socialLinks = _ref.socialLinks;
+  return react_1.default.createElement("footer", {
+    className: "footer"
+  }, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 6,
+    className: "footer__head"
+  }, react_1.default.createElement("p", null, "Call me at", ' ', react_1.default.createElement("a", {
+    href: "tel:".concat(contactInfo.phone)
+  }, contactInfo.phone), " or email me at", ' ', react_1.default.createElement("a", {
+    href: "mailto:".concat(contactInfo.email)
+  }, contactInfo.email)), react_1.default.createElement("p", null, "\xA9 ", new Date().getFullYear(), " ", copyright), react_1.default.createElement("p", null, react_1.default.createElement("a", {
+    target: "_blank",
+    href: iconCredits.iconUrl,
+    rel: "noreferrer"
+  }, iconCredits.iconName), ' ', "icon by", ' ', react_1.default.createElement("a", {
+    target: "_blank",
+    href: iconCredits.websiteLinkUrl,
+    rel: "noreferrer"
+  }, iconCredits.websiteLinkText))), react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 6,
+    className: "footer__footer"
+  }, react_1.default.createElement(IconList_1.default, {
+    label: "find me on the web at",
+    items: socialLinks,
+    justify: "center",
+    size: 28
+  })))));
+};
+exports.default = Footer;
+},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../IconList":"components/IconList/index.ts","./Footer.scss":"components/Footer/Footer.scss"}],"components/Footer/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var Footer_1 = require("./Footer");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(Footer_1).default;
+  }
+});
+},{"./Footer":"components/Footer/Footer.tsx"}],"components/Section/Section.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
@@ -49444,7 +49451,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65113" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52857" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

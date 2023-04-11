@@ -64,53 +64,6 @@
     font-size: 0.875rem;
   }
 }
-.icon-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-.icon-list > * {
-  margin: 0 1.25rem 0.875rem 0;
-  line-height: 1.4;
-}
-.icon-list > * a {
-  color: #ffffff;
-  text-decoration: none;
-}
-.icon-list > * a:hover {
-  color: #8a7ddc;
-  text-decoration: none;
-}
-.icon-list > *:not(.icon-list--custom-font-size) {
-  font-size: 3rem;
-}
-.icon-list--center {
-  justify-content: center;
-}
-.icon-list--end {
-  justify-content: flex-end;
-}
-.icon-list--between {
-  justify-content: space-between;
-}
-.icon-list--between {
-  justify-content: space-around;
-}
-.footer {
-  background: #060d15;
-  color: #ffffff;
-  font-size: 0.875rem;
-  padding: 2.5rem 1.25rem;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  z-index: 4;
-}
-.footer p a {
-  font-weight: 300;
-}
-.footer p {
-  margin: 0 0 0.125rem;
-}
 .container {
   box-sizing: border-box;
   margin-left: auto;
@@ -1447,6 +1400,63 @@
 @media only screen and (min-width: 1200px) {
   .hidden-xl {
     display: none;
+  }
+}
+.icon-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.icon-list > * {
+  margin: 0 1.25rem 0.875rem 0;
+  line-height: 1.4;
+}
+.icon-list > * a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.icon-list > * a:hover {
+  color: #8a7ddc;
+  text-decoration: none;
+}
+.icon-list > *:not(.icon-list--custom-font-size) {
+  font-size: 3rem;
+}
+.icon-list--center {
+  justify-content: center;
+}
+.icon-list--end {
+  justify-content: flex-end;
+}
+.icon-list--between {
+  justify-content: space-between;
+}
+.icon-list--between {
+  justify-content: space-around;
+}
+.footer {
+  background: #060d15;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  padding: 2.5rem 1.25rem;
+  position: relative;
+  width: 100%;
+  z-index: 4;
+}
+.footer__head, .footer__footer {
+  text-align: center;
+}
+.footer p a {
+  font-weight: 300;
+}
+.footer p {
+  margin: 0 0 0.125rem;
+}
+@media (min-width: 768px) {
+  .footer__head {
+    text-align: left;
+  }
+  .footer__footer {
+    text-align: right;
   }
 }
 .section {
