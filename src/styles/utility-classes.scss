@@ -32,15 +32,17 @@
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
+  font-weight: 600;
   padding: rem(10 16);
   text-decoration: none;
 
   &:hover {
     background: lighten($brand-violet, 5%);
+    text-decoration: none;
   }
 
   &:focus {
-    box-shadow: rem(0 0 0 3) $light-cyan;
+    box-shadow: rem(0 0 0 2) $medium-cyan;
   }
 }
 
