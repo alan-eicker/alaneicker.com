@@ -48762,7 +48762,7 @@ var Projects = function Projects(_ref) {
     }
   }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
-      md: 4,
+      md: 6,
       key: project.title
     }, react_1.default.createElement(ProjectBox_1.default, Object.assign({}, project)));
   }))))));
@@ -48985,6 +48985,11 @@ module.exports = {
           description: "A budgeting app for tracking monthly expenses.",
           url: "https://github.com/alaneicker1975/BudgetBuddy",
           techUsed: ["Node.js", "GraphQL", "MongoDB", "Docker", "React", "Apollo Client"]
+        }, {
+          title: "React Form",
+          description: "A simple React form component using Formik and Yup.",
+          url: "https://github.com/alaneicker1975/ReactForm",
+          techUsed: ["React", "Formik", "Yup"]
         }, {
           title: "Brewlog",
           description: "An app for documenting and discovering great beer. Powered by the Untappd API.",
@@ -49451,7 +49456,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52857" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64449" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
