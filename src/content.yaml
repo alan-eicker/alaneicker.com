@@ -141,6 +141,13 @@ sections:
             - Docker
             - React
             - Apollo Client
+        - title: React Form
+          description: A simple React form component using Formik and Yup.
+          url: https://github.com/alaneicker1975/ReactForm
+          techUsed:
+            - React
+            - Formik
+            - Yup
         - title: Brewlog
           description: An app for documenting and discovering great beer. Powered by the Untappd API.
           url: https://github.com/alaneicker1975/brewlog

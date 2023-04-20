@@ -44,7 +44,7 @@ const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
         <Grid>
           <Row>
             {otherProjects.items.map((project) => (
-              <Col md={4} key={project.title}>
+              <Col md={6} key={project.title}>
                 <ProjectBox {...project} />
               </Col>
             ))}
