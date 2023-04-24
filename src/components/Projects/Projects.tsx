@@ -4,7 +4,11 @@ import Section from '../Section';
 import ProjectBox from '../ProjectBox';
 import { ProjectsProps } from '../../types/components';
 
-const Projects = ({ title, featured, otherProjects }: ProjectsProps) => (
+const Projects: React.FC<ProjectsProps> = ({
+  title,
+  featured,
+  otherProjects,
+}) => (
   <>
     <Section id="projects">
       <>

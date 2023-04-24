@@ -4,12 +4,12 @@ import IconList from '../IconList';
 import { FooterProps } from '../../types/components';
 import './Footer.scss';
 
-const Footer = ({
+const Footer: React.FC<FooterProps> = ({
   copyright,
   contactInfo,
   iconCredits,
   socialLinks,
-}: FooterProps) => (
+}) => (
   <footer className="footer">
     <Grid>
       <Row>

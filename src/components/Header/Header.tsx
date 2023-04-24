@@ -4,7 +4,7 @@ import { HeaderProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
 import './Header.scss';
 
-const Header = ({ title, subtitle, nav, blogUrl }: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({ title, subtitle, nav, blogUrl }) => {
   const [activeLink, setActiveLink] = useState('');
   const { nextSection } = useAppContext();
 

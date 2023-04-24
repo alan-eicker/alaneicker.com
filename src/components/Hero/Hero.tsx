@@ -3,7 +3,7 @@ import { HeroProps } from '../../types/components';
 import Section from '../Section';
 import './Hero.scss';
 
-const Hero = ({ strapline, title, text, subtitle }: HeroProps) => (
+const Hero: React.FC<HeroProps> = ({ strapline, title, subtitle }) => (
   <Section className="hero">
     <>
       <h1 className="hero__strapline">{strapline}</h1>

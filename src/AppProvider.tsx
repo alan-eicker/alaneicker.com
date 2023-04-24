@@ -15,7 +15,7 @@ const AppContext = createContext<AppProviderValues>({
 });
 export const useAppContext = () => useContext(AppContext);
 
-const AppProvider = ({ children }: Props) => {
+const AppProvider: React.FC<Props> = ({ children }) => {
   const [nextSection, setNextSection] = useState<string>('');
   const [sections, setSections] = useState<object>({});
 

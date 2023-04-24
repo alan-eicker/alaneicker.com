@@ -5,7 +5,7 @@ import { DocHeadProps } from '../../types/components';
 
 dotenv.config();
 
-const DocHead = ({ title }: DocHeadProps) =>
+const DocHead: React.FC<DocHeadProps> = ({ title }) =>
   createPortal(<title>{title}</title>, document.querySelector('head')!);
 
 export default DocHead;

@@ -3,7 +3,7 @@ import Section from '../Section';
 import IconList from '../IconList';
 import { AboutProps } from '../../types/components';
 
-const About = ({ bio, skills }: AboutProps) => (
+const About: React.FC<AboutProps> = ({ bio, skills }) => (
   <Section
     id="about"
     sidebar={

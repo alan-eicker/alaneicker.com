@@ -5,14 +5,14 @@ import { SectionProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
 import './Section.scss';
 
-const Section = ({
+const Section: React.FC<SectionProps> = ({
   id,
   className,
   children,
   sidebar,
   cols = [7, 4],
   ...other
-}: SectionProps) => {
+}) => {
   const { setSectionOffsetYState } = useAppContext();
   const ref = useRef();
 
