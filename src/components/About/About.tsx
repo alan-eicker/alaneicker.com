@@ -1,7 +1,7 @@
 import React from 'react';
 import Section from '../Section';
 import IconList from '../IconList';
-import { AboutProps } from '../../types/components';
+import { AboutProps } from '../../interfaces/components';
 
 const About: React.FC<AboutProps> = ({ bio, skills }) => (
   <Section

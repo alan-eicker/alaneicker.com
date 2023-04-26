@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { DocHeadProps } from '../../types/components';
+import { DocHeadProps } from '../../interfaces/components';
 
 dotenv.config();
 

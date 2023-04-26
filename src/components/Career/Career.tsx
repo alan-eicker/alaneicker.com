@@ -1,6 +1,6 @@
 import React from 'react';
 import Section from '../Section';
-import { CareerProps } from '../../types/components';
+import { CareerProps } from '../../interfaces/components';
 
 const Career: React.FC<CareerProps> = ({ resume, referrals, ...others }) => (
   <Section

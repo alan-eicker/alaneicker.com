@@ -1,4 +1,4 @@
-export type HeaderProps = {
+export interface HeaderProps {
   title: string;
   subtitle: string;
   nav: string[];
@@ -6,9 +6,9 @@ export type HeaderProps = {
     url: string;
     name: string;
   };
-};
+}
 
-export type FooterProps = {
+export interface FooterProps {
   copyright: string;
   contactInfo: {
     phone: string;
@@ -25,16 +25,16 @@ export type FooterProps = {
     url: string;
     icon: string;
   }[];
-};
+}
 
-export type HeroProps = {
+export interface HeroProps {
   strapline: string;
   title: string;
   subtitle: string;
   text: string;
-};
+}
 
-export type AboutProps = {
+export interface AboutProps {
   bio: {
     title: string;
     content: string;
@@ -46,9 +46,9 @@ export type AboutProps = {
       icon: string;
     }[];
   };
-};
+}
 
-export type CareerProps = {
+export interface CareerProps {
   resume: {
     title: string;
     resumeDownloadUrl: string;
@@ -67,13 +67,13 @@ export type CareerProps = {
       content: string;
     }[];
   };
-};
+}
 
-export type DocHeadProps = {
+export interface DocHeadProps {
   title: string;
-};
+}
 
-export type IconListProps = {
+export interface IconListProps {
   justify?: 'center' | 'end' | 'between' | 'around';
   items: {
     name: string;
@@ -82,13 +82,13 @@ export type IconListProps = {
   }[];
   size?: number;
   label?: string;
-};
+}
 
-export type PrefaceProps = {
+export interface PrefaceProps {
   text: string;
-};
+}
 
-export type ProjectsProps = {
+export interface ProjectsProps {
   title: string;
   featured: {
     title: string;
@@ -107,28 +107,28 @@ export type ProjectsProps = {
       techUsed: string[];
     }[];
   };
-};
+}
 
-export type SectionProps = {
+export interface SectionProps {
   className?: string;
   sidebar?: JSX.Element;
   cols?: number[];
   id?: string;
   children?: JSX.Element | any[];
-};
+}
 
-export type LayoutProps = {
+export interface LayoutProps {
   header: HeaderProps;
   footer: FooterProps;
   hero: HeroProps;
   sections: {
     [key: string]: any;
   };
-};
+}
 
-export type ProjectBoxProps = {
+export interface ProjectBoxProps {
   title: string;
   description: string;
   url: string;
   techUsed: string[];
-};
+}

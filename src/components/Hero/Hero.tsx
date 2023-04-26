@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeroProps } from '../../types/components';
+import { HeroProps } from '../../interfaces/components';
 import Section from '../Section';
 import './Hero.scss';
 

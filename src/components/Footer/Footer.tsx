@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import IconList from '../IconList';
-import { FooterProps } from '../../types/components';
+import { FooterProps } from '../../interfaces/components';
 import './Footer.scss';
 
 const Footer: React.FC<FooterProps> = ({

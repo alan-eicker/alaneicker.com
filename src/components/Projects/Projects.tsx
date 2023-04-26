@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Section from '../Section';
 import ProjectBox from '../ProjectBox';
-import { ProjectsProps } from '../../types/components';
+import { ProjectsProps } from '../../interfaces/components';
 
 const Projects: React.FC<ProjectsProps> = ({
   title,
