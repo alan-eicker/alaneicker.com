@@ -26,7 +26,7 @@
 }
 
 .btn-link {
-  background: $brand-violet;
+  background-color: $brand-violet;
   border-radius: rem(4);
   color: $white;
   display: inline-block;
@@ -37,7 +37,7 @@
   text-decoration: none;
 
   &:hover {
-    background: lighten($brand-violet, 5%);
+    background-color: lighten($brand-violet, 5%);
     text-decoration: none;
   }
 

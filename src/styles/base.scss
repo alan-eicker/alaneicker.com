@@ -7,7 +7,7 @@ body {
   );
   color: $white;
   font-family: Raleway, Arial, Helvetica, sans-serif;
-  font-size: rem(16);
+  font-size: rem(17);
   font-weight: 300;
   line-height: 1.4;
   overflow-x: hidden;
@@ -26,6 +26,17 @@ body {
 main {
   position: relative;
   z-index: 3;
+}
+
+.blog {
+  h1 {
+    color: $brand-violet;
+    font-size: rem(48);
+  }
+
+  h2 {
+    font-size: rem(32);
+  }
 }
 
 h1,
@@ -96,4 +107,9 @@ dl {
   & > *:nth-child(3n):not(:last-child) {
     margin-bottom: rem(18);
   }
+}
+
+pre {
+  background-color: darken($midnight-blue2, 2%);
+  padding: rem(16);
 }

@@ -1,7 +1,7 @@
 @import '../../styles/abstracts.scss';
 
 .footer {
-  background: darken($midnight-blue, 3%);
+  background-color: darken($midnight-blue, 3%);
   color: $white;
   font-size: rem(13);
   padding: rem(40 20);

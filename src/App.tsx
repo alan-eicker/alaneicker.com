@@ -1,14 +1,13 @@
 import React, { useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Particles from 'react-tsparticles';
 import { Engine, Container } from 'tsparticles-engine';
 import { loadFull } from 'tsparticles';
 import DocHead from './components/DocHead';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Career from './components/Career';
+import Home from './routes/Home';
+import Blog from './routes/Blog';
 import content from './content.yaml';
 import particlesConfig from './configs/particles';
 
@@ -22,7 +21,7 @@ const App = () => {
 
   const particlesLoaded = useCallback(
     async (container: Container | undefined) => {
-      await console.log('container', container);
+      //await console.log('container', container);
     },
     [],
   );
@@ -37,12 +36,14 @@ const App = () => {
       />
       <DocHead title={docTitle} />
       <Header blogUrl={blogUrl} {...header} />
-      <main>
-        <Hero {...hero} />
-        <About bio={sections.bio} skills={sections.skills} />
-        <Projects {...sections.projects} />
-        <Career {...sections.career} />
-      </main>
+      <Router>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog/:slug" element={<Blog />} />
+          </Routes>
+        </main>
+      </Router>
       <Footer {...footer} />
     </>
   );
