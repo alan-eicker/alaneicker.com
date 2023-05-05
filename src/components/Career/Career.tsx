@@ -26,7 +26,7 @@ const Career: React.FC<CareerProps> = ({ resume, referrals, ...others }) => (
               <dd>
                 <ul className="bullet-list">
                   {positionHeld.map((position: string, index: number) => (
-                    <li key={`position-${index + 1}`}>{position}</li>
+                    <li key={position}>{position}</li>
                   ))}
                 </ul>
               </dd>
