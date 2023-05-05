@@ -13,7 +13,7 @@ header:
 hero:
   strapline: Hi, my name is
   title: Alan Eicker.
-  subtitle: Front End Engineer. React Enthusiast. Accessibity Advocate.
+  subtitle: Front-End Focused Full Stack Engineer.
   text:
     If you had 5 Alans you could rule the software universe. So I recommend hiring
     him and having him train 4 other guys to be as good as he is. Alan is the kind
@@ -63,22 +63,30 @@ sections:
         - company: Allstate Insurance
           url: https://www.allstate.com
           duration: Mar 2015 - Present
-          positionHeld: Senior/Lead Software Engineer (Front-End)
+          positionHeld:
+            - Full Stack Enginneer
+            - Lead Front-End Engineer
+            - Senior Front-End Engineer
         - company: RealPage
           url: https://www.realpage.com
           duration: Apr 2012 - Mar 2015
-          positionHeld: Senior/Lead Front-End Engineer
+          positionHeld:
+            - Lead Front-End Engineer
+            - Senior Front-End Engineer
         - company: Restaurant.com
           url: https://www.restaurant.com
           duration: Nov 2010 - Apr 2012
-          positionHeld: Senior Front-End Engineer
+          positionHeld:
+            - Senior Front-End Engineer
         - company: optionsXpress (now Charles Schwab)
           url: https://www.schwab.com
           duration: Feb 2008 - Nov 2010
-          positionHeld: Web Designer / Front-End Engineer
+          positionHeld:
+            - Web Designer / Front-End Engineer
         - company: Leader Graphic Design
           duration: ' Mar 2007 - Feb 2008'
-          positionHeld: Web Designer / Front-End Engineer
+          positionHeld:
+            - Web Designer / Front-End Engineer
     referrals:
       title: What Others are Saying
       items:

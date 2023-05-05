@@ -22,8 +22,14 @@ const Career: React.FC<CareerProps> = ({ resume, referrals, ...others }) => (
                   company
                 )}
               </dt>
-              <dd className="semibold">{duration}</dd>
-              <dd>{positionHeld}</dd>
+              <dd className="bold">{duration}</dd>
+              <dd>
+                <ul className="bullet-list">
+                  {positionHeld.map((position: string, index: number) => (
+                    <li key={`position-${index + 1}`}>{position}</li>
+                  ))}
+                </ul>
+              </dd>
             </React.Fragment>
           ))}
         </dl>

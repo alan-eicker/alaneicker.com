@@ -6,6 +6,11 @@
   margin: 0;
 }
 
+.bullet-list {
+  list-style-type: disc;
+  margin-left: rem(16);
+}
+
 .semibold {
   font-weight: 400;
 }

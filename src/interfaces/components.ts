@@ -56,7 +56,7 @@ export interface CareerProps {
       company: string;
       url?: string;
       duration: string;
-      positionHeld: string;
+      positionHeld: string[];
     }[];
   };
   referrals: {
