@@ -1434,7 +1434,7 @@
   justify-content: space-around;
 }
 .footer {
-  background-color: #060d15;
+  background: #060d15;
   color: #ffffff;
   font-size: 0.8125rem;
   padding: 2.5rem 1.25rem;
@@ -1501,7 +1501,7 @@
   }
 }
 .project-box {
-  background-color: rgba(16, 32, 53, 0.75);
+  background: rgba(16, 32, 53, 0.75);
   border-radius: 0.3125rem;
   color: #ffffff;
   height: 100%;
@@ -1619,7 +1619,7 @@ body {
   background: linear-gradient(180deg, rgb(6, 13, 23) 0%, rgb(10, 20, 33) 100%);
   color: #ffffff;
   font-family: Raleway, Arial, Helvetica, sans-serif;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.4;
   overflow-x: hidden;
@@ -1639,14 +1639,6 @@ body {
 main {
   position: relative;
   z-index: 3;
-}
-
-.blog h1 {
-  color: #7161d4;
-  font-size: 3rem;
-}
-.blog h2 {
-  font-size: 2rem;
 }
 
 h1,
@@ -1716,10 +1708,8 @@ dl {
 dl > *:nth-child(3n):not(:last-child) {
   margin-bottom: 1.125rem;
 }
-
-pre {
-  background-color: #04080f;
-  padding: 1rem;
+dl > *:nth-child(3n) {
+  margin-top: 0.5rem;
 }
 
 .has-shadow {
@@ -1728,6 +1718,11 @@ pre {
 
 .no-margin {
   margin: 0;
+}
+
+.bullet-list {
+  list-style-type: disc;
+  margin-left: 1rem;
 }
 
 .semibold {
@@ -1750,7 +1745,7 @@ pre {
 }
 
 .btn-link {
-  background-color: #7161d4;
+  background: #7161d4;
   border-radius: 0.25rem;
   color: #ffffff;
   display: inline-block;
@@ -1761,7 +1756,7 @@ pre {
   text-decoration: none;
 }
 .btn-link:hover {
-  background-color: #8375d9;
+  background: #8375d9;
   text-decoration: none;
 }
 .btn-link:focus {
