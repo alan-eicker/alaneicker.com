@@ -1,5 +1,5 @@
 ---
-docTitle: Alan Eicker | JavaScript Full Stack Engineer
+docTitle: Alan Eicker | JavaScript Full-Stack Engineer
 blogUrl:
   name: Blog
   url: https://medium.com/@alaneicker
@@ -13,7 +13,7 @@ header:
 hero:
   strapline: Hi, my name is
   title: Alan Eicker.
-  subtitle: Front-End Focused JavaScript Full Stack Engineer.
+  subtitle: Front-End Focused JavaScript Full-Stack Engineer.
   text:
     If you had 5 Alans you could rule the software universe. So I recommend hiring
     him and having him train 4 other guys to be as good as he is. Alan is the kind
@@ -64,7 +64,7 @@ sections:
           url: https://www.allstate.com
           duration: Mar 2015 - Present
           positionHeld:
-            - Full Stack Enginneer
+            - Full-Stack Enginneer
             - Lead Front-End Engineer
             - Senior Front-End Engineer
         - company: RealPage
