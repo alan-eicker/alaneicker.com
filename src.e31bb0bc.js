@@ -48742,9 +48742,7 @@ var FeaturedProject = function FeaturedProject(_ref) {
   }, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
     md: 3
   }, react_1.default.createElement("img", {
-    style: {
-      border: '2px solid white'
-    },
+    className: "featured-project__project-image",
     src: projectImage,
     alt: "featured project screenshot",
     width: "100%"
@@ -49525,7 +49523,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56880" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60892" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
