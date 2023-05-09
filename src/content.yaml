@@ -132,8 +132,11 @@ sections:
         the begining of the Covid pandemic. It has always been something I wanted
         to do, and after 7 months of hard work, I published it to NPM along with the
         Atomik UI Core Sass Library.
-      url: https://www.atomikui.com
-      urlText: View Documentation
+      urls:
+        - href: https://www.atomikui.com
+          text: Documentation
+        - href: https://github.com/atomikui/atomikui-core
+          text: GitHub
       title: Atomik UI
       image: './atomikui.png'
     otherProjects:
@@ -149,6 +152,13 @@ sections:
             - Docker
             - React
             - Apollo Client
+        - title: Budget Buddy REST API
+          description: This will be the new API for the Budget Buddy App.
+          url: https://github.com/alaneicker1975/ButdgetBuddyAPI
+          techUsed:
+            - Node.js
+            - PostgreSQL
+            - Swagger
         - title: React Form
           description: A simple React form component using Formik and Yup.
           url: https://github.com/alaneicker1975/ReactForm
@@ -156,20 +166,6 @@ sections:
             - React
             - Formik
             - Yup
-        - title: Brewlog
-          description: An app for documenting and discovering great beer. Powered by the Untappd API.
-          url: https://github.com/alaneicker1975/brewlog
-          techUsed:
-            - Node.js
-            - MySQL
-            - Angular
-            - Untapped API
-        - title: Easy-DB
-          description: A JavaScript wrapper for writing SQL queries.
-          url: https://github.com/alaneicker1975/easy-db
-          techUsed:
-            - MySQL
-            - JavaScript
   skills:
     title: Areas of Expertise
     items:

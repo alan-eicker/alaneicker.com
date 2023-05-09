@@ -1,0 +1,16 @@
+@import '../../styles/abstracts.scss';
+
+.featured-project {
+  &__project-title,
+  &__project-subtitle {
+    margin: 0;
+  }
+
+  &__links {
+    margin-top: rem(20);
+
+    & > * + * {
+      margin-left: rem(16);
+    }
+  }
+}

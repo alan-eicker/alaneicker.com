@@ -94,8 +94,10 @@ export interface ProjectsProps {
     title: string;
     subtitle: string;
     content: string;
-    url: string;
-    urlText: string;
+    urls: {
+      href: string;
+      text: string;
+    }[];
     image: string;
   };
   otherProjects: {
@@ -131,4 +133,16 @@ export interface ProjectBoxProps {
   description: string;
   url: string;
   techUsed: string[];
+}
+
+export interface FeaturedProjectProps {
+  sectionTitle: string;
+  projectTitle: string;
+  projectImage: string;
+  projectSubtitle: string;
+  projectDescription: string;
+  projectUrls: {
+    href: string;
+    text: string;
+  }[];
 }
