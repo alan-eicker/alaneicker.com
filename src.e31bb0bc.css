@@ -1541,6 +1541,15 @@
   font-size: 1.125rem;
   margin: 0;
 }
+.featured-project__project-title, .featured-project__project-subtitle {
+  margin: 0;
+}
+.featured-project__links {
+  margin-top: 1.25rem;
+}
+.featured-project__links > * + * {
+  margin-left: 1rem;
+}
 /* Box sizing rules */
 *,
 *::before,
@@ -1710,10 +1719,6 @@ dl > *:nth-child(3n):not(:last-child) {
 }
 dl > *:nth-child(3n) {
   margin-top: 0.5rem;
-}
-
-.has-shadow {
-  box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.15);
 }
 
 .no-margin {

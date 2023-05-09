@@ -48712,7 +48712,84 @@ Object.defineProperty(exports, "default", {
     return __importDefault(ProjectBox_1).default;
   }
 });
-},{"./ProjectBox":"components/ProjectBox/ProjectBox.tsx"}],"components/Projects/Projects.tsx":[function(require,module,exports) {
+},{"./ProjectBox":"components/ProjectBox/ProjectBox.tsx"}],"components/FeaturedProject/FeaturedProject.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/FeaturedProject/FeaturedProject.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var react_flexbox_grid_1 = require("react-flexbox-grid");
+require("./FeaturedProject.scss");
+var FeaturedProject = function FeaturedProject(_ref) {
+  var sectionTitle = _ref.sectionTitle,
+    projectTitle = _ref.projectTitle,
+    projectImage = _ref.projectImage,
+    projectSubtitle = _ref.projectSubtitle,
+    projectDescription = _ref.projectDescription,
+    projectUrls = _ref.projectUrls;
+  return react_1.default.createElement("div", {
+    className: "featured-project"
+  }, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 3
+  }, react_1.default.createElement("img", {
+    style: {
+      border: '2px solid white'
+    },
+    src: projectImage,
+    alt: "featured project screenshot",
+    width: "100%"
+  })), react_1.default.createElement(react_flexbox_grid_1.Col, {
+    md: 8,
+    mdOffset: 1
+  }, react_1.default.createElement("h4", null, sectionTitle), react_1.default.createElement("h5", {
+    className: "featured-project__project-title"
+  }, projectTitle), react_1.default.createElement("h6", {
+    className: "featured-project__project-subtitle"
+  }, projectSubtitle), react_1.default.createElement("p", null, projectDescription), react_1.default.createElement("div", {
+    className: "featured-project__links"
+  }, projectUrls.map(function (_ref2) {
+    var href = _ref2.href,
+      text = _ref2.text;
+    return react_1.default.createElement("a", {
+      key: text,
+      className: "btn-link",
+      href: href,
+      rel: "noopener noreferrer",
+      target: "_blank"
+    }, text);
+  }))))));
+};
+exports.default = FeaturedProject;
+},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","./FeaturedProject.scss":"components/FeaturedProject/FeaturedProject.scss"}],"components/FeaturedProject/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var FeaturedProject_1 = require("./FeaturedProject");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(FeaturedProject_1).default;
+  }
+});
+},{"./FeaturedProject":"components/FeaturedProject/FeaturedProject.tsx"}],"components/Projects/Projects.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -48727,47 +48804,34 @@ var react_1 = __importDefault(require("react"));
 var react_flexbox_grid_1 = require("react-flexbox-grid");
 var Section_1 = __importDefault(require("../Section"));
 var ProjectBox_1 = __importDefault(require("../ProjectBox"));
+var FeaturedProject_1 = __importDefault(require("../FeaturedProject"));
 var Projects = function Projects(_ref) {
   var title = _ref.title,
     featured = _ref.featured,
     otherProjects = _ref.otherProjects;
   return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Section_1.default, {
     id: "projects"
-  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
-    md: 3
-  }, react_1.default.createElement("img", {
-    style: {
-      border: '2px solid white'
-    },
-    src: featured.image,
-    alt: "".concat(featured.title, " screenshot"),
-    width: "100%"
-  })), react_1.default.createElement(react_flexbox_grid_1.Col, {
-    md: 8,
-    mdOffset: 1
-  }, react_1.default.createElement("h4", null, title), react_1.default.createElement("h5", {
-    className: "no-margin"
-  }, featured.title), react_1.default.createElement("h6", {
-    className: "no-margin"
-  }, featured.subtitle), react_1.default.createElement("p", null, featured.content), react_1.default.createElement("p", null, react_1.default.createElement("a", {
-    className: "btn-link",
-    href: featured.url,
-    rel: "noopener noreferrer",
-    target: "_blank"
-  }, featured.urlText))))), react_1.default.createElement("h4", {
+  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(FeaturedProject_1.default, {
+    sectionTitle: title,
+    projectImage: featured.image,
+    projectTitle: featured.title,
+    projectSubtitle: featured.subtitle,
+    projectUrls: featured.urls,
+    projectDescription: featured.content
+  }), react_1.default.createElement("h4", {
     className: "text-align-center@medium",
     style: {
       marginTop: 60
     }
   }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
     return react_1.default.createElement(react_flexbox_grid_1.Col, {
-      md: 6,
+      md: 4,
       key: project.title
     }, react_1.default.createElement(ProjectBox_1.default, Object.assign({}, project)));
   }))))));
 };
 exports.default = Projects;
-},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts","../ProjectBox":"components/ProjectBox/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts","../ProjectBox":"components/ProjectBox/index.ts","../FeaturedProject":"components/FeaturedProject/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -48834,7 +48898,7 @@ var Career = function Career(_a) {
         className: "bullet-list"
       }, positionHeld.map(function (position, index) {
         return react_1.default.createElement("li", {
-          key: "position-".concat(index + 1)
+          key: position
         }, position);
       }))));
     })), react_1.default.createElement("a", {
@@ -48878,7 +48942,7 @@ Object.defineProperty(exports, "default", {
 });
 },{"./Career":"components/Career/Career.tsx"}],"content.yaml":[function(require,module,exports) {
 module.exports = {
-  docTitle: "Alan Eicker | Front End Engineer",
+  docTitle: "Alan Eicker | JavaScript Full-Stack Engineer",
   blogUrl: {
     name: "Blog",
     url: "https://medium.com/@alaneicker"
@@ -48891,7 +48955,7 @@ module.exports = {
   hero: {
     strapline: "Hi, my name is",
     title: "Alan Eicker.",
-    subtitle: "Front-End Focused Full Stack Engineer.",
+    subtitle: "Front-End Focused JavaScript Full-Stack Engineer.",
     text: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
   },
   footer: {
@@ -48934,7 +48998,7 @@ module.exports = {
           company: "Allstate Insurance",
           url: "https://www.allstate.com",
           duration: "Mar 2015 - Present",
-          positionHeld: ["Full Stack Enginneer", "Lead Front-End Engineer", "Senior Front-End Engineer"]
+          positionHeld: ["Lead Front-End Engineer", "Senior Front-End Engineer"]
         }, {
           company: "RealPage",
           url: "https://www.realpage.com",
@@ -48978,8 +49042,13 @@ module.exports = {
       featured: {
         subtitle: "An open source library of React components for rapid application development.",
         content: "Atomik UI was a project that I began working on in March of 2020 at the begining of the Covid pandemic. It has always been something I wanted to do, and after 7 months of hard work, I published it to NPM along with the Atomik UI Core Sass Library.",
-        url: "https://www.atomikui.com",
-        urlText: "View Documentation",
+        urls: [{
+          href: "https://www.atomikui.com",
+          text: "Documentation"
+        }, {
+          href: "https://github.com/atomikui/atomikui-core",
+          text: "GitHub"
+        }],
         title: "Atomik UI",
         image: "./atomikui.png"
       },
@@ -48991,20 +49060,15 @@ module.exports = {
           url: "https://github.com/alaneicker1975/BudgetBuddy",
           techUsed: ["Node.js", "GraphQL", "MongoDB", "Docker", "React", "Apollo Client"]
         }, {
+          title: "Budget Buddy REST API",
+          description: "This will be the new API for the Budget Buddy App.",
+          url: "https://github.com/alaneicker1975/ButdgetBuddyAPI",
+          techUsed: ["Node.js", "PostgreSQL", "Swagger"]
+        }, {
           title: "React Form",
           description: "A simple React form component using Formik and Yup.",
           url: "https://github.com/alaneicker1975/ReactForm",
           techUsed: ["React", "Formik", "Yup"]
-        }, {
-          title: "Brewlog",
-          description: "An app for documenting and discovering great beer. Powered by the Untappd API.",
-          url: "https://github.com/alaneicker1975/brewlog",
-          techUsed: ["Node.js", "MySQL", "Angular", "Untapped API"]
-        }, {
-          title: "Easy-DB",
-          description: "A JavaScript wrapper for writing SQL queries.",
-          url: "https://github.com/alaneicker1975/easy-db",
-          techUsed: ["MySQL", "JavaScript"]
         }]
       }
     },
@@ -49461,7 +49525,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60925" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56880" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
