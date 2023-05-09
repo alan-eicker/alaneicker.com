@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import Section from '../Section';
 import OtherProjects from '../OtherProjects';
 import FeaturedProject from '../FeaturedProject';
