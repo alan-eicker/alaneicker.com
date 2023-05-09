@@ -44,20 +44,18 @@ const Career: React.FC<CareerProps> = ({ resume, referrals, ...others }) => (
       </>
     }
   >
-    <>
-      <h4>{referrals.title}</h4>
-      <dl>
-        {referrals.items.map(({ referee, jobTitle, content }) => (
-          <React.Fragment key={referee}>
-            <dt className="bold">{referee}</dt>
-            <dd className="semibold">{jobTitle}</dd>
-            <dd>
-              <p>{content}</p>
-            </dd>
-          </React.Fragment>
-        ))}
-      </dl>
-    </>
+    <h4>{referrals.title}</h4>
+    <dl>
+      {referrals.items.map(({ referee, jobTitle, content }) => (
+        <React.Fragment key={referee}>
+          <dt className="bold">{referee}</dt>
+          <dd className="semibold">{jobTitle}</dd>
+          <dd>
+            <p>{content}</p>
+          </dd>
+        </React.Fragment>
+      ))}
+    </dl>
   </Section>
 );
 
