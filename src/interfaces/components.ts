@@ -146,3 +146,12 @@ export interface FeaturedProjectProps {
     text: string;
   }[];
 }
+
+export interface OtherProjectsProps {
+  items: {
+    title: string;
+    description: string;
+    url: string;
+    techUsed: string[];
+  }[];
+}

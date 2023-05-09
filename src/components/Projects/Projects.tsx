@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Section from '../Section';
-import ProjectBox from '../ProjectBox';
+import OtherProjects from '../OtherProjects';
 import FeaturedProject from '../FeaturedProject';
 import { ProjectsProps } from '../../interfaces/components';
 
@@ -24,15 +24,7 @@ const Projects: React.FC<ProjectsProps> = ({
       {otherProjects.title}
     </h4>
 
-    <Grid>
-      <Row>
-        {otherProjects.items.map((project) => (
-          <Col md={4} key={project.title}>
-            <ProjectBox {...project} />
-          </Col>
-        ))}
-      </Row>
-    </Grid>
+    <OtherProjects items={otherProjects.items} />
   </Section>
 );
 
