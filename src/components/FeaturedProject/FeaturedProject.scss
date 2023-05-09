@@ -6,6 +6,10 @@
     margin: 0;
   }
 
+  &__project-image {
+    border: rem(2) solid $white;
+  }
+
   &__links {
     margin-top: rem(20);
 

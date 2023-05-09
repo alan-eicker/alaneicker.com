@@ -16,7 +16,7 @@ const FeaturedProject: React.FC<FeaturedProjectProps> = ({
       <Row>
         <Col md={3}>
           <img
-            style={{ border: '2px solid white' }}
+            className="featured-project__project-image"
             src={projectImage}
             alt="featured project screenshot"
             width="100%"
