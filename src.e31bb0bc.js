@@ -48562,13 +48562,13 @@ var Hero = function Hero(_ref) {
     subtitle = _ref.subtitle;
   return react_1.default.createElement(Section_1.default, {
     className: "hero"
-  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h1", {
+  }, react_1.default.createElement("h1", {
     className: "hero__strapline"
   }, strapline), react_1.default.createElement("h2", {
     className: "hero__title"
   }, title), react_1.default.createElement("h3", {
     className: "hero__subtitle"
-  }, subtitle)));
+  }, subtitle));
 };
 exports.default = Hero;
 },{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","./Hero.scss":"components/Hero/Hero.scss"}],"components/Hero/index.ts":[function(require,module,exports) {
@@ -48712,7 +48712,50 @@ Object.defineProperty(exports, "default", {
     return __importDefault(ProjectBox_1).default;
   }
 });
-},{"./ProjectBox":"components/ProjectBox/ProjectBox.tsx"}],"components/FeaturedProject/FeaturedProject.scss":[function(require,module,exports) {
+},{"./ProjectBox":"components/ProjectBox/ProjectBox.tsx"}],"components/OtherProjects/OtherProjects.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var react_1 = __importDefault(require("react"));
+var react_flexbox_grid_1 = require("react-flexbox-grid");
+var ProjectBox_1 = __importDefault(require("../ProjectBox"));
+var OtherProjects = function OtherProjects(_ref) {
+  var items = _ref.items;
+  return react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, items.map(function (project) {
+    return react_1.default.createElement(react_flexbox_grid_1.Col, {
+      md: 4,
+      key: project.title
+    }, react_1.default.createElement(ProjectBox_1.default, Object.assign({}, project)));
+  })));
+};
+exports.default = OtherProjects;
+},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../ProjectBox":"components/ProjectBox/index.ts"}],"components/OtherProjects/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var OtherProjects_1 = require("./OtherProjects");
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return __importDefault(OtherProjects_1).default;
+  }
+});
+},{"./OtherProjects":"components/OtherProjects/OtherProjects.tsx"}],"components/FeaturedProject/FeaturedProject.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
@@ -48737,9 +48780,9 @@ var FeaturedProject = function FeaturedProject(_ref) {
     projectSubtitle = _ref.projectSubtitle,
     projectDescription = _ref.projectDescription,
     projectUrls = _ref.projectUrls;
-  return react_1.default.createElement("div", {
+  return react_1.default.createElement(react_flexbox_grid_1.Grid, {
     className: "featured-project"
-  }, react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
+  }, react_1.default.createElement(react_flexbox_grid_1.Row, null, react_1.default.createElement(react_flexbox_grid_1.Col, {
     md: 3
   }, react_1.default.createElement("img", {
     className: "featured-project__project-image",
@@ -48765,7 +48808,7 @@ var FeaturedProject = function FeaturedProject(_ref) {
       rel: "noopener noreferrer",
       target: "_blank"
     }, text);
-  }))))));
+  })))));
 };
 exports.default = FeaturedProject;
 },{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","./FeaturedProject.scss":"components/FeaturedProject/FeaturedProject.scss"}],"components/FeaturedProject/index.ts":[function(require,module,exports) {
@@ -48799,17 +48842,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var react_1 = __importDefault(require("react"));
-var react_flexbox_grid_1 = require("react-flexbox-grid");
 var Section_1 = __importDefault(require("../Section"));
-var ProjectBox_1 = __importDefault(require("../ProjectBox"));
+var OtherProjects_1 = __importDefault(require("../OtherProjects"));
 var FeaturedProject_1 = __importDefault(require("../FeaturedProject"));
 var Projects = function Projects(_ref) {
   var title = _ref.title,
     featured = _ref.featured,
     otherProjects = _ref.otherProjects;
-  return react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(Section_1.default, {
+  return react_1.default.createElement(Section_1.default, {
     id: "projects"
-  }, react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(FeaturedProject_1.default, {
+  }, react_1.default.createElement(FeaturedProject_1.default, {
     sectionTitle: title,
     projectImage: featured.image,
     projectTitle: featured.title,
@@ -48821,15 +48863,12 @@ var Projects = function Projects(_ref) {
     style: {
       marginTop: 60
     }
-  }, otherProjects.title), react_1.default.createElement(react_flexbox_grid_1.Grid, null, react_1.default.createElement(react_flexbox_grid_1.Row, null, otherProjects.items.map(function (project) {
-    return react_1.default.createElement(react_flexbox_grid_1.Col, {
-      md: 4,
-      key: project.title
-    }, react_1.default.createElement(ProjectBox_1.default, Object.assign({}, project)));
-  }))))));
+  }, otherProjects.title), react_1.default.createElement(OtherProjects_1.default, {
+    items: otherProjects.items
+  }));
 };
 exports.default = Projects;
-},{"react":"../node_modules/react/index.js","react-flexbox-grid":"../node_modules/react-flexbox-grid/lib/index.js","../Section":"components/Section/index.ts","../ProjectBox":"components/ProjectBox/index.ts","../FeaturedProject":"components/FeaturedProject/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts","../OtherProjects":"components/OtherProjects/index.ts","../FeaturedProject":"components/FeaturedProject/index.ts"}],"components/Projects/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -48905,7 +48944,7 @@ var Career = function Career(_a) {
       target: "_blank",
       rel: "noopener noreferrer"
     }, "View my Resum\xE9"))
-  }), react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", null, referrals.items.map(function (_ref2) {
+  }), react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", null, referrals.items.map(function (_ref2) {
     var referee = _ref2.referee,
       jobTitle = _ref2.jobTitle,
       content = _ref2.content;
@@ -48916,7 +48955,7 @@ var Career = function Career(_a) {
     }, referee), react_1.default.createElement("dd", {
       className: "semibold"
     }, jobTitle), react_1.default.createElement("dd", null, react_1.default.createElement("p", null, content)));
-  }))));
+  })));
 };
 exports.default = Career;
 },{"react":"../node_modules/react/index.js","../Section":"components/Section/index.ts"}],"components/Career/index.ts":[function(require,module,exports) {
@@ -49523,7 +49562,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60892" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61027" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
