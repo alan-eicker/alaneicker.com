@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Footer from '../../components/Footer';
+import Footer from '../components/Footer';
 
 describe('<Footer />', () => {
   it('Should render footer with copyright content', () => {

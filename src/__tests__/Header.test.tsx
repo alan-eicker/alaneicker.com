@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, screen, render, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Header from '../../components/Header';
+import Header from '../components/Header';
 
 describe('<Header />', () => {
   const props = {

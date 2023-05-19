@@ -1,8 +1,9 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/index.tsx', '!**/index.ts'],
+  setupFilesAfterEnv: ['./jestSetup.ts'],
   testMatch: ['<rootDir>/src/**/?(*.)(test).{ts,tsx}'],
-  moduleDirectories: ['node_modules', 'src'],
+  moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
@@ -10,6 +11,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^axios$': 'axios',
+    '\\.(css|scss)$': '<rootDir>css-mock.ts',
     '^react-flexbox-grid$': 'react-flexbox-grid/dist/react-flexbox-grid',
   },
   rootDir: './',

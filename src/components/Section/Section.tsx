@@ -14,12 +14,12 @@ const Section: React.FC<SectionProps> = ({
   ...other
 }) => {
   const { setSectionOffsetYState } = useAppContext();
-  const ref = useRef();
+  const ref = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     if (ref.current) {
       const { offsetTop } = ref.current;
-      setSectionOffsetYState({ [id]: offsetTop });
+      setSectionOffsetYState({ [id as string]: offsetTop });
     }
   }, [ref]);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Hero from '../../components/Hero';
+import Hero from '../components/Hero';
 
 describe('<Hero />', () => {
   const props = {
