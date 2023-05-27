@@ -12,6 +12,7 @@ module.exports = {
   moduleNameMapper: {
     '^axios$': 'axios',
     '\\.(css|scss)$': '<rootDir>css-mock.ts',
+    '^.+\\.(css|less|scss|yaml)$': '<rootDir>/src/__tests__/mocks/content.json',
     '^react-flexbox-grid$': 'react-flexbox-grid/dist/react-flexbox-grid',
   },
   rootDir: './',
