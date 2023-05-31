@@ -190,10 +190,10 @@ sections:
         icon: devicon-postgresql-plain
       - name: MongoDB
         icon: devicon-mongodb-plain
-      - name: Python
-        icon: devicon-python-plain
-      - name: Django
-        icon: devicon-django-plain
+      - name: Java
+        icon: devicon-java-plain
+      - name: Spring Boot
+        icon: devicon-spring-plain
       - name: Git
         icon: devicon-git-plain
       - name: GitHub
