@@ -48944,7 +48944,9 @@ var Career = function Career(_a) {
       target: "_blank",
       rel: "noopener noreferrer"
     }, "View my Resum\xE9"))
-  }), react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", null, referrals.items.map(function (_ref2) {
+  }), react_1.default.createElement("h4", null, referrals.title), react_1.default.createElement("dl", {
+    "data-testid": "referral-list"
+  }, referrals.items.map(function (_ref2) {
     var referee = _ref2.referee,
       jobTitle = _ref2.jobTitle,
       content = _ref2.content;
@@ -49145,11 +49147,11 @@ module.exports = {
         name: "MongoDB",
         icon: "devicon-mongodb-plain"
       }, {
-        name: "Python",
-        icon: "devicon-python-plain"
+        name: "Java",
+        icon: "devicon-java-plain"
       }, {
-        name: "Django",
-        icon: "devicon-django-plain"
+        name: "Spring Boot",
+        icon: "devicon-spring-plain"
       }, {
         name: "Git",
         icon: "devicon-git-plain"
@@ -49562,7 +49564,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54897" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61909" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
