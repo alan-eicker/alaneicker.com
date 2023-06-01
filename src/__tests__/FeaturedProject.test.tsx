@@ -47,7 +47,7 @@ describe('<FeaturedProject />', () => {
   const projectLinks = props.projectUrls.map((link) => Object.values(link));
 
   test.each(projectLinks)(
-    'Should render a link with text %i and href %i',
+    'Should render a link with text %p and href %p',
     (text, href) => {
       expect(screen.getByRole('link', { name: text })).toHaveAttribute(
         'href',
