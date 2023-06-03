@@ -64,28 +64,28 @@ sections:
           url: https://www.allstate.com
           duration: Mar 2015 - Present
           positionHeld:
-            - Lead Front-End Engineer
+            - Lead Software Engineer - Front-End
             - Senior Front-End Engineer
         - company: RealPage
           url: https://www.realpage.com
           duration: Apr 2012 - Mar 2015
           positionHeld:
-            - Lead Front-End Engineer
-            - Senior Front-End Engineer
+            - Manager of Product Development
+            - Senior Front-End Developer
         - company: Restaurant.com
           url: https://www.restaurant.com
           duration: Nov 2010 - Apr 2012
           positionHeld:
-            - Senior Front-End Engineer
+            - Senior Front-End Developer
         - company: optionsXpress (now Charles Schwab)
           url: https://www.schwab.com
           duration: Feb 2008 - Nov 2010
           positionHeld:
-            - Web Designer / Front-End Engineer
+            - Web Designer / Front-End Developer
         - company: Leader Graphic Design
           duration: ' Mar 2007 - Feb 2008'
           positionHeld:
-            - Web Designer / Front-End Engineer
+            - Web Designer / Front-End Developer
     referrals:
       title: What Others are Saying
       items:
