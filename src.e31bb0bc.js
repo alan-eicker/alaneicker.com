@@ -49132,6 +49132,9 @@ module.exports = {
         name: "Redux",
         icon: "devicon-redux-original"
       }, {
+        name: "Next.js",
+        icon: "devicon-nextjs-original"
+      }, {
         name: "GraphQL",
         icon: "devicon-graphql-plain"
       }, {
@@ -49155,9 +49158,6 @@ module.exports = {
       }, {
         name: "Git",
         icon: "devicon-git-plain"
-      }, {
-        name: "GitHub",
-        icon: "devicon-github-original"
       }]
     }
   }
@@ -49564,7 +49564,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54468" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52418" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
