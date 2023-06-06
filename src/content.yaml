@@ -180,6 +180,8 @@ sections:
         icon: devicon-react-original
       - name: Redux
         icon: devicon-redux-original
+      - name: Next.js
+        icon: devicon-nextjs-original
       - name: GraphQL
         icon: devicon-graphql-plain
       - name: Node.js
@@ -196,5 +198,3 @@ sections:
         icon: devicon-spring-plain
       - name: Git
         icon: devicon-git-plain
-      - name: GitHub
-        icon: devicon-github-original
