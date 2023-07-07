@@ -192,9 +192,13 @@ sections:
         icon: devicon-postgresql-plain
       - name: MongoDB
         icon: devicon-mongodb-plain
-      - name: Java
-        icon: devicon-java-plain
-      - name: Spring Boot
-        icon: devicon-spring-plain
+      # - name: Java
+      #   icon: devicon-java-plain
+      # - name: Spring Boot
+      #   icon: devicon-spring-plain
       - name: Git
         icon: devicon-git-plain
+      - name: Docker
+        icon: devicon-docker-plain
+      - name: Jenkins
+        icon: devicon-jenkins-plain
