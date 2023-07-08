@@ -1,0 +1,53 @@
+pipeline {
+
+  agent any
+
+  tools {nodejs "node"}
+
+  stages {
+    stage("Clean Up") {
+      echo "************** Clean Up Running **************"
+      steps {
+        deleteDir()
+      }
+    }
+    stage("Clone Repo") {
+      steps {
+        echo "************** Cloning Repo **************"
+        sh "git clone https://github.com/alaneicker1975/alaneicker.com.git"
+      }
+    }
+    stage("Install Dependencies"){
+      steps {
+        echo "************** Installing Dependencies **************"
+        dir("alaneicker.com") {
+          sh "npm install"
+        }
+      }
+    }
+    stage("Test"){
+      steps {
+        echo "************** Running Tests **************"
+        dir("alaneicker.com") {
+          sh "npm test"
+        }
+      }
+    }
+    stage("Build") {
+      steps {
+        echo "************** Running Build **************"
+        dir("alaneicker.com") {
+          sh "npm build"
+        }
+      }
+    }
+    stage("Deploy"){
+      steps {
+        echo "************** Deploying **************"
+        dir("alaneicker.com") {
+          sh "npm gh-pages"
+        }
+      }
+    }
+  }
+}
