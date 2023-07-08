@@ -6,7 +6,7 @@ pipeline {
 
   stages {
     stage("Clean Up") {
-      echo "************** Clean Up Running **************"
+      echo "************** Running Clean Up **************"
       steps {
         deleteDir()
       }
