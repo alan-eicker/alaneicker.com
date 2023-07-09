@@ -17,7 +17,7 @@ pipeline {
           // sh "npm install"
         }
       }
-    // }
+    }
     // stage("Test"){
     //   steps {
     //     dir("alaneicker.com") {
