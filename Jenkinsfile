@@ -20,7 +20,9 @@ pipeline {
     stage("Install Dependencies"){
       steps {
         // echo "************** Installing Dependencies **************"
-        sh "npm install"
+        dir("alaneicker.com") {
+          sh "npm run install"
+        }
       }
     }
     stage("Test"){
