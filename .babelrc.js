@@ -3,12 +3,5 @@ module.exports = {
     ['@babel/preset-env', { targets: { node: 'current' } }],
     '@babel/preset-typescript',
   ],
-  plugins: [
-    ['@babel/transform-runtime'],
-    [
-      '@babel/plugin-proposal-optional-chaining',
-      {},
-      'plugin-proposal-optional-chaining',
-    ],
-  ],
+  plugins: [['@babel/transform-runtime']],
 };
