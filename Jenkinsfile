@@ -32,14 +32,14 @@ pipeline {
     stage("Build") {
       steps {
         dir("alaneicker.com") {
-          sh "npm build"
+          sh "npm run build"
         }
       }
     }
     stage("Deploy"){
       steps {
         dir("alaneicker.com") {
-          sh "npm gh-pages"
+          sh "npm run gh-pages"
         }
       }
     }
