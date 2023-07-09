@@ -10,12 +10,16 @@ pipeline {
         deleteDir()
       }
     }
+    stage("Clone") {
+      steps {
+        sh "git clone https://github.com/alaneicker1975/alaneicker.com.git"
+      }
+    }
     stage("Install Dependencies"){
       steps {
-        sh "npm install"
-        // dir("alaneicker.com") {
-        //   sh "npm install"
-        // }
+        dir("alaneicker.com") {
+          sh "npm install"
+        }
       }
     }
     // stage("Test"){
