@@ -2,7 +2,7 @@ pipeline {
 
   agent any
 
-  tools {nodejs "Node.js 20.4.0"}
+  tools {nodejs "Node.js 18.15.0"}
 
   stages {
     stage("Clean Up") {
@@ -29,19 +29,19 @@ pipeline {
     //     }
     //   }
     // }
-    // stage("Build") {
-    //   steps {
-    //     dir("alaneicker.com") {
-    //       sh "npm build"
-    //     }
-    //   }
-    // }
-    // stage("Deploy"){
-    //   steps {
-    //     dir("alaneicker.com") {
-    //       sh "npm gh-pages"
-    //     }
-    //   }
-    // }
+    stage("Build") {
+      steps {
+        dir("alaneicker.com") {
+          sh "npm build"
+        }
+      }
+    }
+    stage("Deploy"){
+      steps {
+        dir("alaneicker.com") {
+          sh "npm gh-pages"
+        }
+      }
+    }
   }
 }
