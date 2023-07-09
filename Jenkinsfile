@@ -18,7 +18,7 @@ pipeline {
     stage("Install Dependencies"){
       steps {
         dir("alaneicker.com") {
-          sh "npm install"
+          sh "npm install --legacy-peer-deps"
         }
       }
     }
