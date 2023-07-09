@@ -11,12 +11,12 @@ pipeline {
         deleteDir()
       }
     }
-    stage("Clone Repo") {
-      steps {
-        echo "************** Cloning Repo **************"
-        sh "git clone https://github.com/alaneicker1975/alaneicker.com.git"
-      }
-    }
+    // stage("Clone Repo") {
+    //   steps {
+    //     echo "************** Cloning Repo **************"
+    //     sh "git clone https://github.com/alaneicker1975/alaneicker.com.git"
+    //   }
+    // }
     stage("Install Dependencies"){
       steps {
         echo "************** Installing Dependencies **************"
