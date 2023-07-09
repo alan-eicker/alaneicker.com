@@ -6,7 +6,7 @@ pipeline {
 
   stages {
     stage("Clean Up") {
-      echo "************** Running Clean Up **************"
+      // echo "************** Running Clean Up **************"
       steps {
         deleteDir()
       }
@@ -19,7 +19,7 @@ pipeline {
     // }
     stage("Install Dependencies"){
       steps {
-        echo "************** Installing Dependencies **************"
+        // echo "************** Installing Dependencies **************"
         dir("alaneicker.com") {
           sh "npm install"
         }
@@ -27,7 +27,7 @@ pipeline {
     }
     stage("Test"){
       steps {
-        echo "************** Running Tests **************"
+        // echo "************** Running Tests **************"
         dir("alaneicker.com") {
           sh "npm test"
         }
@@ -35,7 +35,7 @@ pipeline {
     }
     stage("Build") {
       steps {
-        echo "************** Running Build **************"
+        // echo "************** Running Build **************"
         dir("alaneicker.com") {
           sh "npm build"
         }
@@ -43,7 +43,7 @@ pipeline {
     }
     stage("Deploy"){
       steps {
-        echo "************** Deploying **************"
+        // echo "************** Deploying **************"
         dir("alaneicker.com") {
           sh "npm gh-pages"
         }
