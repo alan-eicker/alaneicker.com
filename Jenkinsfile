@@ -2,7 +2,7 @@ pipeline {
 
   agent any
 
-  tools {nodejs "20.4.0"}
+  tools {nodejs "Node.js 20.4.0"}
 
   stages {
     stage("Clean Up") {
