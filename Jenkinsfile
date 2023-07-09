@@ -21,8 +21,7 @@ pipeline {
       steps {
         // echo "************** Installing Dependencies **************"
         dir("alaneicker.com") {
-          sh "rm -rf package-lock.json"
-          sh "npm run install"
+          sh "npm install"
         }
       }
     }
