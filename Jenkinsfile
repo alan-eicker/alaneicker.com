@@ -6,48 +6,38 @@ pipeline {
 
   stages {
     stage("Clean Up") {
-      // echo "************** Running Clean Up **************"
       steps {
         deleteDir()
       }
     }
-    // stage("Clone Repo") {
-    //   steps {
-    //     echo "************** Cloning Repo **************"
-    //     sh "git clone https://github.com/alaneicker1975/alaneicker.com.git"
-    //   }
-    // }
     stage("Install Dependencies"){
       steps {
-        // echo "************** Installing Dependencies **************"
         dir("alaneicker.com") {
-          sh "npm install"
+          sh "ls -l"
+          // sh "npm install"
         }
       }
-    }
-    stage("Test"){
-      steps {
-        // echo "************** Running Tests **************"
-        dir("alaneicker.com") {
-          sh "npm test"
-        }
-      }
-    }
-    stage("Build") {
-      steps {
-        // echo "************** Running Build **************"
-        dir("alaneicker.com") {
-          sh "npm build"
-        }
-      }
-    }
-    stage("Deploy"){
-      steps {
-        // echo "************** Deploying **************"
-        dir("alaneicker.com") {
-          sh "npm gh-pages"
-        }
-      }
-    }
+    // }
+    // stage("Test"){
+    //   steps {
+    //     dir("alaneicker.com") {
+    //       sh "npm test"
+    //     }
+    //   }
+    // }
+    // stage("Build") {
+    //   steps {
+    //     dir("alaneicker.com") {
+    //       sh "npm build"
+    //     }
+    //   }
+    // }
+    // stage("Deploy"){
+    //   steps {
+    //     dir("alaneicker.com") {
+    //       sh "npm gh-pages"
+    //     }
+    //   }
+    // }
   }
 }
