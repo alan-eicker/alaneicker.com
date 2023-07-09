@@ -13,7 +13,7 @@ pipeline {
     stage("Install Dependencies"){
       steps {
         dir("alaneicker.com") {
-          sh "ls"
+          sh "ls -la ${pwd()}"
           // sh "npm install"
         }
       }
