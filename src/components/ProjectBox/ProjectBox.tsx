@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProjectBoxProps } from '../../interfaces/components';
+import type { ProjectBoxProps } from '../../types/components';
 import './ProjectBox.scss';
 
 const ProjectBox: React.FC<ProjectBoxProps> = ({

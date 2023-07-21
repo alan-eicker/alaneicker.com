@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import { FeaturedProjectProps } from '../../interfaces/components';
+import type { FeaturedProjectProps } from '../../types/components';
 import './FeaturedProject.scss';
 
 const FeaturedProject: React.FC<FeaturedProjectProps> = ({

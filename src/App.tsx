@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Particles from 'react-tsparticles';
-import { Engine, Container } from 'tsparticles-engine';
+import type { Engine, Container } from 'tsparticles-engine';
 import { loadFull } from 'tsparticles';
 import DocHead from './components/DocHead';
 import Header from './components/Header';

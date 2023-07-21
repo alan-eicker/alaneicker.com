@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import ProjectBox from '../ProjectBox';
-import { OtherProjectsProps } from '../../interfaces/components';
+import type { OtherProjectsProps } from '../../types/components';
 
 const OtherProjects: React.FC<OtherProjectsProps> = ({ items }) => (
   <Grid>

@@ -2,7 +2,7 @@ import React from 'react';
 import Section from '../Section';
 import OtherProjects from '../OtherProjects';
 import FeaturedProject from '../FeaturedProject';
-import { ProjectsProps } from '../../interfaces/components';
+import type { ProjectsProps } from '../../types/components';
 
 const Projects: React.FC<ProjectsProps> = ({
   title,

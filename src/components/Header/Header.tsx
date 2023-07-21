@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
-import { HeaderProps } from '../../interfaces/components';
+import type { HeaderProps } from '../../types/components';
 import { useAppContext } from '../../AppProvider';
 import './Header.scss';
 
