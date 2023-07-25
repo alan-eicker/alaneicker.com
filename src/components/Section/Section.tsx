@@ -1,18 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import type { SectionProps } from '../../types/components';
+import type { SectionProps } from '../../interfaces/components';
 import { useAppContext } from '../../AppProvider';
 import './Section.scss';
 
-const Section: React.FC<SectionProps> = ({
+const Section = ({
   id,
   className,
   children,
   sidebar,
   cols = [7, 4],
   ...other
-}) => {
+}: SectionProps): JSX.Element => {
   const { setSectionOffsetYState } = useAppContext();
   const ref = useRef() as React.MutableRefObject<HTMLInputElement>;
 

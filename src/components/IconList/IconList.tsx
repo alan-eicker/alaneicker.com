@@ -1,9 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
-import type { IconListProps } from '../../types/components';
+import type { IconListProps } from '../../interfaces/components';
 import './IconList.scss';
 
-const IconList: React.FC<IconListProps> = ({ label, items, justify, size }) => (
+const IconList = ({
+  label,
+  items,
+  justify,
+  size,
+}: IconListProps): JSX.Element => (
   <>
     {label && <p className="screenreader-only">{label}</p>}
     <ul

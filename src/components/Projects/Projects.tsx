@@ -2,13 +2,13 @@ import React from 'react';
 import Section from '../Section';
 import OtherProjects from '../OtherProjects';
 import FeaturedProject from '../FeaturedProject';
-import type { ProjectsProps } from '../../types/components';
+import type { ProjectsProps } from '../../interfaces/components';
 
-const Projects: React.FC<ProjectsProps> = ({
+const Projects = ({
   title,
   featured,
   otherProjects,
-}) => (
+}: ProjectsProps): JSX.Element => (
   <Section id="projects">
     <FeaturedProject
       sectionTitle={title}

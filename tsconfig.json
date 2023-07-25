@@ -5,6 +5,7 @@
     "rootDir": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
     "strict": true,
     "resolveJsonModule": true,
     "jsx": "react"

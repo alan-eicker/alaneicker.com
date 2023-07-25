@@ -15,7 +15,7 @@ import particlesConfig from './configs/particles';
 const { docTitle, blogUrl, header, footer, hero, ...rest } = content;
 const { sections } = rest;
 
-const App = () => {
+const App = (): JSX.Element => {
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadFull(engine);
   }, []);

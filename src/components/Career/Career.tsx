@@ -1,8 +1,8 @@
 import React from 'react';
 import Section from '../Section';
-import type { CareerProps } from '../../types/components';
+import type { CareerProps } from '../../interfaces/components';
 
-const Career: React.FC<CareerProps> = ({ resume, referrals, ...others }) => (
+const Career = ({ resume, referrals, ...others }: CareerProps): JSX.Element => (
   <Section
     id="career"
     className="section--light-gray"

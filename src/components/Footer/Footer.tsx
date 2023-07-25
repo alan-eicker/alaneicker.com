@@ -1,15 +1,15 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import IconList from '../IconList';
-import type { FooterProps } from '../../types/components';
+import type { FooterProps } from '../../interfaces/components';
 import './Footer.scss';
 
-const Footer: React.FC<FooterProps> = ({
+const Footer = ({
   copyright,
   contactInfo,
   iconCredits,
   socialLinks,
-}) => (
+}: FooterProps): JSX.Element => (
   <footer className="footer">
     <Grid>
       <Row>

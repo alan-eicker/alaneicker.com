@@ -1,16 +1,16 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import type { FeaturedProjectProps } from '../../types/components';
+import type { FeaturedProjectProps } from '../../interfaces/components';
 import './FeaturedProject.scss';
 
-const FeaturedProject: React.FC<FeaturedProjectProps> = ({
+const FeaturedProject = ({
   sectionTitle,
   projectTitle,
   projectImage,
   projectSubtitle,
   projectDescription,
   projectUrls,
-}) => (
+}: FeaturedProjectProps): JSX.Element => (
   <Grid className="featured-project">
     <Row>
       <Col md={3}>

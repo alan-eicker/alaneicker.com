@@ -1,13 +1,13 @@
 import React from 'react';
-import type { ProjectBoxProps } from '../../types/components';
+import type { ProjectBoxProps } from '../../interfaces/components';
 import './ProjectBox.scss';
 
-const ProjectBox: React.FC<ProjectBoxProps> = ({
+const ProjectBox = ({
   title,
   description,
   url,
   techUsed,
-}) => (
+}: ProjectBoxProps): JSX.Element => (
   <div key={title} className="project-box">
     <div className="project-box__head">
       <svg

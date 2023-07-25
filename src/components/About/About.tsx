@@ -1,9 +1,9 @@
 import React from 'react';
 import Section from '../Section';
 import IconList from '../IconList';
-import type { AboutProps } from '../../types/components';
+import type { AboutProps } from '../../interfaces/components';
 
-const About: React.FC<AboutProps> = ({ bio, skills }) => (
+const About = ({ bio, skills }: AboutProps): JSX.Element => (
   <Section
     id="about"
     sidebar={

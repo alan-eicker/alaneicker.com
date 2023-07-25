@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
-import type { HeaderProps } from '../../types/components';
+import type { HeaderProps } from '../../interfaces/components';
 import { useAppContext } from '../../AppProvider';
 import './Header.scss';
 
-const Header: React.FC<HeaderProps> = ({ title, subtitle, nav, blogUrl }) => {
+const Header = ({
+  title,
+  subtitle,
+  nav,
+  blogUrl,
+}: HeaderProps): JSX.Element => {
   const [activeLink, setActiveLink] = useState('');
   const { nextSection } = useAppContext();
 
