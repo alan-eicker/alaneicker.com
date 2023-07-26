@@ -4,12 +4,7 @@ import type { HeaderProps } from '../../interfaces/components';
 import { useAppContext } from '../../AppProvider';
 import './Header.scss';
 
-const Header = ({
-  title,
-  subtitle,
-  nav,
-  blogUrl,
-}: HeaderProps): JSX.Element => {
+const Header = ({ title, subtitle, nav }: HeaderProps): JSX.Element => {
   const [activeLink, setActiveLink] = useState('');
   const { nextSection } = useAppContext();
 
@@ -45,13 +40,6 @@ const Header = ({
               </li>
             );
           })}
-          {blogUrl && (
-            <li>
-              <a href={blogUrl.url} target="_blank" rel="noopener noreferrer">
-                {blogUrl.name}
-              </a>
-            </li>
-          )}
         </ul>
       </nav>
     </header>

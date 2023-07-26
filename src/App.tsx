@@ -12,7 +12,7 @@ import Career from './components/Career';
 import content from './content.yaml';
 import particlesConfig from './configs/particles';
 
-const { docTitle, blogUrl, header, footer, hero, ...rest } = content;
+const { docTitle, header, footer, hero, ...rest } = content;
 const { sections } = rest;
 
 const App = (): JSX.Element => {
@@ -36,7 +36,7 @@ const App = (): JSX.Element => {
         options={particlesConfig}
       />
       <DocHead title={docTitle} />
-      <Header blogUrl={blogUrl} {...header} />
+      <Header {...header} />
       <main>
         <Hero {...hero} />
         <About bio={sections.bio} skills={sections.skills} />

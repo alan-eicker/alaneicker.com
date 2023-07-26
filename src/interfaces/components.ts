@@ -2,10 +2,6 @@ export interface HeaderProps {
   title: string;
   subtitle: string;
   nav: string[];
-  blogUrl: {
-    url: string;
-    name: string;
-  };
 }
 
 export interface FooterProps {
