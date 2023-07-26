@@ -30,7 +30,7 @@ footer:
     iconName: Beard
   socialLinks:
     - name: GitHub
-      url: https://github.com/alaneicker1975?tab=repositories
+      url: https://github.com/alan-eicker?tab=repositories
       icon: devicon-github-original
     - name: CodePen
       url: https://codepen.io/alaneicker
@@ -143,7 +143,7 @@ sections:
       items:
         - title: Budget Buddy
           description: A budgeting app for tracking monthly expenses.
-          url: https://github.com/alaneicker1975/BudgetBuddy
+          url: https://github.com/alan-eicker/BudgetBuddy
           techUsed:
             - Node.js
             - GraphQL
@@ -153,14 +153,14 @@ sections:
             - Apollo Client
         - title: Budget Buddy REST API
           description: This will be the new API for the Budget Buddy App.
-          url: https://github.com/alaneicker1975/ButdgetBuddyAPI
+          url: https://github.com/alan-eicker/ButdgetBuddyAPI
           techUsed:
             - Node.js
             - PostgreSQL
             - Swagger
         - title: React Form
           description: A simple React form component using Formik and Yup.
-          url: https://github.com/alaneicker1975/ReactForm
+          url: https://github.com/alan-eicker/ReactForm
           techUsed:
             - React
             - Formik
