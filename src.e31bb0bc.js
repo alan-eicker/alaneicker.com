@@ -46930,8 +46930,7 @@ require("./Header.scss");
 var Header = function Header(_ref) {
   var title = _ref.title,
     subtitle = _ref.subtitle,
-    nav = _ref.nav,
-    blogUrl = _ref.blogUrl;
+    nav = _ref.nav;
   var _ref2 = (0, react_1.useState)(''),
     _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
     activeLink = _ref3[0],
@@ -46971,11 +46970,7 @@ var Header = function Header(_ref) {
         return setActiveLink(link);
       }
     }, linkText));
-  }), blogUrl && react_1.default.createElement("li", null, react_1.default.createElement("a", {
-    href: blogUrl.url,
-    target: "_blank",
-    rel: "noopener noreferrer"
-  }, blogUrl.name)))));
+  }))));
 };
 exports.default = Header;
 },{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","../../AppProvider":"AppProvider.tsx","./Header.scss":"components/Header/Header.scss"}],"components/Header/index.ts":[function(require,module,exports) {
@@ -48982,10 +48977,6 @@ Object.defineProperty(exports, "default", {
 },{"./Career":"components/Career/Career.tsx"}],"content.yaml":[function(require,module,exports) {
 module.exports = {
   docTitle: "Alan Eicker | JavaScript Full-Stack Engineer",
-  blogUrl: {
-    name: "Blog",
-    url: "https://medium.com/@alaneicker"
-  },
   header: {
     title: "Alan Eicker",
     subtitle: "Front End Engineer",
@@ -48994,7 +48985,7 @@ module.exports = {
   hero: {
     strapline: "Hi, my name is",
     title: "Alan Eicker.",
-    subtitle: "Front-End Focused JavaScript Full-Stack Engineer.",
+    subtitle: "Front-End Engineer.",
     text: "If you had 5 Alans you could rule the software universe. So I recommend hiring him and having him train 4 other guys to be as good as he is. Alan is the kind of front-end developer UX designers like myself dream of."
   },
   footer: {
@@ -49011,7 +49002,7 @@ module.exports = {
     },
     socialLinks: [{
       name: "GitHub",
-      url: "https://github.com/alaneicker1975?tab=repositories",
+      url: "https://github.com/alan-eicker?tab=repositories",
       icon: "devicon-github-original"
     }, {
       name: "CodePen",
@@ -49096,17 +49087,17 @@ module.exports = {
         items: [{
           title: "Budget Buddy",
           description: "A budgeting app for tracking monthly expenses.",
-          url: "https://github.com/alaneicker1975/BudgetBuddy",
+          url: "https://github.com/alan-eicker/BudgetBuddy",
           techUsed: ["Node.js", "GraphQL", "MongoDB", "Docker", "React", "Apollo Client"]
         }, {
           title: "Budget Buddy REST API",
           description: "This will be the new API for the Budget Buddy App.",
-          url: "https://github.com/alaneicker1975/ButdgetBuddyAPI",
+          url: "https://github.com/alan-eicker/ButdgetBuddyAPI",
           techUsed: ["Node.js", "PostgreSQL", "Swagger"]
         }, {
           title: "React Form",
           description: "A simple React form component using Formik and Yup.",
-          url: "https://github.com/alaneicker1975/ReactForm",
+          url: "https://github.com/alan-eicker/ReactForm",
           techUsed: ["React", "Formik", "Yup"]
         }]
       }
@@ -49384,11 +49375,10 @@ var content_yaml_1 = __importDefault(require("./content.yaml"));
 var particles_1 = __importDefault(require("./configs/particles"));
 var _content_yaml_1$defau = content_yaml_1.default,
   docTitle = _content_yaml_1$defau.docTitle,
-  blogUrl = _content_yaml_1$defau.blogUrl,
   header = _content_yaml_1$defau.header,
   footer = _content_yaml_1$defau.footer,
   hero = _content_yaml_1$defau.hero,
-  rest = __rest(content_yaml_1.default, ["docTitle", "blogUrl", "header", "footer", "hero"]);
+  rest = __rest(content_yaml_1.default, ["docTitle", "header", "footer", "hero"]);
 var sections = rest.sections;
 var App = function App() {
   var particlesInit = (0, react_1.useCallback)(function (engine) {
@@ -49426,9 +49416,7 @@ var App = function App() {
     options: particles_1.default
   }), react_1.default.createElement(DocHead_1.default, {
     title: docTitle
-  }), react_1.default.createElement(Header_1.default, Object.assign({
-    blogUrl: blogUrl
-  }, header)), react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement(About_1.default, {
+  }), react_1.default.createElement(Header_1.default, Object.assign({}, header)), react_1.default.createElement("main", null, react_1.default.createElement(Hero_1.default, Object.assign({}, hero)), react_1.default.createElement(About_1.default, {
     bio: sections.bio,
     skills: sections.skills
   }), react_1.default.createElement(Projects_1.default, Object.assign({}, sections.projects)), react_1.default.createElement(Career_1.default, Object.assign({}, sections.career))), react_1.default.createElement(Footer_1.default, Object.assign({}, footer)));
@@ -49564,7 +49552,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65476" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53930" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
