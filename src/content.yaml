@@ -2,7 +2,6 @@
 docTitle: Alan Eicker | JavaScript Full-Stack Engineer
 header:
   title: Alan Eicker
-  subtitle: Builder of All Things Frontend
   nav:
     - '/#about'
     - '/#projects'
@@ -10,7 +9,7 @@ header:
 hero:
   strapline: Hi, my name is
   title: Alan Eicker.
-  subtitle: Front-End Engineer.
+  subtitle: Builder of All Things Frontend.
   text:
     If you had 5 Alans you could rule the software universe. So I recommend hiring
     him and having him train 4 other guys to be as good as he is. Alan is the kind
