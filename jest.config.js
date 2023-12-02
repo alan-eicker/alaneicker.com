@@ -1,6 +1,7 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/index.tsx', '!**/index.ts'],
+  coverageDirectory: '<rootDir>/coverage',
   setupFilesAfterEnv: ['./jestSetup.ts'],
   testMatch: ['<rootDir>/src/**/?(*.)(test).{ts,tsx}'],
   moduleDirectories: ['node_modules'],

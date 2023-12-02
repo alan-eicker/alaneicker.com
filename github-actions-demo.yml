@@ -1,0 +1,21 @@
+name: alaneicker.com
+
+run-name: ${{ github.actor }} is Running Build and Deployment Pipeline
+
+on: [push]
+
+jobs:
+  Build-And-Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.18.x
+          cache: npm
+      - name: Install
+        run: npm install
+      - name: Test
+        run: npm run test
