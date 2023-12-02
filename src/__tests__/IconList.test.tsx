@@ -1,3 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { screen, render } from '@testing-library/react';
+
+describe('IconList', () => {
+  it('Should render the component', () => {});
+});

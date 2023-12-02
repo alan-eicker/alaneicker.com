@@ -7,27 +7,16 @@ on:
     branches: ['master']
 
 jobs:
-  Setup-Environment:
-    runs-on: ubuntu-latest
+  Run-Test:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Node Version
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.18.x
           cache: npm
-  Install:
-    needs: Setup-Environment
-    runs-on: ubuntu-latest
-    steps:
       - name: Install
         run: npm install --legacy-peer-deps
-      - name: Test
-        run: npm run test
-  Test:
-    needs: Install
-    runs-on: ubuntu-latest
-    steps:
       - name: Test
         run: npm run test

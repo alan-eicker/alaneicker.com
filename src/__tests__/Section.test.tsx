@@ -1,21 +1,25 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Section from '../components/Section';
 
 describe('<Section />', () => {
-  const props = {
-    title: 'Section Title',
-  };
-
-  it('Should render with a title and children', () => {
+  it('Should render children', () => {
     render(
-      <Section {...props}>
+      <Section>
         <a href="">link</a>
       </Section>,
     );
 
     expect(screen.getByRole('link', { name: /link/i })).toBeInTheDocument();
-    expect(screen.getByText(/Section Title/)).toBeInTheDocument();
+  });
+
+  it('Should render sidebar content', () => {
+    render(
+      <Section sidebar={<>sidebar section</>}>
+        <a href="">link</a>
+      </Section>,
+    );
+
+    expect(screen.getByText('sidebar section')).toBeInTheDocument();
   });
 });

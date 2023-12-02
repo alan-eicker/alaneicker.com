@@ -1,6 +1,5 @@
 import React from 'react';
-import { screen, render, within } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { screen, render } from '@testing-library/react';
 import Footer from '../components/Footer';
 
 const props = {
