@@ -2,7 +2,9 @@ name: alaneicker.com
 
 run-name: ${{ github.actor }} is Running Build and Deployment Pipeline
 
-on: [push]
+on:
+  push:
+    branches: ['master']
 
 jobs:
   Build-And-Deploy:
