@@ -9,7 +9,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "parcel build src/index.html",
+    "build": "NODE_ENV=production parcel build src/index.html",
     "start": "parcel src/index.html --port 8000",
     "deploy": "rm -rf node_modules/.cache/gh-pages && npm run build && npm run gh-pages",
     "gh-pages": "gh-pages -d dist",
