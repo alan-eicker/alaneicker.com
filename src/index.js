@@ -5,12 +5,12 @@ import App from './App';
 import AppProvider from './AppProvider';
 import './styles/main.scss';
 
-(async () => {
-  if (process.env.NODE_ENV !== 'production') {
-    const axe = await import('react-axe');
-    axe(React, ReactDOM, 1000);
-  }
-})();
+// (async () => {
+//   if (process.env.NODE_ENV !== 'production') {
+//     const axe = await import('react-axe');
+//     axe(React, ReactDOM, 1000);
+//   }
+// })();
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 root.render(
