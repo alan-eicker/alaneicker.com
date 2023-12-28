@@ -149,7 +149,7 @@ sections:
             - Apollo Client
         - title: Budget Buddy REST API
           description: This will be the new API for the Budget Buddy App.
-          url: https://github.com/alan-eicker/ButdgetBuddyAPI
+          url: https://github.com/alan-eicker/BudgetBuddyAPI
           techUsed:
             - Node.js
             - PostgreSQL
