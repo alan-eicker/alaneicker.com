@@ -1,0 +1,65 @@
+.header {
+  align-items: center;
+  display: flex;
+  padding: 24px 0;
+  justify-content: space-between;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.homeLink {
+  align-items: center;
+  color: #000;
+  display: flex;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 36px;
+  text-transform: lowercase;
+  transition: color 0.15s linear;
+
+  &:hover {
+    color: #fb4e4e;
+  }
+
+  & > * + * {
+    margin-left: 5px;
+  }
+}
+
+.mainNav {
+  align-items: center;
+  display: none;
+  list-style-type: none;
+  padding: 0;
+
+  & > * + * {
+    margin-left: 32px;
+  }
+
+  a {
+    color: #000;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-decoration: none;
+
+    &.isButtonLink {
+      align-items: center;
+      background-color: #fb4e4e;
+      display: inline-flex;
+      color: #fff;
+      height: 45px;
+      padding: 0 24px;
+      border-radius: 45px;
+      position: relative;
+      transition: background 0.15s linear;
+
+      &:hover {
+        background-color: #ba3434;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
