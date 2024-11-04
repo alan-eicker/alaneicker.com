@@ -1,12 +1,20 @@
 import * as React from 'react'
-// import { Link } from "gatsby"
-// import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from '../components/Layout'
 import Seo from '../components/seo'
 
-const IndexPage = () => <Layout>Home page...</Layout>
+import content from '../content/home.yaml'
 
-export const Head = () => <Seo title="Home" />
+const About = () => (
+  <Layout>
+    <h1>{content?.heroText}</h1>
+    <section>
+      <h2>{content?.heading}</h2>
+      <p>{content?.text}</p>
+    </section>
+  </Layout>
+)
 
-export default IndexPage
+export const Head = () => <Seo title="About Me"></Seo>
+
+export default About

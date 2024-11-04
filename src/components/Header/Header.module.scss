@@ -22,7 +22,7 @@
   }
 
   & > * + * {
-    margin-left: 5px;
+    margin-left: 8px;
   }
 }
 
@@ -41,6 +41,15 @@
     font-weight: 600;
     text-transform: capitalize;
     text-decoration: none;
+    transition: color 0.15s linear;
+
+    i {
+      font-size: 28px;
+    }
+
+    &:hover {
+      color: #fb4e4e;
+    }
 
     &.isButtonLink {
       align-items: center;
@@ -54,7 +63,7 @@
       transition: background 0.15s linear;
 
       &:hover {
-        background-color: #ba3434;
+        background-color: #e12257;
       }
     }
   }

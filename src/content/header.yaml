@@ -1,7 +1,11 @@
 links:
-  - about
   - skills
   - projects
+  - Kudos
   - career
+  - github
+  - linkedin
   - resume
 resumeLink: /alan_eicker_resume.pdf
+githubLink: https://github.com/alan-eicker?tab=repositories
+linkedinLink: https://www.linkedin.com/in/alaneicker
