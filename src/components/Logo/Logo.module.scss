@@ -5,6 +5,18 @@
   & > * + * {
     margin-left: 8px;
   }
+
+  &.sm {
+    transform: scale(0.75);
+  }
+
+  &.md {
+    transform: scale(1);
+  }
+
+  &.lg {
+    transform: scale(1.5);
+  }
 }
 
 .logo {

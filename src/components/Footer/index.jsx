@@ -7,9 +7,11 @@ const Footer = () => (
   <footer className={styles.footer}>
     <div className={styles.footerContent}>
       <div className={styles.footerLogo}>
-        <Logo hasText={false} />
+        <Logo hasText={false} size="sm" />
       </div>
-      &copy; {new Date().getFullYear()} Alan Eicker. All rights reserved.
+      <p className={styles.copyrightText}>
+        &copy; {new Date().getFullYear()} Alan Eicker. All rights reserved.
+      </p>
     </div>
   </footer>
 )

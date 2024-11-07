@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.button {
+  background-color: #efefef;
+  border-radius: 8px;
+  color: #666;
+  border: 0;
+  cursor: pointer;
+  font-size: 45px;
+  padding: 16px;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background-color: #fb4e4e;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+    color: #fff;
+    transform: scale(1.05);
+  }
+}
